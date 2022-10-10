@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS vetement (
     nom TEXT NOT NULL UNIQUE,
     genre TEXT NOT NULL,
     prix float not null,
+    image text,
     PRIMARY KEY (nuvetement),
     FOREIGN KEY (nusport) REFERENCES sport(nusport)
 );
@@ -31,6 +32,7 @@ CREATE TABLE IF NOT EXISTS chaussure (
     nom TEXT NOT NULL UNIQUE,
     genre TEXT NOT NULL,
     prix float not null,
+    image text,
     PRIMARY KEY (nuchaussure),
     FOREIGN KEY (nusport) REFERENCES sport(nusport),
     FOREIGN KEY (nuchaussure) REFERENCES stock(nuproduit)
@@ -41,6 +43,7 @@ CREATE TABLE IF NOT EXISTS equipement (
     nusport integer not null,
     nom TEXT NOT NULL UNIQUE,
     prix float not null,
+    image text,
     PRIMARY KEY (nuequipement),
     FOREIGN KEY (nusport) REFERENCES sport(nusport),
     FOREIGN KEY (nuequipement) REFERENCES stock(nuproduit)
