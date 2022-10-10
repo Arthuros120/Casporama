@@ -1,3 +1,8 @@
+DROP USER IF EXISTS 'arthur'@'%';
+DROP USER IF EXISTS 'maximes'@'%';
+DROP USER IF EXISTS 'maximef'@'%';
+DROP USER IF EXISTS 'titouan'@'%';
+
 DROP USER IF EXISTS 'arthur'@'0.0.0.0';
 DROP USER IF EXISTS 'maximes'@'0.0.0.0';
 DROP USER IF EXISTS 'maximef'@'0.0.0.0';
