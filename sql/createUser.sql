@@ -1,7 +1,12 @@
-CREATE USER 'arthur' IDENTIFIED BY 'arthur123';
-CREATE USER 'maximes' IDENTIFIED BY 'maxime123';
-CREATE USER 'maximef' IDENTIFIED BY 'maxime123';
-CREATE USER 'titouan' IDENTIFIED BY 'titouan123';
+DROP USER IF EXISTS 'arthur'@'%';
+DROP USER IF EXISTS 'maximes'@'%';
+DROP USER IF EXISTS 'maximef'@'%';
+DROP USER IF EXISTS 'titouan'@'%';
+
+CREATE USER 'arthur'@'%' IDENTIFIED BY 'arthur123';
+CREATE USER 'maximes'@'%' IDENTIFIED BY 'maxime123';
+CREATE USER 'maximef'@'%' IDENTIFIED BY 'maxime123';
+CREATE USER 'titouan'@'%' IDENTIFIED BY 'titouan123';
 
 GRANT ALL PRIVILEGES ON *.* TO 'arthur' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON *.* TO 'maximes' WITH GRANT OPTION;
