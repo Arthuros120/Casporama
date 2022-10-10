@@ -18,7 +18,7 @@ CREATE USER 'maximes'@'%' IDENTIFIED WITH mysql_native_password BY  'MaximeSanto
 CREATE USER 'maximef'@'%' IDENTIFIED WITH mysql_native_password BY 'MaximeFranco123$';
 CREATE USER 'titouan'@'%' IDENTIFIED WITH mysql_native_password BY 'TitouanGautier123$';
 
-GRANT ALL PRIVILEGES ON db_itconnect.* TO 'arthur'@'%' IDENTIFIED WITH mysql_native_password BY 'ArthurHamelin123$' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON db_itconnect.* TO 'arthur'@'%' IDENTIFIED BY 'ArthurHamelin123$' WITH GRANT OPTION;
 
 
 GRANT ALL PRIVILEGES ON *.* TO 'arthur'@'%';
