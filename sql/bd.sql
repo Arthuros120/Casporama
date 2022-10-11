@@ -1,81 +1,71 @@
-CREATE TABLE IF NOT EXISTS sport (
-    nusport INTEGER NOT NULL,
-    nom TEXT NOT NULL UNIQUE,
-    PRIMARY KEY (nusport)
-);
-
-CREATE TABLE IF NOT EXISTS vetement (
-    nuvetement INTEGER NOT NULL,
-    nusport integer not null,
-    nom TEXT NOT NULL UNIQUE,
-    genre TEXT NOT NULL,
-    prix float not null,
-    image text,
-    PRIMARY KEY (nuvetement),
-    FOREIGN KEY (nusport) REFERENCES sport(nusport)
-);
-
-CREATE TABLE IF NOT EXISTS stock (
-    nuproduit INTEGER NOT NULL,
-    nbXS integer not null DEFAULT 0,
-    nbS integer not null DEFAULT 0,
-    nbM integer not null DEFAULT 0,
-    nbL integer not null DEFAULT 0,
-    nbXL integer not null DEFAULT 0,
-    nbXXL integer not null DEFAULT 0,
-    PRIMARY KEY (nuproduit)
-);
-
-CREATE TABLE IF NOT EXISTS chaussure (
-    nuchaussure INTEGER NOT NULL,
-    nusport integer not null,
-    nom TEXT NOT NULL UNIQUE,
-    genre TEXT NOT NULL,
-    prix float not null,
-    image text,
-    PRIMARY KEY (nuchaussure),
-    FOREIGN KEY (nusport) REFERENCES sport(nusport),
-    FOREIGN KEY (nuchaussure) REFERENCES stock(nuproduit)
-);
-
-CREATE TABLE IF NOT EXISTS equipement (
-    nuequipement INTEGER NOT NULL,
-    nusport integer not null,
-    nom TEXT NOT NULL UNIQUE,
-    prix float not null,
-    image text,
-    PRIMARY KEY (nuequipement),
-    FOREIGN KEY (nusport) REFERENCES sport(nusport),
-    FOREIGN KEY (nuequipement) REFERENCES stock(nuproduit)
-);
-
-
 CREATE TABLE IF NOT EXISTS utilisateur (
     id INTEGER NOT NULL,
-    login TEXT not null unique,
-    password TEXT NOT NULL UNIQUE,
-    status text not null,
+    login VARCHAR(255) not null unique,
+    password VARCHAR(255) NOT NULL,
+    status VARCHAR(20) not null check (status in ('Administrateur','Client','Client Prime')),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS coordonnees (
     id INTEGER NOT NULL,
-    prenom TEXT not null,
-    nom TEXT NOT NULL,
-    mail text not null unique,
-    mobile integer not null unique,
-    fixe integer not null unique,
-    PRIMARY KEY (id)
+    prenom VARCHAR(255) not null,
+    nom VARCHAR(255) NOT NULL,
+    mail VARCHAR(255) not null unique,
+    mobile integer(10) not null unique,
+    fixe integer(10) not null,
+    PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES utilisateur(id)
 );
 
 CREATE TABLE IF NOT EXISTS localisation (
     id INTEGER NOT NULL,
-    adresse TEXT not null,
-    codepostal integer NOT NULL,
-    ville text not null,
-    departement text not null,
-    pays text not null,
-    PRIMARY KEY (id)
+    adresse VARCHAR(255) not null,
+    codepostal integer(5) NOT NULL,
+    ville VARCHAR(255) not null,
+    departement VARCHAR(255) not null,
+    pays VARCHAR(255) not null,
+    PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES utilisateur(id)
+);
+
+CREATE TABLE IF NOT EXISTS sport (
+    nusport INTEGER NOT NULL,
+    nom VARCHAR(20) NOT NULL UNIQUE,
+    PRIMARY KEY (nusport)
+);
+
+
+create table if not exists produit (
+    idproduit integer not null,
+    reference integer not null,
+    type varchar(15) not null check ( type in ('Vêtement','Chaussure','Equipement') ),
+    nusport integer not null unique,
+    marque VARCHAR(255) not null,
+    nom VARCHAR(255) NOT NULL UNIQUE,
+    genre VARCHAR(5) NOT NULL check ( genre in ('Homme','Femme','Mixte') ),
+    prix float not null,
+    description varchar(255),
+    image VARCHAR(255),
+    PRIMARY KEY (idproduit),
+    FOREIGN KEY (nusport) REFERENCES sport(nusport)
+);
+
+CREATE TABLE IF NOT EXISTS catalogue (
+    id INTEGER NOT NULL,
+    nuproduit integer not null,
+    couleur varchar(20),
+    taille varchar(3),
+    quantite integer not null default 0,
+    PRIMARY KEY (id),
+    foreign key (nuproduit) references produit(idproduit)
+);
+
+create table if not exists commande (
+    idcommande integer not null,
+    datecommande varchar(10) not null,
+    detail varchar(255) not null unique,
+    idclient integer not null unique,
+    etat varchar(15) not null check ( etat in ('En cours','En preparation','Terminer') ),
+    primary key (idcommande),
+    foreign key (idclient) references utilisateur(id)
 );
