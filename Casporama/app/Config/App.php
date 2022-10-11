@@ -24,7 +24,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $baseURL = 'http://localhost:8080/';
+    public $baseURL = 'http://161.35.245.200:8080/';
 
     /**
      * --------------------------------------------------------------------------
@@ -70,7 +70,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $defaultLocale = 'en';
+    public $defaultLocale = 'fr';
 
     /**
      * --------------------------------------------------------------------------
@@ -97,7 +97,7 @@ class App extends BaseConfig
      *
      * @var string[]
      */
-    public $supportedLocales = ['en'];
+    public $supportedLocales = ['fr'];
 
     /**
      * --------------------------------------------------------------------------
@@ -109,7 +109,7 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $appTimezone = 'America/Chicago';
+    public $appTimezone = 'Europe/Paris';
 
     /**
      * --------------------------------------------------------------------------
