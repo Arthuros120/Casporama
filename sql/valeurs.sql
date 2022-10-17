@@ -38,9 +38,9 @@ values
     (3,3,null,null,5),
     (4,1,'Vert','XS',2);
 
-insert into commande (idcommande, datecommande, detail, idclient, etat)
+insert into commande (idcommande, datecommande, idproduit, quantite, idclient, etat)
 values
-    (1,'10/10/2022','IdProduit: 1, Quantite : 1',6,'En preparation');
+    (1,'10/10/2022', 1, 1 ,6,'En preparation');
 
 
 

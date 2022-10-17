@@ -1,3 +1,6 @@
+create database Casporama;
+use Casporama;
+
 CREATE TABLE IF NOT EXISTS utilisateur (
     id INTEGER NOT NULL,
     login VARCHAR(255) not null unique,
@@ -63,9 +66,14 @@ CREATE TABLE IF NOT EXISTS catalogue (
 create table if not exists commande (
     idcommande integer not null,
     datecommande varchar(10) not null,
-    detail varchar(255) not null unique,
+    idproduit integer not null,
+    quantite integer not null,
     idclient integer not null unique,
     etat varchar(15) not null check ( etat in ('En cours','En preparation','Terminer') ),
     primary key (idcommande),
-    foreign key (idclient) references utilisateur(id)
+    foreign key (idclient) references utilisateur(id),
+    foreign key (idproduit) references produit(idproduit)
 );
+
+
+
