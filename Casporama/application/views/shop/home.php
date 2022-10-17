@@ -5,7 +5,7 @@
 </head>
 <body>
 
-    <?php echo $sport ?>
+    
 
 </body>
 </html>

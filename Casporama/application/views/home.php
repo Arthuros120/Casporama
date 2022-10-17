@@ -10,5 +10,7 @@
     <a href="/Shop/index/bad"><h1>Badminton</h1></a>
     <a href="/Shop/index/mma"><h1>Mixed Martial Art</h1></a>
 
+    <img src="<?php echo base_url(); ?>static/image/img.jpg" alt="" />
+
 </body>
 </html>
