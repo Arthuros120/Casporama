@@ -5,8 +5,7 @@
 </head>
 <body>
 
-    <?php 
-    echo site_url('Home/foot');?>
+    
 
 </body>
 </html>
