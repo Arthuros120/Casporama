@@ -13,17 +13,24 @@ class Shop extends CI_Controller {
 	
 	}
 
-    public function index($arg){
+    public function home($sport){
 
-        if($arg == "foot" || $arg == "volley" || $arg == "bad" || $arg == "mma"){
+        if(in_array($sport, array("foot", "volley", "bad", "mma"))){
+
+			$dataHeader['sport'] = $sport;
 
             $this->data = array(
-                'loadView' => $this->generateLoadView(array(
+                'loadView' => $this->generateLoadView(
+					array(
                     'head' => 'templates/head',
-                    'header' => 'shop/header',
-                    'content' => 'shop/'.$arg.'/homeContent',
+                    'header' => 'shop/global/header',
+                    'content' => 'shop/'.$sport.'/homeContent',
                     'footer' => 'templates/blank'
-                ))
+					),
+					array(
+						'header' => $dataHeader
+					)
+				)
             );
 
             $this->load->view('templates/base', $this->data);
@@ -38,17 +45,62 @@ class Shop extends CI_Controller {
 
 	}
 
-    function generateLoadView(Array $var = null) : Array {
+	public function product($sport, $catProduct){
+
+		if(in_array($sport, array("foot", "volley", "bad", "mma"))){
+
+			$dataHeader['sport'] = $sport;
+
+            $this->data = array(
+                'loadView' => $this->generateLoadView(
+					array(
+                    'head' => 'templates/head',
+                    'header' => 'shop/global/header',
+                    'content' => 'shop/global/productContent',
+                    'footer' => 'templates/blank'
+					),
+					array(
+						'header' => $dataHeader
+					)
+				)
+            );
+
+            $this->load->view('templates/base', $this->data);
+
+        }else{
+            
+            $data['heading'] = "404 Page Not Found";
+            $data['message'] = "The page you requested was not found.";
+            $this->load->view('errors/html/error_404', $data);
+
+        }
+
+	}
+
+    function generateLoadView(Array $var = null, Array $data = null) : Array {
 
 		$loadView = array();
 		
-		if (is_array($var)) {
-
-			
+		if (is_array($var) && is_array($data)) {
 
 			foreach ($var as $key => $value) {
 
-				$loadView[$key] = $this->load->view($value, NULL, TRUE);
+				if (isset($data[$key])) {
+					
+					$loadView[$key] = $this->load->view($value, $data[$key], TRUE);
+
+				}else{
+
+					$loadView[$key] = $this->load->view($value, NULL, TRUE);
+				}
+
+			}
+
+		}elseif (is_array($var) && !is_array($data)) {
+
+			foreach ($var as $key => $value) {
+
+				$loadView[$key] = $this->load->view($value, $data, TRUE);
 
 			}
 
