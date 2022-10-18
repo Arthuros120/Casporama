@@ -132,13 +132,11 @@ class ProductEntity {
 
     public function get_image(){
 
-        return $this->image;
-
+        return base_url() . $this->image;
     }
 
     public function set_image(string $image){
 
-        
 
         $this->image = $image;
 

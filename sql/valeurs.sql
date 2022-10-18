@@ -27,7 +27,7 @@ INSERT INTO sport (nusport, nom)
 
 insert into produit (idproduit, reference, type, nusport, marque, nom, genre, prix, description, image)
 values
-    (1,4064,'Vêtement',1,'Nike','Maillot foot','Femme',99.99,'',null),
+    (1,4064,'Vêtement',1,'Nike','Maillot foot','Femme',99.99,'', '/upload/image/Football/MaillotTest.png'),
     (2,5064,'Chaussure',2,'Puma','Chaussure volley','Mixte',99.99,'',null),
     (3,6064,'Equipement',3,'Addidas','Raquette','Homme',99.99,'',null);
 
