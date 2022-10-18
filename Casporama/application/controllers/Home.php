@@ -19,7 +19,7 @@ class Home extends CI_Controller {
 			'loadView' => $this->generateLoadView(array(
 				'head' => 'home/head',
 				'header' => 'templates/blank',
-				'content' => 'home',
+				'content' => 'home/home.php',
 				'footer' => 'templates/blank'
 			))
 		);

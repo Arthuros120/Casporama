@@ -4,35 +4,11 @@
     padding: 0;
 }
 
-body {
-    --bg : #F2F2F2;
-
-    --green0 : #D3E2D3;
-    --green1 : #b4f1b4;
-    --green2 : #77DD77;
-    --green3 : #399B39;
-
-    --blue0 : #D9E6F4;
-    --blue1 : #C3DEFE;
-    --blue2 : #77B5FE;
-    --blue3 : #3284E4;
-
-    --yellow1 : #FBFBC3;
-    --yellow2 : #FDFD96;
-    --yellow3 : #E0C323;
-
-    --red1 : #FFB4B0;
-    --red2 : #FF857E;
-    --red3 : #E94138;
-
-    --grey1 : #D9D9D9;
-    --grey2 : #BCBCBC;
-
-    --main-font: Poppins, arial, sans-serif;
-}
 
 .home {
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
 }
@@ -43,10 +19,13 @@ body {
     gap: 5%;
     margin: 3vh 3vw;
     width: 100%;
+    align-items: center;
 }
 
 .card {
     list-style-type: none;
+    width: 40vw;
+    height: 40vh;
 }
 
 .incard {
@@ -57,16 +36,19 @@ body {
     width: 100%;
 }
 
+.incard > a {
+    width: 100%;
+    height: 100%;
+}
+
 .home_img {
-    object-fit: cover;
-    max-width: 100%;
-    background-color: red;
+    object-fit:contain;
+    width: 100%;
+    height: 100%;
 }
 
 .foot {
     background-color: var(--green2);
-    object-fit: cover;
-    width: 100%;
 }
 
 .volley {
