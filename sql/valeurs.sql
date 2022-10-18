@@ -29,7 +29,42 @@ insert into produit (idproduit, reference, type, nusport, marque, nom, genre, pr
 values
     (1,4064,'Vêtement',1,'Nike','Maillot foot','Femme',99.99,'', '/upload/image/Football/MaillotTest.png'),
     (2,5064,'Chaussure',2,'Puma','Chaussure volley','Mixte',99.99,'',null),
-    (3,6064,'Equipement',3,'Addidas','Raquette','Homme',99.99,'',null);
+    (3,6064,'Equipement',3,'Addidas','Raquette','Homme',99.99,'',null),
+    (4,7064,'Vêtement',4,'Nike','Maillot foot','Homme',99.99,'',null),
+    (5,8064,'Chaussure',1,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (6,9064,'Equipement',2,'Addidas','Raquette','Homme',99.99,'',null),
+    (7,10064,'Vêtement',3,'Nike','Maillot foot','Femme',99.99,'',null),
+    (8,11064,'Chaussure',4,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (9,12064,'Equipement',1,'Addidas','Raquette','Homme',99.99,'',null),
+    (10,13064,'Vêtement',2,'Nike','Maillot foot','Homme',99.99,'',null),
+    (11,14064,'Chaussure',3,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (12,15064,'Equipement',4,'Addidas','Raquette','Homme',99.99,'',null),
+    (13,16064,'Vêtement',1,'Nike','Maillot foot','Femme',99.99,'',null),
+    (14,17064,'Chaussure',2,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (15,18064,'Equipement',3,'Addidas','Raquette','Homme',99.99,'',null),
+    (16,19064,'Vêtement',4,'Nike','Maillot foot','Homme',99.99,'',null),
+    (17,20064,'Chaussure',1,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (18,21064,'Equipement',2,'Addidas','Raquette','Homme',99.99,'',null),
+    (19,22064,'Vêtement',3,'Nike','Maillot foot','Femme',99.99,'',null),
+    (20,23064,'Chaussure',4,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (21,24064,'Equipement',1,'Addidas','Raquette','Homme',99.99,'' ,null),
+    (22,25064,'Vêtement',2,'Nike','Maillot foot','Homme',99.99,'',null),
+    (23,26064,'Chaussure',3,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (24,27064,'Equipement',4,'Addidas','Raquette','Homme',99.99,'',null),
+    (25,28064,'Vêtement',1,'Nike','Maillot foot','Femme',99.99,'',null),
+    (26,29064,'Chaussure',2,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (27,30064,'Equipement',3,'Addidas','Raquette','Homme',99.99,'',null),
+    (28,31064,'Vêtement',4,'Nike','Maillot foot','Homme',99.99,'',null),
+    (29,32064,'Chaussure',1,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (30,33064,'Equipement',2,'Addidas','Raquette','Homme',99.99,'',null),
+    (31,34064,'Vêtement',3,'Nike','Maillot foot','Femme',99.99,'',null),
+    (32,35064,'Chaussure',4,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (33,36064,'Equipement',1,'Addidas','Raquette','Homme',99.99,'',null),
+    (34,37064,'Vêtement',2,'Nike','Maillot foot','Homme',99.99,'',null),
+    (35,38064,'Chaussure',3,'Puma','Chaussure volley','Mixte',99.99,'',null),
+    (36,39064,'Equipement',4,'Addidas','Raquette','Homme',99.99,'',null),
+    (37,40064,'Vêtement',1,'Nike','Maillot foot','Femme',99.99,'',null);
+
 
 insert into catalogue (id, nuproduit, couleur, taille, quantite)
 values
