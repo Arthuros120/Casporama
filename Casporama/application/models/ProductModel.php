@@ -42,9 +42,6 @@ class ProductModel extends CI_Model {
 
         $queryProduct = $this->db->query("Call getProductBySportType(".$idSport.", '".$type."')");
 
-        $queryProduct->next_result(); 
-        $queryProduct->free_result();
-
         $products = $queryProduct->result();
 
         foreach ($products as &$product) {
@@ -80,9 +77,6 @@ class ProductModel extends CI_Model {
     function findById(int $idProduct) : ProductEntity {
 
         $queryProduct = $this->db->query("Call getProductById(".$idProduct.")");
-
-        $queryProduct->next_result(); 
-        $queryProduct->free_result();
 
         $product = $queryProduct->row();
 
