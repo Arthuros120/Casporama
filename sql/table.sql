@@ -2,10 +2,10 @@ create database Casporama;
 use Casporama;
 
 CREATE TABLE IF NOT EXISTS utilisateur (
-    id INTEGER NOT NULL,
+    id INTEGER NOT NULL auto_increment,
     login VARCHAR(255) not null unique,
     password VARCHAR(255) NOT NULL,
-    status VARCHAR(20) not null check (status in ('Administrateur','Client','Client Prime')),
+    status VARCHAR(20) not null check (status in ('Administrateur','Client','Caspor')),
     PRIMARY KEY (id)
 );
 
@@ -32,17 +32,17 @@ CREATE TABLE IF NOT EXISTS localisation (
 );
 
 CREATE TABLE IF NOT EXISTS sport (
-    nusport INTEGER NOT NULL,
+    nusport INTEGER NOT NULL auto_increment,
     nom VARCHAR(20) NOT NULL UNIQUE,
     PRIMARY KEY (nusport)
 );
 
 
 create table if not exists produit (
-    idproduit integer not null,
+    idproduit integer not null auto_increment,
     reference integer not null,
     type varchar(15) not null check ( type in ('Vêtement','Chaussure','Equipement') ),
-    nusport integer not null unique,
+    nusport integer not null,
     marque VARCHAR(255) not null,
     nom VARCHAR(255) NOT NULL UNIQUE,
     genre VARCHAR(5) NOT NULL check ( genre in ('Homme','Femme','Mixte') ),
@@ -54,7 +54,7 @@ create table if not exists produit (
 );
 
 CREATE TABLE IF NOT EXISTS catalogue (
-    id INTEGER NOT NULL,
+    id INTEGER NOT NULL auto_increment,
     nuproduit integer not null,
     couleur varchar(20),
     taille varchar(3),
@@ -64,11 +64,11 @@ CREATE TABLE IF NOT EXISTS catalogue (
 );
 
 create table if not exists commande (
-    idcommande integer not null,
+    idcommande integer not null auto_increment,
     datecommande varchar(10) not null,
     idproduit integer not null,
     quantite integer not null,
-    idclient integer not null unique,
+    idclient integer not null,
     etat varchar(15) not null check ( etat in ('En cours','En preparation','Terminer') ),
     primary key (idcommande),
     foreign key (idclient) references utilisateur(id),
