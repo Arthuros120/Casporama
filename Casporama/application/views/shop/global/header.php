@@ -5,7 +5,7 @@
     <a href="<?= base_url("/Shop/view/" . $sport . "/Chaussure") ?>"><h2>Chaussures</h2></a>
     <a href="<?= base_url("/Shop/view/" . $sport . "/Equipement") ?>"><h2>Equipement</h2></a>
 
-    <!-- <nav class="nav">
+    <nav class="nav">
             <div class="left">
                 <img class="logo" src="img/Logo_casporama-removebg-preview 1.png">
             </div>
@@ -21,6 +21,6 @@
                     <li class="icon list_icon"><img src="img/Account.png"></li>
                 </ul>
             </div>
-        </nav> -->
+        </nav>
 
 </header>
