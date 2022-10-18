@@ -15,7 +15,7 @@ class Shop extends CI_Controller {
 
     public function home($sport){
 
-        if(in_array($sport, array("foot", "volley", "bad", "mma"))){
+        if(in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux"))){
 
 			$dataHeader['sport'] = $sport;
 
@@ -47,7 +47,13 @@ class Shop extends CI_Controller {
 
 	public function product($sport, $catProduct){
 
-		if(in_array($sport, array("foot", "volley", "bad", "mma"))){
+		$this->load->model('ProductModel');
+
+		$idSport = $this->ProductModel->findBySportType($sport, $catProduct);
+
+		echo $idSport;
+
+		if(in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux")) && in_array($catProduct, array("Equipement", "Chaussure", "Vetement"))){
 
 			$dataHeader['sport'] = $sport;
 
