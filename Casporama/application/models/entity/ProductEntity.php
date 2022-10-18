@@ -138,6 +138,8 @@ class ProductEntity {
 
     public function set_image(string $image){
 
+        
+
         $this->image = $image;
 
     }

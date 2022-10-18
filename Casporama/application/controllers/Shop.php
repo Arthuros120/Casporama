@@ -49,13 +49,12 @@ class Shop extends CI_Controller {
 
 		$this->load->model('ProductModel');
 
-		$idSport = $this->ProductModel->findBySportType($sport, $catProduct);
-
-		echo $idSport;
+		$listProduct = $this->ProductModel->findBySportType($sport, $catProduct);
 
 		if(in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux")) && in_array($catProduct, array("Equipement", "Chaussure", "Vetement"))){
 
 			$dataHeader['sport'] = $sport;
+			$dataContent['listProduct'] = $listProduct;
 
             $this->data = array(
                 'loadView' => $this->generateLoadView(
@@ -66,7 +65,8 @@ class Shop extends CI_Controller {
                     'footer' => 'templates/blank'
 					),
 					array(
-						'header' => $dataHeader
+						'header' => $dataHeader,
+						'content' => $dataContent
 					)
 				)
             );
