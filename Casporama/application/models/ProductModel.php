@@ -8,7 +8,7 @@ class ProductModel extends CI_Model {
         parent::__construct();
     }
 
-    function findIdSport($sport) : int {
+    function findIdSport(string $sport) : int {
 
         $queryIdSport = $this->db->query("Call getIdSport('".$sport."')");
 
@@ -21,13 +21,29 @@ class ProductModel extends CI_Model {
 
     }
 
-    function findBySportType($sport, $type) : array {
+    function getStock(int $idProduct) : int {
+
+        $queryStock = $this->db->query("Call getStock(".$idProduct.")");
+
+        $stock = (int) $queryStock->row()->stock;
+
+        $queryStock->next_result(); 
+        $queryStock->free_result();
+
+        return $stock;
+
+    }
+
+    function findBySportType(string $sport, string $type) : array {
 
         $listProduct = array();
 
         $idSport = $this->findIdSport($sport);
 
         $queryProduct = $this->db->query("Call getProductBySportType(".$idSport.", '".$type."')");
+
+        $queryProduct->next_result(); 
+        $queryProduct->free_result();
 
         $products = $queryProduct->result();
 
@@ -58,6 +74,45 @@ class ProductModel extends CI_Model {
         }
 
         return $listProduct;
+
+    }
+
+    function findById(int $idProduct) : ProductEntity {
+
+        $queryProduct = $this->db->query("Call getProductById(".$idProduct.")");
+
+        $queryProduct->next_result(); 
+        $queryProduct->free_result();
+
+        $product = $queryProduct->row();
+
+        if ($product != null) {
+
+            $newProduct = new ProductEntity();
+
+            $newProduct->set_Id($product->idproduit);
+            $newProduct->set_Reference($product->reference);
+            $newProduct->set_Type($product->type);
+            $newProduct->set_Sport($product->nusport);
+            $newProduct->set_Brand($product->marque);
+            $newProduct->set_Name($product->nom);
+            $newProduct->set_Genre($product->genre);
+            $newProduct->set_Price($product->prix);
+            $newProduct->set_Description($product->description);
+
+            if ($product->image != null) {
+                $newProduct->set_Image($product->image);
+            }else{
+                $newProduct->set_Image("");
+            }
+
+            //$newProduct->set_Stock($this->getStock($product->idproduit));
+
+            return $newProduct;
+
+        }else{
+            return null;
+        }
 
     }
 

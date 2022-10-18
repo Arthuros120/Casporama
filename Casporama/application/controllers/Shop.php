@@ -45,7 +45,7 @@ class Shop extends CI_Controller {
 
 	}
 
-	public function product($sport, $catProduct){
+	public function view($sport, $catProduct){
 
 		$this->load->model('ProductModel');
 
@@ -61,7 +61,7 @@ class Shop extends CI_Controller {
 					array(
                     'head' => 'templates/head',
                     'header' => 'shop/global/header',
-                    'content' => 'shop/global/productContent',
+                    'content' => 'shop/global/viewContent',
                     'footer' => 'templates/blank'
 					),
 					array(
@@ -80,6 +80,44 @@ class Shop extends CI_Controller {
             $this->load->view('errors/html/error_404', $data);
 
         }
+
+	}
+
+	public function product($idProduct){
+
+		$this->load->model('ProductModel');
+
+		$product = $this->ProductModel->findById($idProduct);
+
+		if($product != null){
+
+			$dataHeader['sport'] = $product->getSport();
+			$dataContent['product'] = $product;
+
+			$this->data = array(
+				'loadView' => $this->generateLoadView(
+					array(
+					'head' => 'templates/head',
+					'header' => 'shop/global/header',
+					'content' => 'shop/global/productContent',
+					'footer' => 'templates/blank'
+					),
+					array(
+						'header' => $dataHeader,
+						'content' => $dataContent
+					)
+				)
+			);
+
+			$this->load->view('templates/base', $this->data);
+
+		}else{
+			
+			$data['heading'] = "404 Page Not Found";
+			$data['message'] = "The page you requested was not found.";
+			$this->load->view('errors/html/error_404', $data);
+
+		}
 
 	}
 
