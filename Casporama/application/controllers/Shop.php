@@ -47,7 +47,7 @@ class Shop extends CI_Controller {
 
 	public function product($sport, $catProduct){
 
-		if(in_array($sport, array("foot", "volley", "bad", "mma"))){
+		if(in_array($sport, array("foot", "volley", "bad", "mma")) && in_array($catProduct, array("equipement", "shoes", "clothes"))){
 
 			$dataHeader['sport'] = $sport;
 
