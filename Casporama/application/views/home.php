@@ -1,8 +1,3 @@
-
-
-
-
-
 <img src="<?php echo base_url(); ?>static/image/img.jpg" alt="" />
 
 <div>
