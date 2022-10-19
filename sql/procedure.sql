@@ -99,10 +99,100 @@ call getStockTotal(1);
 
 create procedure addUser(IN newlogin varchar(255), IN newpass varchar(255), IN newstatus varchar(20))
     BEGIN
-        insert into utilisateur(login,password,status) values (newlogin,newpass,newstatus);
+        insert into utilisateur(login,password,status) value (newlogin,newpass,newstatus);
     end;
 
 create procedure addCoordonnee(IN newid int, IN newprenom varchar(255), IN newnom varchar(255), IN newmail varchar(255), in newmobile int, in newfixe int)
     BEGIN
-        insert into coordonnees(id,prenom,nom,mail,mobile,fixe) values (newid,newprenom,newnom,newmail,newmobile,newfixe);
+        insert into coordonnees(id,prenom,nom,mail,mobile,fixe) value (newid,newprenom,newnom,newmail,newmobile,newfixe);
+    end;
+
+create procedure addLocalisation(IN newid int, IN newadresse varchar(255), IN newcode int, IN newville varchar(255), IN newdep varchar(255), IN newpays varchar(255))
+    BEGIN
+        insert into localisation(id,adresse,codepostal,ville,departement,pays) value (newid,newadresse,newcode,newville,newdep,newpays);
+    end;
+
+create procedure addProduct(IN newreference int, IN newtype varchar(15), IN newnusport int, IN newmarque varchar(255), IN newnom varchar(255),IN newgenre varchar(5), IN newprix float, in newdesc varchar(255), in newimage varchar(255))
+    BEGIN
+        insert into produit(reference, type, nusport, marque, nom, genre, prix, description, image) value (newreference,newtype,newnusport,newmarque,newnom,newgenre,newprix,newdesc,newimage);
+    end;
+
+create procedure addCommande(IN newdate varchar(10), IN newproduit int, in newquantite int, in newclient int, in newetat varchar(15))
+    BEGIN
+        insert into commande(datecommande, idproduit, quantite, idclient, etat) value (newdate,newproduit,newquantite,newclient,newetat);
+    end;
+
+create procedure addCatalogue(IN newproduit int, in newcouleur varchar(20), in newtaille varchar(3), in newquantite int)
+    BEGIN
+        insert into catalogue(nuproduit, couleur, taille,quantite) value (newproduit,newcouleur,newtaille,newquantite);
+    end;
+
+
+#---------- Suppression ----------------
+
+create procedure delUser(In iduser int)
+    BEGIN
+        delete from utilisateur where id = iduser;
+        delete from coordonnees where id = iduser;
+        delete from localisation where id = iduser;
+    end;
+
+create procedure delProduct(IN nuproduct int)
+    BEGIN
+        delete from produit where idproduit = nuproduct;
+        delete from catalogue where nuproduit = nuproduct;
+    end;
+
+create procedure delVariante(IN idvariante int)
+    begin
+        delete from catalogue where id = idvariante;
+    end;
+
+
+#---------- Update ----------------
+
+
+create procedure updateQuantite(IN iduser int, IN newquantite int)
+    BEGIN
+        update catalogue set quantite=newquantite where id = iduser;
+    end;
+
+create procedure updateEtat(IN nucommande int,in newetat varchar(15))
+    BEGIN
+        update commande set etat=newetat where idcommande = nucommande;
+    end;
+
+create procedure updateCoordonnees(IN iduser int, IN newprenom varchar(255), IN newnom varchar(255), IN newmail varchar(255), in newmobile int, in newfixe int)
+    BEGIN
+        update coordonnees set prenom=newprenom, nom=newnom, mail=newmail, mobile=newmobile, fixe=newfixe where id=iduser;
+    end;
+
+create procedure updateLocalisation(IN iduser int, IN newadresse varchar(255), IN newcode int, IN newville varchar(255), IN newdep varchar(255), IN newpays varchar(255))
+    BEGIN
+        update localisation set adresse=newadresse, codepostal=newcode, ville=newville, departement=newdep, pays=newpays where id = iduser;
+    end;
+
+create procedure updatePrice(in nuproduit int, in newprice int)
+    BEGIN
+        update produit set prix=newprice where idproduit=nuproduit;
+    end;
+
+create procedure updateDescription(in nuproduit int, in newdesc varchar(255))
+    BEGIN
+        update produit set description=newdesc where idproduit=nuproduit;
+    end;
+
+create procedure updateImage(in nuproduit int, in newimage varchar(255))
+    BEGIN
+        update produit set image=newimage where idproduit=nuproduit;
+    end;
+
+create procedure updateUtilisateur(in iduser int, in newlogin varchar(255), in newpass varchar(255))
+    BEGIN
+        update utilisateur set login=newlogin, password=newpass where id=iduser;
+    end;
+
+create procedure updateStatus(in iduser int, in newstatus varchar(20))
+    BEGIN
+        update utilisateur set status=newstatus where id=iduser;
     end;
