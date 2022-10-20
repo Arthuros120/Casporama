@@ -1,3 +1,5 @@
+<!-- home/home -->
+
 <div class="home">
     <ul class="grid">
         
@@ -55,3 +57,5 @@
 
     </ul>
 </div>
+
+<!-- home/home -->

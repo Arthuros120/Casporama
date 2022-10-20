@@ -2,6 +2,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
+    font-family: var(--main-font);
 }
 
 body {
@@ -29,6 +31,8 @@ body {
     --grey2 : #BCBCBC;
 
     --main-font: Poppins, arial, sans-serif;
+    --logo-font: TitiliumWeb, arial, sans-serif;
+
 }
 
 .button {
@@ -44,6 +48,7 @@ body {
     padding: 0.5% 1%;
     font-family: var(--main-font);
     list-style-type: none;
+    font-weight: 600;
 }
 
 .icon {
@@ -55,6 +60,10 @@ body {
 
 .white_text {
     color: white;
+}
+
+.black_text {
+    color: black;
 }
 
 .green_text {

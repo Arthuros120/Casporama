@@ -22,7 +22,7 @@ class Shop extends CI_Controller {
             $this->data = array(
                 'loadView' => $this->generateLoadView(
 					array(
-                    'head' => 'templates/head',
+                    'head' => 'shop/home/head',
                     'header' => 'shop/global/header',
                     'content' => 'shop/'.$sport.'/homeContent',
                     'footer' => 'templates/blank'

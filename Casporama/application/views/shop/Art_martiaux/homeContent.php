@@ -1,1 +1,3 @@
-<h1>Mixed Martial Art</h1>
+<!-- shop/Art_martiaux/homeContent -->
+
+<!-- shop/Art_martiaux/homeContent -->
