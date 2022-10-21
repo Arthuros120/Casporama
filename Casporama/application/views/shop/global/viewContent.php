@@ -15,7 +15,7 @@
                 <li class="product_card">
                     <div class="oneProduct">
                         <div class="img">
-                            <img src=<?= $product->get_image() ?>>      
+                            <img src=<?= $product->get_cover() ?>>      
                         </div>
                     </div>
                     <div class="desc">
@@ -23,45 +23,12 @@
                         <p><?= $product->get_brand() ?></p>
                         <p><?= $product->get_price() ?>€</p>
                     </div>
-                </li>
-                <li class="product_card">
-                    <div class="oneProduct">
-                        <div class="img">
-                            <img src=<?= $product->get_image() ?>>      
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <h1><?= $product->get_Name() ?></h1>
-                        <p><?= $product->get_brand() ?></p>
-                        <p><?= $product->get_price() ?>€</p>
-                    </div>
-                </li>
-                <li class="product_card">
-                    <div class="oneProduct">
-                        <div class="img">
-                            <img src=<?= $product->get_image() ?>>      
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <h1><?= $product->get_Name() ?></h1>
-                        <p><?= $product->get_brand() ?></p>
-                        <p><?= $product->get_price() ?>€</p>
-                    </div>
-                </li>
-                <li class="product_card">
-                    <div class="oneProduct">
-                        <div class="img">
-                            <img src=<?= $product->get_image() ?>>      
-                        </div>
-                    </div>
-                    <div class="desc">
-                        <h1><?= $product->get_Name() ?></h1>
-                        <p><?= $product->get_brand() ?></p>
-                        <p><?= $product->get_price() ?>€</p>
-                    </div>
+                    <a href="<?= base_url('shop/product/'.$product->get_id()) ?>">Lien du produit</a>
                 </li>
                 <?php endforeach;?>
             </ul>
         </li>
     </ul>
 </div>
+
+<!-- shop/global/viewContent -->

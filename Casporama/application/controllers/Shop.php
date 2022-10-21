@@ -95,18 +95,26 @@ class Shop extends CI_Controller {
 
 		if($product != null){
 
-			$dataHeader['sport'] = $product->getSport();
+			$sport = $this->ProductModel->findNameSportbyId($product->get_Sport());
+
+			// $stock = $this->ProductModel->getStock($idProduct);
+
+			// var_dump($stock);
+
+			$dataHead['sport'] = $sport;
+			$dataHeader['sport'] = $sport;
 			$dataContent['product'] = $product;
 
 			$this->data = array(
 				'loadView' => $this->generateLoadView(
 					array(
-					'head' => 'templates/head',
+					'head' => 'shop/view/head',
 					'header' => 'shop/global/header',
 					'content' => 'shop/global/productContent',
 					'footer' => 'templates/blank'
 					),
 					array(
+						'head' => $dataHead,
 						'header' => $dataHeader,
 						'content' => $dataContent
 					)

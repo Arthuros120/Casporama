@@ -8,7 +8,7 @@ class ProductModel extends CI_Model {
         parent::__construct();
     }
 
-    function findIdSport(string $sport) : int {
+    function findIdBySport(string $sport) : int {
 
         $queryIdSport = $this->db->query("Call getIdSport('".$sport."')");
 
@@ -21,11 +21,54 @@ class ProductModel extends CI_Model {
 
     }
 
-    function getStock(int $idProduct) : int {
+    function findNameSportbyId(int $sport) : String {
+
+        $queryIdSport = $this->db->query("Call getNameSport('".$sport."')");
+
+        $idSport = $queryIdSport->row()->nom;
+
+        $queryIdSport->next_result(); 
+        $queryIdSport->free_result();
+
+        return $idSport;
+
+    }
+
+    function heHaveAStockById(int $idProduct) : bool {
+
+        $queryStock = $this->db->query("Call getStockTotal('".$idProduct."')");
+
+        $stock = (int) $queryStock->row()->stock;
+
+        $queryStock->next_result(); 
+        $queryStock->free_result();
+
+        if($stock > 0){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    function getStock(int $idProduct){
 
         $queryStock = $this->db->query("Call getStock(".$idProduct.")");
 
-        $stock = (int) $queryStock->row()->stock;
+        $stock = $queryStock->row();
+
+        $queryStock->next_result(); 
+        $queryStock->free_result();
+
+        return $stock;
+
+    }
+
+    function getStockTotal(int $idProduct){
+
+        $queryStock = $this->db->query("Call getStockTotal(".$idProduct.")");
+
+        $stock = (int) $queryStock->row()->total;
 
         $queryStock->next_result(); 
         $queryStock->free_result();
@@ -38,7 +81,7 @@ class ProductModel extends CI_Model {
 
         $listProduct = array();
 
-        $idSport = $this->findIdSport($sport);
+        $idSport = $this->findIdBySport($sport);
 
         $queryProduct = $this->db->query("Call getProductBySportType(".$idSport.", '".$type."')");
 
@@ -79,6 +122,9 @@ class ProductModel extends CI_Model {
         $queryProduct = $this->db->query("Call getProductById(".$idProduct.")");
 
         $product = $queryProduct->row();
+
+        $queryProduct->next_result(); 
+        $queryProduct->free_result();
 
         if ($product != null) {
 

@@ -18,7 +18,7 @@ class ProductEntity {
 
     private string $description;
 
-    private string $image;
+    private array $image;
 
     private array $stock;
 
@@ -130,15 +130,19 @@ class ProductEntity {
 
     }
 
-    public function get_image(){
+    public function get_images(){
 
-        return base_url() . $this->image;
+        return $this->image;
+    }
+
+    public function get_cover(){
+
+        return base_url($this->image[0]);
     }
 
     public function set_image(string $image){
 
-
-        $this->image = $image;
+        $this->image = explode(";", $image);
 
     }
 

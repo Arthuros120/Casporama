@@ -20,17 +20,67 @@ values
 
 INSERT INTO sport (nom)
  VALUES
- ('football'),
- ('volleyball'),
+ ('Football'),
+ ('Volleyball'),
  ('Badminton'),
- ('arts-martiaux');
+ ('Arts-martiaux');
 
 insert into produit (reference, type, nusport, marque, nom, genre, prix, description, image)
 values
-    (4064,'Vêtement',1,'Nike','Maillot foot','Femme',99.99,'', '/upload/image/Football/MaillotTest.png'),
-    (5064,'Chaussure',2,'Puma','Chaussure volley','Mixte',99.99,'','/upload/image/Volleyball/chaussure.png'),
-    (6064,'Equipement',3,'Addidas','Raquette','Homme',99.99,'', '/upload/image/Badminton/raquette.jpg'),
-    (7064,'Vêtement',1,'Nike','Maillot foot v2','Homme',99.99,'','/upload/image/Football/MaillotTest2.png');
+    (
+        4064,
+        'Vêtement',
+        1,
+        'Nike',
+        'Maillot foot',
+        'Femme',
+        99.99,
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
+         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
+        '/upload/image/Football/MaillotTest.png;
+        /upload/image/Football/MaillotTest2.png;
+        /upload/image/Football/MaillotTest.png;
+        /upload/image/Football/MaillotTest2.png'
+     ),
+    (
+        5064,
+        'Chaussure',
+        2,
+        'Puma',
+        'Chaussure volley',
+        'Mixte',
+        99.99,
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
+         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
+         '/upload/image/Volleyball/chaussure.png'
+         ),
+    (
+        6064,
+        'Equipement',
+        3,
+        'Addidas',
+        'Raquette',
+        'Homme',
+        99.99,
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
+         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
+         '/upload/image/Badminton/raquette.jpg'
+         ),
+    (
+        7064,
+        'Vêtement',
+        1,
+        'Nike',
+        'Maillot foot v2',
+        'Homme',
+        99.99,
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
+         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
+        '/upload/image/Football/MaillotTest2.png;
+         /upload/image/Football/MaillotTest.png;
+         /upload/image/Football/MaillotTest2.png;
+         /upload/image/Football/MaillotTest.png'
+         );
 
 
 insert into catalogue (nuproduit, couleur, taille, quantite)
