@@ -89,6 +89,9 @@ class User extends CI_Controller {
 
 					$this->load->view('user/login/formsuccess');
 
+					//TODO : Gérer la persistance de la connexion
+					//TODO : Gérer la redirection vers la page d'accueil
+
 				}else{
 
 					$dataContent['error'] = "Mot de passe incorrect";
