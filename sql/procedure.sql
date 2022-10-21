@@ -51,10 +51,19 @@ create procedure getProductBySportType(IN sport integer, IN type varchar(15))
         select * from produit where nusport = sport and type = produit.type;
     end;
 
-
-create procedure loginUsername(IN username VARCHAR(255))
+create procedure verifyLogin(IN loginSearch VARCHAR(255))
     begin
-        select password from utilisateur where username = login;
+        select login from utilisateur where loginSearch = login;
+    end;
+
+create procedure getUserByLogin(IN loginSearch VARCHAR(255))
+    begin
+        select login, id from utilisateur where loginSearch = login;
+    end;
+
+create procedure getPasswordById(IN idSearch VARCHAR(255))
+    begin
+        select password, salt from utilisateur where idSearch = id;
     end;
 
 create procedure loginMail(IN mail VARCHAR(255))

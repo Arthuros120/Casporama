@@ -1,8 +1,22 @@
 <!-- user/login/loginContent -->
 
-<p>Login : </p><input type="text" id="login" name="login">
-<p>Password : </p><input type="password" id="pass" name="password" minlength="8" required>
-<p>Rester connecté : </p><input type="checkbox" id="conPersistance" name="conPersistance" required>
-<p><input type="submit" value="Se connecter"></p>
+<?php
+
+    echo $error;
+
+?>
+
+<?php echo form_open('User/login'); ?>
+
+<h5>Login :</h5>
+<input type="text" name="login" value="" size="20" />
+
+<h5>Password :</h5>
+<input type="text" name="password" value="" size="20" />
+
+<h5>Rester connecté :</h5>
+<input type="checkbox" name="conPersistance"/>
+
+<div><input type="submit" value="Se connecter" /></div>
 
 <!-- user/login/loginContent -->

@@ -6,6 +6,8 @@ class User extends CI_Controller {
 	public function __construct(){
 
 		parent::__construct();
+
+		$this->load->model('UserModel');
 		
         $this->data = array(
 			'loadView' => $this->generateLoadView()
@@ -26,7 +28,94 @@ class User extends CI_Controller {
             )
         );
 
-        $this->load->view('templates/base', $this->data);
+		$configRules = array(
+			array(
+					'field' => 'login',
+					'label' => 'Login',
+					'rules' => 'required|min_length[5]|max_length[255]|alpha_numeric|callback_username_check',
+					'errors' => array(
+						'required' => 'Vous avez oublié %s.',
+						"min_length[5]" => "Le %s doit faire au moins 5 caractères",
+						"max_length[255]" => "Le %s doit faire au plus 255 caractères",
+						"alpha_numeric" => "Le %s doit être alphanumérique"
+					),
+			),
+			array(
+					'field' => 'password',
+					'label' => 'Password',
+					'rules' => 'required',
+					'errors' => array(
+						'required' => 'Vous avez oublié %s.',
+					),
+			),
+			array(
+					'field' => 'conPersistance',
+					'label' => 'Rester connecté :',
+					'rules' => ''
+			)
+		);
+
+		$this->form_validation->set_rules($configRules);
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+
+		if ($this->form_validation->run() == FALSE) {
+
+			$dataContent['error'] = validation_errors();
+
+			$this-> data = array(
+				'loadView' => $this->generateLoadView(
+					array(
+					'head' => 'templates/blank',
+					'header' => 'templates/blank',
+					'content' => 'user/login/loginContent',
+					'footer' => 'templates/blank'
+					),
+					array(
+						'content' => $dataContent
+					)
+				)
+			);
+
+			log_message('debug', 'form validate ko');
+
+			$this->load->view('templates/base', $this->data);
+
+        } else {
+
+			log_message('debug', 'form validate ok');
+
+			$user = $this->UserModel->getUserByLogin($this->input->post('login'));
+
+			if($user != null){
+
+				if($user->password_check($this->input->post('password'), $user)){
+
+					//$this->load->view('user/login/formsuccess');
+
+					echo "Ok";
+
+				}else{
+
+					//redirect('User/login');
+
+					echo "Ko";
+
+				}
+			}
+		}
+	}
+
+	public function username_check($strLogin) {
+        
+		if ($this->UserModel->heHaveUserByLogin($strLogin) == false) {
+            
+			$this->form_validation->set_message('username_check', 'Votre login n\'existe pas !');
+
+			return FALSE;
+
+        }
+
+		return TRUE;
 
 	}
 

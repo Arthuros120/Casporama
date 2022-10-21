@@ -1,10 +1,11 @@
-create database Casporama;
+create database if not exists Casporama;
 use Casporama;
 
 CREATE TABLE IF NOT EXISTS utilisateur (
     id INTEGER NOT NULL auto_increment,
     login VARCHAR(255) not null unique,
     password VARCHAR(255) NOT NULL,
+    salt VARCHAR(45) NOT NULL unique,
     status VARCHAR(20) not null check (status in ('Administrateur','Client','Caspor')),
     PRIMARY KEY (id)
 );
@@ -14,8 +15,8 @@ CREATE TABLE IF NOT EXISTS coordonnees (
     prenom VARCHAR(255) not null,
     nom VARCHAR(255) NOT NULL,
     mail VARCHAR(255) not null unique,
-    mobile integer(10) not null unique,
-    fixe integer(10) not null,
+    mobile varchar(10) not null unique,
+    fixe varchar(10) not null,
     PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES utilisateur(id)
 );
@@ -23,7 +24,7 @@ CREATE TABLE IF NOT EXISTS coordonnees (
 CREATE TABLE IF NOT EXISTS localisation (
     id INTEGER NOT NULL,
     adresse VARCHAR(255) not null,
-    codepostal integer(5) NOT NULL,
+    codepostal varchar(5) NOT NULL,
     ville VARCHAR(255) not null,
     departement VARCHAR(255) not null,
     pays VARCHAR(255) not null,
@@ -47,7 +48,7 @@ create table if not exists produit (
     nom VARCHAR(255) NOT NULL UNIQUE,
     genre VARCHAR(5) NOT NULL check ( genre in ('Homme','Femme','Mixte') ),
     prix float not null,
-    description varchar(255),
+    description text not null,
     image VARCHAR(255),
     PRIMARY KEY (idproduit),
     FOREIGN KEY (nusport) REFERENCES sport(nusport)
