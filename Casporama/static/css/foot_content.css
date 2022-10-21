@@ -50,7 +50,7 @@
 }
 
 .title > h1 > span {
-    color: var(--green3);
+    color: var(--color3);
 
     font-weight: 700;
 }
@@ -59,7 +59,7 @@
     width: 100%;
     height: 100%;
 
-    background-color: var(--green0);
+    background-color: var(--color0);
     border-radius: 25px;
 
     display: flex;
