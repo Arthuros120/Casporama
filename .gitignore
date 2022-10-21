@@ -3,7 +3,6 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,linux,codeigniter,windows
 
 ### CodeIgniter ###
-*/config/development
 */logs/log-*.php
 !*/logs/index.html
 */cache/*
@@ -23,9 +22,6 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 /vendor/
-
-/Casporama/application/config/config.php
-Casporama/application/config/config.php
 
 ### CodeIgniter Patch ###
 
