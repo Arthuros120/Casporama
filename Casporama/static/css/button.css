@@ -1,0 +1,58 @@
+:root {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: var(--main-font);
+}
+
+.button {
+    border: 0;
+    border-radius: 25px;
+    text-decoration: none;
+    padding: 0.5% 1%;
+    font-family: var(--main-font);
+}
+
+.text {
+    text-decoration: none;
+    padding: 0.5% 1%;
+    font-family: var(--main-font);
+    list-style-type: none;
+    font-weight: 600;
+}
+
+.icon {
+    text-decoration: none;
+    padding: 0.5% 1%;
+    font-family: var(--main-font);
+    list-style-type: none;
+}
+
+.white_text {
+    color: white;
+}
+
+.black_text {
+    color: black;
+}
+
+.green_text {
+    color: var(--green3);
+}
+
+.grey2 {
+    background-color: var(--grey2);
+}
+
+.green3 {
+    background-color: var(--green3);
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.semi_bold {
+    font-weight: 600;
+}

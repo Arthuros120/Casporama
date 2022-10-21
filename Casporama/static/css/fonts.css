@@ -1,0 +1,74 @@
+@font-face {
+    font-family: 'Poppins';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/Poppins/Poppins-Italic.ttf) format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'Poppins';
+    font-style: italic;
+    font-weight: 600;
+    font-display: swap;
+    src: url(../fonts/Poppins/Poppins-SemiBoldItalic.ttf) format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/Poppins/Poppins-Regular.ttf) format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url(../fonts/Poppins/Poppins-SemiBold.ttf) format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    font-style: bold;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/Poppins/Poppins-Bold.ttf) format('woff2');
+  }
+
+  
+
+
+  @font-face {
+    font-family: 'TitiliumWeb';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url(../fonts/Titilium/TitiliumWeb-Light.ttf)format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'TitiliumWeb';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url(../fonts/Titilium/TitiliumWeb-Regular.ttf) format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'TitiliumWeb';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url(../fonts/Titilium/TitiliumWeb-SemiBold.ttf) format('woff2');
+  }
+  
+  @font-face {
+    font-family: 'TitiliumWeb';
+    font-style: bold;
+    font-weight: 700;
+    font-display: swap;
+    src: url(../fonts/Titilium/TitiliumWeb-Bold.ttf) format('woff2');
+  }
