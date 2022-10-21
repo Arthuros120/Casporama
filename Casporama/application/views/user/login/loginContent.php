@@ -8,7 +8,7 @@
 <input type="text" name="login" value="" size="20" />
 
 <h5>Password :</h5>
-<input type="text" name="password" value="" size="20" />
+<input type="password" name="password" value="" size="20" />
 
 <h5>Rester connecté :</h5>
 <input type="checkbox" name="conPersistance"/>
