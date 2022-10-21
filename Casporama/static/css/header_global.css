@@ -27,7 +27,7 @@
 
 .left > a > h1 > span {
     font-weight: 700;
-    color: var(--green3);
+    color: var(--color3);
 }
 
 .right {

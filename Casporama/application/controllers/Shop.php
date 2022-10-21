@@ -18,6 +18,7 @@ class Shop extends CI_Controller {
         if(in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux"))){
 
 			$dataHeader['sport'] = $sport;
+			$dataHead['sport'] = $sport;
 
             $this->data = array(
                 'loadView' => $this->generateLoadView(
@@ -25,9 +26,10 @@ class Shop extends CI_Controller {
                     'head' => 'shop/home/head',
                     'header' => 'shop/global/header',
                     'content' => 'shop/'.$sport.'/homeContent',
-                    'footer' => 'templates/blank'
+					'footer' => 'templates/blank'
 					),
 					array(
+						'head' => $dataHead,
 						'header' => $dataHeader
 					)
 				)
@@ -53,18 +55,20 @@ class Shop extends CI_Controller {
 
 		if(in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux")) && in_array($catProduct, array("Equipement", "Chaussure", "Vetement"))){
 
+			$dataHead['sport'] = $sport;
 			$dataHeader['sport'] = $sport;
 			$dataContent['listProduct'] = $listProduct;
 
             $this->data = array(
                 'loadView' => $this->generateLoadView(
 					array(
-                    'head' => 'shop/home/head',
+                    'head' => 'shop/view/head',
                     'header' => 'shop/global/header',
                     'content' => 'shop/global/viewContent',
                     'footer' => 'templates/blank'
 					),
 					array(
+						'head' => $dataHead,
 						'header' => $dataHeader,
 						'content' => $dataContent
 					)
