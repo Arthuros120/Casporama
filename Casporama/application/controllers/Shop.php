@@ -24,8 +24,9 @@ class Shop extends CI_Controller {
                 'loadView' => $this->UtilView->generateLoadView(
 					array(
                     'head' => 'shop/home/head',
+					'headSport' => "shop/{$sport}/homeHead",
                     'header' => 'shop/global/header',
-                    'content' => 'shop/'.$sport.'/homeContent',
+                    'content' => "shop/{$sport}/homeContent",
 					'footer' => 'templates/blank'
 					),
 					array(
@@ -35,7 +36,9 @@ class Shop extends CI_Controller {
 				)
             );
 
-            $this->load->view('templates/base', $this->data);
+			var_dump($this->data);
+
+            $this->load->view('shop/global/homeTemplate', $this->data);
 
         }else{
             

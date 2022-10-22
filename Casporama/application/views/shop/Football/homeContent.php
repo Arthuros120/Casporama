@@ -1,7 +1,5 @@
 <!-- shop/Football/homeContent -->
 
-<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>static/css/foot_content.css">
-
 <div class="foot_content">
     <ul class="grid">
         <li class="card">

@@ -1,0 +1,23 @@
+
+
+---
+
+Home/index:
+
+    views:
+        head: "home/head"
+        header: "templates/blank"
+        content : "home/home"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Test/index:
+
+    views:
+        head: "templates/blank"
+        header: "templates/blank"
+        content: "test/testContent"
+        footer: "templates/blank"
+    
+    baseView: "templates/base"

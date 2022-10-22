@@ -3,6 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
+| LoaderView URL - Hamelin Arthur FVAEF
+|--------------------------------------------------------------------------
+|
+| URL to your LoaderView root.
+| 
+|
+*/
+
+$config['LoaderView_url'] = APPPATH . "../static/json/loadView.yaml";
+
+/*
+|--------------------------------------------------------------------------
 | Base Site URL
 |--------------------------------------------------------------------------
 |
