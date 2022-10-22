@@ -106,8 +106,8 @@ class UserModel extends CI_Model {
             'name'   => 'user',
             'value'  => $cookieValueString,
             'expire' => 3600 * 24 * 30,
-            'secure' => true,
-            'httponly' => true
+            'secure' => false,
+            'httponly' => false
         );
 
         $this->input->set_cookie($cookieSettings);
