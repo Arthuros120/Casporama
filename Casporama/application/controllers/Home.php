@@ -8,7 +8,7 @@ class Home extends CI_Controller {
 		parent::__construct();
 
 		$this->data = array(
-			'loadView' => $this->generateLoadView()
+			'loadView' => $this->UtilView->generateLoadView()
 		);
 	
 	}
@@ -16,7 +16,7 @@ class Home extends CI_Controller {
 	public function index(){
 
 		$this->data = array(
-			'loadView' => $this->generateLoadView(array(
+			'loadView' => $this->UtilView->generateLoadView(array(
 				'head' => 'home/head',
 				'header' => 'templates/blank',
 				'content' => 'home/home.php',
@@ -25,34 +25,5 @@ class Home extends CI_Controller {
 		);
 
 		$this->load->view('templates/base', $this->data);
-	}
-
-	function generateLoadView(Array $var = null) : Array {
-
-		$loadView = array();
-		
-		if (is_array($var)) {
-
-			
-
-			foreach ($var as $key => $value) {
-
-				$loadView[$key] = $this->load->view($value, NULL, TRUE);
-
-			}
-
-		}else{
-
-			$loadView = array(
-				
-				'head' => $this->load->view('templates/head', NULL, TRUE),
-				'header' => $this->load->view('templates/header', NULL, TRUE),
-				'content' => $this->load->view('templates/content', NULL, TRUE),
-				'footer' => $this->load->view('templates/footer', NULL, TRUE)
-
-			);
-		}
-
-		return $loadView;
 	}
 }

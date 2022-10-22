@@ -8,6 +8,7 @@ class UserEntity {
     private int $id;
 
     private string $login;
+    private string $cookieCheck;
     
     private string $status;
 
@@ -36,6 +37,18 @@ class UserEntity {
 
         $this->login = $login;
 
+    }
+
+    public function get_cookieCheck(){
+
+        return $this->cookieCheck;
+
+    }
+
+    public function set_cookieCheck(){
+
+        $this->cookieCheck = $this->generateCookieCheck();
+    
     }
 
     public function get_status(){
@@ -71,6 +84,14 @@ class UserEntity {
     public function set_coordonnees(CoordonneesEntity $coordonnees){
 
         $this->coordonnees = $coordonnees;
+
+    }
+
+    public function generateCookieCheck() : string {
+
+        $cookieCheck = uniqid(mt_rand(), true);
+
+        return (string) $cookieCheck;
 
     }
 }

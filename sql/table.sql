@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS utilisateur (
     login VARCHAR(255) not null unique,
     password VARCHAR(255) NOT NULL,
     salt VARCHAR(45) NOT NULL unique,
+    cookieId VARCHAR(45) unique,
     status VARCHAR(20) not null check (status in ('Administrateur','Client','Caspor')),
     PRIMARY KEY (id)
 );

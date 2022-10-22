@@ -1,7 +1,5 @@
 <?php
 
-use PhpParser\Node\Expr\Cast\Bool_;
-
 require_once APPPATH . 'models/entity/UserEntity.php';
 
 class UserModel extends CI_Model {
@@ -52,6 +50,24 @@ class UserModel extends CI_Model {
 
     }
 
+    public function getStatusById(int $id) : ?string {
+
+        $query = $this->db->query("Call getStatusById('".$id."')");
+        $status = $query->row()->status;
+
+        $query->next_result(); 
+        $query->free_result();
+
+        if(isset($status)){
+
+            return $status;
+
+        }
+
+        return null;
+
+    }
+
     public function password_check(string $password, UserEntity $user) : Bool {
 
         $query = $this->db->query("Call getPasswordById('".$user->get_id()."')");
@@ -72,6 +88,35 @@ class UserModel extends CI_Model {
         }
 
         return false;
+
+    }
+
+    public function setUserCookie(UserEntity $user) {
+
+        $user->set_cookieCheck();
+
+        $query = $this->db->query("Call setCookieId('" . $user->get_cookieCheck() . "', '" . $user->get_id() . "')");
+
+        $query->next_result(); 
+        $query->free_result();
+
+        $cookieValueString = $user->get_id() . '|' . $user->get_cookieCheck() . '|' . $user->get_status();
+
+        $cookieSettings = array(
+            'name'   => 'user',
+            'value'  => $cookieValueString,
+            'expire' => 3600 * 24 * 30,
+            'secure' => true,
+            'httponly' => true
+        );
+
+        $this->input->set_cookie($cookieSettings);
+
+    }
+
+    public function setUserSession(UserEntity $user) {
+
+        $this->session->set_userdata('user', $user);
 
     }
 

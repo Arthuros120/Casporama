@@ -52,3 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+/*
+
+    TODO: A completer avec les routes de l'application qui sont accesisble par l'utilisateur 
+    TODO: mais non voulu (function du controller en public mais qui ne peuvent pas être mis en privé)
+
+*/
+
+$route['User/usernameCheckByLogin(:any)'] = 'Error404';

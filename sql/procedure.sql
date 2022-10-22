@@ -66,6 +66,11 @@ create procedure getPasswordById(IN idSearch VARCHAR(255))
         select password, salt from utilisateur where id = idSearch;
     end;
 
+create procedure getStatusById(IN idSearch VARCHAR(255))
+    begin
+        select status from utilisateur where id = idSearch;
+    end;
+
 create procedure loginMail(IN mail VARCHAR(255))
     begin
         select password from utilisateur where id in (select id from coordonnees where mail = coordonnees.mail);
@@ -164,6 +169,11 @@ create procedure delVariante(IN idvariante int)
 create procedure updateQuantite(IN iduser int, IN newquantite int)
     BEGIN
         update catalogue set quantite=newquantite where id = iduser;
+    end;
+
+create procedure setCookieId(IN newCookieId varchar(45), IN iduser int)
+    BEGIN
+        update utilisateur set cookieId=newCookieId where id = iduser;
     end;
 
 create procedure updateEtat(IN nucommande int,in newetat varchar(15))

@@ -1,4 +1,4 @@
-<!-- templates/base -->
+<!-- user/login/success/successTemplates -->
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -11,6 +11,8 @@
         <link rel="stylesheet" href="<?php echo base_url() ?>static/css/global/colors.css">
 
         <?= $loadView['head'] ?>
+
+        <?= $loadView['script'] ?>
 
     </head>
 
@@ -25,4 +27,4 @@
     </body>
 </html>
 
-<!-- templates/base -->
+<!-- user/login/success/successTemplates -->

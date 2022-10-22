@@ -10,7 +10,7 @@ class User extends CI_Controller {
 		$this->load->model('UserModel');
 		
         $this->data = array(
-			'loadView' => $this->generateLoadView()
+			'loadView' => $this->UtilView->generateLoadView()
 		);
 	
 	}
@@ -18,12 +18,12 @@ class User extends CI_Controller {
     public function login(){
 
         $this->data = array(
-            'loadView' => $this->generateLoadView(
+            'loadView' => $this->UtilView->generateLoadView(
                 array(
-                'head' => 'templates/blank',
-                'header' => 'templates/blank',
-                'content' => 'user/login/loginContent',
-                'footer' => 'templates/blank'
+					'head' => 'templates/blank',
+					'header' => 'templates/blank',
+					'content' => 'user/login/loginContent',
+					'footer' => 'templates/blank'
                 )
             )
         );
@@ -32,7 +32,7 @@ class User extends CI_Controller {
 			array(
 					'field' => 'login',
 					'label' => 'Login',
-					'rules' => 'required|min_length[5]|max_length[255]|alpha_numeric|callback_username_check',
+					'rules' => 'required|min_length[5]|max_length[255]|alpha_numeric|callback_usernameCheckByLogin',
 					'errors' => array(
 						'required' => 'Vous avez oublié %s.',
 						"min_length[5]" => "Le %s doit faire au moins 5 caractères",
@@ -62,12 +62,12 @@ class User extends CI_Controller {
 			$dataContent['error'] = validation_errors();
 
 			$this-> data = array(
-				'loadView' => $this->generateLoadView(
+				'loadView' => $this->UtilView->generateLoadView(
 					array(
-					'head' => 'templates/blank',
-					'header' => 'templates/blank',
-					'content' => 'user/login/loginContent',
-					'footer' => 'templates/blank'
+						'head' => 'templates/blank',
+						'header' => 'templates/blank',
+						'content' => 'user/login/loginContent',
+						'footer' => 'templates/blank'
 					),
 					array(
 						'content' => $dataContent
@@ -83,21 +83,43 @@ class User extends CI_Controller {
 
 			if($user != null){
 
-				log_message('debug', 'user ok');
-
 				if($this->UserModel->password_check($this->input->post('password'), $user)){
 
-					$this->load->view('user/login/formsuccess');
+					$user->set_status($this->UserModel->getStatusById($user->get_id()));
 
-					//TODO : Gérer la persistance de la connexion
-					//TODO : Gérer la redirection vers la page d'accueil
+					if($this->input->post('conPersistance') == 'on'){
+
+						$this->UserModel->setUserCookie($user);
+
+					}
+
+					$this->UserModel->setUserSession($user);
+
+					$this-> data = array(
+						'loadView' => $this->UtilView->generateLoadView(
+							array(
+								'head' => 'user/login/success/successHead',
+								'script' => 'user/login/success/successScript',
+								'header' => 'templates/blank',
+								'content' => 'user/login/success/successContent',
+								'footer' => 'templates/blank'
+							),
+							array(
+								'content' => array(
+									'user' => $user
+								)
+							)
+						)
+					);
+
+					$this->load->view('user/login/success/successTemplate', $this->data);
 
 				}else{
 
 					$dataContent['error'] = "Mot de passe incorrect";
 
 					$this-> data = array(
-						'loadView' => $this->generateLoadView(
+						'loadView' => $this->UtilView->generateLoadView(
 							array(
 								'head' => 'templates/blank',
 								'header' => 'templates/blank',
@@ -119,11 +141,49 @@ class User extends CI_Controller {
 
 	}
 
-	public function username_check($strLogin) {
+	public function logout(){
+
+		//TODO: Créer les fonction suivante :
+
+		$this->UserModel->unsetUserSession();
+
+		$this->UserModel->unsetUserCookie();
+
+		redirect(base_url());
+
+	}
+
+	public function home(){
+
+		//TODO: faire la différence entre chaque panel en fonction du status de l'utilisateur
+		//TODO: Créer getCookie
+
+		$this->data = array(
+			'loadView' => $this->UtilView->generateLoadView(
+				array(
+					'head' => 'templates/blank',
+					'header' => 'templates/blank',
+					'content' => 'user/home/homeContent',
+					'footer' => 'templates/blank'
+				)
+			)
+		);
+
+		$this->load->view('templates/base', $this->data);
+
+	}
+
+	// --------------------------------------------------------------------
+
+	// * Casual function
+
+	// --------------------------------------------------------------------
+
+	public function usernameCheckByLogin($strLogin) : bool {
         
 		if ($this->UserModel->heHaveUserByLogin($strLogin) == false) {
             
-			$this->form_validation->set_message('username_check', 'Votre login n\'existe pas !');
+			$this->form_validation->set_message('usernameCheckByLogin', 'Votre login n\'existe pas !');
 
 			return FALSE;
 
@@ -131,48 +191,6 @@ class User extends CI_Controller {
 
 		return TRUE;
 
-	}
-
-    function generateLoadView(Array $var = null, Array $data = null) : Array {
-
-		$loadView = array();
-		
-		if (is_array($var) && is_array($data)) {
-
-			foreach ($var as $key => $value) {
-
-				if (isset($data[$key])) {
-					
-					$loadView[$key] = $this->load->view($value, $data[$key], TRUE);
-
-				}else{
-
-					$loadView[$key] = $this->load->view($value, NULL, TRUE);
-				}
-
-			}
-
-		}elseif (is_array($var) && !is_array($data)) {
-
-			foreach ($var as $key => $value) {
-
-				$loadView[$key] = $this->load->view($value, $data, TRUE);
-
-			}
-
-		}else{
-
-			$loadView = array(
-				
-				'head' => $this->load->view('templates/head', NULL, TRUE),
-				'header' => $this->load->view('templates/header', NULL, TRUE),
-				'content' => $this->load->view('templates/content', NULL, TRUE),
-				'footer' => $this->load->view('templates/footer', NULL, TRUE)
-
-			);
-		}
-
-		return $loadView;
 	}
 
 }
