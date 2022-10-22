@@ -36,8 +36,6 @@ class Shop extends CI_Controller {
 				)
             );
 
-			var_dump($this->data);
-
             $this->load->view('shop/global/homeTemplate', $this->data);
 
         }else{
