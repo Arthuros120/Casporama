@@ -102,6 +102,13 @@ class UserModel extends CI_Model {
 
         $cookieValueString = $user->get_id() . '|' . $user->get_cookieCheck() . '|' . $user->get_status();
 
+        /*
+    
+            TODO: Changer la sécurité du cookie dès que on a configuer le https sur le distant
+            ! WARNING ! ERREUR DE SÉCURITÉ ! WARNING !
+
+        */
+
         $cookieSettings = array(
             'name'   => 'user',
             'value'  => $cookieValueString,
