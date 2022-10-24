@@ -91,6 +91,7 @@ create procedure getStockTotal(IN id integer)
         select sum(quantite) from catalogue where nuproduit = id;
     end;
 
+/*
 call getIdSport('Football');
 call getNameSport(2);
 call getProductById(1);
@@ -106,14 +107,14 @@ call orderByPriceDesc();
 call orderByPriceAsc();
 call getStock(1);
 call getStockTotal(1);
-
+*/
 
 #---------- Ajout ----------------
 
 
-create procedure addUser(IN newlogin varchar(255), IN newpass varchar(255), IN newstatus varchar(20))
+create procedure addUser(IN newid integer,IN newlogin varchar(255), IN newpass varchar(255), IN newsalt VARCHAR(45), IN newstatus varchar(20))
     BEGIN
-        insert into utilisateur(login,password,status) value (newlogin,newpass,newstatus);
+        insert into utilisateur(id, login,password,salt,status) value (newid, newlogin,newpass,newsalt, newstatus);
     end;
 
 create procedure addCoordonnee(IN newid int, IN newprenom varchar(255), IN newnom varchar(255), IN newmail varchar(255), in newmobile int, in newfixe int)
@@ -121,24 +122,24 @@ create procedure addCoordonnee(IN newid int, IN newprenom varchar(255), IN newno
         insert into coordonnees(id,prenom,nom,mail,mobile,fixe) value (newid,newprenom,newnom,newmail,newmobile,newfixe);
     end;
 
-create procedure addLocalisation(IN newid int, IN newadresse varchar(255), IN newcode int, IN newville varchar(255), IN newdep varchar(255), IN newpays varchar(255))
+create procedure addLocalisation(IN newidadresse int, IN newid int, IN newadresse varchar(255), IN newcode int, IN newville varchar(255), IN newdep varchar(255), IN newpays varchar(255))
     BEGIN
-        insert into localisation(id,adresse,codepostal,ville,departement,pays) value (newid,newadresse,newcode,newville,newdep,newpays);
+        insert into localisation(idadresse,id,adresse,codepostal,ville,departement,pays) value (newidadresse,newid,newadresse,newcode,newville,newdep,newpays);
     end;
 
-create procedure addProduct(IN newreference int, IN newtype varchar(15), IN newnusport int, IN newmarque varchar(255), IN newnom varchar(255),IN newgenre varchar(5), IN newprix float, in newdesc varchar(255), in newimage varchar(255))
+create procedure addProduct(IN newid int, IN newreference int, IN newtype varchar(15), IN newnusport int, IN newmarque varchar(255), IN newnom varchar(255),IN newgenre varchar(5), IN newprix float, in newdesc varchar(255), in newimage varchar(255))
     BEGIN
-        insert into produit(reference, type, nusport, marque, nom, genre, prix, description, image) value (newreference,newtype,newnusport,newmarque,newnom,newgenre,newprix,newdesc,newimage);
+        insert into produit(idproduit, reference, type, nusport, marque, nom, genre, prix, description, image) value (newid, newreference,newtype,newnusport,newmarque,newnom,newgenre,newprix,newdesc,newimage);
     end;
 
-create procedure addCommande(IN newdate varchar(10), IN newproduit int, in newquantite int, in newclient int, in newetat varchar(15))
+create procedure addCommande(IN newid int, IN newdate varchar(10), IN newproduit int, in newquantite int, in newclient int,in newadresse int, in newetat varchar(15))
     BEGIN
-        insert into commande(datecommande, idproduit, quantite, idclient, etat) value (newdate,newproduit,newquantite,newclient,newetat);
+        insert into commande(idcommande, datecommande, idproduit, quantite, idclient,idadresse , etat) value (newid, newdate,newproduit,newquantite,newclient,newadresse,newetat);
     end;
 
-create procedure addCatalogue(IN newproduit int, in newcouleur varchar(20), in newtaille varchar(3), in newquantite int)
+create procedure addCatalogue(IN newid int, IN newproduit int, in newcouleur varchar(20), in newtaille varchar(3), in newquantite int)
     BEGIN
-        insert into catalogue(nuproduit, couleur, taille,quantite) value (newproduit,newcouleur,newtaille,newquantite);
+        insert into catalogue(id, nuproduit, couleur, taille,quantite) value (newid,newproduit,newcouleur,newtaille,newquantite);
     end;
 
 
@@ -181,14 +182,19 @@ create procedure updateEtat(IN nucommande int,in newetat varchar(15))
         update commande set etat=newetat where idcommande = nucommande;
     end;
 
+create procedure updateAdresseCommande(IN nucommande int,in newadresse varchar(15))
+    BEGIN
+        update commande set idadresse=newadresse where idcommande = nucommande;
+    end;
+
 create procedure updateCoordonnees(IN iduser int, IN newprenom varchar(255), IN newnom varchar(255), IN newmail varchar(255), in newmobile int, in newfixe int)
     BEGIN
         update coordonnees set prenom=newprenom, nom=newnom, mail=newmail, mobile=newmobile, fixe=newfixe where id=iduser;
     end;
 
-create procedure updateLocalisation(IN iduser int, IN newadresse varchar(255), IN newcode int, IN newville varchar(255), IN newdep varchar(255), IN newpays varchar(255))
+create procedure updateLocalisation(IN newidadresse int,IN iduser int, IN newadresse varchar(255), IN newcode int, IN newville varchar(255), IN newdep varchar(255), IN newpays varchar(255))
     BEGIN
-        update localisation set adresse=newadresse, codepostal=newcode, ville=newville, departement=newdep, pays=newpays where id = iduser;
+        update localisation set adresse=newadresse, codepostal=newcode, ville=newville, departement=newdep, pays=newpays where id = iduser and idadresse=newidadresse;
     end;
 
 create procedure updatePrice(in nuproduit int, in newprice int)
