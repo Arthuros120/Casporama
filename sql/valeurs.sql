@@ -37,10 +37,7 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-        '/upload/image/Football/MaillotTest.png;
-        /upload/image/Football/MaillotTest2.png;
-        /upload/image/Football/MaillotTest.png;
-        /upload/image/Football/MaillotTest2.png'
+        '/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png'
      ),
     (
         5064,
@@ -76,10 +73,7 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-        '/upload/image/Football/MaillotTest2.png;
-         /upload/image/Football/MaillotTest.png;
-         /upload/image/Football/MaillotTest2.png;
-         /upload/image/Football/MaillotTest.png'
+        '/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png'
          );
 
 

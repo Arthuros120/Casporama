@@ -2,22 +2,73 @@
 
 ---
 
-Home/index:
+Home/index :
 
-    views:
-        head: "home/head"
-        header: "templates/blank"
+    views :
+        head : "home/head"
+        header : "templates/blank"
         content : "home/home"
-        footer: "templates/blank"
+        footer : "templates/blank"
 
-    baseView: "templates/base"
+    baseView : "templates/base"
 
-Test/index:
+Shop/view :
 
-    views:
-        head: "templates/blank"
-        header: "templates/blank"
-        content: "test/testContent"
-        footer: "templates/blank"
+    views :
+        head:  "shop/view/head"
+        header : "shop/global/header"
+        content : "shop/global/viewContent"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+Shop/product :
+
+    views :
+        head : "shop/view/head"
+        header : "shop/global/header"
+        content : "shop/global/productContent"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+User/login/error :
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "user/login/loginContent"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+User/login/success :
+
+    views :
+        head : "user/login/success/successHead"
+        script : "user/login/success/successScript"
+        header : "templates/blank"
+        content : "user/login/success/successContent"
+        footer : "templates/blank"
+
+    baseView : "user/login/success/successTemplate"
+
+User/home:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "user/home/homeContent"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+Test/index :
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "test/testContent"
+        footer : "templates/blank"
     
-    baseView: "templates/base"
+    baseView : "templates/base"

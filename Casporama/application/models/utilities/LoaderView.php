@@ -13,7 +13,7 @@ class LoaderView extends CI_Model {
 
 	}
 
-	public function load(string $nameConfig = null){
+	public function load(string $nameConfig = null, array $data = null){
 
 		if(isset($nameConfig)){
 
@@ -22,9 +22,9 @@ class LoaderView extends CI_Model {
 			$this->views = $yamlData['views'];
 			$this->baseView = $yamlData['baseView'];
 
-			if(isset($yamlData['data'])){
+			if(isset($data)){
 
-				$this->data = $yamlData['data'];
+				$this->data = $data;
 
 			}else{
 
@@ -54,9 +54,9 @@ class LoaderView extends CI_Model {
 
 			foreach ($this->views as $key => $value) {
 
-				if (isset($data[$key])) {
+				if (isset($this->data[$key])) {
 					
-					$loadView[$key] = $this->load->view($value, $data[$key], TRUE);
+					$loadView[$key] = $this->load->view($value, $this->data[$key], TRUE);
 
 				}else{
 

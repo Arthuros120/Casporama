@@ -17,17 +17,6 @@ class User extends CI_Controller {
 
     public function login(){
 
-        $this->data = array(
-            'loadView' => $this->UtilView->generateLoadView(
-                array(
-					'head' => 'templates/blank',
-					'header' => 'templates/blank',
-					'content' => 'user/login/loginContent',
-					'footer' => 'templates/blank'
-                )
-            )
-        );
-
 		$configRules = array(
 			array(
 					'field' => 'login',
@@ -61,21 +50,11 @@ class User extends CI_Controller {
 
 			$dataContent['error'] = validation_errors();
 
-			$this-> data = array(
-				'loadView' => $this->UtilView->generateLoadView(
-					array(
-						'head' => 'templates/blank',
-						'header' => 'templates/blank',
-						'content' => 'user/login/loginContent',
-						'footer' => 'templates/blank'
-					),
-					array(
-						'content' => $dataContent
-					)
-				)
+			$data = array(
+				'content' => $dataContent
 			);
 
-			$this->load->view('templates/base', $this->data);
+			$this->LoaderView->load('User/login/error', $data);
 
         } else {
 
@@ -95,44 +74,23 @@ class User extends CI_Controller {
 
 					$this->UserModel->setUserSession($user);
 
-					$this-> data = array(
-						'loadView' => $this->UtilView->generateLoadView(
-							array(
-								'head' => 'user/login/success/successHead',
-								'script' => 'user/login/success/successScript',
-								'header' => 'templates/blank',
-								'content' => 'user/login/success/successContent',
-								'footer' => 'templates/blank'
-							),
-							array(
-								'content' => array(
-									'user' => $user
-								)
-							)
+					$data = array(
+						'content' => array(
+							'user' => $user
 						)
-					);
+						);
 
-					$this->load->view('user/login/success/successTemplate', $this->data);
+					$this->LoaderView->load('User/login/success', $data);
 
 				}else{
 
 					$dataContent['error'] = "Mot de passe incorrect";
 
-					$this-> data = array(
-						'loadView' => $this->UtilView->generateLoadView(
-							array(
-								'head' => 'templates/blank',
-								'header' => 'templates/blank',
-								'content' => 'user/login/loginContent',
-								'footer' => 'templates/blank'
-							),
-							array(
-								'content' => $dataContent
-							)
-						)
+					$data = array(
+						'content' => $dataContent
 					);
-
-					$this->load->view('templates/base', $this->data);
+		
+					$this->LoaderView->load('User/login/error', $data);
 
 				}
 			}
@@ -158,18 +116,7 @@ class User extends CI_Controller {
 		//TODO: faire la différence entre chaque panel en fonction du status de l'utilisateur
 		//TODO: Créer getCookie
 
-		$this->data = array(
-			'loadView' => $this->UtilView->generateLoadView(
-				array(
-					'head' => 'templates/blank',
-					'header' => 'templates/blank',
-					'content' => 'user/home/homeContent',
-					'footer' => 'templates/blank'
-				)
-			)
-		);
-
-		$this->load->view('templates/base', $this->data);
+		$this->LoaderView->load('User/home');
 
 	}
 

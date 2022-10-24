@@ -13,7 +13,12 @@ class Shop extends CI_Controller {
 	
 	}
 
-    public function home($sport){
+
+	//! Cette fonction ne peut pas être dans le fichier loadView car
+	//! elle a un string contenant une variable cela créer un problème
+	//! de syntaxe, possiblement corigaible avec l'aide d'un professeur.
+	//* ^ Hamelin Arthur E217991X FVAEF ^
+	public function home($sport){
 
         if(in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux"))){
 
@@ -60,23 +65,13 @@ class Shop extends CI_Controller {
 			$dataHeader['sport'] = $sport;
 			$dataContent['listProduct'] = $listProduct;
 
-            $this->data = array(
-                'loadView' => $this->UtilView->generateLoadView(
-					array(
-                    'head' => 'shop/view/head',
-                    'header' => 'shop/global/header',
-                    'content' => 'shop/global/viewContent',
-                    'footer' => 'templates/blank'
-					),
-					array(
-						'head' => $dataHead,
-						'header' => $dataHeader,
-						'content' => $dataContent
-					)
-				)
-            );
+			$data = array(
+				'head' => $dataHead,
+				'header' => $dataHeader,
+				'content' => $dataContent
+			);
 
-            $this->load->view('templates/base', $this->data);
+			$this->LoaderView->load('Shop/view', $data);
 
         }else{
             
@@ -106,23 +101,13 @@ class Shop extends CI_Controller {
 			$dataHeader['sport'] = $sport;
 			$dataContent['product'] = $product;
 
-			$this->data = array(
-				'loadView' => $this->UtilView->generateLoadView(
-					array(
-					'head' => 'shop/view/head',
-					'header' => 'shop/global/header',
-					'content' => 'shop/global/productContent',
-					'footer' => 'templates/blank'
-					),
-					array(
-						'head' => $dataHead,
-						'header' => $dataHeader,
-						'content' => $dataContent
-					)
-				)
+			$data = array(
+				'head' => $dataHead,
+				'header' => $dataHeader,
+				'content' => $dataContent
 			);
 
-			$this->load->view('templates/base', $this->data);
+			$this->LoaderView->load('Shop/product', $data);
 
 		}else{
 			
