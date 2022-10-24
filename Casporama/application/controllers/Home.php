@@ -8,7 +8,7 @@ class Home extends CI_Controller {
 		parent::__construct();
 	
 	}
-
+	
 	public function index(){
 
 		$this->LoaderView->load('Home/index');
