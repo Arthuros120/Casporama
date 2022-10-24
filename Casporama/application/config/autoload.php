@@ -58,6 +58,13 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
+/*
+    * Dev :
+    *   J'ajoute la librairie 'database' pour pouvoir utiliser la base de données
+    *   J'ajoute la librairie 'session' pour pouvoir utiliser les sessions
+    *   J'ajoute la librairie 'form_validation' pour pouvoir utiliser la validation des formulaires
+
+*/
 $autoload['libraries'] = array('database', 'session', 'form_validation');
 
 /*
@@ -89,6 +96,16 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
+/*
+
+ * Dev: 
+ *  J'ajoute le helper url pour pouvoir utiliser les fonctions de redirection et de base_url
+ *  J'ajoute le helper form pour pouvoir utiliser les fonctions de création de formulaire
+ *  J'ajoute le helper cookie pour pouvoir utiliser les fonctions de gestion des cookies
+ *  J'ajoute le helper file pour pouvoir utiliser les fonctions de gestion des fichiers
+
+*/
+
 $autoload['helper'] = array('url', 'form', 'cookie', 'file');
 
 /*
@@ -131,5 +148,18 @@ $autoload['language'] = array();
 | in the controller:
 |
 |	$autoload['model'] = array('first_model' => 'first');
+*/
+/*
+
+    * Dev: 
+    *  J'ajoute le model LoaderView pour pouvoir utiliser la fonction load de ce model qui permet de charger les pages
+    *  via les données stocké dans le fichier Yaml permettant de gérer les pages du site web de manière dynamique et simple,
+    *  cela permet au développeur Frontend de pouvoir modifier les pages sans avoir à toucher au code du site web cela réduit donc
+    *  les risques de bugs et permet de gagner du temps.
+
+    *  J'ajoute le model UtilView pour pouvoir utiliser la fonction generateLoadView qui permet de générer le code html de la page
+    *  de manière dynamique et simple, cela permet au développeur Frontend de pouvoir modifier les pages en touchant très peut au code,
+    *  cette fonction est néccesaire car elle s'adapte au lien personalisé de la page et permet de charger les données de la page.
+
 */
 $autoload['model'] = array('utilities/UtilView', 'utilities/LoaderView');

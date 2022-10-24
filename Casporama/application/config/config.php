@@ -11,6 +11,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
+/*
+
+    * Dev:
+    * Cette variable est utilisé pour le développement, elle permet de
+    * charger le fichier de configuration des vue en .YAML
+
+*/
+
 $config['LoaderView_url'] = APPPATH . "../static/json/loadView.yaml";
 
 /*
@@ -36,8 +44,19 @@ $config['LoaderView_url'] = APPPATH . "../static/json/loadView.yaml";
 |
 */
 
+/*
+
+    * Dev:
+    * Cette variable est utilisé pour le développement, elle permet de
+    * generer l'url de base du site. Je l'ai fait de façon dynamique car cela
+    * permet de ne pas avoir à changer l'url de base du site peut importe la
+    * machine sur laquelle il est hébergé. Cela nous permet de travaillé en locale
+    * et en production sans avoir à changer l'url de base du site.
+
+*/
 $root  = "http://".$_SERVER['HTTP_HOST'];
 $root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+
 $config['base_url'] = $root;
 
 /*
@@ -240,6 +259,13 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
+/*
+
+    * Dev:
+    * J'active tout les log pour voir ce qui se passe,
+    * cela me permet de voir les erreurs et de les corriger
+
+*/
 $config['log_threshold'] = 4;
 
 /*
@@ -264,6 +290,13 @@ $config['log_path'] = '';
 |
 | Note: Leaving it blank will default to 'php'.
 |
+*/
+/*
+
+    * Dev:
+    * J'ajoute l'extension .log pour que les fichiers de log soit plus facilement
+    * identifiable.
+
 */
 $config['log_file_extension'] = '.log';
 
