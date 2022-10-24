@@ -7,6 +7,12 @@
 
 }
 
+a:link {
+    display: inline-block;
+    text-decoration: none!important;
+    color: black;
+}
+
 .nav {
     display: flex;
     flex-direction: row;
@@ -67,10 +73,14 @@
     width: 100%;
 }
 
-.list_icon {
+.icon {
     display: flex;
-    width: auto;
-    height: 60%;
+    align-items: center;
+}
+
+.list_icon {
+    width: 50%;
+    height: auto;
 }
 
 .logo {

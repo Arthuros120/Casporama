@@ -21,6 +21,13 @@
 
 .card {
     list-style-type: none;
+    text-decoration: none;
+}
+
+a:link {
+    display: inline-block;
+    text-decoration: none!important;
+    color: black;
 }
 
 .product {
@@ -47,6 +54,7 @@
 
     background-color: var(--color0);
     border-radius: 25px;
+    margin-bottom: 2vh;
 }
 
 .img {
@@ -69,6 +77,11 @@
 
     background-color: var(--grey1);
     border-radius: 25px;
+}
+
+.desc > h1 {
+    text-decoration: none;
+    color: black;
 }
 
 .filter {
