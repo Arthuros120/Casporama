@@ -54,7 +54,7 @@ $config['LoaderView_url'] = APPPATH . "../static/json/loadView.yaml";
     * et en production sans avoir à changer l'url de base du site.
 
 */
-$root  = "http://".$_SERVER['HTTP_HOST'];
+$root  = "https://".$_SERVER['HTTP_HOST'];
 $root .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 
 $config['base_url'] = $root;

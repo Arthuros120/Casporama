@@ -13,7 +13,6 @@ class Shop extends CI_Controller {
 	
 	}
 
-
 	//! Cette fonction ne peut pas être dans le fichier loadView car
 	//! elle a un string contenant une variable cela créer un problème
 	//! de syntaxe, possiblement corigaible avec l'aide d'un professeur.
