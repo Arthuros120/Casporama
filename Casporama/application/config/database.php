@@ -73,6 +73,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
+/*
+
+	* Dev : 
+	*      Configuration de la base de données de développement
+	*      a distance. 
+
+*/
+
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '167.71.67.196',

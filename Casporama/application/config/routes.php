@@ -49,7 +49,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+
+// * Donne la route par défaut qui est dans notre cas le controller "home"
 $route['default_controller'] = 'home';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
@@ -57,6 +60,14 @@ $route['translate_uri_dashes'] = FALSE;
 
     TODO: A completer avec les routes de l'application qui sont accesisble par l'utilisateur 
     TODO: mais non voulu (function du controller en public mais qui ne peuvent pas être mis en privé)
+
+*/
+
+/*
+
+    * Dev : 
+    *   Permet de rendre inaccesible les fonction qui doivent être privé dans le controleur
+    *   mais qui ne peuvent pas être mis en privé (public function) car elles sont appelé par d'autre fonction.
 
 */
 
