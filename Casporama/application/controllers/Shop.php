@@ -18,8 +18,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 class Shop extends CI_Controller {
 
-	// * Creation de la Class Home
-	// * Initialisation de la variable $data
+	// * Initialisation de la Class Home
+	// * Creation de la variable $data
 	public function __construct(){
 
 		parent::__construct();
@@ -197,6 +197,7 @@ class Shop extends CI_Controller {
 			$data['heading'] = "404 Page Not Found";
 			$data['message'] = "The page you requested was not found.";
 
+			// * On affiche la vue d'erreur 404.
 			$this->load->view('errors/html/error_404', $data);
 
 		}

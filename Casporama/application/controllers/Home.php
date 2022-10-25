@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 class Home extends CI_Controller {
 
-	// * Creation de la Class Home
+	// * Initialisation de la Class Home
 	public function __construct(){
 
 		parent::__construct();

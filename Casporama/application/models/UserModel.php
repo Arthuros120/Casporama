@@ -123,7 +123,9 @@ class UserModel extends CI_Model {
 
     public function setUserSession(UserEntity $user) {
 
-        $this->session->set_userdata('user', $user);
+        $sessionValueString = $user->get_id() . '|' . $user->get_status();
+
+        $this->session->set_userdata('user', $sessionValueString);
 
     }
 
