@@ -1,6 +1,11 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+
+	defined('BASEPATH') OR exit('No direct script access allowed');
+
+	//TODO: Prévoir une redirection automatique au bout de 10 secondes
+
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">

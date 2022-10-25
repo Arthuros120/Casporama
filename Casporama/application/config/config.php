@@ -53,6 +53,12 @@ $config['LoaderView_url'] = APPPATH . "../static/json/loadView.yaml";
     * machine sur laquelle il est hébergé. Cela nous permet de travaillé en locale
     * et en production sans avoir à changer l'url de base du site.
 
+    @var string $protocol
+    * Cette variable permet de définir le protocole utilisé pour l'url de base du site.
+    * Soit http ou https en fonction de la configuration du serveur.
+    * Il nous permet de faire tourner le site sur notre machine perso et le serveur de
+    * production sans avoir à changer l'url de base du site.
+
 */
 
 $protocol = getenv("PROTOCOL");

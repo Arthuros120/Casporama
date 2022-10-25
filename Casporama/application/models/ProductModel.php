@@ -117,7 +117,7 @@ class ProductModel extends CI_Model {
 
     }
 
-    function findById(int $idProduct) : ProductEntity {
+    function findById(int $idProduct) : ?ProductEntity {
 
         $queryProduct = $this->db->query("Call getProductById(".$idProduct.")");
 
