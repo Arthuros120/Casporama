@@ -1,26 +1,50 @@
 <?php
 
+// * On importe les classes nécessaires
 require_once APPPATH . 'models/entity/ProductEntity.php';
 
+/*
+
+    * Class ProductModel
+
+    * Cette classe permet de gérer les produits
+
+*/
 class ProductModel extends CI_Model {
 
+    // Constructeur
     function __construct() {
         parent::__construct();
     }
 
+    /*
+    
+        * Function findIdBySport
+
+        @param string $sport
+        @return int
+
+        * Cette fonction permet de récupérer l'id du sport
+    
+    */
     function findIdBySport(string $sport) : int {
 
+        // * Requete SQL pour récupérer l'id du sport
         $queryIdSport = $this->db->query("Call getIdSport('".$sport."')");
 
+        // * On extrait l'id du sport du résultat de la requete
         $idSport = (int) $queryIdSport->row()->nusport;
 
+        // * On passe l'id du sport en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
         $queryIdSport->next_result(); 
         $queryIdSport->free_result();
 
+        // * On retourne l'id du sport
         return $idSport;
 
     }
 
+    // TODO: ¤ Continuer de commenté, Pause le 25/10/2022 à 20:04
     function findNameSportbyId(int $sport) : String {
 
         $queryIdSport = $this->db->query("Call getNameSport('".$sport."')");
