@@ -56,3 +56,13 @@
 .semi_bold {
     font-weight: 600;
 }
+
+a:link {
+    display: inline-block;
+    text-decoration: none!important;
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
