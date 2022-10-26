@@ -44,7 +44,7 @@ class LoaderView extends CI_Model {
 		* d'un fichier YAML, et de les afficher
 		* Cela permet de ne pas avoir à écrire du code PHP pour charger les vues
 		* et de les afficher
-		* Cela evite au programmer frontend de devoir chercher dans le code PHP
+		* Cela evite au programmeur frontend de devoir chercher dans le code PHP
 		* ou modifier le code PHP pour ajouter une vue ou la modifier.
 		* Ce qui permet de garder une séparation entre le code PHP et le code HTML
 		* Cette outil nous permet de gagner du temps et d'eviter des erreurs

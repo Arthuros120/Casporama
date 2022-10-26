@@ -1,4 +1,42 @@
+#---------------------------------Casporma View---------------------------------#
 
+# Fiche contenant les différente configuration des différentes vues
+
+# Consigne et explication:
+
+# -Tout les caractére situé après un Hashtag (#) ne sont pas lu par le programme
+#  ce sont des commentaires.
+
+# -Les argument doivent êtres suivit de deux points superposés (:) 
+#  et une valeur doit êtres espacé a coté de l'argument.
+
+# -Les indentation (alinéa) doit être de 2 espace minimun.
+
+# -Ne pas créer de doublons
+
+
+#################################################
+#***********************************************#
+#*                                             *#
+#*            --------------------             *#
+#*           | Schéma a appliqué  |            *#
+#*            --------------------             *#
+#*                                             *#
+#* Lien de la vue chargé:                      *#
+#*                                             *#
+#*  Views :                                    *#
+#*       etiquetteVue1 : "lienVue1"            *#
+#*       etiquetteVue2 : "lienVue2"            *# 
+#*       etiquetteVue3 : "lienVue3"            *# 
+#*       etiquetteVue4 : "lienVue4"            *#
+#*                                             *#
+#*  BaseView: "lienDuTemplate"                 *#
+#*                                             *#
+#***********************************************#
+#################################################
+
+# ! Nota bene:
+# * -Les argument doivent êtres avoir la même orthographe entre les lien des controller et les lien des vues
 
 ---
 
