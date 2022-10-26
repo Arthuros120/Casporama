@@ -8,4 +8,4 @@ sudo docker run -d --name sonarqube -p 9000:9000 sonarqube:latest
 
 Pour lancer une analyse 
 
-$ sudo docker run --rm --link sonarqube -e SONAR_HOST_URL="http://sonarqube:9000" -e SONAR_LOGIN="sqp_f7ea3fea5bfb1e7f226e5ee6bd36809ee95f78fd" -v "/var/www/html/sae_3/:/usr/src" sonarsource/sonar-scanner-cli
+$ sudo docker run --rm --link sonarqube -e SONAR_HOST_URL="http://sonarqube:9000" -e SONAR_LOGIN="squ_2921fe698e9568312622b88b4692ca5c2443d71b" -v "/var/www/html/sae_3/:/usr/src" sonarsource/sonar-scanner-cli
