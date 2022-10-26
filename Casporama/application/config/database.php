@@ -71,34 +71,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | the query builder class.
 */
 $active_group = 'default';
-$query_builder = TRUE;
+$query_builder = true;
 
 /*
 
-	* Dev : 
+	* Dev :
 	*      Configuration de la base de données de développement
-	*      a distance. 
+	*      a distance.
 
 */
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '167.71.67.196',
-	'username' => 'site',
-	'password' => 'Casporama123$',
+	'hostname' => getenv("DbHost"),
+	'username' => getenv("DbUser"),
+	'password' => getenv("DbPass"),
 	'database' => 'Casporama',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
-	'pconnect' => FALSE,
+	'pconnect' => false,
 	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => TRUE,
+	'cache_on' => true,
 	'cachedir' => site_url('application/cache'),
 	'char_set' => 'utf8',
 	'dbcollat' => 'utf8_general_ci',
 	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
+	'encrypt' => false,
+	'compress' => false,
+	'stricton' => false,
 	'failover' => array(),
-	'save_queries' => TRUE
+	'save_queries' => true
 );
