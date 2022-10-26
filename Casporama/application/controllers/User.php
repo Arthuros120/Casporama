@@ -124,9 +124,15 @@ class User extends CI_Controller {
 					// * On récupere le status de l'utilisateur
 					$user->set_status($this->UserModel->getStatusById($user->get_id()));
 
+					// * On supprime si il existe le cookie de l'utilisateur
+					$this->UserModel->unsetUserCookie($user);
+
+					// * On supprime si il existe la session de l'utilisateur
+					$this->UserModel->unsetUserSession();
+
 					// * On vérifie que l'utilisateur veut rester connecté
 					if($this->input->post('conPersistance') == 'on'){
-
+					
 						// * On crée un cookie pour l'utilisateur contenant ces informations de connexion et son status
 						$this->UserModel->setUserCookie($user);
 
@@ -171,17 +177,22 @@ class User extends CI_Controller {
 		* Détruit la session de l'utilisateur et le cookie si il existe
 		* Redirige l'utilisateur vers la page d'accueil
 
-		TODO: A faire
-
 	*/
 	public function logout(){
 
-		//TODO: Créer les fonction suivante :
+		// * On vérifie que l'utilisateur est connecté
 
-		$this->UserModel->unsetUserSession();
+		$user = $this->UserModel->getUserBySession();
 
-		$this->UserModel->unsetUserCookie();
+		if($user != null){
 
+			$this->UserModel->unsetUserSession();
+
+			$this->UserModel->unsetUserCookie($user);
+			
+		}
+
+		// * On redirige l'utilisateur vers la page d'accueil
 		redirect(base_url());
 
 	}

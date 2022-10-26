@@ -163,7 +163,6 @@ create procedure delVariante(IN idvariante int)
         delete from catalogue where id = idvariante;
     end;
 
-
 #---------- Update ----------------
 
 
@@ -172,9 +171,16 @@ create procedure updateQuantite(IN iduser int, IN newquantite int)
         update catalogue set quantite=newquantite where id = iduser;
     end;
 
+-- Ajout du CookieId
 create procedure setCookieId(IN newCookieId varchar(45), IN iduser int)
     BEGIN
         update utilisateur set cookieId=newCookieId where id = iduser;
+    end;
+
+-- Suppression du cookieId
+create procedure delCookieId(IN iduser int)
+    BEGIN
+        update utilisateur set cookieId='' where id = iduser;
     end;
 
 create procedure updateEtat(IN nucommande int,in newetat varchar(15))

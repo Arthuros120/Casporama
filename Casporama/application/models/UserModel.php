@@ -193,13 +193,6 @@ class UserModel extends CI_Model {
         // * On crée la donné pour le cookie
         $cookieValueString = $user->get_id() . '|' . $user->get_cookieCheck() . '|' . $user->get_status();
 
-        /*
-    
-            TODO: Changer la sécurité du cookie dès que on a configuer le https sur le distant
-            ! WARNING ! ERREUR DE SÉCURITÉ ! WARNING !
-
-        */
-
         // * On crée le cookie
         $cookieSettings = array(
             'name'   => 'user',
@@ -212,6 +205,46 @@ class UserModel extends CI_Model {
         // * On envoie le cookie
         $this->input->set_cookie($cookieSettings);
 
+    }
+
+    /*
+    
+        * getUserByCookie
+    
+        * Cette méthode permet de récupérer un utilisateur en fonction de son cookie
+
+        @return: ?UserEntity
+    
+    */
+
+    public function getUserByCookie() : ?UserEntity{
+
+        //TODO: A faire
+
+        return null;
+
+    }
+
+    /*
+    
+        * unsetUserCookie
+    
+        * Cette méthode permet de supprimer le cookie de l'utilisateur
+    
+        @param: $UserEntity
+    
+    */
+    public function unsetUserCookie(UserEntity $user) {
+
+        if($this->input->cookie('user') != null){
+
+            $query = $this->db->query("Call delCookieId('" . $user->get_id() . "')");
+            $query->next_result();
+            
+            // * On supprime le cookie
+            delete_cookie('user');
+    
+        }
     }
 
     /*
@@ -232,4 +265,59 @@ class UserModel extends CI_Model {
         $this->session->set_userdata('user', $sessionValueString);
 
     }
+
+    /*
+    
+        * getUserBySession
+    
+        * Cette méthode permet de récupérer un utilisateur en fonction de sa session
+    
+        @return: ?UserEntity
+    
+    */
+    public function getUserBySession() : ?UserEntity {
+
+        // * On récupère la session
+        $session = $this->session->userdata('user');
+
+        // * On vérifie si la session existe
+        if(isset($session)){
+
+            // * On récupère les données de la session
+            $sessionData = explode('|', $session);
+
+            // * On vérifie si les données de la session sont correct
+            if(isset($sessionData[0]) && isset($sessionData[1])){
+
+                // * On crée l'utilisateur
+                $user = new UserEntity();
+                $user->set_id($sessionData[0]);
+                $user->set_status($sessionData[1]);
+
+                // * On retourne l'utilisateur
+                return $user;
+
+            }
+        }
+
+        // * On retourne null si la session n'existe pas
+        return null;
+
+    }
+
+    /*
+    
+        * unsetUserSession
+    
+        * Cette méthode permet de supprimer la session de l'utilisateur
+    
+    */
+    public function unsetUserSession(){
+
+        // * On supprime la session
+        $this->session->unset_userdata('user');
+
+    }
+
+
 }
