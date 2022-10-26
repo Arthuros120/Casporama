@@ -1,6 +1,10 @@
+Telecharger le docker
+
+sudo docker pull sonarqube:latest   
+
 Pour lancer le docker 
 
-
+sudo docker run -d --name sonarqube -p 9000:9000 sonarqube:latest
 
 Pour lancer une analyse 
 
