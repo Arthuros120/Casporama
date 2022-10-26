@@ -13,15 +13,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	* lorsqu'il cherche a accéder au site avec le nom de dommaine.
 
 */
-class Home extends CI_Controller {
+class Home extends CI_Controller
+{
 
-	// * Initialisation de la Class Home
-	public function __construct(){
-
-		parent::__construct();
-	
-	}
-	
 	/*
 
 		* Methode index
@@ -33,7 +27,8 @@ class Home extends CI_Controller {
 		
 
 	*/
-	public function index(){
+	public function index()
+	{
 
 		$this->LoaderView->load('Home/index');
 
