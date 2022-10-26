@@ -211,7 +211,6 @@ class User extends CI_Controller {
 	public function home(){
 
 		//TODO: faire la différence entre chaque panel en fonction du status de l'utilisateur
-		//TODO: Créer getCookie
 
 		$this->LoaderView->load('User/home');
 

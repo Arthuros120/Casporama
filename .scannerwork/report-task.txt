@@ -1,0 +1,6 @@
+projectKey=Casporama
+serverUrl=http://sonarqube:9000
+serverVersion=9.7.0.61563
+dashboardUrl=http://sonarqube:9000/dashboard?id=Casporama
+ceTaskId=AYQWg_cvI8ilsdizoKCy
+ceTaskUrl=http://sonarqube:9000/api/ce/task?id=AYQWg_cvI8ilsdizoKCy
