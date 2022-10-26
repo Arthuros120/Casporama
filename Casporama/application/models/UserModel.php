@@ -205,8 +205,8 @@ class UserModel extends CI_Model {
             'name'   => 'user',
             'value'  => $cookieValueString,
             'expire' => 3600 * 24 * 30,
-            'secure' => false,
-            'httponly' => false
+            'secure' => true,
+            'httponly' => true
         );
 
         // * On envoie le cookie
