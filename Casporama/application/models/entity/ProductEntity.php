@@ -6,7 +6,8 @@
     * Cette classe représente une entité de la table produit
 
 */
-class ProductEntity {
+class ProductEntity
+{
 
     private int $id;
     private int $reference;
@@ -29,14 +30,15 @@ class ProductEntity {
 
     /*
     
-        * Function get_id
+        * Function getId
     
         @return int
     
         * Cette fonction retourne l'id de l'entité
     
     */
-    public function get_id() : int {
+    public function getId() : int
+    {
 
         return $this->id;
 
@@ -44,14 +46,15 @@ class ProductEntity {
 
     /*
     
-        * Function set_id
+        * Function setId
     
         @param int $id
     
         * Cette fonction modifie l'id de l'entité
     
     */
-    public function set_id(int $id){
+    public function setId(int $id)
+    {
 
         $this->id = $id;
 
@@ -66,7 +69,8 @@ class ProductEntity {
         * Cette fonction retourne la référence de l'entité
     
     */
-    public function get_reference() : int {
+    public function getReference() : int
+    {
 
         return $this->reference;
 
@@ -74,14 +78,15 @@ class ProductEntity {
 
     /*
     
-        * Function set_reference
+        * Function setReference
     
         @param int $reference
     
         * Cette fonction modifie la référence de l'entité
     
     */
-    public function set_reference(int $reference){
+    public function setReference(int $reference)
+    {
 
         $this->reference = $reference;
 
@@ -89,14 +94,15 @@ class ProductEntity {
 
     /*
     
-        * Function get_type
+        * Function getType
     
         @return string
     
         * Cette fonction retourne le type de l'entité
     
     */
-    public function get_type() : string {
+    public function getType() : string
+    {
 
         return $this->type;
 
@@ -104,14 +110,15 @@ class ProductEntity {
 
     /*
     
-        * Function set_type
+        * Function setType
     
         @param string $type
     
         * Cette fonction modifie le type de l'entité
     
     */
-    public function set_type(string $type){
+    public function setType(string $type)
+    {
 
         $this->type = $type;
 
@@ -119,14 +126,15 @@ class ProductEntity {
 
     /*
     
-        * Function get_sport
+        * Function getSport
     
         @return string
     
         * Cette fonction retourne le sport de l'entité
     
     */
-    public function get_sport() : string {
+    public function getSport() : string
+    {
 
         return $this->sport;
 
@@ -134,14 +142,15 @@ class ProductEntity {
 
     /*
     
-        * Function set_sport
+        * Function setSport
     
         @param string $sport
     
         * Cette fonction modifie le sport de l'entité
     
     */
-    public function set_sport(int $sport){
+    public function setSport(int $sport)
+    {
 
         $this->sport = $sport;
 
@@ -149,14 +158,15 @@ class ProductEntity {
 
     /*
     
-        * Function get_brand
+        * Function getBrand
     
         @return string
     
         * Cette fonction retourne la marque de l'entité
     
     */
-    public function get_brand() : string {
+    public function getBrand() : string
+    {
 
         return $this->brand;
 
@@ -164,14 +174,15 @@ class ProductEntity {
 
     /*
     
-        * Function set_brand
+        * Function setBrand
     
         @param string $brand
     
         * Cette fonction modifie la marque de l'entité
     
     */
-    public function set_brand(string $brand){
+    public function setBrand(string $brand)
+    {
 
         $this->brand = $brand;
 
@@ -179,14 +190,15 @@ class ProductEntity {
 
     /*
     
-        * Function get_name
+        * Function getName
     
         @return string
     
         * Cette fonction retourne le nom de l'entité
     
     */
-    public function get_name() : string {
+    public function getName() : string
+    {
 
         return $this->name;
 
@@ -194,14 +206,15 @@ class ProductEntity {
 
     /*
     
-        * Function set_name
+        * Function setName
     
         @param string $name
     
         * Cette fonction modifie le nom de l'entité
     
     */
-    public function set_name(string $name){
+    public function setName(string $name)
+    {
 
         $this->name = $name;
 
@@ -209,14 +222,15 @@ class ProductEntity {
 
     /*
     
-        * Function get_genre
+        * Function getGenre
     
         @return string
     
         * Cette fonction retourne le genre de l'entité
     
     */
-    public function get_genre() : string {
+    public function getGenre() : string
+    {
 
         return $this->genre;
 
@@ -224,14 +238,15 @@ class ProductEntity {
 
     /*
     
-        * Function set_genre
+        * Function setGenre
     
         @param string $genre
     
         * Cette fonction modifie le genre de l'entité
     
     */
-    public function set_genre(string $genre){
+    public function setGenre(string $genre)
+    {
 
         $this->genre = $genre;
 
@@ -239,14 +254,15 @@ class ProductEntity {
 
     /*
     
-        * Function get_price
+        * Function getPrice
     
         @return float
     
         * Cette fonction retourne le prix de l'entité
     
     */
-    public function get_price() : float {
+    public function getPrice() : float
+    {
 
         return $this->price;
 
@@ -254,14 +270,15 @@ class ProductEntity {
 
     /*
     
-        * Function set_price
+        * Function setPrice
     
         @param float $price
     
         * Cette fonction modifie le prix de l'entité
     
     */
-    public function set_price(float $price){
+    public function setPrice(float $price)
+    {
 
         $this->price = $price;
 
@@ -269,14 +286,15 @@ class ProductEntity {
 
     /*
     
-        * Function get_description
+        * Function getDescription
     
         @return string
     
         * Cette fonction retourne la description de l'entité
     
     */
-    public function get_description() : string {
+    public function getDescription() : string
+    {
 
         return $this->description;
 
@@ -284,14 +302,15 @@ class ProductEntity {
 
     /*
     
-        * Function set_description
+        * Function setDescription
     
         @param string $description
     
         * Cette fonction modifie la description de l'entité
     
     */
-    public function set_description(string $description){
+    public function setDescription(string $description)
+    {
 
         $this->description = $description;
 
@@ -299,42 +318,43 @@ class ProductEntity {
 
     /*
     
-        * Function get_image
+        * Function getImage
     
         @return array
     
         * Cette fonction retourne les images de l'entité
     
     */
-    public function get_images() : array {
+    public function getImages() : array
+    {
 
         return $this->image;
     }
 
     /*
     
-        * Function set_image
-    
-        @param array $image
-    
+        * Function getCover
+
         * Cette fonction sélectione l'image principale
     
     */
-    public function get_cover() : string {
+    public function getCover() : string
+    {
 
         return base_url($this->image[0]);
     }
 
     /*
     
-        * Function set_image
+        * Function setImage
     
         @param array $image
     
         * Cette fonction modifie les images de l'entité
     
     */
-    public function set_image(string $image){
+    public function setImage(string $image)
+    {
 
         $this->image = explode(";", $image);
 
@@ -342,14 +362,15 @@ class ProductEntity {
 
     /*
     
-        * Function get_stock
+        * Function getStock
     
         @return array
     
         * Cette fonction retourne le stock de l'entité
     
     */
-    public function get_stock() : array {
+    public function getStock() : array
+    {
 
         return $this->stock;
 
@@ -357,14 +378,15 @@ class ProductEntity {
 
     /*
     
-        * Function set_stock
+        * Function setStock
     
         @param array $stock
     
         * Cette fonction modifie le stock de l'entité
     
     */
-    public function set_stock(array $stock){
+    public function setStock(array $stock)
+    {
 
         $this->stock = $stock;
 

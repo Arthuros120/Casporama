@@ -7,23 +7,29 @@
                 <li class="second_img">
                     <?php for ($i = 1; $i < 2; $i++) : ?>
                     <div>
-                        <img src="<?= base_url($product -> get_images()[$i]) ?>">
+                        <img
+                        src="<?= base_url($product -> getImages()[$i]) ?>"
+                        alt="Image du produit"
+                        >
                     </div>
                     <?php endfor?>
                 </li>
                 <li class="main_img">
                     <div>
-                        <img src=<?= $product->get_cover() ?>>
+                        <img
+                        alt="Image du produit"
+                        src=<?= $product->getCover() ?>
+                        >
                     </div>
                 </li>
             </ul>
         </li>
         <li class="card">
             <div class="brand">
-                <h2><?= $product -> get_brand() ?></h2>
+                <h2><?= $product -> getBrand() ?></h2>
             </div>
             <div class="title">
-                <h1><?= $product -> get_name() ?></h1>
+                <h1><?= $product -> getName() ?></h1>
             </div>
 
         </li>
@@ -32,12 +38,12 @@
 
 
 
-<!-- <?= $product -> get_brand() ?>
-<?= $product -> get_name() ?>
-<?= $product -> get_description() ?>
-<?= $product -> get_price() ?>
-<img src=<?= $product->get_cover() ?>>
-<img src="<?= base_url($product -> get_images()[1]) ?>">
-<?= $product -> get_images()[1] ?> -->
+<!-- <?= $product -> getBrand() ?>
+<?= $product -> getName() ?>
+<?= $product -> getDescription() ?>
+<?= $product -> getPrice() ?>
+<img src=<?= $product->getCover() ?>>
+<img src="<?= base_url($product -> getImages()[1]) ?>">
+<?= $product -> getImages()[1] ?> -->
 
 <!-- shop/global/productContent -->

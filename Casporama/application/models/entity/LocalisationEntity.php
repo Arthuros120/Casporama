@@ -7,7 +7,8 @@
         * Cette classe représente une entité de la table localisation
     
 */
-class LocalisationEntity {
+class LocalisationEntity
+{
 
     private int $id;
 
@@ -19,14 +20,15 @@ class LocalisationEntity {
 
     /*
     
-        * Function get_id
+        * Function getId
     
         @return int
     
         * Cette fonction retourne l'id de l'entité
     
     */
-    public function get_id() : int {
+    public function getId() : int
+    {
 
         return $this->id;
 
@@ -34,14 +36,15 @@ class LocalisationEntity {
 
     /*
     
-        * Function set_id
+        * Function setId
     
         @param int $id
     
         * Cette fonction modifie l'id de l'entité
     
     */
-    public function set_id(int $id){
+    public function setId(int $id)
+    {
 
         $this->id = $id;
 
@@ -49,14 +52,15 @@ class LocalisationEntity {
 
     /*
     
-        * Function get_adresse
+        * Function getAdresse
     
         @return string
     
         * Cette fonction retourne l'adresse de l'entité
     
     */
-    public function get_adresse() : string {
+    public function getAdresse() : string
+    {
 
         return $this->adresse;
 
@@ -64,14 +68,15 @@ class LocalisationEntity {
 
     /*
     
-        * Function set_adresse
+        * Function setAdresse
     
         @param string $adresse
     
         * Cette fonction modifie l'adresse de l'entité
     
     */
-    public function set_adresse(string $adresse){
+    public function setAdresse(string $adresse)
+    {
 
         $this->adresse = $adresse;
 
@@ -79,14 +84,15 @@ class LocalisationEntity {
 
     /*
     
-        * Function get_codePostal
+        * Function getCodePostal
     
         @return int
     
         * Cette fonction retourne le code postal de l'entité
     
     */
-    public function get_codePostal() : string {
+    public function getCodePostal() : string
+    {
 
         return $this->codePostal;
 
@@ -94,7 +100,7 @@ class LocalisationEntity {
 
     /*
     
-        * Function set_codePostal
+        * Function setCodePostal
     
         @param int $codePostal
     
@@ -102,15 +108,16 @@ class LocalisationEntity {
         * rajout un 0 si le codePostal est inférieur à 10000
     
     */
-    public function set_codePostal(int $codePostal){
+    public function setCodePostal(int $codePostal)
+    {
 
         $codePostal = (string) $codePostal;
 
-        if (strlen($codePostal) < 5){
+        if (strlen($codePostal) < 5) {
 
             $this->codePostal = "0" . $codePostal;
 
-        }else{
+        } else {
 
             $this->codePostal = $codePostal;
 
@@ -122,14 +129,15 @@ class LocalisationEntity {
 
     /*
     
-        * Function get_ville
+        * Function getVille
     
         @return string
     
         * Cette fonction retourne la ville de l'entité
     
     */
-    public function get_ville() : string {
+    public function getVille() : string
+    {
 
         return $this->ville;
 
@@ -137,14 +145,15 @@ class LocalisationEntity {
 
     /*
     
-        * Function set_ville
+        * Function setVille
     
         @param string $ville
     
         * Cette fonction modifie la ville de l'entité
     
     */
-    public function set_ville(string $ville){
+    public function setVille(string $ville)
+    {
 
         $this->ville = $ville;
 
@@ -152,14 +161,15 @@ class LocalisationEntity {
 
     /*
     
-        * Function get_pays
+        * Function getPays
     
         @return string
     
         * Cette fonction retourne le pays de l'entité
     
     */
-    public function get_pays() : string {
+    public function getPays() : string
+    {
 
         return $this->pays;
 
@@ -167,14 +177,15 @@ class LocalisationEntity {
 
     /*
     
-        * Function set_pays
+        * Function setPays
     
         @param string $pays
     
         * Cette fonction modifie le pays de l'entité
     
     */
-    public function set_pays(string $pays){
+    public function setPays(string $pays)
+    {
 
         $this->pays = $pays;
 
@@ -182,14 +193,15 @@ class LocalisationEntity {
 
     /*
     
-        * Function get_departement
+        * Function getDepartement
     
         @return string
     
         * Cette fonction retourne le département de l'entité
     
     */
-    public function get_departement() : string {
+    public function getDepartement() : string
+    {
 
         return $this->departement;
 
@@ -197,7 +209,7 @@ class LocalisationEntity {
 
     /*
     
-        * Function set_departement
+        * Function setDepartement
     
         @param string $departement
     
@@ -206,7 +218,8 @@ class LocalisationEntity {
         TODO: Rajouter l'autocomplétion des départements
     
     */
-    public function set_departement(string $departement){
+    public function setDepartement(string $departement)
+    {
 
         $this->departement = $departement;
 

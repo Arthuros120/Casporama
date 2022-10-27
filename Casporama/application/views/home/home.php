@@ -19,20 +19,28 @@
         <li class="card bad">
             <div class="incard">
                 <a href="/Shop/home/Badminton">
-                    <img class="home_img" src="<?php echo base_url() ?>static/image/home_bad.png">
+                    <img
+                    class="home_img"
+                    src="<?php echo base_url() ?>static/image/home_bad.png"
+                    alt="Image d'ilustration de badminton"
+                    >
                 </a>
                 <div class="bg_title"></div>
                 <div class="home_title">
                     <h3>Badminton</h3>
                 </div>
                 <a class="link2" href="/Shop/home/Badminton"></a>
-            </div> 
+            </div>
         </li>
 
         <li class="card volley">
             <div class="incard">
                 <a href="/Shop/home/Volleyball">
-                    <img class="home_img" src="<?php echo base_url() ?>static/image/home_volley.png">
+                    <img
+                    class="home_img"
+                    src="<?php echo base_url() ?>static/image/home_volley.png"
+                    alt="Image d'ilustration de volley"
+                    >
                 </a>
                 <div class="bg_title"></div>
                 <div class="home_title">
@@ -45,13 +53,17 @@
         <li class="card mma">
             <div class="incard">
                 <a class="link1" href="/Shop/home/Art_martiaux">
-                    <img class="home_img" src="<?php echo base_url() ?>static/image/home_mma.png">
+                    <img
+                    class="home_img"
+                    src="<?php echo base_url() ?>static/image/home_mma.png"
+                    alt="Image d'ilustration d'art martiaux"
+                    >
                 </a>
                 <div class="bg_title"></div>
                 <div class="home_title">
                     <h3>Arts-Martiaux</h3>
                 </div>
-                <a class="link2" href="/Shop/home/Art_martiaux"></a>                
+                <a class="link2" href="/Shop/home/Art_martiaux"></a>
             </div>
         </li>
 

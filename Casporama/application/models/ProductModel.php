@@ -10,12 +10,8 @@ require_once APPPATH . 'models/entity/ProductEntity.php';
     * Cette classe permet de gérer les produits
 
 */
-class ProductModel extends CI_Model {
-
-    // Constructeur
-    function __construct() {
-        parent::__construct();
-    }
+class ProductModel extends CI_Model
+{
 
     /*
     
@@ -27,7 +23,8 @@ class ProductModel extends CI_Model {
         * Cette fonction permet de récupérer l'id du sport
     
     */
-    function findIdBySport(string $sport) : int {
+    public function findIdBySport(string $sport) : int
+    {
 
         // * Requete SQL pour récupérer l'id du sport
         $queryIdSport = $this->db->query("Call getIdSport('".$sport."')");
@@ -36,7 +33,7 @@ class ProductModel extends CI_Model {
         $idSport = (int) $queryIdSport->row()->nusport;
 
         // * On passe l'id du sport en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
-        $queryIdSport->next_result(); 
+        $queryIdSport->next_result();
         $queryIdSport->free_result();
 
         // * On retourne l'id du sport
@@ -55,7 +52,8 @@ class ProductModel extends CI_Model {
         * du sport
     
     */
-    function findNameSportbyId(int $sport) : String {
+    public function findNameSportbyId(int $sport) : String
+    {
 
         // * Requete SQL pour récupérer le nom du sport
         $queryIdSport = $this->db->query("Call getNameSport('".$sport."')");
@@ -64,7 +62,7 @@ class ProductModel extends CI_Model {
         $idSport = $queryIdSport->row()->nom;
 
         // * On passe le nom du sport en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
-        $queryIdSport->next_result(); 
+        $queryIdSport->next_result();
         $queryIdSport->free_result();
 
         // * On retourne le nom du sport
@@ -82,7 +80,8 @@ class ProductModel extends CI_Model {
         * Cette fonction permet de savoir si un produit a du stock
     
     */
-    function heHaveAStockById(int $idProduct) : bool {
+    public function heHaveAStockById(int $idProduct) : bool
+    {
 
         // * Requete SQL pour récupérer le stock du produit
         $queryStock = $this->db->query("Call getStockTotal('".$idProduct."')");
@@ -91,15 +90,16 @@ class ProductModel extends CI_Model {
         $stock = (int) $queryStock->row()->stock;
 
         // * On passe le stock du produit en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
-        $queryStock->next_result(); 
+        $queryStock->next_result();
         $queryStock->free_result();
 
         // * Si il n'y a pas de stock, on retourne false sinon true
-        if($stock > 0){
+        if ($stock > 0) {
+
             return true;
-        }else{
-            return false;
+
         }
+        return false;
     }
 
     /*
@@ -112,7 +112,8 @@ class ProductModel extends CI_Model {
         * Cette fonction permet de récupérer le stock d'un produit
     
     */
-    function getStock(int $idProduct){
+    public function getStock(int $idProduct)
+    {
 
         // * Requete SQL pour récupérer le stock du produit
         $queryStock = $this->db->query("Call getStock(".$idProduct.")");
@@ -122,7 +123,7 @@ class ProductModel extends CI_Model {
 
 
         // * On passe le stock du produit en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
-        $queryStock->next_result(); 
+        $queryStock->next_result();
         $queryStock->free_result();
 
         // * On retourne le stock du produit
@@ -140,7 +141,8 @@ class ProductModel extends CI_Model {
         * Cette fonction permet de récupérer le stock total d'un produit
     
     */
-    function getStockTotal(int $idProduct){
+    public function getStockTotal(int $idProduct)
+    {
 
         // * Requete SQL pour récupérer le stock du produit
         $queryStock = $this->db->query("Call getStockTotal(".$idProduct.")");
@@ -149,7 +151,7 @@ class ProductModel extends CI_Model {
         $stock = (int) $queryStock->row()->total;
 
         // * On passe le stock du produit en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
-        $queryStock->next_result(); 
+        $queryStock->next_result();
         $queryStock->free_result();
 
         // * On retourne le stock du produit
@@ -168,7 +170,8 @@ class ProductModel extends CI_Model {
         * Retourne les produits d'un sport et d'un type
     
     */
-    function findBySportType(string $sport, string $type) : array {
+    public function findBySportType(string $sport, string $type) : array
+    {
 
 
         // * Initialisation du tableau de retour
@@ -190,21 +193,21 @@ class ProductModel extends CI_Model {
             $newProduct = new ProductEntity();
 
             // * On hydrate l'objet
-            $newProduct->set_Id($product->idproduit);
-            $newProduct->set_Reference($product->reference);
-            $newProduct->set_Type($product->type);
-            $newProduct->set_Sport($product->nusport);
-            $newProduct->set_Brand($product->marque);
-            $newProduct->set_Name($product->nom);
-            $newProduct->set_Genre($product->genre);
-            $newProduct->set_Price($product->prix);
-            $newProduct->set_Description($product->description);
+            $newProduct->setId($product->idproduit);
+            $newProduct->setReference($product->reference);
+            $newProduct->setType($product->type);
+            $newProduct->setSport($product->nusport);
+            $newProduct->setBrand($product->marque);
+            $newProduct->setName($product->nom);
+            $newProduct->setGenre($product->genre);
+            $newProduct->setPrice($product->prix);
+            $newProduct->setDescription($product->description);
 
             // * On ajoute une image de couverture si une image est fournie
             if ($product->image != null) {
-                $newProduct->set_Image($product->image);
-            }else{
-                $newProduct->set_Image("");
+                $newProduct->setImage($product->image);
+            } else {
+                $newProduct->setImage("");
             }
 
             //$newProduct->set_Stock($this->getStock($product->idproduit));
@@ -229,7 +232,8 @@ class ProductModel extends CI_Model {
         * Retourne un produit par son id
     
     */
-    function findById(int $idProduct) : ?ProductEntity {
+    public function findById(int $idProduct) : ?ProductEntity
+    {
 
         // * Requete SQL pour récupérer le produit par son id
         $queryProduct = $this->db->query("Call getProductById(".$idProduct.")");
@@ -238,7 +242,7 @@ class ProductModel extends CI_Model {
         $product = $queryProduct->row();
 
         // * On crée un objet ProductEntity
-        $queryProduct->next_result(); 
+        $queryProduct->next_result();
         $queryProduct->free_result();
 
         // * On vérifie que le produit n'est pas nul
@@ -248,21 +252,21 @@ class ProductModel extends CI_Model {
             $newProduct = new ProductEntity();
 
             // * On hydrate l'objet
-            $newProduct->set_Id($product->idproduit);
-            $newProduct->set_Reference($product->reference);
-            $newProduct->set_Type($product->type);
-            $newProduct->set_Sport($product->nusport);
-            $newProduct->set_Brand($product->marque);
-            $newProduct->set_Name($product->nom);
-            $newProduct->set_Genre($product->genre);
-            $newProduct->set_Price($product->prix);
-            $newProduct->set_Description($product->description);
+            $newProduct->setId($product->idproduit);
+            $newProduct->setReference($product->reference);
+            $newProduct->setType($product->type);
+            $newProduct->setSport($product->nusport);
+            $newProduct->setBrand($product->marque);
+            $newProduct->setName($product->nom);
+            $newProduct->setGenre($product->genre);
+            $newProduct->setPrice($product->prix);
+            $newProduct->setDescription($product->description);
 
             // * On ajoute une image de couverture si une image est fournie
             if ($product->image != null) {
-                $newProduct->set_Image($product->image);
-            }else{
-                $newProduct->set_Image("");
+                $newProduct->setImage($product->image);
+            } else {
+                $newProduct->setImage("");
             }
 
             //$newProduct->set_Stock($this->getStock($product->idproduit));
@@ -270,12 +274,11 @@ class ProductModel extends CI_Model {
             // * On retourne l'objet
             return $newProduct;
 
-        }else{
+        } else {
 
             // * On retourne null
             return null;
+
         }
-
     }
-
 }

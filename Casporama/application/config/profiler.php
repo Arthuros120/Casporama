@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') || exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -9,6 +9,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | data are displayed when the Profiler is enabled.
 | Please see the user guide for info:
 |
-|	https://codeigniter.com/userguide3/general/profiling.html
+|   https://codeigniter.com/userguide3/general/profiling.html
 |
 */

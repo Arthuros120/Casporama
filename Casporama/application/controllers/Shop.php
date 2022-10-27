@@ -125,7 +125,8 @@ class Shop extends CI_Controller
             // * et on les stock dans une variable
             $listProduct = $this->ProductModel->findBySportType($sport, $catProduct);
 
-            // * On récupère les donnée affilié au vues et on le stock dans des variable qui seront utilisé dans les vues.
+            // * On récupère les donnée affilié au vues et on le stock
+            // * dans des variable qui seront utilisé dans les vues.
             $dataHead['sport'] = $sport;
             $dataHeader['sport'] = $sport;
             $dataContent['listProduct'] = $listProduct;
@@ -176,13 +177,14 @@ class Shop extends CI_Controller
         if ($product != null) {
 
             // * On récupère le sport du produit et on le stock dans dans une variable pour la vue.
-            $sport = $this->ProductModel->findNameSportbyId($product->get_Sport());
+            $sport = $this->ProductModel->findNameSportbyId($product->getSport());
 
             // $stock = $this->ProductModel->getStock($idProduct);
 
             // var_dump($stock);
 
-            // * On récupère les donnée affilié au vues et on le stock dans des variable qui seront utilisé dans les vues.
+            // * On récupère les donnée affilié au vues et on le stock
+            // * dans des variable qui seront utilisé dans les vues.
             $dataHead['sport'] = $sport;
             $dataHeader['sport'] = $sport;
             $dataContent['product'] = $product;

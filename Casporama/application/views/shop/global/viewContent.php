@@ -13,16 +13,19 @@
             <ul class="product">
                 <?php foreach ($listProduct as $product):?>
                 <li class="card">
-                    <a class="product_card" href="<?= base_url('shop/product/'.$product->get_id()) ?>">
+                    <a class="product_card" href="<?= base_url('shop/product/'.$product->getId()) ?>">
                         <div class="oneProduct">
                             <div class="img">
-                                <img src=<?= $product->get_cover() ?>>      
+                                <img
+                                alt="Image du produit"
+                                src=<?= $product->getCover() ?>
+                                >
                             </div>
                         </div>
                         <div class="desc">
-                            <h1><?= $product->get_Name() ?></h1>
-                            <p><?= $product->get_brand() ?></p>
-                            <p><?= $product->get_price() ?>€</p>
+                            <h1><?= $product->getName() ?></h1>
+                            <p><?= $product->getBrand() ?></p>
+                            <p><?= $product->getPrice() ?>€</p>
                         </div>
                     </a>
                 </li>

@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') || exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -51,12 +51,12 @@ $autoload['packages'] = array();
 |
 | Prototype:
 |
-|	$autoload['libraries'] = array('database', 'email', 'session');
+|    $autoload['libraries'] = array('database', 'email', 'session');
 |
 | You can also supply an alternative library name to be assigned
 | in the controller:
 |
-|	$autoload['libraries'] = array('user_agent' => 'ua');
+|    $autoload['libraries'] = array('user_agent' => 'ua');
 */
 /*
     * Dev :
@@ -78,12 +78,12 @@ $autoload['libraries'] = array('database', 'session', 'form_validation');
 |
 | Prototype:
 |
-|	$autoload['drivers'] = array('cache');
+|    $autoload['drivers'] = array('cache');
 |
 | You can also supply an alternative property name to be assigned in
 | the controller:
 |
-|	$autoload['drivers'] = array('cache' => 'cch');
+|    $autoload['drivers'] = array('cache' => 'cch');
 |
 */
 $autoload['drivers'] = array();
@@ -94,11 +94,11 @@ $autoload['drivers'] = array();
 | -------------------------------------------------------------------
 | Prototype:
 |
-|	$autoload['helper'] = array('url', 'file');
+|    $autoload['helper'] = array('url', 'file');
 */
 /*
 
- * Dev: 
+ * Dev:
  *  J'ajoute le helper url pour pouvoir utiliser les fonctions de redirection et de base_url
  *  J'ajoute le helper form pour pouvoir utiliser les fonctions de création de formulaire
  *  J'ajoute le helper cookie pour pouvoir utiliser les fonctions de gestion des cookies
@@ -114,7 +114,7 @@ $autoload['helper'] = array('url', 'form', 'cookie', 'file');
 | -------------------------------------------------------------------
 | Prototype:
 |
-|	$autoload['config'] = array('config1', 'config2');
+|    $autoload['config'] = array('config1', 'config2');
 |
 | NOTE: This item is intended for use ONLY if you have created custom
 | config files.  Otherwise, leave it blank.
@@ -128,7 +128,7 @@ $autoload['config'] = array();
 | -------------------------------------------------------------------
 | Prototype:
 |
-|	$autoload['language'] = array('lang1', 'lang2');
+|    $autoload['language'] = array('lang1', 'lang2');
 |
 | NOTE: Do not include the "_lang" part of your file.  For example
 | "codeigniter_lang.php" would be referenced as array('codeigniter');
@@ -142,24 +142,24 @@ $autoload['language'] = array();
 | -------------------------------------------------------------------
 | Prototype:
 |
-|	$autoload['model'] = array('first_model', 'second_model');
+|    $autoload['model'] = array('first_model', 'second_model');
 |
 | You can also supply an alternative model name to be assigned
 | in the controller:
 |
-|	$autoload['model'] = array('first_model' => 'first');
+|    $autoload['model'] = array('first_model' => 'first');
 */
 /*
 
-    * Dev: 
+    * Dev:
     *  J'ajoute le model LoaderView pour pouvoir utiliser la fonction load de ce model qui permet de charger les pages
-    *  via les données stocké dans le fichier Yaml permettant de gérer les pages du site web de manière dynamique et simple,
-    *  cela permet au développeur Frontend de pouvoir modifier les pages sans avoir à toucher au code du site web cela réduit donc
-    *  les risques de bugs et permet de gagner du temps.
-
-    *  J'ajoute le model UtilView pour pouvoir utiliser la fonction generateLoadView qui permet de générer le code html de la page
-    *  de manière dynamique et simple, cela permet au développeur Frontend de pouvoir modifier les pages en touchant très peut au code,
-    *  cette fonction est néccesaire car elle s'adapte au lien personalisé de la page et permet de charger les données de la page.
+    *  via les données stocké dans le fichier Yaml permettant de gérer les pages du site web de manière dynamique
+    *  et simple, cela permet au développeur Frontend de pouvoir modifier les pages sans avoir à toucher au code
+    *  du site web cela réduit donc les risques de bugs et permet de gagner du temps.
+    *  J'ajoute le model UtilView pour pouvoir utiliser la fonction generateLoadView qui permet
+    *  de générer le code html de la page de manière dynamique et simple, cela permet au développeur Frontend
+    *  de pouvoir modifier les pages en touchant très peut au code, cette fonction est néccesaire car
+    *  elle s'adapte au lien personalisé de la page et permet de charger les données de la page.
 
 */
 $autoload['model'] = array('utilities/UtilView', 'utilities/LoaderView');

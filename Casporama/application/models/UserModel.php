@@ -10,12 +10,8 @@ require_once APPPATH . 'models/entity/UserEntity.php';
     * Cette classe permet de gérer les utilisateurs
 
 */
-class UserModel extends CI_Model {
-
-    // * Initialisation de la Class UserModel
-    function __construct() {
-        parent::__construct();
-    }
+class UserModel extends CI_Model
+{
 
     /*
     
@@ -29,7 +25,8 @@ class UserModel extends CI_Model {
         @return: boolean
     
     */
-    public function heHaveUserByLogin(string $login) : Bool {
+    public function heHaveUserByLogin(string $login) : Bool
+    {
 
         // * On récupère l'utilisateur en fonction de son login
         $query = $this->db->query("Call verifyLogin('".$login."')");
@@ -38,7 +35,7 @@ class UserModel extends CI_Model {
         $user = $query->row();
 
         // * On attend un résultat
-        $query->next_result(); 
+        $query->next_result();
         $query->free_result();
 
         // * On retourne le résultat
@@ -46,11 +43,9 @@ class UserModel extends CI_Model {
 
             return true;
         
-        } else {
-
-            return false;
-
         }
+
+        return false;
     }
 
     /*
@@ -64,7 +59,8 @@ class UserModel extends CI_Model {
         @return: ?UserEntity
     
     */
-    public function getUserByLogin(string $login) : ?UserEntity {
+    public function getUserByLogin(string $login) : ?UserEntity
+    {
 
         // * On récupère l'utilisateur en fonction de son login
         $query = $this->db->query("Call getUserByLogin('".$login."')");
@@ -73,15 +69,15 @@ class UserModel extends CI_Model {
         $id = $query->row()->id;
 
         // * On atternd un résultat
-        $query->next_result(); 
+        $query->next_result();
         $query->free_result();
 
         // * On retourne l'utilisateur
-        if(isset($id)){
+        if (isset($id)) {
 
             $user = new UserEntity();
-            $user->set_login($login);
-            $user->set_id($id);
+            $user->setLogin($login);
+            $user->setId($id);
 
             return $user;
 
@@ -103,7 +99,8 @@ class UserModel extends CI_Model {
         @return: ?string
     
     */
-    public function getStatusById(int $id) : ?string {
+    public function getStatusById(int $id) : ?string
+    {
 
         // * On récupère le status de l'utilisateur en fonction de son id
         $query = $this->db->query("Call getStatusById('".$id."')");
@@ -112,11 +109,11 @@ class UserModel extends CI_Model {
         $status = $query->row()->status;
 
         // * On attend un résultat
-        $query->next_result(); 
+        $query->next_result();
         $query->free_result();
 
         // * On retourne le résultat
-        if(isset($status)){
+        if (isset($status)) {
 
             return $status;
 
@@ -139,27 +136,25 @@ class UserModel extends CI_Model {
         @return: boolean
     
     */
-    public function password_check(string $password, UserEntity $user) : Bool {
+    public function passwordCheck(string $password, UserEntity $user) : Bool
+    {
 
         // * On récupère le mot de passe hasher de l'utilisateur en fonction de son login
-        $query = $this->db->query("Call getPasswordById('".$user->get_id()."')");
+        $query = $this->db->query("Call getPasswordById('".$user->getId()."')");
 
         // * On récupère le mot de passe hasher et le salt
         $salt = $query->row()->salt;
         $hash = $query->row()->password;
 
         // * On attend un résultat
-        $query->next_result(); 
+        $query->next_result();
         $query->free_result();
 
-        // * On vérifie si le mot de passe et le salt existe
-        if(isset($salt) && isset($password)){
+        // * On vérifie si le mot de passe et le salt existe et
+        // * on vérifie si le mot de passe est correct
+        if (isset($salt) && isset($password) && (password_verify($password . $salt, $hash))) {
 
-            // * On vérifie si le mot de passe est correct
-            if(password_verify($password . $salt, $hash)){
-
-                return true;
-            }
+            return true;
 
         }
 
@@ -178,20 +173,21 @@ class UserModel extends CI_Model {
         @return: void
         
     */
-    public function setUserCookie(UserEntity $user) {
+    public function setUserCookie(UserEntity $user)
+    {
 
         // * On initialise le cookieId
-        $user->set_cookieCheck();
+        $user->setCookieCheck();
 
         // * On récupère le cookieId
-        $query = $this->db->query("Call setCookieId('" . $user->get_cookieCheck() . "', '" . $user->get_id() . "')");
+        $query = $this->db->query("Call setCookieId('" . $user->getCookieCheck() . "', '" . $user->getId() . "')");
 
         // * On attend un résultat
-        $query->next_result(); 
+        $query->next_result();
         $query->free_result();
 
         // * On crée la donné pour le cookie
-        $cookieValueString = $user->get_id() . '|' . $user->get_cookieCheck() . '|' . $user->get_status();
+        $cookieValueString = $user->getId() . '|' . $user->getCookieCheck() . '|' . $user->getStatus();
 
         // * On crée le cookie
         $cookieSettings = array(
@@ -217,7 +213,8 @@ class UserModel extends CI_Model {
     
     */
 
-    public function getUserByCookie() : ?UserEntity{
+    public function getUserByCookie() : ?UserEntity
+    {
 
         //TODO: A faire
 
@@ -234,11 +231,12 @@ class UserModel extends CI_Model {
         @param: $UserEntity
     
     */
-    public function unsetUserCookie(UserEntity $user) {
+    public function unsetUserCookie(UserEntity $user)
+    {
 
-        if($this->input->cookie('user') != null){
+        if ($this->input->cookie('user') != null) {
 
-            $query = $this->db->query("Call delCookieId('" . $user->get_id() . "')");
+            $query = $this->db->query("Call delCookieId('" . $user->getId() . "')");
             $query->next_result();
             
             // * On supprime le cookie
@@ -256,10 +254,11 @@ class UserModel extends CI_Model {
         @param: $cookie
     
     */
-    public function setUserSession(UserEntity $user) {
+    public function setUserSession(UserEntity $user)
+    {
 
         // * On crée la donné pour la session
-        $sessionValueString = $user->get_id() . '|' . $user->get_status();
+        $sessionValueString = $user->getId() . '|' . $user->getStatus();
 
         // * On crée la session
         $this->session->set_userdata('user', $sessionValueString);
@@ -275,24 +274,25 @@ class UserModel extends CI_Model {
         @return: ?UserEntity
     
     */
-    public function getUserBySession() : ?UserEntity {
+    public function getUserBySession() : ?UserEntity
+    {
 
         // * On récupère la session
         $session = $this->session->userdata('user');
 
         // * On vérifie si la session existe
-        if(isset($session)){
+        if (isset($session)) {
 
             // * On récupère les données de la session
             $sessionData = explode('|', $session);
 
             // * On vérifie si les données de la session sont correct
-            if(isset($sessionData[0]) && isset($sessionData[1])){
+            if (isset($sessionData[0]) && isset($sessionData[1])) {
 
                 // * On crée l'utilisateur
                 $user = new UserEntity();
-                $user->set_id($sessionData[0]);
-                $user->set_status($sessionData[1]);
+                $user->setId($sessionData[0]);
+                $user->setStatus($sessionData[1]);
 
                 // * On retourne l'utilisateur
                 return $user;
@@ -312,12 +312,11 @@ class UserModel extends CI_Model {
         * Cette méthode permet de supprimer la session de l'utilisateur
     
     */
-    public function unsetUserSession(){
+    public function unsetUserSession()
+    {
 
         // * On supprime la session
         $this->session->unset_userdata('user');
 
     }
-
-
 }

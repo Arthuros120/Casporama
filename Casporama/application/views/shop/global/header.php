@@ -15,8 +15,25 @@
                     <hr>
                 </div>
 
-                <li class="icon"><a class="list_icon" href="<?= base_url("/User/panier")?>"><img src="<?php echo base_url() ?>static/image/shop.png"/></a></li>
-                <li class="icon"><a class="list_icon" href="<?= base_url("/User/login")?>"><img src="<?php echo base_url() ?>static/image/account.png"/></a></li>
+                <li
+                class="icon"
+                ><a
+                class="list_icon"
+                href="<?= base_url("/User/panier")?>"
+                ><img
+                src="<?php echo base_url() ?>static/image/shop.png"
+                alt="Icone de panier"
+                /></a>
+                </li>
+                <li
+                class="icon"
+                ><a
+                class="list_icon"
+                href="<?= base_url("/User/login")?>"
+                ><img
+                src="<?php echo base_url() ?>static/image/account.png"
+                alt="Icone de compte"
+                /></a></li>
             </ul>
         </div>
     </nav>

@@ -1,6 +1,6 @@
 <!-- user/login/success/successContent -->
 
-<h1> Bonjour <?= $user->get_login() ?></h1>
+<h1> Bonjour <?= $user->getLogin() ?></h1>
 
 <div class="loadingio-spinner-cube-oepgmquqacj"><div class="ldio-2udsc5nic6w">
 <div></div><div></div><div></div><div></div>

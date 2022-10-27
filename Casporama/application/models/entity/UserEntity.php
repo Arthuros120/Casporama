@@ -11,7 +11,8 @@ require_once APPPATH . 'models/entity/LocalisationEntity.php';
     * Cette classe représente une entité de la table user
 
 */
-class UserEntity {
+class UserEntity
+{
 
     private int $id;
 
@@ -20,19 +21,20 @@ class UserEntity {
     
     private string $status;
 
-    private LocalisationEntity $Localisation;
+    private LocalisationEntity $localisation;
     private CoordonneesEntity $coordonnees;
 
     /*
     
-        * Function get_id
+        * Function getId
     
         @return int
     
         * Cette fonction retourne l'id de l'entité
     
     */
-    public function get_id() : int {
+    public function getId() : int
+    {
 
         return $this->id;
 
@@ -40,14 +42,15 @@ class UserEntity {
 
     /*
     
-        * Function set_id
+        * Function setId
     
         @param int $id
     
         * Cette fonction modifie l'id de l'entité
     
     */
-    public function set_id(int $id){
+    public function setId(int $id)
+    {
 
         $this->id = $id;
 
@@ -55,14 +58,15 @@ class UserEntity {
 
     /*
     
-        * Function get_login
+        * Function getLogin
     
         @return string
     
         * Cette fonction retourne le login de l'entité
     
     */
-    public function get_login() : string {
+    public function getLogin() : string
+    {
 
         return $this->login;
 
@@ -70,14 +74,15 @@ class UserEntity {
 
     /*
     
-        * Function set_login
+        * Function setLogin
     
         @param string $login
     
         * Cette fonction modifie le login de l'entité
     
     */
-    public function set_login(string $login){
+    public function setLogin(string $login)
+    {
 
         $this->login = $login;
 
@@ -85,14 +90,15 @@ class UserEntity {
 
     /*
     
-        * Function get_cookieCheck
+        * Function getCookieCheck
     
         @return string
     
         * Cette fonction retourne le cookieCheck de l'entité
     
     */
-    public function get_cookieCheck() : string {
+    public function getCookieCheck() : string
+    {
 
         return $this->cookieCheck;
 
@@ -100,14 +106,15 @@ class UserEntity {
 
     /*
     
-        * Function set_cookieCheck
+        * Function setCookieCheck
     
         @param string $cookieCheck
     
         * Cette fonction modifie le cookieCheck de l'entité
     
     */
-    public function set_cookieCheck() {
+    public function setCookieCheck()
+    {
 
         $this->cookieCheck = $this->generateCookieCheck();
     
@@ -115,14 +122,15 @@ class UserEntity {
 
     /*
     
-        * Function get_status
+        * Function getStatus
     
         @return string
     
         * Cette fonction retourne le status de l'entité
     
     */
-    public function get_status() : string {
+    public function getStatus() : string
+    {
 
         return $this->status;
 
@@ -130,14 +138,15 @@ class UserEntity {
 
     /*
     
-        * Function set_status
+        * Function setStatus
     
         @param string $status
     
         * Cette fonction modifie le status de l'entité
     
     */
-    public function set_status(string $status){
+    public function setStatus(string $status)
+    {
 
         $this->status = $status;
 
@@ -145,44 +154,47 @@ class UserEntity {
 
     /*
     
-        * Function get_Localisation
+        * Function getLocalisation
     
         @return LocalisationEntity
     
         * Cette fonction retourne la localisation de l'entité
     
     */
-    public function get_Localisation() : LocalisationEntity {
+    public function getLocalisation() : LocalisationEntity
+    {
 
-        return $this->Localisation;
+        return $this->localisation;
 
     }
 
     /*
     
-        * Function set_Localisation
+        * Function setLocalisation
     
         @param LocalisationEntity $Localisation
     
         * Cette fonction modifie la localisation de l'entité
     
     */
-    public function set_Localisation(LocalisationEntity $Localisation){
+    public function setLocalisation(LocalisationEntity $localisation)
+    {
 
-        $this->Localisation = $Localisation;
+        $this->localisation = $localisation;
 
     }
 
     /*
     
-        * Function get_coordonnees
+        * Function getCoordonnees
     
         @return CoordonneesEntity
     
         * Cette fonction retourne les coordonnées de l'entité
     
     */
-    public function get_coordonnees() : CoordonneesEntity {
+    public function getCoordonnees() : CoordonneesEntity
+    {
 
         return $this->coordonnees;
 
@@ -190,14 +202,15 @@ class UserEntity {
 
     /*
     
-        * Function set_coordonnees
+        * Function setCoordonnees
     
         @param CoordonneesEntity $coordonnees
     
         * Cette fonction modifie les coordonnées de l'entité
     
     */
-    public function set_coordonnees(CoordonneesEntity $coordonnees){
+    public function setCoordonnees(CoordonneesEntity $coordonnees)
+    {
 
         $this->coordonnees = $coordonnees;
 
@@ -212,7 +225,8 @@ class UserEntity {
         * Cette fonction génère un cookieCheck (CookieId)
     
     */
-    public function generateCookieCheck() : string {
+    public function generateCookieCheck() : string
+    {
 
         $cookieCheck = uniqid(mt_rand(), true);
 

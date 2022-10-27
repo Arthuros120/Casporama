@@ -7,7 +7,8 @@
     * Cette classe représente une entité de la table coordonnees
 
 */
-class CoordonneesEntity {
+class CoordonneesEntity
+{
 
     private int $id;
 
@@ -20,14 +21,15 @@ class CoordonneesEntity {
 
     /*
 
-        * Function get_id
+        * Function getId
 
         @return int
 
         * Cette fonction retourne l'id de l'entité
 
     */
-    public function get_id() : int {
+    public function getId() : int
+    {
 
         return $this->id;
 
@@ -35,14 +37,15 @@ class CoordonneesEntity {
 
     /*
 
-        * Function set_id
+        * Function setId
 
         @param int $id
 
         * Cette fonction modifie l'id de l'entité
 
     */
-    public function set_id(int $id){
+    public function setId(int $id)
+    {
 
         $this->id = $id;
 
@@ -50,14 +53,15 @@ class CoordonneesEntity {
 
     /*
 
-        * Function get_prenom
+        * Function getPrenom
 
         @return string
 
         * Cette fonction retourne le prénom de l'entité
 
     */
-    public function get_prenom() : string {
+    public function getPrenom() : string
+    {
 
         return $this->prenom;
 
@@ -65,15 +69,16 @@ class CoordonneesEntity {
 
     /*
 
-        * Function set_prenom
+        * Function setPrenom
 
         @param string $prenom
 
-        * Cette fonction modifie le prénom de l'entité 
+        * Cette fonction modifie le prénom de l'entité
         * en ajoutant automatiquement une majuscule au début
 
     */
-    public function set_prenom(string $prenom){
+    public function setPrenom(string $prenom)
+    {
 
         $this->prenom = ucfirst($prenom);
 
@@ -81,14 +86,15 @@ class CoordonneesEntity {
 
     /*
 
-        * Function get_nom
+        * Function getNom
 
         @return string
 
         * Cette fonction retourne le nom de l'entité
 
     */
-    public function get_nom() : string {
+    public function getNom() : string
+    {
 
         return $this->nom;
 
@@ -96,7 +102,7 @@ class CoordonneesEntity {
 
     /*
 
-        * Function set_nom
+        * Function setNom
 
         @param string $nom
 
@@ -104,7 +110,8 @@ class CoordonneesEntity {
         * en ajoutant automatiquement une majuscule au début
 
     */
-    public function set_nom(string $nom){
+    public function setNom(string $nom)
+    {
 
         $this->nom = ucfirst($nom);
 
@@ -112,14 +119,15 @@ class CoordonneesEntity {
 
     /*
 
-        * Function get_telephone
+        * Function getTelephone
 
         @return string
 
         * Cette fonction retourne le téléphone de l'entité
 
     */
-    public function get_telephone() : string {
+    public function getTelephone() : string
+    {
 
         return $this->telephone;
 
@@ -127,7 +135,7 @@ class CoordonneesEntity {
 
     /*
 
-        * Function set_telephone
+        * Function setTelephone
 
         @param string $telephone
 
@@ -135,7 +143,8 @@ class CoordonneesEntity {
         * en ajoutant automatiquement un 0 au début
 
     */
-    public function set_telephone(string $telephone){
+    public function setTelephone(string $telephone)
+    {
 
         $this->telephone = "0" . $telephone;
 
@@ -143,14 +152,15 @@ class CoordonneesEntity {
 
     /*
 
-        * Function get_email
+        * Function getEmail
 
         @return string
 
         * Cette fonction retourne l'email de l'entité
 
     */
-    public function get_email() : string {
+    public function getEmail() : string
+    {
 
         return $this->email;
 
@@ -158,14 +168,15 @@ class CoordonneesEntity {
 
     /*
 
-        * Function set_email
+        * Function setEmail
 
         @param string $email
 
         * Cette fonction modifie l'email de l'entité
 
     */
-    public function set_email(string $email){
+    public function setEmail(string $email)
+    {
 
         $this->email = $email;
 
@@ -173,14 +184,15 @@ class CoordonneesEntity {
 
     /*
 
-        * Function get_fixe
+        * Function getFixe
 
         @return string
 
         * Cette fonction retourne le fixe de l'entité
 
     */
-    public function get_fixe() : string {
+    public function getFixe() : string
+    {
 
         return $this->fixe;
 
@@ -188,7 +200,7 @@ class CoordonneesEntity {
 
     /*
 
-        * Function set_fixe
+        * Function setFixe
 
         @param string $fixe
 
@@ -196,7 +208,8 @@ class CoordonneesEntity {
         * en ajoutant automatiquement un 0 au début
 
     */
-    public function set_fixe(int $fixe){
+    public function setFixe(int $fixe)
+    {
 
         $this->fixe = "0" . (string) $fixe;
 
