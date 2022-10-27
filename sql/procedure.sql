@@ -1,3 +1,5 @@
+use Casporama;
+
 #---------- Select ----------------
 
 create procedure getProductBySport(IN sport integer)
@@ -56,9 +58,21 @@ create procedure verifyLogin(IN loginSearch VARCHAR(255))
         select login from utilisateur where loginSearch = login;
     end;
 
+-- verify que email existe dans la base de données
+create procedure verifyEmail(IN mailSearch VARCHAR(255))
+    begin
+        select login from utilisateur where id in (select id from coordonnees where mailSearch = coordonnees.mail);
+    end;
+
 create procedure getUserByLogin(IN loginSearch VARCHAR(255))
     begin
         select login, id from utilisateur where login = loginSearch;
+    end;
+
+-- récupère l'id et l'email de l'utilisateur à partir de son email
+create procedure getUserByEmail(IN mailSearch VARCHAR(255))
+    begin
+        select login, id from utilisateur where id in (select id from coordonnees where mailSearch = coordonnees.mail);
     end;
 
 create procedure getPasswordById(IN idSearch VARCHAR(255))

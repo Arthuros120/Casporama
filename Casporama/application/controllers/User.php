@@ -10,7 +10,7 @@ defined('BASEPATH') || exit('No direct script access allowed');
     @method: logout
     TODO: @method: register
     @mehod: home
-    @mehod: usernameCheckByLogin
+    @mehod: CheckTheLogin
 
     * Ce controller permet de gérer les pages de connexion et de déconnexion
     * et tout ce qui touche à l'utilisateur.
@@ -41,7 +41,6 @@ class User extends CI_Controller
         * et en créant une session pour l'utilisateur et un cookie si l'utilisateur le souhaite.
         * Si l'utilisateur est déjà connecté, il est redirigé vers la page d'accueil
 
-        TODO: Ajouter la possiblitée de se connecter avec son email
         TODO: Verifié chaque ligne surtout la configuration du formulaire
     
     */
@@ -71,7 +70,7 @@ class User extends CI_Controller
                     'field' => 'login',
                     'label' => 'Login',
                     // * On vérifie que le login existe et que il correspond au contraite de la base de données
-                    'rules' => 'required|min_length[5]|max_length[255]|callback_usernameCheckByLogin',
+                    'rules' => 'required|min_length[5]|max_length[255]|callback_CheckTheLogin',
                     'errors' => array( // * On définit les messages d'erreurs
                         'required' => 'Vous avez oublié %s.',
                         "min_length[5]" => "Le %s doit faire au moins 5 caractères",
@@ -117,7 +116,7 @@ class User extends CI_Controller
         } else {
 
             // * On récupere les données utilisateur par le login
-            $user = $this->UserModel->getUserByLogin($this->input->post('login'));
+            $user = $this->UserModel->getUserByLoginOrEmail($this->input->post('login'));
 
             // * On vérifie que l'utilisateur existe
             if ($user != null) {
@@ -231,10 +230,11 @@ class User extends CI_Controller
 
     /*
 
-        * usernameCheckByLogin
+        * CheckTheLogin
 
         * Fonction de verification de l'existence d'un utilisateur
         * Cette fonction permet de vérifier si un utilisateur existe
+        * en fonction de son login ou de son email
 
         @returns boolean
 
@@ -243,14 +243,27 @@ class User extends CI_Controller
         ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
 
     */
-    public function usernameCheckByLogin(string $strLogin) : bool
+    public function CheckTheLogin(string $strLogin) : bool
     {
-            
+    
+        // * On regarde si dans la variable string il y a un @ et un .
+        if (stristr($strLogin, '@') && stristr($strLogin, '.')) {
+
+            // * On vérifie que l'email existe
+            $userExist = $this->UserModel->heHaveUserByEmail($strLogin);
+
+        } else {
+
+            // * On vérifie que le login existe
+            $userExist = $this->UserModel->heHaveUserByLogin($strLogin);
+
+        }
+
         // * On vérifie que le login de l'utilisteur existe
-        if (!$this->UserModel->heHaveUserByLogin($strLogin)) {
+        if (!$userExist) {
             
             // * On retourne une erreur
-            $this->form_validation->set_message('usernameCheckByLogin', 'Votre login n\'existe pas !');
+            $this->form_validation->set_message('CheckTheLogin', 'Votre login n\'existe pas !');
 
             return false;
 

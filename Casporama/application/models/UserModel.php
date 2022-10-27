@@ -50,6 +50,69 @@ class UserModel extends CI_Model
 
     /*
     
+        * heHaveUserByEmail
+    
+        * Cette méthode permet de vérifier si un utilisateur existe dans la base de données
+        * en fonction de son email
+    
+        @param: $login
+    
+        @return: boolean
+    
+    */
+    public function heHaveUserByEmail(string $email) : Bool
+    {
+
+        // * On récupère l'utilisateur en fonction de son email
+        $query = $this->db->query("Call verifyEmail('".$email."')");
+
+        // * On vérifie si l'utilisateur existe
+        $user = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne le résultat
+        if (isset($user->login)) {
+
+            return true;
+        
+        }
+
+        return false;
+    }
+
+    /*
+    
+        * getUserByLoginOrEmail
+    
+        * Cette méthode choisie la bonne requête en fonction du paramètre
+    
+        @param: $strLogin
+    
+        @return: ?UserEntity
+    
+    */
+    public function getUserByLoginOrEmail(string $strLogin) : ?UserEntity
+    {
+
+        if (stristr($strLogin, '@') && stristr($strLogin, '.')) {
+
+            $user = $this->getUserByEmail($strLogin);
+
+        } else {
+
+            $user = $this->getUserByLogin($strLogin);
+
+        }
+
+        return $user;
+
+    }
+
+    /*
+    
         * getUserByLogin
     
         * Cette méthode permet de récupérer un utilisateur en fonction de son login
@@ -67,6 +130,46 @@ class UserModel extends CI_Model
 
         // * On vérifie si l'utilisateur existe
         $id = $query->row()->id;
+
+        // * On atternd un résultat
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne l'utilisateur
+        if (isset($id)) {
+
+            $user = new UserEntity();
+            $user->setLogin($login);
+            $user->setId($id);
+
+            return $user;
+
+        }
+
+        return null;
+
+    }
+
+    /*
+    
+        * getUserByEmail
+    
+        * Cette méthode permet de récupérer un utilisateur en fonction de son email
+    
+        @param: $login
+
+        @return: ?UserEntity
+    
+    */
+    public function getUserByEmail(string $email) : ?UserEntity
+    {
+
+        // * On récupère l'utilisateur en fonction de son login
+        $query = $this->db->query("Call getUserByEmail('".$email."')");
+
+        // * On vérifie si l'utilisateur existe
+        $id = $query->row()->id;
+        $login = $query->row()->login;
 
         // * On atternd un résultat
         $query->next_result();

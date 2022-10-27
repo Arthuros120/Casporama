@@ -1,3 +1,5 @@
+use Casporama;
+
 drop table if exists catalogue cascade;
 
 drop table if exists commande cascade;
@@ -60,6 +62,8 @@ drop procedure if exists getStockTotal;
 
 drop procedure if exists getUserByLogin;
 
+drop procedure if exists getUserByEmail;
+
 drop procedure if exists loginMail;
 
 drop procedure if exists orderByPriceAsc;
@@ -89,5 +93,7 @@ drop procedure if exists updateStatus;
 drop procedure if exists updateUtilisateur;
 
 drop procedure if exists verifyLogin;
+
+drop procedure if exists verifyEmail;
 
 drop procedure if exists delCookieId;

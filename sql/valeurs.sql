@@ -1,3 +1,5 @@
+use Casporama;
+
 insert into utilisateur (id, login, password, salt, status)
 values
     (1,'root','$2y$10$MCDgDzmwpaP.JVNIU5zZluM2fgms.ev5i2cOVK5EmEwbcQhamHMYy','117503329635307be4a2976.09876691','Administrateur'), -- CA$torama2022A
@@ -10,6 +12,7 @@ values
 
 insert into coordonnees (id, prenom, nom, mail, mobile, fixe)
 values
+    (2,'Arthur','Hamelin','arthur.hamelin@etu.univ-nantes.fr','0600000000','0200000000'),
     (6,'michel','duponse','duponse@test.com','0602030405','0402030405'),
     (7,'michelle','duponse','michelle@test.com','0602030404','0402030405');
 
