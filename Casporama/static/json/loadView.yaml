@@ -63,9 +63,9 @@ Shop/view :
 Shop/product :
 
     views :
-        head : "shop/view/head"
+        head : "shop/product/head"
         header : "shop/global/header"
-        content : "shop/global/productContent"
+        content : "shop/product/productContent"
         footer : "templates/blank"
 
     baseView : "templates/base"
@@ -73,7 +73,7 @@ Shop/product :
 User/login/error :
 
     views :
-        head : "templates/blank"
+        head : "user/login/error/head"
         header : "templates/blank"
         content : "user/login/loginContent"
         footer : "templates/blank"
@@ -94,7 +94,7 @@ User/login/success :
 User/home:
 
     views :
-        head : "templates/blank"
+        head : "user/home/head"
         header : "templates/blank"
         content : "user/home/homeContent"
         footer : "templates/blank"

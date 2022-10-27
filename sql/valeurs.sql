@@ -50,7 +50,7 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-         '/upload/image/Volleyball/chaussure.png'
+         '/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png'
          ),
     (
         3,
@@ -63,7 +63,7 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-         '/upload/image/Badminton/raquette.jpg'
+         '/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg'
          ),
     (
         4,

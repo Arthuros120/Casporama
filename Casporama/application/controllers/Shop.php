@@ -128,6 +128,7 @@ class Shop extends CI_Controller
             // * On récupère les donnée affilié au vues et on le stock
             // * dans des variable qui seront utilisé dans les vues.
             $dataHead['sport'] = $sport;
+            $dataHead['category'] = $catProduct;
             $dataHeader['sport'] = $sport;
             $dataContent['listProduct'] = $listProduct;
 
@@ -186,6 +187,7 @@ class Shop extends CI_Controller
             // * On récupère les donnée affilié au vues et on le stock
             // * dans des variable qui seront utilisé dans les vues.
             $dataHead['sport'] = $sport;
+            $dataHead['product'] = $product;
             $dataHeader['sport'] = $sport;
             $dataContent['product'] = $product;
 

@@ -1,4 +1,4 @@
-<!-- shop/global/productContent -->
+<!-- shop/product/productContent -->
 
 <div class="productContent">
     <ul class="grid_product">
@@ -46,4 +46,4 @@
 <img src="<?= base_url($product -> getImages()[1]) ?>">
 <?= $product -> getImages()[1] ?> -->
 
-<!-- shop/global/productContent -->
+<!-- shop/product/productContent -->
