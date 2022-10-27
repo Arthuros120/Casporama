@@ -2,10 +2,14 @@ Telecharger le docker
 
 sudo docker pull sonarqube:latest   
 
-Pour lancer le docker 
+Pour initialiser le docker 
 
 sudo docker run -d --name sonarqube -p 9000:9000 sonarqube:latest
 
+Pour lancer le docker
+
+sudo docker start sonarqube
+
 Pour lancer une analyse 
 
-$ sudo docker run --rm --link sonarqube -e SONAR_HOST_URL="http://sonarqube:9000" -e SONAR_LOGIN="squ_2921fe698e9568312622b88b4692ca5c2443d71b" -v "/var/www/html/sae_3/:/usr/src" sonarsource/sonar-scanner-cli
+$ sudo docker run --rm --link sonarqube -e SONAR_HOST_URL="http://sonarqube:9000" -e SONAR_LOGIN="sqp_a6769ea001e437129e8b9906554e24f51d441de5" -v "/var/www/html/sae_3/:/usr/src" sonarsource/sonar-scanner-cli

@@ -42,7 +42,7 @@ class UtilView extends CI_Model
                     // * On charge la vue avec les données
                     $loadView[$key] = $this->load->view($value, $data[$key], true);
 
-                }else{
+                } else {
 
                     // * On charge la vue sans données
                     $loadView[$key] = $this->load->view($value, null, true);

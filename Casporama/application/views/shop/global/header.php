@@ -7,7 +7,9 @@
         </div>
         <div class="right">
             <ul class="list_nav">
-                <li class="text black_text" ><a href="<?= base_url("/Shop/view/" . $sport . "/Vetement") ?>">Vêtements</a></li>
+                <li class="text black_text" >
+                    <a href="<?= base_url("/Shop/view/" . $sport . "/Vetement") ?>">Vêtements</a>
+                </li>
                 <li class="text"><a href="<?= base_url("/Shop/view/" . $sport . "/Chaussure") ?>">Chaussures</a></li>
                 <li class="text"><a href="<?= base_url("/Shop/view/" . $sport . "/Equipement") ?>">Equipement</a></li>
 
