@@ -20,7 +20,7 @@
     height: 81.77px;
     top: 19.15333333333333px;
     left: 19.15333333333333px;
-    background: var(--green3);
+    background: var(--green2);
     animation: ldio-2udsc5nic6w 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
     animation-delay: -0.3s;
 
@@ -29,7 +29,7 @@
 
     top: 19.15333333333333px;
     left: 120.07666666666665px;
-    background: var(--blue3);
+    background: var(--blue2);
     animation-delay: -0.2s;
 
 }
@@ -37,7 +37,7 @@
 
     top: 120.07666666666665px;
     left: 19.15333333333333px;
-    background: var(--red3);
+    background: var(--red2);
     animation-delay: 0s;
 
 }
@@ -45,7 +45,7 @@
 
     top: 120.07666666666665px;
     left: 120.07666666666665px;
-    background: var(--yellow3);
+    background: var(--yellow2);
     animation-delay: -0.1s;
 
 }
