@@ -2,7 +2,7 @@
 
 <div class="foot_content">
     <ul class="grid">
-        <li class="card">
+        <li class="card test">
             <div class="foot_design">
                 <img src="<?php echo base_url()?>static/image/foot_design.png" alt="Dessin de Balon de foot">
             </div>

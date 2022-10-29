@@ -16,10 +16,21 @@
                     <a class="product_card" href="<?= base_url('shop/product/'.$product->getId()) ?>">
                         <div class="oneProduct">
                             <div class="img">
-                                <img
-                                alt="Image du produit"
-                                src=<?= $product->getCover() ?>
-                                >
+                                <img alt="Image du produit" src=<?= $product->getCover() ?>>
+                            </div>
+                        </div>
+                        <div class="desc">
+                            <h1><?= $product->getName() ?></h1>
+                            <p><?= $product->getBrand() ?></p>
+                            <p><?= $product->getPrice() ?>€</p>
+                        </div>
+                    </a>
+                </li>
+                <li class="card">
+                    <a class="product_card" href="<?= base_url('shop/product/'.$product->getId()) ?>">
+                        <div class="oneProduct">
+                            <div class="img">
+                                <img alt="Image du produit" src=<?= $product->getCover() ?>>
                             </div>
                         </div>
                         <div class="desc">

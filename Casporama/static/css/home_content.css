@@ -97,3 +97,15 @@
     font-weight: 600;
     font-size: 100%;
 }
+
+.logo_container {
+    position: absolute;
+    transform: translateX(425%);
+    width: 10%;
+    height: auto;
+}
+
+.round_logo {
+    width: 100%;
+    height: auto;
+}
