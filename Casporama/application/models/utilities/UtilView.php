@@ -74,4 +74,40 @@ class UtilView extends CI_Model
         // * On retourne le tableau de vue
         return $loadView;
     }
+
+    /*
+
+        * Function chooseUserIcon
+
+        @return string
+
+        * Cette fonction permet de retourner l'icone de l'utilisateur
+        * en fonction de sa connection
+
+    */
+    public function chooseUserIcon() : string
+    {
+
+        // * On initialise la variable userIcon avec l'url de base
+        $userIcon = base_url() . "static/image/icon/account_";
+
+
+        // * On vérifie si l'utilisateur est connecté
+        if ($this->UserModel->isConnected()) {
+
+            // * On specifit le statut de l'icone de l'utilisateur
+            $userIcon .= "online";
+
+        } else {
+
+            // * On specifit le statut de l'icone de l'utilisateur
+            $userIcon .= "offline";
+
+
+        }
+
+        // * On retourne l 'extension de l'icone de l'utilisateur
+        return $userIcon .= ".svg";
+
+    }
 }

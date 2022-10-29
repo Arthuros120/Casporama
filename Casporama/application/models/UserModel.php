@@ -422,4 +422,30 @@ class UserModel extends CI_Model
         $this->session->unset_userdata('user');
 
     }
+
+    /*
+    
+        * isConnected
+    
+        * Cette méthode savoir si l'utilisateur est connecté
+    
+        @return: Boolean
+    
+    */
+    public function isConnected() : Bool
+    {
+
+        // * On récupère l'utilisateur
+        $user = $this->getUserBySession();
+
+        // * On vérifie si l'utilisateur existe
+        if (isset($user)) {
+
+            return true;
+        
+        }
+
+        return false;
+
+    }
 }

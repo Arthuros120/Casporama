@@ -162,4 +162,4 @@ $autoload['language'] = array();
     *  elle s'adapte au lien personalisé de la page et permet de charger les données de la page.
 
 */
-$autoload['model'] = array('utilities/UtilView', 'utilities/LoaderView');
+$autoload['model'] = array('UserModel','utilities/UtilView', 'utilities/LoaderView');

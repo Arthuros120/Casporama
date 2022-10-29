@@ -62,10 +62,13 @@ class Shop extends CI_Controller
         // * On vérifie que le sport passé en paramètre est bien un sport disponible.
         if (in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux"))) {
 
+            // * On selectionne l'icon de la fonction user en fonction de la connection de l'utilisateur
+            $dataHeader['userIcon'] = $this->UtilView->chooseUserIcon();
+
             // * On récupère le sport et on le stock dans des variable qui seront utilisé dans les vues.
             $dataHeader['sport'] = $sport;
             $dataHead['sport'] = $sport;
-
+            
             // * On récupere les sous-vues et on affilie les données aux sous-vues et on les stock dans une variable.
             $this->data = array(
                 'loadView' => $this->UtilView->generateLoadView(
@@ -124,6 +127,9 @@ class Shop extends CI_Controller
             // * On recupére tout les produit du sport et de la catégorie passé en paramètre
             // * et on les stock dans une variable
             $listProduct = $this->ProductModel->findBySportType($sport, $catProduct);
+
+            // * On selectionne l'icon de la fonction user en fonction de la connection de l'utilisateur
+            $dataHeader['userIcon'] = $this->UtilView->chooseUserIcon();
 
             // * On récupère les donnée affilié au vues et on le stock
             // * dans des variable qui seront utilisé dans les vues.
@@ -184,6 +190,9 @@ class Shop extends CI_Controller
 
             // var_dump($stock);
 
+            // * On selectionne l'icon de la fonction user en fonction de la connection de l'utilisateur
+            $dataHeader['userIcon'] = $this->UtilView->chooseUserIcon();
+
             // * On récupère les donnée affilié au vues et on le stock
             // * dans des variable qui seront utilisé dans les vues.
             $dataHead['sport'] = $sport;
@@ -212,7 +221,5 @@ class Shop extends CI_Controller
             $this->load->view('errors/html/error_404', $data);
 
         }
-
     }
-
 }

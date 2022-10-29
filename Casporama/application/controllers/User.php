@@ -20,17 +20,6 @@ defined('BASEPATH') || exit('No direct script access allowed');
 class User extends CI_Controller
 {
 
-    // * Initialisation de la Class User
-    public function __construct()
-    {
-
-        parent::__construct();
-
-        // * On charge le model des utilisateurs
-        $this->load->model('UserModel');
-    
-    }
-
     /*
 
         * Login Page
