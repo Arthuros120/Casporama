@@ -69,6 +69,12 @@ create procedure getUserByLogin(IN loginSearch VARCHAR(255))
         select login, id from utilisateur where login = loginSearch;
     end;
 
+-- on retourne l'utilisateur en fonction de son id
+create procedure getUserById(IN idSearch VARCHAR(255))
+    begin
+        select id, cookieId, status from utilisateur where id = idSearch;
+    end;
+
 -- récupère l'id et l'email de l'utilisateur à partir de son email
 create procedure getUserByEmail(IN mailSearch VARCHAR(255))
     begin

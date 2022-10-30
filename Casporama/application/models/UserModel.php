@@ -319,7 +319,46 @@ class UserModel extends CI_Model
     public function getUserByCookie() : ?UserEntity
     {
 
-        //TODO: A faire
+        // * On récupère le cookie
+        $cookie = $this->input->cookie('user', true);
+
+        // * On vérifie si le cookie existe
+        if (isset($cookie)) {
+
+            // * On récupère les données du cookie
+            $cookieData = explode('|', $cookie);
+
+            // * On vérifie si les données du cookie sont correct
+            if (isset($cookieData[0]) && isset($cookieData[1]) && isset($cookieData[2])) {
+
+                $cookieUserId = (int) $cookieData[0];
+                $cookieId = $cookieData[1];
+
+                // * On récupère l'utilisateur en fonction de son id
+                $query = $this->db->query("Call getUserById('". $cookieUserId ."')");
+
+                // * On récupère le cookieId
+                $cookieUserIdDb = $query->row()->id;
+                $cookieCookieIdDb = $query->row()->cookieId;
+                $cookieStatusDb = $query->row()->status;
+
+                // * On attend un résultat
+                $query->next_result();
+                $query->free_result();
+
+                // * On vérifie si le cookieId est correct
+                if (isset($cookieCookieIdDb) && $cookieCookieIdDb == $cookieId) {
+
+                    // * On crée l'utilisateur
+                    $user = new UserEntity();
+                    $user->setId($cookieUserIdDb);
+                    $user->setStatus($cookieStatusDb);
+
+                    return $user;
+
+                }
+            }
+        }
 
         return null;
 
@@ -447,5 +486,29 @@ class UserModel extends CI_Model
 
         return false;
 
+    }
+
+    /*
+    
+        * durabilityConnection
+    
+        * Cette méthode permet de savoir si l'utilisateur est connecté
+        * de façon durable et si il l'est de le connecter grâce à son cookie
+
+    
+    */
+    public function durabilityConnection()
+    {
+
+        // * On récupère l'utilisateur
+        $user = $this->getUserByCookie();
+
+        // * On vérifie si l'utilisateur existe
+        if (isset($user)) {
+
+            // * On connecte l'utilisateur
+            $this->setUserSession($user);
+
+        }
     }
 }

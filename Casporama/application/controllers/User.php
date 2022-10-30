@@ -36,6 +36,9 @@ class User extends CI_Controller
     public function login()
     {
 
+        // * On rend la connexion peréne pour toutes les pages
+        $this->UserModel->durabilityConnection();
+
         /*
 
             TODO: Decomenté cette ligne une fois la page de connexion terminée
@@ -174,6 +177,9 @@ class User extends CI_Controller
     public function logout()
     {
 
+        // * On rend la connexion peréne pour toutes les pages
+        $this->UserModel->durabilityConnection();
+
         // * On vérifie que l'utilisateur est connecté
 
         $user = $this->UserModel->getUserBySession();
@@ -204,6 +210,9 @@ class User extends CI_Controller
     */
     public function home()
     {
+
+        // * On rend la connexion peréne pour toutes les pages
+        $this->UserModel->durabilityConnection();
 
         //TODO: faire la différence entre chaque panel en fonction du status de l'utilisateur
 

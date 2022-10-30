@@ -58,6 +58,8 @@ class Shop extends CI_Controller
     */
     public function home(string $sport = "")
     {
+        // * On rend la connexion peréne pour toutes les pages
+        $this->UserModel->durabilityConnection();
 
         // * On vérifie que le sport passé en paramètre est bien un sport disponible.
         if (in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux"))) {
@@ -119,6 +121,9 @@ class Shop extends CI_Controller
     public function view(string $sport = "", string $catProduct = "")
     {
 
+        // * On rend la connexion peréne pour toutes les pages
+        $this->UserModel->durabilityConnection();
+
         // * On vérifie que le sport et la catégorie passé en paramètre sont bien un sport et une catégorie disponible.
         if (
             in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux"))
@@ -176,6 +181,9 @@ class Shop extends CI_Controller
     */
     public function product(int $idProduct = -1)
     {
+
+        // * On rend la connexion peréne pour toutes les pages
+        $this->UserModel->durabilityConnection();
 
         // * On vérifie que l'id passé en paramètre est bien un id disponible.
         $product = $this->ProductModel->findById($idProduct);

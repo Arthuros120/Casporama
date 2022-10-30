@@ -64,6 +64,8 @@ drop procedure if exists getUserByLogin;
 
 drop procedure if exists getUserByEmail;
 
+drop procedure if exists  getUserById;
+
 drop procedure if exists loginMail;
 
 drop procedure if exists orderByPriceAsc;
