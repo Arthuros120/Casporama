@@ -18,11 +18,7 @@
 
     <body>
 
-        <?= $loadView['header'] ?>
-
         <?= $loadView['content'] ?>
-
-        <?= $loadView['footer'] ?>
     
     </body>
 </html>

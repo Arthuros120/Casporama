@@ -4,15 +4,36 @@
 
 <?php echo form_open('User/login'); ?>
 
-<h5>Login :</h5>
-<input type="text" name="login" value="" size="20" />
+<div class="login-card">
+    <a href="<?= base_url() ?>">
 
-<h5>Password :</h5>
-<input type="password" name="password" value="" size="20" />
+        <img
+            src="<?= base_url() . "static/image/icon/casporama.svg" ?>"
+            alt="Casporama"
+        />
 
-<h5>Rester connecté :</h5>
-<input type="checkbox" name="conPersistance"/>
+    </a>
 
-<div><input type="submit" value="Se connecter" /></div>
+    <h2>Connexion</h2>
+
+    <div class="login-form">
+    
+        <input type="text" name="login" placeholder="Login ou Email" />
+
+        <input type="password" name="password" placeholder="Mots de passe" />
+        <a href="<?= base_url("/User/recoverPass") ?>">Mots de passe oublié ?</a>
+
+        <h4>
+
+            Rester connecté :
+            <input id="checkBox" type="checkbox" name="conPersistance"/>
+        
+        </h4>
+
+        <button type="submit">Se connecter</button>
+        <a id="registerLink" href="<?= base_url("/User/register") ?>">Créer un compte</a>
+
+    </div>
+</div>
 
 <!-- user/login/loginContent -->

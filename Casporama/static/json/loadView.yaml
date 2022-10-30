@@ -85,9 +85,7 @@ User/login/success :
     views :
         head : "user/login/success/successHead"
         script : "user/login/success/successScript"
-        header : "templates/blank"
         content : "user/login/success/successContent"
-        footer : "templates/blank"
 
     baseView : "user/login/success/successTemplate"
 
