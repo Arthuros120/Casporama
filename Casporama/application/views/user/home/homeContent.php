@@ -23,5 +23,6 @@
 ?>
 <p></p>
 <a href="<?php echo base_url('user/logout'); ?>">Logout</a>
+<a href="<?= base_url() ?>">Home</a>
 
 <!-- user/home/homeContent -->
