@@ -511,4 +511,18 @@ class UserModel extends CI_Model
 
         }
     }
+
+    public function isPasswordValid(String $password) : Bool
+    {
+
+        // * On vérifie si le mot de passe est valide
+        if (preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}$#', $password)) {
+
+            return true;
+
+        }
+
+        return false;
+
+    }
 }

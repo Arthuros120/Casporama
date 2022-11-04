@@ -13,11 +13,11 @@ CREATE TABLE IF NOT EXISTS utilisateur (
 
 CREATE TABLE IF NOT EXISTS coordonnees (
     id INTEGER NOT NULL,
-    prenom VARCHAR(255) not null,
-    nom VARCHAR(255) NOT NULL,
-    mail VARCHAR(255) not null unique,
-    mobile varchar(10) not null unique,
-    fixe varchar(10) not null,
+    prenom VARCHAR(255),
+    nom VARCHAR(255),
+    mail VARCHAR(255) unique,
+    mobile varchar(10)  unique,
+    fixe varchar(10),
     PRIMARY KEY (id),
     FOREIGN KEY (id) REFERENCES utilisateur(id)
 );
@@ -80,5 +80,12 @@ create table if not exists commande (
     foreign key (idproduit) references produit(idproduit)
 );
 
-
-
+-- Ajout de la table captcha pour la gestion des captcha
+CREATE TABLE captcha (
+	captcha_id bigint unsigned NOT NULL auto_increment,
+	captcha_time int unsigned NOT NULL,
+	ip_address varchar(45) NOT NULL,
+	word varchar(20) NOT NULL,
+	PRIMARY KEY `captcha_id` (`captcha_id`),
+	KEY `word` (`word`)
+);

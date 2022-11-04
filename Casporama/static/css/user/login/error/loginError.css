@@ -105,24 +105,28 @@ body {
 }
 
 .login-form > a:hover {
-
-    color: #e73821;
-    
-
+  color: #e73821;
 }
 
 [type="checkbox"] {
-
-    width: 20px;
-    height: 20px;
-
+  width: 20px;
+  height: 20px;
 }
 
 form {
-
-    margin-bottom: auto;
-
+  margin-top: auto;
+  margin-bottom: auto;
+  align-items: center;
 }
 
-
-
+.error {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  margin-top: 20px;
+  padding: 44px 30px 44px;
+  border-radius: 1.25rem;
+  background: rgba(211, 11, 11, 0.9);
+  text-align: center;
+  color: #fff;
+}

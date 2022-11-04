@@ -72,3 +72,5 @@ $route['translate_uri_dashes'] = false;
 */
 
 $route['User/usernameCheckByLogin(:any)'] = 'Error404';
+$route['User/IsUniqueEmail(:any)'] = 'Error404';
+$route['User/IsUniqueLogin(:any)'] = 'Error404';

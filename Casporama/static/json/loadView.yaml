@@ -89,6 +89,16 @@ User/login/success :
 
     baseView : "user/login/success/successTemplate"
 
+User/register/error :
+
+    views :
+        head : "user/register/error/head"
+        header : "templates/blank"
+        content : "user/register/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
 User/home:
 
     views :

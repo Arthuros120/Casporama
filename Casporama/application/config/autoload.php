@@ -63,9 +63,12 @@ $autoload['packages'] = array();
     *   J'ajoute la librairie 'database' pour pouvoir utiliser la base de données
     *   J'ajoute la librairie 'session' pour pouvoir utiliser les sessions
     *   J'ajoute la librairie 'form_validation' pour pouvoir utiliser la validation des formulaires
+    *   J'ajoute la librairie 'email' pour pouvoir envoyer des emails
+    *   J'ajoute la librairie 'upload' pour pouvoir uploader des fichiers
+    *   J'ajoute la librairie 'encryption' pour pouvoir crypter des données
 
 */
-$autoload['libraries'] = array('database', 'session', 'form_validation');
+$autoload['libraries'] = array('database', 'session', 'form_validation', 'encryption', 'email', 'upload');
 
 /*
 | -------------------------------------------------------------------
@@ -103,10 +106,11 @@ $autoload['drivers'] = array();
  *  J'ajoute le helper form pour pouvoir utiliser les fonctions de création de formulaire
  *  J'ajoute le helper cookie pour pouvoir utiliser les fonctions de gestion des cookies
  *  J'ajoute le helper file pour pouvoir utiliser les fonctions de gestion des fichiers
+ *  J'ajoute le helper html pour pouvoir utiliser les fonctions de création d'éléments html
 
 */
 
-$autoload['helper'] = array('url', 'form', 'cookie', 'file');
+$autoload['helper'] = array('url', 'form', 'cookie', 'file', 'html');
 
 /*
 | -------------------------------------------------------------------

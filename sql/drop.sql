@@ -14,6 +14,8 @@ drop table if exists sport cascade;
 
 drop table if exists utilisateur cascade;
 
+drop table if exists captcha cascade;
+
 drop procedure if exists addCatalogue;
 
 drop procedure if exists addCommande;
