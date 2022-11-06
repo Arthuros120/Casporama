@@ -19,7 +19,7 @@ class CaptchaModel extends CI_Model
         @return: string
     
     */
-    public function _create_captcha(array $cap) : string
+    public function _create_captcha($cap)
     {
 
         // * On recupère les données du captcha pour les enregistrer dans la base de données
