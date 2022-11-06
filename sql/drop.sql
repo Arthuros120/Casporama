@@ -101,3 +101,7 @@ drop procedure if exists verifyLogin;
 drop procedure if exists verifyEmail;
 
 drop procedure if exists delCookieId;
+
+drop procedure if exists addCaptchat;
+
+drop procedure if exists cleanCaptchat;

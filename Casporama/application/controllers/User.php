@@ -282,9 +282,6 @@ class User extends CI_Controller
 
             // * Configuration des paramètre du champ password
             array(
-                // TODO: Verifié que le mot de passe est valide avec une fonction callback
-                // TODO: doit contenir au moins une lettre minuscule,
-                // TODO: une lettre majuscule, un chiffre et un caractère spécial
                 'field' => 'password',
                 'label' => 'Mot de passe',
                 'rules' => 'trim|required|min_length[8]|max_length[255]|callback_ComformPassword',
@@ -315,7 +312,6 @@ class User extends CI_Controller
                 'rules' => 'required|callback_checkCaptcha',
                 'errors' => array(
                     'required' => 'Vous avez oublié %s.',
-                    'check_captcha' => 'Le %s n\'est pas valide',
                 ),
             )
         );
@@ -325,11 +321,15 @@ class User extends CI_Controller
 
         if (!$this->form_validation->run()) {
 
-            // * Captcha
+            // * Configuration du captcha
             $captchaForm = $this->config->item('captcha_form');
             $dataContent['captcha_form'] = $captchaForm;
+
+            // * Creation du captcha
             if ($captchaForm) {
+
                 $dataContent['captcha_html'] = $this->create_captcha();
+    
             }
 
             // * On stocke les erreurs dans une variable
@@ -346,7 +346,6 @@ class User extends CI_Controller
         } else {
 
             // TODO: Continuer la fonction register
-            // TODO: Ajouter le captcha
             echo "ok";
 
         }
@@ -388,6 +387,7 @@ class User extends CI_Controller
         * Cette fonction permet de vérifier si un utilisateur existe
         * en fonction de son login ou de son email
 
+        @param string $strLogin
         @returns boolean
 
         ! Cette fonction ne peut pas être mis en privé car elle
@@ -422,6 +422,20 @@ class User extends CI_Controller
         return true;
     }
 
+    /*
+
+        * IsUniqueLogin
+
+        * Cette fonction permet de vérifier si le login est unique
+
+        @param string $strLogin
+        @returns boolean
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function IsUniqueLogin(string $strLogin): bool
     {
 
@@ -437,6 +451,20 @@ class User extends CI_Controller
         return true;
     }
 
+    /*
+
+        * IsUniqueEmail
+
+        * Cette fonction permet de vérifier si l'email est unique
+
+        @param string $strEmail
+        @returns boolean
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function IsUniqueEmail(string $strEmail): bool
     {
 
@@ -452,6 +480,20 @@ class User extends CI_Controller
         return true;
     }
 
+    /*
+
+        * ComformPassword
+
+        * Cette fonction permet de vérifier le password est comforme
+
+        @param string $strPassword
+        @returns boolean
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function ComformPassword(string $strPassword): bool
     {
 
@@ -471,9 +513,22 @@ class User extends CI_Controller
         return true;
     }
 
-    public function create_captcha()
+    /*
+
+        * create_captcha
+
+        * Cette fonction permet de créer un captcha
+
+        @returns string
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
+    public function create_captcha() : string
     {
-        
+        // * On charge les données du captcha dans une variable
 		$capConfig = array(
             'img_path' => './' . $this->config->item('captcha_path'),
             'img_url' => base_url() . $this->config->item('captcha_path'),
@@ -490,20 +545,39 @@ class User extends CI_Controller
             )
         );
         
+        // * On crée le captcha avec les données
 		$cap = create_captcha($capConfig);
 		
+        // * On créer le captcha dans la base de données et on retourne l'url de l'image du captcha
 		return $this->cm->_create_captcha($cap);
+
 	}
 
-    public function checkCaptcha($code)
+    /*
+
+        * check_captcha
+
+        * Cette fonction permet de vérifier le captcha
+
+        @param string $strCaptcha
+        @returns boolean
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
+    public function checkCaptcha($code) : bool
     {
 
-        if ($this->cm->check_captcha($code) == 0) {
+        // * On vérifie que le captcha est valide
+        if ($code == '' || strlen($code)  != 8 || $this->cm->check_captcha($code) == 0) {
 
-            $this->form_validation->set_message('Check_captcha', 'Captcha is incorrect');
-
+            // * On retourne une erreur
+            $this->form_validation->set_message('checkCaptcha', 'Le Captcha est incorrect !');
+    
             return false;
-
+    
         }
 
         return true;

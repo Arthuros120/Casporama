@@ -512,10 +512,22 @@ class UserModel extends CI_Model
         }
     }
 
+    /*
+    
+        * isPasswordValid
+    
+        * Cette méthode permet de vérifier si le mot de passe est valide
+    
+        @param: $password (String)
+    
+        @return: bool
+    
+    */
     public function isPasswordValid(String $password) : Bool
     {
 
-        // * On vérifie si le mot de passe est valide
+        // * On vérifie si le mot de passe est valide il doit contenir au moins 8 caractères
+        // * dont 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial
         if (preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}$#', $password)) {
 
             return true;

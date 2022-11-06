@@ -1,50 +1,90 @@
 <?php
 
-defined('BASEPATH') || exit('No direct script access allowed');
-    
-/**
-* Description of Captcha_Model
-*
-* @author https://roytuts.com
-*/
+/*
 
+    * Class UserModel
+
+    * Cette classe permet de gérer les utilisateurs
+
+*/
 class CaptchaModel extends CI_Model
 {
-
-    public function _create_captcha($cap)
+    /*
+    
+        * _create_captcha
+    
+        * Cette méthode permet créer un captcha et de l'enregistrer dans la base de données
+    
+        @param: $cap array
+        @return: string
+    
+    */
+    public function _create_captcha(array $cap) : string
     {
 
-        // TODO: Create procedure to insert captcha data into database
-        // Save captcha params in database
+        // * On recupère les données du captcha pour les enregistrer dans la base de données
         $data = array(
-            'captcha_time' => $cap['time'],
+            'captcha_time' => (int) $cap['time'],
             'ip_address' => $this->input->ip_address(),
             'word' => $cap['word']
         );
+
+        // * On insère les données du capchat dans la base de données
+        $query = $this->db->query(
+
+            "Call addCaptchat(" . $data['captcha_time'] . ",'" . $data['ip_address'] . "','" . $data['word'] . "')"
+
+        );
+
+        // * On envoie la requête
+        $query->next_result();
         
-        $query = $this->db->insert_string('captcha', $data);
-        $this->db->query($query);
-        
+        // * On retourne l'url de l'image du captcha
         return $cap['image'];
+
     }
 
-    public function check_captcha($code)
+    /*
+    
+        * check_captcha
+    
+        * Cette méthode permet de vérifier si le captcha est valide et de supprimer les captcha expirés
+    
+        @param: $code string
+        @return: string
+    
+    */
+    public function check_captcha(string $code) : int
     {
 
-        log_message('debug', 'check_captcha: ' . $code);
+        // * On calcule le temps d'expiration en fonction de la date actuelle et du temps d'expiration du captcha
+        $expiration = time() - $this->config->item('captcha_expire');
+        
+        // * On supprime les captcha expirés
+        $query = $this->db->query(
 
-        // First, delete old captchas
-        $expiration = time() - $this->config->item('captcha_expire'); // 3 mins limit
-        
-        $this->db->where('captcha_time < ', $expiration)->delete('captcha');
-        
-        // Then see if a captcha exists:
-        $sql = 'SELECT COUNT(*) AS count FROM captcha WHERE word = ? AND ip_address = ? AND captcha_time > ?';
-        $binds = array($code, $this->input->ip_address(), $expiration);
-        $query = $this->db->query($sql, $binds);
+            "Call cleanCaptchat(" . $expiration . ")"
+
+        );
+
+        // * On envoie la requête et attends la fin de l'exécution
+        $query->next_result();
+        $query->free_result();
+
+        // * On recupére le nombre de captcha correspondant à l'ip et au code
+        $query = $this->db->query(
+
+            "Call countWordCapchat('" . $code .  "', '" . $this->input->ip_address() . "' , " . $expiration . ")"
+
+        );
+
         $row = $query->row();
 
+        // * On envoie la requête et attends la fin de l'exécution
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne le nombre de captcha correspondant à l'ip et au code
         return $row->count;
     }
-    
 }

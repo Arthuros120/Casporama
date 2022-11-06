@@ -111,6 +111,13 @@ create procedure getStockTotal(IN id integer)
         select sum(quantite) from catalogue where nuproduit = id;
     end;
 
+create procedure countWordCapchat(IN newWord varchar(20), In ipAddress varchar(45), In expiration int)
+    begin
+
+        select count(*) as count from captcha where word = newWord and ip_address = ipAddress and captcha_time > expiration;
+
+    end;
+
 /*
 call getIdSport('Football');
 call getNameSport(2);
@@ -162,6 +169,14 @@ create procedure addCatalogue(IN newid int, IN newproduit int, in newcouleur var
         insert into catalogue(id, nuproduit, couleur, taille,quantite) value (newid,newproduit,newcouleur,newtaille,newquantite);
     end;
 
+create  procedure addCaptchat(in captchaTime int, in ipAddress varchar(45), in newWord varchar(20))
+    BEGIN
+
+        insert into captcha(captcha_time, ip_address, word) value (captchaTime, ipAddress, newWord);
+
+    end;
+
+-- Call addCaptchat(123, '::1', 'azerty');
 
 #---------- Suppression ----------------
 
@@ -181,6 +196,13 @@ create procedure delProduct(IN nuproduct int)
 create procedure delVariante(IN idvariante int)
     begin
         delete from catalogue where id = idvariante;
+    end;
+
+create procedure cleanCaptchat(IN expiration int)
+    begin
+
+        delete from captcha where captcha_time < expiration;
+
     end;
 
 #---------- Update ----------------
