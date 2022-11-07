@@ -338,7 +338,6 @@ class User extends CI_Controller
 
             // * On charge les erreurs dans la page de connexion
             $this->LoaderView->load('User/register/error', $data);
-    
         } else {
 
             $this->session->set_flashdata('login', $this->input->post('login'));
@@ -352,12 +351,19 @@ class User extends CI_Controller
     public function registerUserIdentity()
     {
 
-        if ($this->session->flashdata('login') != null) {
+        $strLogin = $this->session->flashdata('login');
+        $strEmail = $this->session->flashdata('email');
+        $strPassword = $this->session->flashdata('password');
+
+
+        if ($strLogin != null || $strEmail != null || $strPassword != null) {
 
             $dataUser = array(
-                'login' => $this->session->flashdata('login'),
-                'email' => $this->session->flashdata('email'),
-                'password' => $this->session->flashdata('password'),
+
+                'login' => $strLogin,
+                'email' => $strEmail,
+                'password' => $strPassword,
+
             );
 
             // * On configure les règles de validation du formulaire
@@ -421,6 +427,10 @@ class User extends CI_Controller
 
             if (!$this->form_validation->run()) {
 
+                $this->session->set_flashdata('login', $strLogin);
+                $this->session->set_flashdata('email', $strEmail);
+                $this->session->set_flashdata('password', $strPassword);
+
                 // * On stocke les erreurs dans une variable
                 $dataContent['error'] = validation_errors();
 
@@ -431,16 +441,32 @@ class User extends CI_Controller
 
                 // * On charge les erreurs dans la page de connexion
                 $this->LoaderView->load('User/registerUserIdentity', $data);
-            
+
             } else {
+                
+                log_message('debug', 'registerUserIdentity : ' . print_r($dataUser, true));
 
-                // TODO : Ajouter les données dans la base de données
+                $dataUser['prenom'] = $this->input->post('prenom');
+                $dataUser['nom'] = $this->input->post('nom');
+                $dataUser['mobilePhone'] = $this->input->post('mobilePhone');
+                $dataUser['fixePhone'] = $this->input->post('fixePhone');
 
+                $this->UserModel->registerUser($dataUser);
+
+                if ($this->UserModel->heHaveUserByLogin($dataUser['login'])) {
+
+                    redirect("User/login");
+                }
+
+                // TODO: Faire une page d'erreur avec redirection automatique
+
+                echo "error";
             }
 
         } else {
 
             redirect("User/register");
+
         }
     }
 

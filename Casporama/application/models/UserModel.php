@@ -50,6 +50,41 @@ class UserModel extends CI_Model
 
     /*
     
+        * heHaveUserById
+    
+        * Cette méthode permet de vérifier si un utilisateur existe dans la base de données
+        * en fonction de son Id
+    
+        @param: $login
+    
+        @return: boolean
+    
+    */
+    public function heHaveUserById(int $id) : Bool
+    {
+
+        // * On récupère l'utilisateur en fonction de son login
+        $query = $this->db->query("Call verifyId('" . $id . "')");
+
+        // * On vérifie si l'utilisateur existe
+        $user = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne le résultat
+        if (isset($user->login)) {
+
+            return true;
+        
+        }
+
+        return false;
+    }
+
+    /*
+    
         * heHaveUserByEmail
     
         * Cette méthode permet de vérifier si un utilisateur existe dans la base de données
@@ -535,6 +570,70 @@ class UserModel extends CI_Model
         }
 
         return false;
+
+    }
+
+    public function registerUser(array $data)
+    {
+
+        log_message('debug', 'registerUser');
+
+        if (
+            isset($data['login']) &&
+            isset($data['email']) &&
+            isset($data['password']) &&
+            isset($data['prenom']) &&
+            isset($data['nom']) &&
+            isset($data['mobilePhone'])
+        ) {
+
+            log_message('debug', 'registerUser - isset');
+
+            if (!isset($data['fixePhone'])) {
+
+                $data['fixePhone'] = null;
+
+            }
+
+            $data['id'] = $this->generateId();
+            $data['salt'] = uniqid(mt_rand(), true);
+
+            $data['password'] = $data['password'] . $data['salt'];
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+            $requeteSql = "Call createUser(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            $dataRequete = array(
+                $data['id'],
+                $data['login'],
+                $data['password'],
+                $data['salt'],
+                $data['prenom'],
+                $data['nom'],
+                $data['email'],
+                $data['mobilePhone'],
+                $data['fixePhone'],
+            );
+
+            log_message('debug', 'registerUser - query : ' . $dataRequete);
+
+            $this->db->query($requeteSql, $dataRequete);
+
+        }
+    }
+
+    private function generateId() : Int
+    {
+
+        $id = rand(10000, 999999999);
+
+        if ($this->heHaveUserById($id)) {
+
+            $id = $this->generateId();
+
+        }
+
+        return $id;
 
     }
 }
