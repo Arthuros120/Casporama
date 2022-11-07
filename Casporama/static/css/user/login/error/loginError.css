@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html,
@@ -16,8 +18,6 @@ body {
   background-image: url("../../../../image/loginBackground.svg");
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: "Euclid Circular A";
-  color: #000;
   animation: rotate 6s infinite alternate linear;
   font-family: var(--main-font);
 }
@@ -52,13 +52,6 @@ body {
   margin: 12px 0 12px;
 }
 
-.login-card > h3 {
-  color: rgba(0, 0, 0, 0.38);
-  margin: 0 0 30px;
-  font-weight: 500;
-  font-size: 1rem;
-}
-
 .login-form {
   width: 100%;
   margin: 0;
@@ -88,7 +81,6 @@ body {
   background: #216ce7;
   color: #f9f9f9;
   border: 0;
-  font-family: inherit;
   font-size: 1rem;
   font-weight: 600;
   text-align: center;
