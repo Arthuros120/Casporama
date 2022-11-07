@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') || exit('No direct script access allowed');
 
-
 /*
 
     * User Controller
@@ -26,7 +25,6 @@ class User extends CI_Controller
         parent::__construct();
         $this->load->model('CaptchaModel', 'cm');
         $this->load->helper('captcha');
-
     }
 
     /*
@@ -114,7 +112,6 @@ class User extends CI_Controller
 
             // * On charge les erreurs dans la page de connexion
             $this->LoaderView->load('User/login/error', $data);
-
         } else {
 
             // * On récupere les données utilisateur par le login
@@ -329,7 +326,6 @@ class User extends CI_Controller
             if ($captchaForm) {
 
                 $dataContent['captcha_html'] = $this->create_captcha();
-    
             }
 
             // * On stocke les erreurs dans une variable
@@ -342,12 +338,109 @@ class User extends CI_Controller
 
             // * On charge les erreurs dans la page de connexion
             $this->LoaderView->load('User/register/error', $data);
+    
+        } else {
+
+            $this->session->set_flashdata('login', $this->input->post('login'));
+            $this->session->set_flashdata('email', $this->input->post('email'));
+            $this->session->set_flashdata('password', $this->input->post('password'));
+
+            redirect("User/registerUserIdentity");
+        }
+    }
+
+    public function registerUserIdentity()
+    {
+
+        if ($this->session->flashdata('login') != null) {
+
+            $dataUser = array(
+                'login' => $this->session->flashdata('login'),
+                'email' => $this->session->flashdata('email'),
+                'password' => $this->session->flashdata('password'),
+            );
+
+            // * On configure les règles de validation du formulaire
+            $configRules = array(
+
+                // * Configuration des paramètre du champlogin
+                array(
+                    'field' => 'prenom',
+                    'label' => 'Prénom',
+                    'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
+                    'errors' => array( // * On définit les messages d'erreurs
+                        'required' => 'Vous avez oublié %s.',
+                        "min_length" => "Le %s doit faire au moins 3 caractères",
+                        "max_length" => "Le %s doit faire au plus 255 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                    ),
+                ),
+
+                array(
+                    'field' => 'nom',
+                    'label' => 'Nom',
+                    'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
+                    'errors' => array( // * On définit les messages d'erreurs
+                        'required' => 'Vous avez oublié %s.',
+                        "min_length" => "Le %s doit faire au moins 3 caractères",
+                        "max_length" => "Le %s doit faire au plus 255 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                    ),
+                ),
+
+                array(
+                    'field' => 'mobilePhone',
+                    'label' => 'Téléphone mobile',
+                    'rules' => 'trim|required|min_length[10]|max_length[10]|numeric',
+                    'errors' => array( // * On définit les messages d'erreurs
+                        'required' => 'Vous avez oublié %s.',
+                        "min_length" => "Le %s doit faire au moins 10 caractères",
+                        "max_length" => "Le %s doit faire au plus 10 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                    ),
+                ),
+
+                array(
+                    'field' => 'fixePhone',
+                    'label' => 'Téléphone fixe',
+                    'rules' => 'trim|min_length[10]|max_length[10]|numeric',
+                    'errors' => array( // * On définit les messages d'erreurs
+                        "min_length" => "Le %s doit faire au moins 10 caractères",
+                        "max_length" => "Le %s doit faire au plus 10 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                    ),
+                ),
+            );
+
+            // * On assigne la configuration au formulaire
+            $this->form_validation->set_rules($configRules);
+
+            if (!$this->form_validation->run()) {
+
+                // * On stocke les erreurs dans une variable
+                $dataContent['error'] = validation_errors();
+
+                // * On etiquette les données
+                $data = array(
+                    'content' => $dataContent
+                );
+
+                // * On charge les erreurs dans la page de connexion
+                $this->LoaderView->load('User/registerUserIdentity', $data);
+            
+            } else {
+
+                // TODO : Ajouter les données dans la base de données
+
+            }
 
         } else {
 
-            // TODO: Continuer la fonction register
-            echo "ok";
-
+            redirect("User/register");
         }
     }
 
@@ -403,7 +496,6 @@ class User extends CI_Controller
 
             // * On vérifie que l'email existe
             $userExist = $this->UserModel->heHaveUserByEmail($strLogin);
-
         } else {
 
             // * On vérifie que le login existe
@@ -505,7 +597,8 @@ class User extends CI_Controller
                 'ComformPassword',
                 'Le mot de passe n\'est pas valide !
                 Il doit contenir au moins une lettre minuscule,
-                une lettre majuscule, un chiffre et un caractère spécial');
+                une lettre majuscule, un chiffre et un caractère spécial'
+            );
 
             return false;
         }
@@ -526,10 +619,10 @@ class User extends CI_Controller
         ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
 
     */
-    public function create_captcha() : string
+    public function create_captcha(): string
     {
         // * On charge les données du captcha dans une variable
-		$capConfig = array(
+        $capConfig = array(
             'img_path' => './' . $this->config->item('captcha_path'),
             'img_url' => base_url() . $this->config->item('captcha_path'),
             'font_size' => $this->config->item('captcha_font_size'),
@@ -544,14 +637,13 @@ class User extends CI_Controller
                 'grid' => array(255, 40, 40)
             )
         );
-        
-        // * On crée le captcha avec les données
-		$cap = create_captcha($capConfig);
-		
-        // * On créer le captcha dans la base de données et on retourne l'url de l'image du captcha
-		return $this->cm->_create_captcha($cap);
 
-	}
+        // * On crée le captcha avec les données
+        $cap = create_captcha($capConfig);
+
+        // * On créer le captcha dans la base de données et on retourne l'url de l'image du captcha
+        return $this->cm->_create_captcha($cap);
+    }
 
     /*
 
@@ -567,7 +659,7 @@ class User extends CI_Controller
         ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
 
     */
-    public function checkCaptcha($code) : bool
+    public function checkCaptcha($code): bool
     {
 
         // * On vérifie que le captcha est valide
@@ -575,12 +667,10 @@ class User extends CI_Controller
 
             // * On retourne une erreur
             $this->form_validation->set_message('checkCaptcha', 'Le Captcha est incorrect !');
-    
+
             return false;
-    
         }
 
         return true;
-
     }
 }

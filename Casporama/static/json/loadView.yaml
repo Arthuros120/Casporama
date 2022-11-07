@@ -99,6 +99,16 @@ User/register/error :
 
     baseView : "templates/base"
 
+User/registerUserIdentity :
+
+    views :
+        head : "user/registerUserIdentity/head"
+        header : "templates/blank"
+        content : "user/registerUserIdentity/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
 User/home:
 
     views :

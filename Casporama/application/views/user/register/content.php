@@ -28,7 +28,7 @@ if ($captcha_form) {
 }
 ?>
 
-<button type="submit">Se connecter</button>
+<button type="submit">Suivant</button>
 
 <div class="error" <?php
 
