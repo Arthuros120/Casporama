@@ -105,3 +105,5 @@ drop procedure if exists delCookieId;
 drop procedure if exists addCaptchat;
 
 drop procedure if exists cleanCaptchat;
+
+drop procedure if exists countWordCapchat;

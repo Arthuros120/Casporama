@@ -24,7 +24,7 @@
     <p><?php echo $captcha_html; ?></p>
 <?php } ?>
 
-<button type="submit">Se connecter</button>
+<button type="submit">Suivant</button>
 
 <div class="error" 
     <?php
