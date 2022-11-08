@@ -95,8 +95,8 @@ class Shop extends CI_Controller
         } else {
             
             // * Si le sport n'est pas disponible, on affiche une erreur 404.
-            $data['heading'] = "404 Page Not Found";
-            $data['message'] = "The page you requested was not found.";
+            $data['heading'] = "404 Page non trouvée";
+            $data['message'] = "La page que vous avez demandée n'a pas été trouvée.";
 
             $this->load->view('errors/html/error_404', $data);
 
@@ -157,8 +157,8 @@ class Shop extends CI_Controller
 
             // * Si le sport ou la catégorie n'est pas disponible, on affiche une erreur 404.
             
-            $data['heading'] = "404 Page Not Found";
-            $data['message'] = "The page you requested was not found.";
+            $data['heading'] = "404 Page non trouvée";
+            $data['message'] = "La page que vous avez demandée n'a pas été trouvée.";
 
             $this->load->view('errors/html/error_404', $data);
 
@@ -222,8 +222,8 @@ class Shop extends CI_Controller
         } else {
 
             // * Si le produit n'est pas la base de donnée, on affiche une erreur 404.
-            $data['heading'] = "404 Page Not Found";
-            $data['message'] = "The page you requested was not found.";
+            $data['heading'] = "404 Page non trouvée";
+            $data['message'] = "La page que vous avez demandée n'a pas été trouvée.";
 
             // * On affiche la vue d'erreur 404.
             $this->load->view('errors/html/error_404', $data);

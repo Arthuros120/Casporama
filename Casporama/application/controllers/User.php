@@ -46,20 +46,16 @@ class User extends CI_Controller
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
 
-        /*
+        
 
-            TODO: Decomenté cette ligne une fois la page de connexion terminée
+        // * Si l'utilisateur est déjà connecté, on le redirige vers la page d'accueil
+        // * On vérifie que l'utilisateur n'est pas déjà connecté
+        if ($this->session->userdata('user') != null) {
 
-            * Si l'utilisateur est déjà connecté, on le redirige vers la page d'accueil
-            * On vérifie que l'utilisateur n'est pas déjà connecté
-            if($this->session->userdata('user') != null){
+            // * On redirige l'utilisateur vers la page d'accueil de l'utilisateur
+            redirect(base_url("user/home"));
 
-                * On redirige l'utilisateur vers la page d'accueil de l'utilisateur
-                redirect(base_url("user/home"));
-
-            }
-
-        */
+        }
 
         // * On configure les règles de validation du formulaire
         $configRules = array(
@@ -484,15 +480,59 @@ class User extends CI_Controller
         * Et les fonction disponible pour l'utilisateur
 
     */
-    public function home()
+    public function home(string $action = '')
     {
 
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
 
-        //TODO: faire la différence entre chaque panel en fonction du status de l'utilisateur
+        if (!in_array($action, array('', 'info', 'modifEmail', 'modifPass'))) {
 
-        $this->LoaderView->load('User/home');
+            // * Si le sport ou la catégorie n'est pas disponible, on affiche une erreur 404.
+            
+            $data['heading'] = "404 Page non trouvée";
+            $data['message'] = "La page que vous avez demandée n'a pas été trouvée.";
+
+            $this->load->view('errors/html/error_404', $data);
+
+        }else {
+
+            if ($this->UserModel->isConnected()) {
+
+                if ($action == '') {
+
+                    $status = $this->UserModel->getStatus();
+    
+                    $dataContent['status'] = $status;
+    
+                    $data = array(
+                        'content' => $dataContent
+                    );
+    
+                    // * On charge la page d'accueil de l'utilisateur
+                    $this->LoaderView->load('User/home', $data);
+
+                } elseif ($action == 'info') {
+
+                    echo "info";
+
+                } elseif ($action == 'modifEmail') {
+
+                    echo "modifEmail";
+
+                } elseif ($action == 'modifPass') {
+
+                    echo "modifPass";
+
+                }
+    
+            } else {
+    
+                // * Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
+                redirect("User/login");
+    
+            }
+        }
     }
 
     // --------------------------------------------------------------------

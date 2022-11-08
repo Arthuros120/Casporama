@@ -4,4 +4,6 @@ Todo : Revoir tout les message d'erreur ! et les page aussi !
 
 Todo : Créer les pages différente page en fonction des status
 
-Todo : Passez a mariaDb
+Do : Passez a mariaDb
+
+Todo : Discuter avec le dev frontend pour créer une page erreur 404 et une page erreur Generique
