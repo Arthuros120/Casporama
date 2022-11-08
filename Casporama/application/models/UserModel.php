@@ -120,6 +120,48 @@ class UserModel extends CI_Model
 
     /*
     
+        * heHaveUserByMobilePhone
+    
+        * Cette méthode permet de vérifier si un utilisateur existe dans la base de données
+        * en fonction de son email
+    
+        @param: $login
+    
+        @return: boolean
+    
+    */
+    public function heHaveUserByMobilePhone(string $phone) : Bool
+    {
+
+        // * On enleve le 0 du numéro de téléphone si il existe
+        if (strlen($phone) == 10 && $phone[0] == 0) {
+
+            $phone = substr($phone, 1);
+
+        }
+
+        // * On récupère l'utilisateur en fonction de son phone
+        $query = $this->db->query("Call verifyPhone('".$phone."')");
+
+        // * On vérifie si l'utilisateur existe
+        $user = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne le résultat
+        if (isset($user->login)) {
+
+            return true;
+        
+        }
+
+        return false;
+    }
+
+    /*
+    
         * getUserByLoginOrEmail
     
         * Cette méthode choisie la bonne requête en fonction du paramètre
@@ -576,8 +618,6 @@ class UserModel extends CI_Model
     public function registerUser(array $data)
     {
 
-        log_message('debug', 'registerUser');
-
         if (
             isset($data['login']) &&
             isset($data['email']) &&
@@ -586,8 +626,6 @@ class UserModel extends CI_Model
             isset($data['nom']) &&
             isset($data['mobilePhone'])
         ) {
-
-            log_message('debug', 'registerUser - isset');
 
             if (!isset($data['fixePhone'])) {
 
@@ -614,8 +652,6 @@ class UserModel extends CI_Model
                 $data['mobilePhone'],
                 $data['fixePhone'],
             );
-
-            log_message('debug', 'registerUser - query : ' . $dataRequete);
 
             $this->db->query($requeteSql, $dataRequete);
 

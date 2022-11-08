@@ -7,7 +7,7 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
     @method: login
     @method: logout
-    TODO: @method: register
+    @method: register
     @mehod: home
     @mehod: CheckTheLogin
 
@@ -399,7 +399,7 @@ class User extends CI_Controller
                 array(
                     'field' => 'mobilePhone',
                     'label' => 'Téléphone mobile',
-                    'rules' => 'trim|required|min_length[10]|max_length[10]|numeric',
+                    'rules' => 'trim|required|min_length[10]|max_length[10]|numeric|callback_IsUniqueMobilePhone',
                     'errors' => array( // * On définit les messages d'erreurs
                         'required' => 'Vous avez oublié %s.',
                         "min_length" => "Le %s doit faire au moins 10 caractères",
@@ -444,8 +444,6 @@ class User extends CI_Controller
 
             } else {
                 
-                log_message('debug', 'registerUserIdentity : ' . print_r($dataUser, true));
-
                 $dataUser['prenom'] = $this->input->post('prenom');
                 $dataUser['nom'] = $this->input->post('nom');
                 $dataUser['mobilePhone'] = $this->input->post('mobilePhone');
@@ -456,11 +454,16 @@ class User extends CI_Controller
                 if ($this->UserModel->heHaveUserByLogin($dataUser['login'])) {
 
                     redirect("User/login");
+
                 }
 
-                // TODO: Faire une page d'erreur avec redirection automatique
+                // * Si la création a échoué
+                $data['heading'] = "Erreur lors de la création de l'utilisateur";
+                $data['message'] = "Il y a une erreur lors de la création de votre compte,
+                veuillez nous excuser pour la gêne occasionnée.";
 
-                echo "error";
+                $this->load->view('errors/html/error_general', $data);
+
             }
 
         } else {
@@ -597,6 +600,22 @@ class User extends CI_Controller
 
         return true;
     }
+
+    public function IsUniqueMobilePhone(string $strPhone): bool
+    {
+
+        // * On vérifie que le mobile n'existe pas
+        if ($this->UserModel->heHaveUserByMobilePhone($strPhone)) {
+
+            // * On retourne une erreur
+            $this->form_validation->set_message('IsUniqueMobilePhone', 'Ce numéro de téléphone est déja utilisé !');
+
+            return false;
+        }
+
+        return true;
+    }
+
 
     /*
 

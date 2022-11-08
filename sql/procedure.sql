@@ -64,6 +64,12 @@ create procedure verifyEmail(IN mailSearch VARCHAR(255))
         select login from utilisateur where id in (select id from coordonnees where mailSearch = coordonnees.mail);
     end;
 
+-- verify que mobile existe dans la base de données
+create procedure verifyPhone(IN phone int)
+    begin
+        select login from utilisateur where id in (select id from coordonnees where phone = mobile);
+    end;
+
 create procedure verifyId(in newId int)
     begin
         select login from utilisateur where newId = id;
