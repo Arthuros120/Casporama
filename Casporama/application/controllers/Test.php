@@ -19,7 +19,7 @@ class Test extends CI_Controller
 
     public function index()
     {
-        // * Si la création a échoué
+        
         $data['heading'] = "Erreur lors de la création de l'utilisateur";
         $data['message'] = "Il y a une erreur lors de la création de votre compte,
         veuillez nous excuser pour la gêne occasionnée.";
