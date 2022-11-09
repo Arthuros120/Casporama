@@ -1,14 +1,15 @@
 <?php
-defined('BASEPATH') || exit('No direct script access allowed');
-?><!DOCTYPE html>
+
+    defined('BASEPATH') || exit('No direct script access allowed');
+
+?>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>Error</title>
 <style type="text/css">
-
-::selection { background-color: #E13300; color: white; }
-::-moz-selection { background-color: #E13300; color: white; }
 
 body {
     background-color: #fff;
