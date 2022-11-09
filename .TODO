@@ -15,11 +15,11 @@
 
 - Todo : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
 
+- Todo : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les procedure mariadb
+
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
-
-- Do : Frontend -> Discuter avec le dev frontend pour créer une page erreur Generique
 
 ## Fait
 
@@ -34,3 +34,5 @@
 
 - Done : Backend -> Mettre tout les login en lowercase aussi bien en login que register
   - J'ai fait en sorte que tout les login soit en lowercase pour éviter les doublons de login avec des majuscules et des minuscules (ex: toto et Toto)
+
+- Done : Frontend -> Discuter avec le dev frontend pour créer une page erreur Generique

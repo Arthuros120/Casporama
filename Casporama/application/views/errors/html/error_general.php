@@ -6,49 +6,145 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
+<link rel="stylesheet" href="https://casporama.live/static/css/fonts.css">
+<link rel="icon" type="image/svg" sizes="16x16" href="https://casporama.live/static/image/icon/favicon.svg">
+
 <head>
-<meta charset="utf-8">
-<title>Error</title>
-<style type="text/css">
+    <meta charset="utf-8">
+    <title>Error</title>
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
 
-body {
-    background-color: #fff;
-    margin: 40px;
-    font: 13px/20px normal Helvetica, Arial, sans-serif;
-    color: #4F5155;
-}
+            font-family: Poppins, Arial, sans-serif;
+        }
 
-a {
-    color: #003399;
-    background-color: transparent;
-    font-weight: normal;
-}
+        .error_general_content {
+            width: 100vw;
+            height: 100vh;
+        }
 
-h1 {
-    color: #444;
-    background-color: transparent;
-    border-bottom: 1px solid #D0D0D0;
-    font-size: 19px;
-    font-weight: normal;
-    margin: 0 0 14px 0;
-    padding: 14px 15px 10px 15px;
-}
+        .logo {
+            width: 100vw;
+            height: 10vh;
 
-#container {
-    margin: 10px;
-    border: 1px solid #D0D0D0;
-    box-shadow: 0 0 8px #D0D0D0;
-}
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
 
-p {
-    margin: 12px 15px 12px 15px;
-}
-</style>
+            padding-left: 2vw;
+        }
+
+        .content {
+            width: 100%;
+            height: 90vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            padding-top: 10vh;
+            gap: 6vh;
+        }
+
+        .title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content > .title > h1 {
+            font-size: 12vw;
+            font-weight: 600;
+
+        }
+
+        .p {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            gap: 1vh;
+        }
+
+        .p > h3 {
+            color: #b3b5ba;
+        }
+
+        .vert {
+            color:#399B39;
+        }
+
+        .bleu {
+            color: #3284E4;
+        }
+
+        .jaune {
+            color: #E0C323;
+        }
+
+        .rouge {
+            color: #E94138;
+        }
+
+    </style>
 </head>
+
 <body>
-    <div id="container">
-        <h1><?php echo $heading; ?></h1>
-        <?php echo $message; ?>
+    <div class="error_general_content" id="container">
+
+        <div class="logo">
+            <a href="/"><img src="https://casporama.live/static/image/icon/casporama.svg"></a>
+        </div>
+
+        <div class="content">
+            <div class="title">
+                <h1><span class="vert">O</span><span class="bleu">o</span><span class="jaune">p</span><span class="rouge">s</span></h1>
+            </div>
+            <div class="p">
+                <h2><?php echo $heading; ?></h2>
+                <h2><?php echo $message; ?></h2>
+                <h3>Vous allez être automatique redirigé vers la page d'accueil dans <span id='time'>10 secondes</span></h3>
+            </div>
+        </div>  
     </div>
+
+    <script type="text/javascript">
+
+        let decompte = 10;
+        let prefixe = '';
+
+        let timer = setInterval(
+
+            function() {
+
+                decompte--;
+
+                if (decompte > 1) {
+
+                    prefixe = ' secondes';
+
+                } else {
+
+                    prefixe = ' seconde';
+
+                }
+
+                document.getElementById('time').textContent = decompte + prefixe;
+
+                if (decompte === 0) {
+
+                    clearInterval(timer);
+                    window.location.href = "/"; // URL de redirection
+
+                }
+            },
+
+            1000
+
+        );
+    </script>
 </body>
 </html>
