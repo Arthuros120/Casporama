@@ -84,7 +84,7 @@ class UserEntity
     public function setLogin(string $login)
     {
 
-        $this->login = $login;
+        $this->login = strtolower($login);
 
     }
 

@@ -1,20 +1,36 @@
 
 # Todo list
 
-DO: Avoir avec le dev frontend pour mettre required dans le html du register
+## A faire
 
-DO : Passez a mariaDb
+- Todo : Backend/Frontend -> Revoir tout les message d'erreur ! et les pages aussi !
 
-Todo : Revoir tout les message d'erreur ! et les page aussi !
+- Todo : Frontend -> Ajouter alt a la fin
 
-Todo : Créer les pages différente page en fonction des status
+- Todo : Backend -> Changer les message d'erreur page 404
 
-Todo : Discuter avec le dev frontend pour créer une page erreur 404 et une page erreur Generique
+- Todo : Frontend -> Bien rendre cliquable les case de la page d'accueil
 
-Todo : mettre tout les login en lowercase aussi bien en login que register
+- Todo : Frontend -> Rendre plus styler la page login
 
-TODO : Ajouter alt a la fin
+- Todo : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
 
-Todo : changer les message d'erreur page 404
+## En cours
 
-Todo : reparer la page login
+- Do : Backend -> Créer les pages différente page en fonction des status
+
+- Do : Frontend -> Discuter avec le dev frontend pour créer une page erreur Generique
+
+## Fait
+
+- Done : Backend/Frontend -> Avoir avec le dev frontend pour mettre required dans le html du register
+  - Après discussion avec le dev frontend, il a dit que c'était pas nécessaire de mettre required dans le html car il y a déjà un check côté backend. Donc on laisse comme ça pour le moment.
+
+- Done : SysAdmin -> Passez a mariaDb
+  - Le projet est maintenant en mariaDb
+  
+- Done : Backend/Frontend -> reparer la page login
+  - La page login est maintenant fonctionnelle
+
+- Done : Backend -> Mettre tout les login en lowercase aussi bien en login que register
+  - J'ai fait en sorte que tout les login soit en lowercase pour éviter les doublons de login avec des majuscules et des minuscules (ex: toto et Toto)
