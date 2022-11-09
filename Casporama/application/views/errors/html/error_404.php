@@ -35,9 +35,7 @@
             background-color: #fff;
         }
 
-        p {
-            margin: 12px 15px 12px 15px;
-        }
+       
 
         .error_content {
             width: 100vw;
@@ -84,6 +82,10 @@
             text-align: center;
             flex-direction: column;
             gap: 1vh;
+        }
+
+        .p > h3 {
+            color: #b3b5ba;
         }
 
         .vert {
