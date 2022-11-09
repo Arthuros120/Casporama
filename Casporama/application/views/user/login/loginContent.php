@@ -21,7 +21,7 @@
 
     <?php if ($error == null) {
             echo "hidden";
-        }?>>
+        }?>
     <?= $error ?>
 
 
