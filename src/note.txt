@@ -1,0 +1,5 @@
+les extension néccesaire sont 
+
+php-mysql
+php-yaml
+php-gd 
