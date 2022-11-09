@@ -1,20 +1,28 @@
 
 # Todo list
 
-DO: Avoir avec le dev frontend pour mettre required dans le html du register
+## A faire
 
-DO : Passez a mariaDb
+- Todo : Revoir tout les message d'erreur ! et les page aussi !
 
-Todo : Revoir tout les message d'erreur ! et les page aussi !
+- Todo : Créer les pages différente page en fonction des status
 
-Todo : Créer les pages différente page en fonction des status
+- Todo : Discuter avec le dev frontend pour créer une page erreur 404 et une page erreur Generique
 
-Todo : Discuter avec le dev frontend pour créer une page erreur 404 et une page erreur Generique
+- Todo : mettre tout les login en lowercase aussi bien en login que register
 
-Todo : mettre tout les login en lowercase aussi bien en login que register
+- TODO : Ajouter alt a la fin
 
-TODO : Ajouter alt a la fin
+- Todo : changer les message d'erreur page 404
 
-Todo : changer les message d'erreur page 404
+- Todo : Frontend -> bien rendre cliquable les case de la page d'accueil
 
-Todo : reparer la page login
+## En cours
+
+- Do : reparer la page login
+
+## Fait
+
+- Done: Avoir avec le dev frontend pour mettre required dans le html du register
+
+- Done : Passez a mariaDb
