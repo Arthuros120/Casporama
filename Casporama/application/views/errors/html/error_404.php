@@ -7,6 +7,7 @@
 <html lang="en">
 <link rel="stylesheet" href="https://casporama.live/static/css/fonts.css">
 <link rel="stylesheet" href="https://casporama.live/static/css/global/color.css">
+<link rel="icon" type="image/svg" sizes="16x16" href="https://casporama.live/static/image/icon/favicon.svg">
 
 <head>
     <meta charset="utf-8">
@@ -63,16 +64,42 @@
             align-items: center;
 
             padding-top: 10vh;
+            gap: 6vh;
         }
 
-        .content > h1 {
+        .title {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .content > .title > h1 {
             font-size: 12vw;
             font-weight: 600;
 
         }
 
+        .p {
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            gap: 1vh;
+        }
+
         .vert {
-            color: var(--green2)
+            color:#399B39;
+        }
+
+        .bleu {
+            color: #3284E4;
+        }
+
+        .jaune {
+            color: #E0C323;
+        }
+
+        .rouge {
+            color: #E94138;
         }
 
     </style>
@@ -85,14 +112,18 @@
 
 
         <div class="logo">
-            <img src="https://casporama.live/static/image/icon/casporama.svg">
+            <a href="/"><img src="https://casporama.live/static/image/icon/casporama.svg"></a>
         </div>
 
         <div class="content">
-            <h1><span class="vert">O</span><span class="bleu">o</span><span class="jaune">p</span><span class="rouge">s</span></h1>
-            <h2><?php echo $heading; ?></h2>
-            <h2><?php echo $message; ?></h2>
-            <h3>Vous allez être automatique redirigé vers la page d'accueil dans <span id='time'>10 secondes</span></h3>
+            <div class="title">
+                <h1><span class="vert">O</span><span class="bleu">o</span><span class="jaune">p</span><span class="rouge">s</span></h1>
+            </div>
+            <div class="p">
+                <h2>Erreur 404 Page Introuvable</h2>
+                <h2>La page que vous avez demandée est introuvable.</h2>
+                <h3>Vous allez être automatique redirigé vers la page d'accueil dans <span id='time'>10 secondes</span></h3>
+            </div>
         </div>
 
         
