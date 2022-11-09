@@ -15,6 +15,8 @@
 
 - Todo : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
 
+- Todo : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les procedure mariadb
+
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
