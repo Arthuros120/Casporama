@@ -14,17 +14,17 @@ class Test extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->output->enable_profiler(true);
+        $this->output->enable_profiler(false);
     }
 
     public function index()
     {
-        $strLogin = "arthuros222@gmail.com";
-        var_dump($strLogin);
-        var_dump((stristr($strLogin, '@')));
-        var_dump((stristr($strLogin, '@') && stristr($strLogin, '.')));
+        // * Si la création a échoué
+        $data['heading'] = "Erreur lors de la création de l'utilisateur";
+        $data['message'] = "Il y a une erreur lors de la création de votre compte,
+        veuillez nous excuser pour la gêne occasionnée.";
 
-        $this->LoaderView->load('Test/index');
+        $this->load->view('errors/html/error_general', $data);
 
     }
 

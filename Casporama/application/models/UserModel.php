@@ -28,6 +28,9 @@ class UserModel extends CI_Model
     public function heHaveUserByLogin(string $login): Bool
     {
 
+        // * on transforme le login en minuscule
+        $login = strtolower($login);
+
         // * On récupère l'utilisateur en fonction de son login
         $query = $this->db->query("Call verifyLogin('" . $login . "')");
 
@@ -95,6 +98,9 @@ class UserModel extends CI_Model
     */
     public function heHaveUserByEmail(string $email): Bool
     {
+
+        // * on transforme l'email en minuscule
+        $email = strtolower($email);
 
         // * On récupère l'utilisateur en fonction de son email
         $query = $this->db->query("Call verifyEmail('" . $email . "')");
@@ -169,6 +175,9 @@ class UserModel extends CI_Model
     public function getUserByLoginOrEmail(string $strLogin): ?UserEntity
     {
 
+        // * on transforme strLogin en minuscule
+        $strLogin = strtolower($strLogin);
+
         if (stristr($strLogin, '@') && stristr($strLogin, '.')) {
 
             $user = $this->getUserByEmail($strLogin);
@@ -193,6 +202,9 @@ class UserModel extends CI_Model
     */
     public function getUserByLogin(string $login): ?UserEntity
     {
+        
+        // * on transforme le login en minuscule
+        $login = strtolower($login);
 
         // * On récupère l'utilisateur en fonction de son login
         $query = $this->db->query("Call getUserByLogin('" . $login . "')");
@@ -230,6 +242,9 @@ class UserModel extends CI_Model
     */
     public function getUserByEmail(string $email): ?UserEntity
     {
+
+        // * on transforme l'email en minuscule
+        $email = strtolower($email);
 
         // * On récupère l'utilisateur en fonction de son login
         $query = $this->db->query("Call getUserByEmail('" . $email . "')");
@@ -630,6 +645,8 @@ class UserModel extends CI_Model
 
             $data['id'] = $this->generateId();
             $data['salt'] = uniqid(mt_rand(), true);
+
+            $data['login'] = strtolower($data['login']);
 
             $data['password'] = $data['password'] . $data['salt'];
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);

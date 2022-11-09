@@ -17,8 +17,6 @@
 
 - Do : Backend -> Créer les pages différente page en fonction des status
 
-- Do : Backend -> Mettre tout les login en lowercase aussi bien en login que register
-
 - Do : Frontend -> Discuter avec le dev frontend pour créer une page erreur 404 et une page erreur Generique
 
 ## Fait
@@ -31,3 +29,6 @@
   
 - Done : Backend/Frontend -> reparer la page login
   - La page login est maintenant fonctionnelle
+
+- Done : Backend -> Mettre tout les login en lowercase aussi bien en login que register
+  - J'ai fait en sorte que tout les login soit en lowercase pour éviter les doublons de login avec des majuscules et des minuscules (ex: toto et Toto)
