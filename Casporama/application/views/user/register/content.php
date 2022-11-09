@@ -19,24 +19,19 @@
 
 <input type="password" name="passConf" autocomplete="off" placeholder="Comfiramtion du Mots de passe" />
 
-<?php
-if ($captcha_form) {
-?>
+<?php if ($captcha_form) { ?>
     <p>Captcha : <input name="not_robot" id="not_robot" type="text" /></p>
     <p><?php echo $captcha_html; ?></p>
-<?php
-}
-?>
+<?php } ?>
 
-<button type="submit">Se connecter</button>
+<button type="submit">Suivant</button>
 
-<div class="error" <?php
-
-                    if ($error == null) {
-                        echo "hidden";
-                    }
-
-                    ?>><?= $error ?>
+<div class="error" 
+    <?php
+        if ($error == null) {
+            echo "hidden";
+        }?>>
+    <?= $error ?>
 </div>
 
 <!-- user/register/Content -->

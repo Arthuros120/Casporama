@@ -71,6 +71,10 @@ $route['translate_uri_dashes'] = false;
 
 */
 
-$route['User/usernameCheckByLogin(:any)'] = 'Error404';
-$route['User/IsUniqueEmail(:any)'] = 'Error404';
+$route['User/CheckTheLogin(:any)'] = 'Error404';
 $route['User/IsUniqueLogin(:any)'] = 'Error404';
+$route['User/IsUniqueEmail(:any)'] = 'Error404';
+$route['User/IsUniqueMobilePhone(:any)'] = 'Error404';
+$route['User/ComformPassword(:any)'] = 'Error404';
+$route['User/create_captcha(:any)'] = 'Error404';
+$route['User/checkCaptcha(:any)'] = 'Error404';

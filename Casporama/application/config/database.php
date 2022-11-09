@@ -92,7 +92,7 @@ $db['default'] = array(
     'pconnect' => false,
     'db_debug' => (ENVIRONMENT !== 'production'),
     'cache_on' => true,
-    'cachedir' => site_url('application/cache'),
+    'cachedir' => site_url('Casporma/application/cache'),
     'char_set' => 'utf8',
     'dbcollat' => 'utf8_general_ci',
     'swap_pre' => '',

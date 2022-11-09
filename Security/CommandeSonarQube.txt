@@ -12,4 +12,4 @@ sudo docker start sonarqube
 
 Pour lancer une analyse 
 
-$ sudo docker run --rm --link sonarqube -e SONAR_HOST_URL="http://sonarqube:9000" -e SONAR_LOGIN="sqp_a6769ea001e437129e8b9906554e24f51d441de5" -v "/var/www/html/sae_3/:/usr/src" sonarsource/sonar-scanner-cli
+$ sudo docker run --rm --link sonarqube -e SONAR_HOST_URL="http://sonarqube:9000" -e SONAR_LOGIN="sqp_b3c0b8472dea9d0fc48610c1717bfe1b3f1663b0" -v "/var/www/html/sae_3/:/usr/src" sonarsource/sonar-scanner-cli

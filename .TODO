@@ -1,1 +1,11 @@
-TODO: Avoir avec le dev frontend pour mettre required dans le html
+DO: Avoir avec le dev frontend pour mettre required dans le html du register
+
+Todo : Revoir tout les message d'erreur ! et les page aussi !
+
+Todo : Créer les pages différente page en fonction des status
+
+Do : Passez a mariaDb
+
+Todo : Discuter avec le dev frontend pour créer une page erreur 404 et une page erreur Generique
+
+Todo : mettre tout les login en lowercase aussi bien en login que register

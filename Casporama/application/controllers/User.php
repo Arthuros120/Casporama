@@ -1,14 +1,13 @@
 <?php
 defined('BASEPATH') || exit('No direct script access allowed');
 
-
 /*
 
     * User Controller
 
     @method: login
     @method: logout
-    TODO: @method: register
+    @method: register
     @mehod: home
     @mehod: CheckTheLogin
 
@@ -26,7 +25,6 @@ class User extends CI_Controller
         parent::__construct();
         $this->load->model('CaptchaModel', 'cm');
         $this->load->helper('captcha');
-
     }
 
     /*
@@ -48,20 +46,16 @@ class User extends CI_Controller
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
 
-        /*
+        
 
-            TODO: Decomenté cette ligne une fois la page de connexion terminée
+        // * Si l'utilisateur est déjà connecté, on le redirige vers la page d'accueil
+        // * On vérifie que l'utilisateur n'est pas déjà connecté
+        if ($this->session->userdata('user') != null) {
 
-            * Si l'utilisateur est déjà connecté, on le redirige vers la page d'accueil
-            * On vérifie que l'utilisateur n'est pas déjà connecté
-            if($this->session->userdata('user') != null){
+            // * On redirige l'utilisateur vers la page d'accueil de l'utilisateur
+            redirect(base_url("user/home"));
 
-                * On redirige l'utilisateur vers la page d'accueil de l'utilisateur
-                redirect(base_url("user/home"));
-
-            }
-
-        */
+        }
 
         // * On configure les règles de validation du formulaire
         $configRules = array(
@@ -114,7 +108,6 @@ class User extends CI_Controller
 
             // * On charge les erreurs dans la page de connexion
             $this->LoaderView->load('User/login/error', $data);
-
         } else {
 
             // * On récupere les données utilisateur par le login
@@ -329,7 +322,6 @@ class User extends CI_Controller
             if ($captchaForm) {
 
                 $dataContent['captcha_html'] = $this->create_captcha();
-    
             }
 
             // * On stocke les erreurs dans une variable
@@ -342,11 +334,137 @@ class User extends CI_Controller
 
             // * On charge les erreurs dans la page de connexion
             $this->LoaderView->load('User/register/error', $data);
+        } else {
+
+            $this->session->set_flashdata('login', $this->input->post('login'));
+            $this->session->set_flashdata('email', $this->input->post('email'));
+            $this->session->set_flashdata('password', $this->input->post('password'));
+
+            redirect("User/registerUserIdentity");
+        }
+    }
+
+    public function registerUserIdentity()
+    {
+
+        $strLogin = $this->session->flashdata('login');
+        $strEmail = $this->session->flashdata('email');
+        $strPassword = $this->session->flashdata('password');
+
+
+        if ($strLogin != null || $strEmail != null || $strPassword != null) {
+
+            $dataUser = array(
+
+                'login' => $strLogin,
+                'email' => $strEmail,
+                'password' => $strPassword,
+
+            );
+
+            // * On configure les règles de validation du formulaire
+            $configRules = array(
+
+                // * Configuration des paramètre du champlogin
+                array(
+                    'field' => 'prenom',
+                    'label' => 'Prénom',
+                    'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
+                    'errors' => array( // * On définit les messages d'erreurs
+                        'required' => 'Vous avez oublié %s.',
+                        "min_length" => "Le %s doit faire au moins 3 caractères",
+                        "max_length" => "Le %s doit faire au plus 255 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                    ),
+                ),
+
+                array(
+                    'field' => 'nom',
+                    'label' => 'Nom',
+                    'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
+                    'errors' => array( // * On définit les messages d'erreurs
+                        'required' => 'Vous avez oublié %s.',
+                        "min_length" => "Le %s doit faire au moins 3 caractères",
+                        "max_length" => "Le %s doit faire au plus 255 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                    ),
+                ),
+
+                array(
+                    'field' => 'mobilePhone',
+                    'label' => 'Téléphone mobile',
+                    'rules' => 'trim|required|min_length[10]|max_length[10]|numeric|callback_IsUniqueMobilePhone',
+                    'errors' => array( // * On définit les messages d'erreurs
+                        'required' => 'Vous avez oublié %s.',
+                        "min_length" => "Le %s doit faire au moins 10 caractères",
+                        "max_length" => "Le %s doit faire au plus 10 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                    ),
+                ),
+
+                array(
+                    'field' => 'fixePhone',
+                    'label' => 'Téléphone fixe',
+                    'rules' => 'trim|min_length[10]|max_length[10]|numeric',
+                    'errors' => array( // * On définit les messages d'erreurs
+                        "min_length" => "Le %s doit faire au moins 10 caractères",
+                        "max_length" => "Le %s doit faire au plus 10 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                    ),
+                ),
+            );
+
+            // * On assigne la configuration au formulaire
+            $this->form_validation->set_rules($configRules);
+
+            if (!$this->form_validation->run()) {
+
+                $this->session->set_flashdata('login', $strLogin);
+                $this->session->set_flashdata('email', $strEmail);
+                $this->session->set_flashdata('password', $strPassword);
+
+                // * On stocke les erreurs dans une variable
+                $dataContent['error'] = validation_errors();
+
+                // * On etiquette les données
+                $data = array(
+                    'content' => $dataContent
+                );
+
+                // * On charge les erreurs dans la page de connexion
+                $this->LoaderView->load('User/registerUserIdentity', $data);
+
+            } else {
+                
+                $dataUser['prenom'] = $this->input->post('prenom');
+                $dataUser['nom'] = $this->input->post('nom');
+                $dataUser['mobilePhone'] = $this->input->post('mobilePhone');
+                $dataUser['fixePhone'] = $this->input->post('fixePhone');
+
+                $this->UserModel->registerUser($dataUser);
+
+                if ($this->UserModel->heHaveUserByLogin($dataUser['login'])) {
+
+                    redirect("User/login");
+
+                }
+
+                // * Si la création a échoué
+                $data['heading'] = "Erreur lors de la création de l'utilisateur";
+                $data['message'] = "Il y a une erreur lors de la création de votre compte,
+                veuillez nous excuser pour la gêne occasionnée.";
+
+                $this->load->view('errors/html/error_general', $data);
+
+            }
 
         } else {
 
-            // TODO: Continuer la fonction register
-            echo "ok";
+            redirect("User/register");
 
         }
     }
@@ -362,15 +480,59 @@ class User extends CI_Controller
         * Et les fonction disponible pour l'utilisateur
 
     */
-    public function home()
+    public function home(string $action = '')
     {
 
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
 
-        //TODO: faire la différence entre chaque panel en fonction du status de l'utilisateur
+        if (!in_array($action, array('', 'info', 'modifEmail', 'modifPass'))) {
 
-        $this->LoaderView->load('User/home');
+            // * Si le sport ou la catégorie n'est pas disponible, on affiche une erreur 404.
+            
+            $data['heading'] = "404 Page non trouvée";
+            $data['message'] = "La page que vous avez demandée n'a pas été trouvée.";
+
+            $this->load->view('errors/html/error_404', $data);
+
+        }else {
+
+            if ($this->UserModel->isConnected()) {
+
+                if ($action == '') {
+
+                    $status = $this->UserModel->getStatus();
+    
+                    $dataContent['status'] = $status;
+    
+                    $data = array(
+                        'content' => $dataContent
+                    );
+    
+                    // * On charge la page d'accueil de l'utilisateur
+                    $this->LoaderView->load('User/home', $data);
+
+                } elseif ($action == 'info') {
+
+                    echo "info";
+
+                } elseif ($action == 'modifEmail') {
+
+                    echo "modifEmail";
+
+                } elseif ($action == 'modifPass') {
+
+                    echo "modifPass";
+
+                }
+    
+            } else {
+    
+                // * Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
+                redirect("User/login");
+    
+            }
+        }
     }
 
     // --------------------------------------------------------------------
@@ -403,7 +565,6 @@ class User extends CI_Controller
 
             // * On vérifie que l'email existe
             $userExist = $this->UserModel->heHaveUserByEmail($strLogin);
-
         } else {
 
             // * On vérifie que le login existe
@@ -480,6 +641,22 @@ class User extends CI_Controller
         return true;
     }
 
+    public function IsUniqueMobilePhone(string $strPhone): bool
+    {
+
+        // * On vérifie que le mobile n'existe pas
+        if ($this->UserModel->heHaveUserByMobilePhone($strPhone)) {
+
+            // * On retourne une erreur
+            $this->form_validation->set_message('IsUniqueMobilePhone', 'Ce numéro de téléphone est déja utilisé !');
+
+            return false;
+        }
+
+        return true;
+    }
+
+
     /*
 
         * ComformPassword
@@ -505,7 +682,8 @@ class User extends CI_Controller
                 'ComformPassword',
                 'Le mot de passe n\'est pas valide !
                 Il doit contenir au moins une lettre minuscule,
-                une lettre majuscule, un chiffre et un caractère spécial');
+                une lettre majuscule, un chiffre et un caractère spécial'
+            );
 
             return false;
         }
@@ -526,10 +704,10 @@ class User extends CI_Controller
         ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
 
     */
-    public function create_captcha() : string
+    public function create_captcha(): string
     {
         // * On charge les données du captcha dans une variable
-		$capConfig = array(
+        $capConfig = array(
             'img_path' => './' . $this->config->item('captcha_path'),
             'img_url' => base_url() . $this->config->item('captcha_path'),
             'font_size' => $this->config->item('captcha_font_size'),
@@ -544,14 +722,13 @@ class User extends CI_Controller
                 'grid' => array(255, 40, 40)
             )
         );
-        
-        // * On crée le captcha avec les données
-		$cap = create_captcha($capConfig);
-		
-        // * On créer le captcha dans la base de données et on retourne l'url de l'image du captcha
-		return $this->cm->_create_captcha($cap);
 
-	}
+        // * On crée le captcha avec les données
+        $cap = create_captcha($capConfig);
+
+        // * On créer le captcha dans la base de données et on retourne l'url de l'image du captcha
+        return $this->cm->_create_captcha($cap);
+    }
 
     /*
 
@@ -567,7 +744,7 @@ class User extends CI_Controller
         ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
 
     */
-    public function checkCaptcha($code) : bool
+    public function checkCaptcha($code): bool
     {
 
         // * On vérifie que le captcha est valide
@@ -575,12 +752,10 @@ class User extends CI_Controller
 
             // * On retourne une erreur
             $this->form_validation->set_message('checkCaptcha', 'Le Captcha est incorrect !');
-    
+
             return false;
-    
         }
 
         return true;
-
     }
 }

@@ -64,6 +64,17 @@ create procedure verifyEmail(IN mailSearch VARCHAR(255))
         select login from utilisateur where id in (select id from coordonnees where mailSearch = coordonnees.mail);
     end;
 
+-- verify que mobile existe dans la base de données
+create procedure verifyPhone(IN phone int)
+    begin
+        select login from utilisateur where id in (select id from coordonnees where phone = mobile);
+    end;
+
+create procedure verifyId(in newId int)
+    begin
+        select login from utilisateur where newId = id;
+    end;
+
 create procedure getUserByLogin(IN loginSearch VARCHAR(255))
     begin
         select login, id from utilisateur where login = loginSearch;
@@ -147,6 +158,12 @@ create procedure addUser(IN newid integer,IN newlogin varchar(255), IN newpass v
 create procedure addCoordonnee(IN newid int, IN newprenom varchar(255), IN newnom varchar(255), IN newmail varchar(255), in newmobile int, in newfixe int)
     BEGIN
         insert into coordonnees(id,prenom,nom,mail,mobile,fixe) value (newid,newprenom,newnom,newmail,newmobile,newfixe);
+    end;
+
+create procedure createUser(in newId integer, in newLogin varchar(255), in newPass varchar(255), in newSalt varchar(45), in newPrenom varchar(255), in newNom varchar(255), in newEmail varchar(255), in newMobile int, in newFixe int)
+    begin
+        insert into utilisateur(id, login, password, salt, status) value (newId, newLogin, newPass, newSalt, 'Client');
+        insert into coordonnees(id, prenom, nom, mail, mobile, fixe) value (newId, newPrenom, newNom, newEmail, newMobile, newFixe);
     end;
 
 create procedure addLocalisation(IN newidadresse int, IN newid int, IN newadresse varchar(255), IN newcode int, IN newville varchar(255), IN newdep varchar(255), IN newpays varchar(255))

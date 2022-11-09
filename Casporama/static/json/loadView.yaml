@@ -1,20 +1,5 @@
 #---------------------------------Casporma View---------------------------------#
 
-# Fiche contenant les différente configuration des différentes vues
-
-# Consigne et explication:
-
-# -Tout les caractére situé après un Hashtag (#) ne sont pas lu par le programme
-#  ce sont des commentaires.
-
-# -Les argument doivent êtres suivit de deux points superposés (:) 
-#  et une valeur doit êtres espacé a coté de l'argument.
-
-# -Les indentation (alinéa) doit être de 2 espace minimun.
-
-# -Ne pas créer de doublons
-
-
 #################################################
 #***********************************************#
 #*                                             *#
@@ -95,6 +80,16 @@ User/register/error :
         head : "user/register/error/head"
         header : "templates/blank"
         content : "user/register/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+User/registerUserIdentity :
+
+    views :
+        head : "user/registerUserIdentity/head"
+        header : "templates/blank"
+        content : "user/registerUserIdentity/content"
         footer : "templates/blank"
 
     baseView : "templates/base"

@@ -1,28 +1,34 @@
 <!-- user/home/homeContent -->
 
-<h1>User Page</h1>
+<a href="<?= base_url() ?>">
+
+    <img src="<?= base_url() . "static/image/icon/casporama.svg" ?>" alt="Casporama" />
+
+</a></br>
+
+<a href="<?php echo base_url('user/home/info'); ?>">Consulter mes informations</a></br>
+<a href="<?php echo base_url('user/home/modifEmail'); ?>">Modifier votre addresse mail</a></br>
+<a href="<?php echo base_url('user/home/modifPass'); ?>">Modifier votre mot de passe</a></br>
+<a href="<?php echo base_url('user/card'); ?>">Mon panier</a></br>
+<a href="<?php echo base_url('user/command'); ?>">Mes commandes</a></br>
 
 <?php
 
-    echo "Sesision :</br></br>";
+    if ($status == "Client") {
 
-    if ($this->session->userdata('user')) {
-
-        var_dump($this->session->userdata('user'));
+        echo "<a href='" . base_url('user/newCaspor') . "'>Devenir un Caspor</a></br>";
 
     }
 
-    echo "</br></br>Cookie :</br></br>";
+    if ($status == "Administrateur") {
 
-    if ($this->input->cookie('user')) {
-
-        var_dump($this->input->cookie('user'));
+        echo "<a href='" . base_url('admin/home') . "'>Accéder au panneaux administrateur</a></br>";
 
     }
 
 ?>
-<p></p>
-<a href="<?php echo base_url('user/logout'); ?>">Logout</a>
-<a href="<?= base_url() ?>">Home</a>
+
+
+<a href="<?php echo base_url('user/logout'); ?>">Se déconnecter</a>
 
 <!-- user/home/homeContent -->

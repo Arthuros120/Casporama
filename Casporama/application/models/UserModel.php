@@ -25,11 +25,11 @@ class UserModel extends CI_Model
         @return: boolean
     
     */
-    public function heHaveUserByLogin(string $login) : Bool
+    public function heHaveUserByLogin(string $login): Bool
     {
 
         // * On récupère l'utilisateur en fonction de son login
-        $query = $this->db->query("Call verifyLogin('".$login."')");
+        $query = $this->db->query("Call verifyLogin('" . $login . "')");
 
         // * On vérifie si l'utilisateur existe
         $user = $query->row();
@@ -42,7 +42,40 @@ class UserModel extends CI_Model
         if (isset($user->login)) {
 
             return true;
-        
+        }
+
+        return false;
+    }
+
+    /*
+    
+        * heHaveUserById
+    
+        * Cette méthode permet de vérifier si un utilisateur existe dans la base de données
+        * en fonction de son Id
+    
+        @param: $login
+    
+        @return: boolean
+    
+    */
+    public function heHaveUserById(int $id): Bool
+    {
+
+        // * On récupère l'utilisateur en fonction de son login
+        $query = $this->db->query("Call verifyId('" . $id . "')");
+
+        // * On vérifie si l'utilisateur existe
+        $user = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne le résultat
+        if (isset($user->login)) {
+
+            return true;
         }
 
         return false;
@@ -60,11 +93,11 @@ class UserModel extends CI_Model
         @return: boolean
     
     */
-    public function heHaveUserByEmail(string $email) : Bool
+    public function heHaveUserByEmail(string $email): Bool
     {
 
         // * On récupère l'utilisateur en fonction de son email
-        $query = $this->db->query("Call verifyEmail('".$email."')");
+        $query = $this->db->query("Call verifyEmail('" . $email . "')");
 
         // * On vérifie si l'utilisateur existe
         $user = $query->row();
@@ -77,7 +110,46 @@ class UserModel extends CI_Model
         if (isset($user->login)) {
 
             return true;
-        
+        }
+
+        return false;
+    }
+
+    /*
+    
+        * heHaveUserByMobilePhone
+    
+        * Cette méthode permet de vérifier si un utilisateur existe dans la base de données
+        * en fonction de son email
+    
+        @param: $login
+    
+        @return: boolean
+    
+    */
+    public function heHaveUserByMobilePhone(string $phone): Bool
+    {
+
+        // * On enleve le 0 du numéro de téléphone si il existe
+        if (strlen($phone) == 10 && $phone[0] == 0) {
+
+            $phone = substr($phone, 1);
+        }
+
+        // * On récupère l'utilisateur en fonction de son phone
+        $query = $this->db->query("Call verifyPhone('" . $phone . "')");
+
+        // * On vérifie si l'utilisateur existe
+        $user = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne le résultat
+        if (isset($user->login)) {
+
+            return true;
         }
 
         return false;
@@ -94,21 +166,18 @@ class UserModel extends CI_Model
         @return: ?UserEntity
     
     */
-    public function getUserByLoginOrEmail(string $strLogin) : ?UserEntity
+    public function getUserByLoginOrEmail(string $strLogin): ?UserEntity
     {
 
         if (stristr($strLogin, '@') && stristr($strLogin, '.')) {
 
             $user = $this->getUserByEmail($strLogin);
-
         } else {
 
             $user = $this->getUserByLogin($strLogin);
-
         }
 
         return $user;
-
     }
 
     /*
@@ -122,11 +191,11 @@ class UserModel extends CI_Model
         @return: ?UserEntity
     
     */
-    public function getUserByLogin(string $login) : ?UserEntity
+    public function getUserByLogin(string $login): ?UserEntity
     {
 
         // * On récupère l'utilisateur en fonction de son login
-        $query = $this->db->query("Call getUserByLogin('".$login."')");
+        $query = $this->db->query("Call getUserByLogin('" . $login . "')");
 
         // * On vérifie si l'utilisateur existe
         $id = $query->row()->id;
@@ -143,11 +212,9 @@ class UserModel extends CI_Model
             $user->setId($id);
 
             return $user;
-
         }
 
         return null;
-
     }
 
     /*
@@ -161,11 +228,11 @@ class UserModel extends CI_Model
         @return: ?UserEntity
     
     */
-    public function getUserByEmail(string $email) : ?UserEntity
+    public function getUserByEmail(string $email): ?UserEntity
     {
 
         // * On récupère l'utilisateur en fonction de son login
-        $query = $this->db->query("Call getUserByEmail('".$email."')");
+        $query = $this->db->query("Call getUserByEmail('" . $email . "')");
 
         // * On vérifie si l'utilisateur existe
         $id = $query->row()->id;
@@ -183,11 +250,9 @@ class UserModel extends CI_Model
             $user->setId($id);
 
             return $user;
-
         }
 
         return null;
-
     }
 
     /*
@@ -202,11 +267,11 @@ class UserModel extends CI_Model
         @return: ?string
     
     */
-    public function getStatusById(int $id) : ?string
+    public function getStatusById(int $id): ?string
     {
 
         // * On récupère le status de l'utilisateur en fonction de son id
-        $query = $this->db->query("Call getStatusById('".$id."')");
+        $query = $this->db->query("Call getStatusById('" . $id . "')");
 
         // * On récupère le status
         $status = $query->row()->status;
@@ -219,11 +284,9 @@ class UserModel extends CI_Model
         if (isset($status)) {
 
             return $status;
-
         }
 
         return null;
-
     }
 
     /*
@@ -239,11 +302,11 @@ class UserModel extends CI_Model
         @return: boolean
     
     */
-    public function passwordCheck(string $password, UserEntity $user) : Bool
+    public function passwordCheck(string $password, UserEntity $user): Bool
     {
 
         // * On récupère le mot de passe hasher de l'utilisateur en fonction de son login
-        $query = $this->db->query("Call getPasswordById('".$user->getId()."')");
+        $query = $this->db->query("Call getPasswordById('" . $user->getId() . "')");
 
         // * On récupère le mot de passe hasher et le salt
         $salt = $query->row()->salt;
@@ -258,11 +321,9 @@ class UserModel extends CI_Model
         if (isset($salt) && isset($password) && (password_verify($password . $salt, $hash))) {
 
             return true;
-
         }
 
         return false;
-
     }
 
     /*
@@ -303,7 +364,6 @@ class UserModel extends CI_Model
 
         // * On envoie le cookie
         $this->input->set_cookie($cookieSettings);
-
     }
 
     /*
@@ -316,7 +376,7 @@ class UserModel extends CI_Model
     
     */
 
-    public function getUserByCookie() : ?UserEntity
+    public function getUserByCookie(): ?UserEntity
     {
 
         // * On récupère le cookie
@@ -335,7 +395,7 @@ class UserModel extends CI_Model
                 $cookieId = $cookieData[1];
 
                 // * On récupère l'utilisateur en fonction de son id
-                $query = $this->db->query("Call getUserById('". $cookieUserId ."')");
+                $query = $this->db->query("Call getUserById('" . $cookieUserId . "')");
 
                 // * On récupère le cookieId
                 $cookieUserIdDb = $query->row()->id;
@@ -355,13 +415,11 @@ class UserModel extends CI_Model
                     $user->setStatus($cookieStatusDb);
 
                     return $user;
-
                 }
             }
         }
 
         return null;
-
     }
 
     /*
@@ -380,10 +438,9 @@ class UserModel extends CI_Model
 
             $query = $this->db->query("Call delCookieId('" . $user->getId() . "')");
             $query->next_result();
-            
+
             // * On supprime le cookie
             delete_cookie('user');
-    
         }
     }
 
@@ -404,7 +461,6 @@ class UserModel extends CI_Model
 
         // * On crée la session
         $this->session->set_userdata('user', $sessionValueString);
-
     }
 
     /*
@@ -416,7 +472,7 @@ class UserModel extends CI_Model
         @return: ?UserEntity
     
     */
-    public function getUserBySession() : ?UserEntity
+    public function getUserBySession(): ?UserEntity
     {
 
         // * On récupère la session
@@ -438,13 +494,36 @@ class UserModel extends CI_Model
 
                 // * On retourne l'utilisateur
                 return $user;
-
             }
         }
 
         // * On retourne null si la session n'existe pas
         return null;
+    }
 
+    /*
+    
+        * getStatus
+    
+        * Cette méthode retourne le status de l'utilisateur
+    
+        @return: ?String
+    
+    */
+    public function getStatus(): ?string
+    {
+        // * On récupère l'utilisateur
+        $user = $this->getUserBySession();
+
+        // * On vérifie si l'utilisateur existe
+        if (isset($user)) {
+
+            // * On retourne le status de l'utilisateur
+            return $user->getStatus();
+        }
+
+        // * On retourne null si l'utilisateur n'existe pas
+        return null;
     }
 
     /*
@@ -459,7 +538,6 @@ class UserModel extends CI_Model
 
         // * On supprime la session
         $this->session->unset_userdata('user');
-
     }
 
     /*
@@ -471,7 +549,7 @@ class UserModel extends CI_Model
         @return: Boolean
     
     */
-    public function isConnected() : Bool
+    public function isConnected(): Bool
     {
 
         // * On récupère l'utilisateur
@@ -481,11 +559,9 @@ class UserModel extends CI_Model
         if (isset($user)) {
 
             return true;
-        
         }
 
         return false;
-
     }
 
     /*
@@ -508,7 +584,6 @@ class UserModel extends CI_Model
 
             // * On connecte l'utilisateur
             $this->setUserSession($user);
-
         }
     }
 
@@ -523,7 +598,7 @@ class UserModel extends CI_Model
         @return: bool
     
     */
-    public function isPasswordValid(String $password) : Bool
+    public function isPasswordValid(String $password): Bool
     {
 
         // * On vérifie si le mot de passe est valide il doit contenir au moins 8 caractères
@@ -531,10 +606,62 @@ class UserModel extends CI_Model
         if (preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).{8,}$#', $password)) {
 
             return true;
-
         }
 
         return false;
+    }
 
+    public function registerUser(array $data)
+    {
+
+        if (
+            isset($data['login']) &&
+            isset($data['email']) &&
+            isset($data['password']) &&
+            isset($data['prenom']) &&
+            isset($data['nom']) &&
+            isset($data['mobilePhone'])
+        ) {
+
+            if (!isset($data['fixePhone'])) {
+
+                $data['fixePhone'] = null;
+            }
+
+            $data['id'] = $this->generateId();
+            $data['salt'] = uniqid(mt_rand(), true);
+
+            $data['password'] = $data['password'] . $data['salt'];
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+            $requeteSql = "Call createUser(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            $dataRequete = array(
+                $data['id'],
+                $data['login'],
+                $data['password'],
+                $data['salt'],
+                $data['prenom'],
+                $data['nom'],
+                $data['email'],
+                $data['mobilePhone'],
+                $data['fixePhone'],
+            );
+
+            $this->db->query($requeteSql, $dataRequete);
+        }
+    }
+
+    private function generateId(): Int
+    {
+
+        $id = rand(10000, 999999999);
+
+        if ($this->heHaveUserById($id)) {
+
+            $id = $this->generateId();
+        }
+
+        return $id;
     }
 }

@@ -7,19 +7,13 @@
                 <li class="second_img">
                     <?php for ($i = 1; $i < count($product->getImages()); $i++) : ?>
                     <div>
-                        <img
-                        src="<?= base_url($product -> getImages()[$i]) ?>"
-                        alt="Image du produit"
-                        >
+                        <img src="<?= base_url($product -> getImages()[$i]) ?>" alt="Image du produit" >
                     </div>
                     <?php endfor?>
                 </li>
                 <li class="main_img">
                     <div>
-                        <img
-                        alt="Image du produit"
-                        src=<?= $product->getCover() ?>
-                        >
+                        <img alt="Image du produit" src=<?= $product->getCover() ?> >
                     </div>
                 </li>
             </ul>
