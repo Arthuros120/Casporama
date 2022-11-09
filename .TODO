@@ -3,26 +3,31 @@
 
 ## A faire
 
-- Todo : Revoir tout les message d'erreur ! et les page aussi !
+- Todo : Backend/Frontend -> Revoir tout les message d'erreur ! et les pages aussi !
 
-- Todo : Créer les pages différente page en fonction des status
+- Todo : Frontend -> Ajouter alt a la fin
 
-- Todo : Discuter avec le dev frontend pour créer une page erreur 404 et une page erreur Generique
+- Todo : Backend -> Changer les message d'erreur page 404
 
-- Todo : mettre tout les login en lowercase aussi bien en login que register
+- Todo : Frontend -> Bien rendre cliquable les case de la page d'accueil
 
-- TODO : Ajouter alt a la fin
-
-- Todo : changer les message d'erreur page 404
-
-- Todo : Frontend -> bien rendre cliquable les case de la page d'accueil
+- Todo : Frontend -> Rendre plus styler la page login
 
 ## En cours
 
-- Do : reparer la page login
+- Do : Backend -> Créer les pages différente page en fonction des status
+
+- Do : Backend -> Mettre tout les login en lowercase aussi bien en login que register
+
+- Do : Frontend -> Discuter avec le dev frontend pour créer une page erreur 404 et une page erreur Generique
 
 ## Fait
 
-- Done: Avoir avec le dev frontend pour mettre required dans le html du register
+- Done : Backend/Frontend -> Avoir avec le dev frontend pour mettre required dans le html du register
+  - Après discussion avec le dev frontend, il a dit que c'était pas nécessaire de mettre required dans le html car il y a déjà un check côté backend. Donc on laisse comme ça pour le moment.
 
-- Done : Passez a mariaDb
+- Done : SysAdmin -> Passez a mariaDb
+  - Le projet est maintenant en mariaDb
+  
+- Done : Backend/Frontend -> reparer la page login
+  - La page login est maintenant fonctionnelle
