@@ -83,7 +83,6 @@ create table if not exists commande (
     primary key(idcommande),
     foreign key(idadresse) references localisation(idadresse),
     foreign key(idclient) references utilisateur(id),
-    foreign key(idproduit) references produit(idproduit),
     constraint status_not_valid 
         check(etat in ('Non preparer','En preparation','Preparer','Expedier'))
 );
