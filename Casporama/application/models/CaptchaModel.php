@@ -32,7 +32,7 @@ class CaptchaModel extends CI_Model
         // * On insère les données du capchat dans la base de données
         $query = $this->db->query(
 
-            "Call captcha.addCaptchat(" . $data['captcha_time'] . ",'" . $data['ip_address'] . "','" . $data['word'] . "')"
+            "Call addCaptchat(" . $data['captcha_time'] . ",'" . $data['ip_address'] . "','" . $data['word'] . "')"
 
         );
 
@@ -63,7 +63,7 @@ class CaptchaModel extends CI_Model
         // * On supprime les captcha expirés
         $query = $this->db->query(
 
-            "Call captcha.cleanCaptchat(" . $expiration . ")"
+            "Call cleanCaptchat(" . $expiration . ")"
 
         );
 
@@ -74,7 +74,7 @@ class CaptchaModel extends CI_Model
         // * On recupére le nombre de captcha correspondant à l'ip et au code
         $query = $this->db->query(
 
-            "Call captcha.countWordCapchat('" . $code .  "', '" . $this->input->ip_address() . "' , " . $expiration . ")"
+            "Call countWordCapchat('" . $code .  "', '" . $this->input->ip_address() . "' , " . $expiration . ")"
 
         );
 

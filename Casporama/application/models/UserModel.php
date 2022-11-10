@@ -32,7 +32,7 @@ class UserModel extends CI_Model
         $login = strtolower($login);
 
         // * On récupère l'utilisateur en fonction de son login
-        $query = $this->db->query("Call user.verifyLogin('" . $login . "')");
+        $query = $this->db->query("Call verifyLogin('" . $login . "')");
 
         // * On vérifie si l'utilisateur existe
         $user = $query->row();
@@ -66,7 +66,7 @@ class UserModel extends CI_Model
     {
 
         // * On récupère l'utilisateur en fonction de son login
-        $query = $this->db->query("Call user.verifyId('" . $id . "')");
+        $query = $this->db->query("Call verifyId('" . $id . "')");
 
         // * On vérifie si l'utilisateur existe
         $user = $query->row();
@@ -103,7 +103,7 @@ class UserModel extends CI_Model
         $email = strtolower($email);
 
         // * On récupère l'utilisateur en fonction de son email
-        $query = $this->db->query("Call user.verifyEmail('" . $email . "')");
+        $query = $this->db->query("Call verifyEmail('" . $email . "')");
 
         // * On vérifie si l'utilisateur existe
         $user = $query->row();
@@ -143,7 +143,7 @@ class UserModel extends CI_Model
         }
 
         // * On récupère l'utilisateur en fonction de son phone
-        $query = $this->db->query("Call user.verifyPhone('" . $phone . "')");
+        $query = $this->db->query("Call verifyPhone('" . $phone . "')");
 
         // * On vérifie si l'utilisateur existe
         $user = $query->row();
@@ -207,7 +207,7 @@ class UserModel extends CI_Model
         $login = strtolower($login);
 
         // * On récupère l'utilisateur en fonction de son login
-        $query = $this->db->query("Call user.getUserByLogin('" . $login . "')");
+        $query = $this->db->query("Call getUserByLogin('" . $login . "')");
 
         // * On vérifie si l'utilisateur existe
         $id = $query->row()->id;
@@ -247,7 +247,7 @@ class UserModel extends CI_Model
         $email = strtolower($email);
 
         // * On récupère l'utilisateur en fonction de son login
-        $query = $this->db->query("Call user.getUserByEmail('" . $email . "')");
+        $query = $this->db->query("Call getUserByEmail('" . $email . "')");
 
         // * On vérifie si l'utilisateur existe
         $id = $query->row()->id;
@@ -286,7 +286,7 @@ class UserModel extends CI_Model
     {
 
         // * On récupère le status de l'utilisateur en fonction de son id
-        $query = $this->db->query("Call user.getStatusById('" . $id . "')");
+        $query = $this->db->query("Call getStatusById('" . $id . "')");
 
         // * On récupère le status
         $status = $query->row()->status;
@@ -321,7 +321,7 @@ class UserModel extends CI_Model
     {
 
         // * On récupère le mot de passe hasher de l'utilisateur en fonction de son login
-        $query = $this->db->query("Call user.getPasswordById('" . $user->getId() . "')");
+        $query = $this->db->query("Call getPasswordById('" . $user->getId() . "')");
 
         // * On récupère le mot de passe hasher et le salt
         $salt = $query->row()->salt;
@@ -359,7 +359,7 @@ class UserModel extends CI_Model
         $user->setCookieCheck();
 
         // * On récupère le cookieId
-        $query = $this->db->query("Call user.setCookieId('" . $user->getCookieCheck() . "', '" . $user->getId() . "')");
+        $query = $this->db->query("Call setCookieId('" . $user->getCookieCheck() . "', '" . $user->getId() . "')");
 
         // * On attend un résultat
         $query->next_result();
@@ -410,7 +410,7 @@ class UserModel extends CI_Model
                 $cookieId = $cookieData[1];
 
                 // * On récupère l'utilisateur en fonction de son id
-                $query = $this->db->query("Call user.getUserById('" . $cookieUserId . "')");
+                $query = $this->db->query("Call getUserById('" . $cookieUserId . "')");
 
                 // * On récupère le cookieId
                 $cookieUserIdDb = $query->row()->id;
@@ -451,7 +451,7 @@ class UserModel extends CI_Model
 
         if ($this->input->cookie('user') != null) {
 
-            $query = $this->db->query("Call user.delCookieId('" . $user->getId() . "')");
+            $query = $this->db->query("Call delCookieId('" . $user->getId() . "')");
             $query->next_result();
 
             // * On supprime le cookie
@@ -651,7 +651,7 @@ class UserModel extends CI_Model
             $data['password'] = $data['password'] . $data['salt'];
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-            $requeteSql = "Call user.createUser(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $requeteSql = "Call createUser(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $dataRequete = array(
                 $data['id'],
