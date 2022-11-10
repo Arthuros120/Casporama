@@ -1,4 +1,4 @@
-use Casporama;
+use CasporamaDEV;
 
 insert into utilisateur (id, login, password, salt, status)
 values
@@ -28,10 +28,9 @@ INSERT INTO sport (nusport,nom)
  (3,'Badminton'),
  (4,'Arts-martiaux');
 
-insert into produit (idproduit, reference, type, nusport, marque, nom, genre, prix, description, image)
+insert into produit (idproduit, type, nusport, marque, nom, genre, prix, description, image)
 values
     (   1,
-        4064,
         'Vêtement',
         1,
         'Nike',
@@ -44,7 +43,6 @@ values
      ),
     (
         2,
-        5064,
         'Chaussure',
         2,
         'Puma',
@@ -57,7 +55,6 @@ values
          ),
     (
         3,
-        6064,
         'Equipement',
         3,
         'Addidas',
@@ -70,7 +67,6 @@ values
          ),
     (
         4,
-        7064,
         'Vêtement',
         1,
         'Nike',
@@ -83,17 +79,17 @@ values
          );
 
 
-insert into catalogue (id, nuproduit, couleur, taille, quantite)
+insert into catalogue (id, nuproduit,reference, couleur, taille, quantite)
 values
-    (1,1,'Rouge','XS',2),
-    (2,2,'Bleu','35',1),
-    (3,3,null,null,5),
-    (4,1,'Vert','XS',2),
-    (5,4,'Bleu','L',1);
+    (1,1,405,'RouRge','XS',42),
+    (2,2,4052,'Bleu','35',11),
+    (3,3,12939,null,null,5),
+    (4,1,29283,'VerRt','XS',2),
+    (5,4,294,'Bleu','L',1);
 
 insert into commande (idcommande,datecommande, idproduit, quantite, idclient,idadresse , etat)
 values
-    (1,'10/10/2022', 1, 1 ,6,1,'En preparation');
+    (1,'2022-10-10', 1, 1 ,6,1,'En preparation');
 
 
 

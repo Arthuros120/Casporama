@@ -17,6 +17,9 @@
 
 - Todo : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les procedure mariadb
 
+- Todo : Sysadmin/Backend -> crée un dédoublement du site et de la base de donnée sur le serveur distant
+
+
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status

@@ -2,6 +2,7 @@ DROP USER IF EXISTS 'arthur'@'%';
 DROP USER IF EXISTS 'maximes'@'%';
 DROP USER IF EXISTS 'maximef'@'%';
 DROP USER IF EXISTS 'titouan'@'%';
+DROP USER IF EXISTS 'luna'@'%';
 DROP USER IF EXISTS 'site'@'%';
 
 
