@@ -9,17 +9,15 @@
 
 - Todo : Backend -> Changer les message d'erreur page 404
 
-- Todo : Frontend -> Bien rendre cliquable les case de la page d'accueil
-
 - Todo : Frontend -> Rendre plus styler la page login
-
-- Todo : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
 
 - Todo : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les procedure mariadb
 
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
+
+- Do : Frontend -> Créer la page register
 
 ## Fait
 
@@ -36,3 +34,7 @@
   - J'ai fait en sorte que tout les login soit en lowercase pour éviter les doublons de login avec des majuscules et des minuscules (ex: toto et Toto)
 
 - Done : Frontend -> Discuter avec le dev frontend pour créer une page erreur Generique
+
+- Done : Frontend -> Bien rendre cliquable les case de la page d'accueil
+
+- Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion

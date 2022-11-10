@@ -75,7 +75,12 @@
             </div>
         </li>
         <div class="logo_container">
-            <img src="<?php echo base_url() ?>static/image/round_logo.png" class="round_logo" alt='logo casporama'>
+            <a href="<?= base_url() ?>User/login">
+                <img 
+                src="<?php echo base_url() ?>static/image/round_logo.png" 
+                class="round_logo" 
+                alt='logo casporama'>
+            </a>
         </div>
     </ul>
 </div>

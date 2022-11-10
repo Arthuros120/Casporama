@@ -1,0 +1,87 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.register_content {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: red;
+}
+
+.register_box {
+    width: 30vw;
+    height: 70vh;
+
+    border-radius: 25px;
+
+    background-color: white;
+}
+
+.logo {
+    width: 100%;
+    height: 13%;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.form {
+
+    width: 100%;
+    height: 87%;
+
+    padding: 10% 20%;
+
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.name {
+    display: flex;
+    flex-direction: column;
+}
+
+.inName {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.inName > input {
+    width: 49%;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+}
+
+.email {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.pass {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.input {
+    height: 5vh;
+    border: 1px solid;
+
+    padding-left: 10px;
+}
