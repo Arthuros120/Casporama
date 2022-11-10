@@ -27,7 +27,7 @@ class ProductModel extends CI_Model
     {
 
         // * Requete SQL pour récupérer l'id du sport
-        $queryIdSport = $this->db->query("Call getIdSport('".$sport."')");
+        $queryIdSport = $this->db->query("Call sport.getIdSport('".$sport."')");
 
         // * On extrait l'id du sport du résultat de la requete
         $idSport = (int) $queryIdSport->row()->nusport;
@@ -56,7 +56,7 @@ class ProductModel extends CI_Model
     {
 
         // * Requete SQL pour récupérer le nom du sport
-        $queryIdSport = $this->db->query("Call getNameSport('".$sport."')");
+        $queryIdSport = $this->db->query("Call sport.getNameSport('".$sport."')");
 
         // * On extrait le nom du sport du résultat de la requete
         $idSport = $queryIdSport->row()->nom;
@@ -84,7 +84,7 @@ class ProductModel extends CI_Model
     {
 
         // * Requete SQL pour récupérer le stock du produit
-        $queryStock = $this->db->query("Call getStockTotal('".$idProduct."')");
+        $queryStock = $this->db->query("Call catalog.getStockTotal('".$idProduct."')");
 
         // * On extrait le stock du produit du résultat de la requete
         $stock = (int) $queryStock->row()->stock;
@@ -116,7 +116,7 @@ class ProductModel extends CI_Model
     {
 
         // * Requete SQL pour récupérer le stock du produit
-        $queryStock = $this->db->query("Call getStock(".$idProduct.")");
+        $queryStock = $this->db->query("Call catalog.getStock(".$idProduct.")");
 
         // * On extrait le stock du produit du résultat de la requete
         $stock = $queryStock->row();
@@ -145,7 +145,7 @@ class ProductModel extends CI_Model
     {
 
         // * Requete SQL pour récupérer le stock du produit
-        $queryStock = $this->db->query("Call getStockTotal(".$idProduct.")");
+        $queryStock = $this->db->query("Call catalog.getStockTotal(".$idProduct.")");
 
         // * On extrait le stock du produit du résultat de la requete
         $stock = (int) $queryStock->row()->total;
@@ -181,7 +181,7 @@ class ProductModel extends CI_Model
         $idSport = $this->findIdBySport($sport);
 
         // * Requete SQL pour récupérer les produits par le sport et id
-        $queryProduct = $this->db->query("Call getProductBySportType(".$idSport.", '".$type."')");
+        $queryProduct = $this->db->query("Call product.getProductBySportType(".$idSport.", '".$type."')");
 
         // * On stocke le résultat de la requete dans un tableau
         $products = $queryProduct->result();
@@ -236,7 +236,7 @@ class ProductModel extends CI_Model
     {
 
         // * Requete SQL pour récupérer le produit par son id
-        $queryProduct = $this->db->query("Call getProductById(".$idProduct.")");
+        $queryProduct = $this->db->query("Call product.getProductById(".$idProduct.")");
 
         // * On stocke le résultat de la requete dans un tableau
         $product = $queryProduct->row();

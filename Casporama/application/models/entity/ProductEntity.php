@@ -10,7 +10,6 @@ class ProductEntity
 {
 
     private int $id;
-    private int $reference;
 
     private string $type;
     private string $sport;
@@ -57,38 +56,6 @@ class ProductEntity
     {
 
         $this->id = $id;
-
-    }
-
-    /*
-    
-        * Function get_reference
-    
-        @return int
-    
-        * Cette fonction retourne la référence de l'entité
-    
-    */
-    public function getReference() : int
-    {
-
-        return $this->reference;
-
-    }
-
-    /*
-    
-        * Function setReference
-    
-        @param int $reference
-    
-        * Cette fonction modifie la référence de l'entité
-    
-    */
-    public function setReference(int $reference)
-    {
-
-        $this->reference = $reference;
 
     }
 

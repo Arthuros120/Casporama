@@ -13,6 +13,8 @@
 
 - Todo : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les procedure mariadb
 
+- Todo : SQL -> Créer un trigger sur la création user
+
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
