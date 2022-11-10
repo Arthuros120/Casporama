@@ -32,7 +32,7 @@ class CaptchaModel extends CI_Model
         // * On insère les données du capchat dans la base de données
         $query = $this->db->query(
 
-            "Call addCaptchat(" . $data['captcha_time'] . ",'" . $data['ip_address'] . "','" . $data['word'] . "')"
+            "Call captcha.addCaptchat(" . $data['captcha_time'] . ",'" . $data['ip_address'] . "','" . $data['word'] . "')"
 
         );
 
