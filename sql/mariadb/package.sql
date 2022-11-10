@@ -288,7 +288,7 @@ CREATE OR REPLACE PACKAGE commande AS
     -- Permet d'avoir les commandes d'un client
     procedure getCommandeClient( iduser int);
     -- Permet d'ajouter une commande à un client
-    procedure addCommande( newid int,  newdate varchar(10),  newproduit int,  newquantite int,  newclient int, newadresse int,  newetat varchar(15));
+    procedure addCommande( newid int,  newdate varchar(10),  newproduit varchar(255),  newquantite int,  newclient int, newadresse int,  newetat varchar(15));
     -- Permet de mettre à jour l'état d'une commande
     procedure updateEtat( nucommande int, newetat varchar(15));
     -- Permet de mettre à jour l'adresse d'une commande
@@ -306,7 +306,7 @@ CREATE OR REPLACE PACKAGE BODY commande AS
         select * from commande where idclient = iduser;
     end;
 
-    procedure addCommande( newid int,  newdate varchar(10),  newproduit int,  newquantite int,  newclient int, newadresse int,  newetat varchar(15)) as
+    procedure addCommande( newid int,  newdate varchar(10),  newproduit varchar(255),  newquantite int,  newclient int, newadresse int,  newetat varchar(15)) as
     BEGIN
         insert into commande(idcommande, datecommande, idproduit, quantite, idclient,idadresse , etat) value (newid, newdate,newproduit,newquantite,newclient,newadresse,newetat);
     end;
