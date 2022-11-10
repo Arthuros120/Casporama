@@ -39,4 +39,8 @@
 
 - Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
 
+<<<<<<< HEAD
 - Done : Frontend -> Créer la page register
+=======
+- Done : Backend -> Supprimer référence de productEntity car présent dans catalog dans la bd
+>>>>>>> refs/remotes/origin/main
