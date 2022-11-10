@@ -251,6 +251,7 @@ CREATE OR REPLACE PACKAGE BODY product AS
 
     procedure getProductById( id integer) as
     begin
+        SET sql_mode=ORACLE;
         select * from product where idproduit = id;
     end;
 
