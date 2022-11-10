@@ -15,8 +15,6 @@
 
 - Todo : SQL -> Créer un trigger sur la création user
 
-- Todo : Backend -> Supprimer référence de productEntity car présent dans catalog dans la bd
-
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
@@ -42,3 +40,5 @@
 - Done : Frontend -> Bien rendre cliquable les case de la page d'accueil
 
 - Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
+
+- Done : Backend -> Supprimer référence de productEntity car présent dans catalog dans la bd
