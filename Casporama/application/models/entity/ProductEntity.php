@@ -62,38 +62,6 @@ class ProductEntity
 
     /*
     
-        * Function get_reference
-    
-        @return int
-    
-        * Cette fonction retourne la référence de l'entité
-    
-    */
-    public function getReference() : int
-    {
-
-        return $this->reference;
-
-    }
-
-    /*
-    
-        * Function setReference
-    
-        @param int $reference
-    
-        * Cette fonction modifie la référence de l'entité
-    
-    */
-    public function setReference(int $reference)
-    {
-
-        $this->reference = $reference;
-
-    }
-
-    /*
-    
         * Function getType
     
         @return string

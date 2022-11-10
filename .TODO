@@ -15,6 +15,8 @@
 
 - Todo : SQL -> Créer un trigger sur la création user
 
+- Todo : Backend -> Supprimer référence de productEntity car présent dans catalog dans la bd
+
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
