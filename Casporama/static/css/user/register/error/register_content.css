@@ -2,6 +2,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
+    font-family: var(--main-font);
 }
 
 .register_content {
@@ -12,14 +14,17 @@
     justify-content: center;
     align-items: center;
 
-    background-color: red;
+    background-image: url("../../../../image/registerBackground.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .register_box {
-    width: 30vw;
+    width: 25vw;
     height: 70vh;
 
     border-radius: 25px;
+    background-color: #F2F2F2;
 
     background-color: white;
 }
@@ -33,32 +38,39 @@
     align-items: flex-end;
 }
 
+.logo > a > img {
+    max-width: 100%;
+    height: auto;
+}
+
+.title {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+}
+
 .form {
 
     width: 100%;
-    height: 87%;
+    height: 77%;
 
-    padding: 10% 20%;
+    padding: 0% 10%;
 
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-
-    gap: 2vh;
+    gap: 1vh;
 }
 
 .name {
-    display: flex;
-    flex-direction: column;
-}
-
-.inName {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.inName > input {
+.name > input {
     width: 49%;
 }
 
@@ -70,7 +82,6 @@
 .email {
     display: flex;
     flex-direction: column;
-    gap: 1vh;
 }
 
 .pass {
@@ -81,7 +92,31 @@
 
 .input {
     height: 5vh;
-    border: 1px solid;
+    border: 2px solid #ebebeb;
 
     padding-left: 10px;
+}
+
+.captcha {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.captcha > p {
+    display: flex;
+    width: 100%;
+    background-color: red;
+}
+
+.submit {
+    margin-top: 2vh;
+    padding: 2vh;
+
+    background-color: #216ce7;
+    border-radius: 0.5rem;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1vw;
 }

@@ -19,8 +19,6 @@
 
 - Do : Backend -> Créer les pages différente page en fonction des status
 
-- Do : Frontend -> Créer la page register
-
 ## Fait
 
 - Done : Backend/Frontend -> Avoir avec le dev frontend pour mettre required dans le html du register
@@ -40,3 +38,5 @@
 - Done : Frontend -> Bien rendre cliquable les case de la page d'accueil
 
 - Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
+
+- Done : Frontend -> Créer la page register
