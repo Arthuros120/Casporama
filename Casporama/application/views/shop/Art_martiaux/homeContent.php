@@ -9,7 +9,7 @@
         </li>
         <li class="card">
             <div class="title">
-                <h1>Les <span>Arts-Martiaux</span> commence ici.</h1>
+                <h1>Les <span>Arts-Martiaux</span> commencent ici.</h1>
             </div>
         </li>
     </ul>

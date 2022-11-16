@@ -5,104 +5,117 @@
 }
 
 .global_product {
+    display: flex;
     width: 100vw;
-    height: 90vh;
+    min-height: 90vh;
+    height: auto;
 
     background-color: var(--bg);
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 20% 77%;
+.left_product {
+    display: flex;
+    width: 25vw;
+    height: 100%;
 
-    gap: 3%;
+    padding: 2vh;
 
+}
+
+.product_filter {
+    position: fixed;
+
+    width: 25vw;
+    height: 85vh;
+    
+    background-color: var(--grey1);
+
+    transition: transform 15git 0ms ease-in-out, height 150ms ease-in-out;
+
+    border-radius: 25px;
+}
+
+.product_filter_unscrolled {
+    width: 25vw;
+    height: 85vh;
+
+    transform: translateY(0vh);
+
+}
+
+
+.product_filter_scrolled {
+
+    width: 25vw;
+    height: 95vh;
+
+    transform: translateY(-10vh);
+}
+
+.right_product {
+    display: flex;
+    justify-content: center;
+
+    width: 75vw;
+    height: auto;
+
+    padding: 1vw 8vw;
+}
+
+.all_card {
     width: 100%;
     height: 100%;
-}
 
-.card {
-    list-style-type: none;
-    text-decoration: none;
-}
 
-a:link {
-    display: inline-block;
-    text-decoration: none!important;
-    color: black;
-}
-
-.product {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    padding: 2%;
 
-    gap: 5vw;
+    gap: 1vh;
+
 }
 
 .product_card {
-    width: 20vw;
-    height: 30vh;
-    
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
+    width: 17.85vw;
+    height: 40vh;
+    background-color: var(--grey1);
+    border-radius: 25px;
+
+    margin-bottom: 2vh;
 }
 
-.oneProduct {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    background-color: var(--color0);
-    border-radius: 25px;
-    margin-bottom: 2vh;
-
+.product_link {
     width: 100%;
     height: 100%;
 }
 
 .img {
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    width: 100%;
+    height: 75% ;
+
+    background-color: var(--color0);
+    border-radius: 25px;
 }
 
 .img > img {
-    width: 60%;
+    object-fit: contain;
+
+    max-width: 100%;
     height: auto;
+
 }
 
 .desc {
     display: flex;
     flex-direction: column;
-    text-align: left;
-
-    padding: 2% 5%;
-
-    background-color: var(--grey1);
-    border-radius: 25px;
+    padding: 0% 4%;
 }
 
-.desc > h1 {
-    text-decoration: none;
-    color: black;
+.desc > h2 {
+    font-size: 1.5vw;
 }
 
-.filter {
-    position: fixed;
-
-    width: 20%;
-    height: 80%;
-
-    margin-top: 5vh;
-    margin-left: 2vw;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-
-    background-color: var(--grey1);
-    border-radius: 25px;
+.desc > p {
+    font-size: 0.8vw;
 }

@@ -38,10 +38,10 @@
     align-items: flex-end;
 }
 
-.logo > a > img {
+/* .logo > a > img {
     max-width: 100%;
     height: auto;
-}
+} */
 
 .title {
     width: 100%;
