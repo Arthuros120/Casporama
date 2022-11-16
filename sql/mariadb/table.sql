@@ -1,7 +1,7 @@
-create database if not exists Casporama;
-use Casporama;
+create database if not exists CasporamaDEV;
+use CasporamaDEV;
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS utilisateur (
     id INTEGER NOT NULL,
     login VARCHAR(255) not null unique,
     password VARCHAR(255) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS user (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS information (
+CREATE TABLE IF NOT EXISTS coordonnees (
     id INTEGER NOT NULL,
     prenom VARCHAR(255),
     nom VARCHAR(255),
@@ -21,10 +21,10 @@ CREATE TABLE IF NOT EXISTS information (
     mobile varchar(10) unique,
     fixe varchar(10),
     PRIMARY KEY(id),
-    FOREIGN KEY(id) REFERENCES user(id)
+    FOREIGN KEY(id) REFERENCES utilisateur(id)
 );
 
-CREATE TABLE IF NOT EXISTS location (
+CREATE TABLE IF NOT EXISTS localisation (
     idadresse int not null unique,
     id INTEGER NOT NULL,
     adresse VARCHAR(255) not null,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS location (
     departement VARCHAR(255) not null,
     pays VARCHAR(255) not null,
     PRIMARY KEY(idadresse),
-    FOREIGN KEY(id) REFERENCES user(id)
+    FOREIGN KEY(id) REFERENCES utilisateur(id)
 );
 
 CREATE TABLE IF NOT EXISTS sport (
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS sport (
 );
 
 
-create table if not exists product (
+create table if not exists produit (
     idproduit integer not null,
     type varchar(15) not null,
     nusport integer not null,
@@ -61,7 +61,7 @@ create table if not exists product (
         check( genre in ('Homme','Femme','Mixte'))
 );
 
-CREATE TABLE IF NOT EXISTS catalog (
+CREATE TABLE IF NOT EXISTS catalogue (
     id INTEGER NOT NULL,
     nuproduit integer not null,
     reference integer not null,
@@ -69,20 +69,20 @@ CREATE TABLE IF NOT EXISTS catalog (
     taille varchar(3),
     quantite integer not null default 0,
     PRIMARY KEY(id),
-    foreign key(nuproduit) references product(idproduit)
+    foreign key(nuproduit) references produit(idproduit)
 );
 
-create table if not exists `order` (
-    idcommande int not null,
+create table if not exists commande (
+    idcommande integer not null,
     datecommande date not null,
     idproduit varchar(255) not null,
     quantite varchar(255) not null,
-    idclient int not null,
+    idclient integer not null,
     idadresse int not null,
     etat varchar(15) not null,
     primary key(idcommande),
-    foreign key(idadresse) references location(idadresse),
-    foreign key(idclient) references user(id),
+    foreign key(idadresse) references localisation(idadresse),
+    foreign key(idclient) references utilisateur(id),
     constraint status_not_valid 
         check(etat in ('Non preparer','En preparation','Preparer','Expedier'))
 );

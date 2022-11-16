@@ -80,13 +80,24 @@ $query_builder = true;
     *      a distance.
 
 */
+$config['Deploymentmode'] = getenv("Deploymentmode");
+$dbName = "";
+if ($config['Deploymentmode'] == "Production" )   {
+    $dbName = 'Casporama';
+
+}elseif ($config['Deploymentmode'] == "Developement") {
+    $dbName = 'CasporamaDEV';
+}
+
+
 
 $db['default'] = array(
     'dsn'    => '',
     'hostname' => getenv("DbHost"),
     'username' => getenv("DbUser"),
     'password' => getenv("DbPass"),
-    'database' => 'Casporama',
+    // Todo : Dédoublement
+    'database' => $dbName,
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => false,
