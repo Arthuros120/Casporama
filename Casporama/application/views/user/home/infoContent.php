@@ -8,6 +8,31 @@
 
 <h1>Information de connexion</h1>
 
+<?php
+
+    $status = $user->getStatus();
+
+    if ($status == "Administrateur") {
+
+        echo '<img src="' . base_url() . 'static/image/icon/castor/AdminCastor.svg" alt="Administrateur" />';
+
+    } elseif ($status == "Caspor") {
+
+        echo '<img src="' . base_url() . 'static/image/icon/castor/Caspor.svg" alt="Caspor" />';
+
+    } elseif ($status == "Client") {
+
+        echo '<img src="' . base_url() . 'static/image/icon/castor/castor.png" alt="Castor" />';
+
+    } else {
+
+        // Todo: Voir ce cas
+        echo "Votre compte est en attente de validation";
+
+    }
+
+?>
+
 <p>
 
     <span class="label">Login :</span>
