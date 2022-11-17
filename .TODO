@@ -9,8 +9,6 @@
 
 - Todo : Backend -> Changer les message d'erreur page 404
 
-- Todo : Frontend -> Bien rendre cliquable les case de la page d'accueil
-
 - Todo : Frontend -> Rendre plus styler la page login
 
 - Todo : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
@@ -47,3 +45,5 @@
 - Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
 
 - Done : Backend -> Supprimer référence de productEntity car présent dans catalog dans la bd
+
+- Done : Frontend -> Bien rendre cliquable les case de la page d'accueil
