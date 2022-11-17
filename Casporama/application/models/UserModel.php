@@ -272,6 +272,44 @@ class UserModel extends CI_Model
 
     /*
     
+        * getUserById
+    
+        * Cette méthode permet de récupérer un utilisateur en fonction de son id sans mot de passe
+
+        @param: $id
+    
+        @return: ?UserEntity
+    
+    */
+    public function getUserById(int $id): ?UserEntity
+    {
+
+        // * On récupère le status de l'utilisateur en fonction de son id
+        $query = $this->db->query("Call getUserById('" . $id . "')");
+
+        // * On récupère le status et le login
+        $login = $query->row()->login;
+        $status = $query->row()->status;
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        if (!isset($status) || !isset($login)) {
+
+            return null;
+        }
+
+        // * On cherche les coordonnées de l'utilisateur si il existe
+
+        // * On récupère les coordonnées de l'utilisateur en fonction de son id
+        $query = $this->db->query("Call getUserCoordById('" . $id . "')");
+
+
+    }
+
+    /*
+    
         * getStatusById
     
         * Cette méthode permet de vérifier si un utilisateur existe dans la base de données

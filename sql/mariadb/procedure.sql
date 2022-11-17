@@ -80,13 +80,13 @@ create procedure getUserByLogin( loginSearch VARCHAR(255)) as
         select login, id from utilisateur where login = loginSearch;
     end;
 
--- on retourne l'utilisateur en fonction de son id
+-- on retourne l'user en fonction de son id
 create procedure getUserById( idSearch VARCHAR(255)) as
     begin
-        select id, cookieId, status from utilisateur where id = idSearch;
+        select id, cookieId, status from user where id = idSearch;
     end;
 
--- récupère l'id et l'email de l'utilisateur à partir de son email
+-- récupère l'id et l'email de l'user à partir de son email
 create procedure getUserByEmail( mailSearch VARCHAR(255)) as
     begin
         select login, id from utilisateur where id in (select id from coordonnees where mailSearch = coordonnees.mail);
@@ -267,7 +267,7 @@ create procedure updatePrice( nuproduit int,  newprice int) as
         update produit set prix=newprice where idproduit=nuproduit;
     end;
 
-create procedure updateDescription( nuproduit int,  newdesc varchar(255))as
+create procedure updateDescription( nuproduit int,  newdesc varchar(255)) as
     BEGIN
         update produit set description=newdesc where idproduit=nuproduit;
     end;
