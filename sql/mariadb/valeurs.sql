@@ -20,6 +20,8 @@ insert into location (idlocation,id , location, codepostal, city, department, co
 values
     (1,6,'12 av du 35 juillet','44000','Nantes','Loire-Atlantique','France'),
     (2,7,'12 av du 35 juillet','44000','Nantes','Loire-Atlantique','France');
+    (3,2,'12 av du 35 juillet','44000','Nantes','Loire-Atlantique','France');
+    (4,2,'13 av du 35 juillet','44000','Nantes','Loire-Atlantique','France');
 
 INSERT INTO sport (nusport,name)
  VALUES
