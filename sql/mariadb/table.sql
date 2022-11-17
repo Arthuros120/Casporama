@@ -1,90 +1,90 @@
-create database if not exists CasporamaDEV;
-use CasporamaDEV;
+create database if not exists Casporama;
+use Casporama;
 
-CREATE TABLE IF NOT EXISTS utilisateur (
+CREATE TABLE IF NOT EXISTS user (
     id INTEGER NOT NULL,
     login VARCHAR(255) not null unique,
     password VARCHAR(255) NOT NULL,
     salt VARCHAR(45) NOT NULL unique,
     cookieId VARCHAR(45),
     status VARCHAR(20) not null,
-    constraint status_not_valid 
+    constraint status_not_valid
         check(status in ('Administrateur','Client','Caspor')),
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS coordonnees (
+CREATE TABLE IF NOT EXISTS information (
     id INTEGER NOT NULL,
-    prenom VARCHAR(255),
-    nom VARCHAR(255),
+    firstname VARCHAR(255),
+    name VARCHAR(255),
     mail VARCHAR(255) unique,
     mobile varchar(10) unique,
-    fixe varchar(10),
+    fix varchar(10),
     PRIMARY KEY(id),
-    FOREIGN KEY(id) REFERENCES utilisateur(id)
+    FOREIGN KEY(id) REFERENCES user(id)
 );
 
-CREATE TABLE IF NOT EXISTS localisation (
-    idadresse int not null unique,
+CREATE TABLE IF NOT EXISTS location (
+    idlocation int not null unique,
     id INTEGER NOT NULL,
-    adresse VARCHAR(255) not null,
+    location VARCHAR(255) not null,
     codepostal varchar(5) NOT NULL,
-    ville VARCHAR(255) not null,
-    departement VARCHAR(255) not null,
-    pays VARCHAR(255) not null,
-    PRIMARY KEY(idadresse),
-    FOREIGN KEY(id) REFERENCES utilisateur(id)
+    city VARCHAR(255) not null,
+    department VARCHAR(255) not null,
+    country VARCHAR(255) not null,
+    PRIMARY KEY(idlocation),
+    FOREIGN KEY(id) REFERENCES user(id)
 );
 
 CREATE TABLE IF NOT EXISTS sport (
     nusport INTEGER NOT NULL,
-    nom VARCHAR(20) NOT NULL UNIQUE,
+    name VARCHAR(20) NOT NULL UNIQUE,
     PRIMARY KEY(nusport)
 );
 
 
-create table if not exists produit (
-    idproduit integer not null,
+create table if not exists product (
+    idproduct integer not null,
     type varchar(15) not null,
     nusport integer not null,
-    marque VARCHAR(255) not null,
-    nom VARCHAR(255) NOT NULL UNIQUE,
-    genre VARCHAR(5) NOT NULL,
-    prix float not null,
+    brand VARCHAR(255) not null,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    gender VARCHAR(5) NOT NULL,
+    price float not null,
     description text not null,
     image VARCHAR(255),
-    PRIMARY KEY(idproduit),
+    PRIMARY KEY(idproduct),
     FOREIGN KEY(nusport) REFERENCES sport(nusport),
-    constraint type_not_valid 
+    constraint type_not_valid
         check( type in ('Vêtement','Chaussure','Equipement') ),
-    constraint gender_not_valid 
-        check( genre in ('Homme','Femme','Mixte'))
+    constraint gender_not_valid
+        check( gender in ('Homme','Femme','Mixte'))
 );
 
-CREATE TABLE IF NOT EXISTS catalogue (
+CREATE TABLE IF NOT EXISTS catalog (
     id INTEGER NOT NULL,
-    nuproduit integer not null,
+    nuproduct integer not null,
     reference integer not null,
-    couleur varchar(20),
-    taille varchar(3),
-    quantite integer not null default 0,
+    color varchar(20),
+    size varchar(3),
+    quantity integer not null default 0,
     PRIMARY KEY(id),
-    foreign key(nuproduit) references produit(idproduit)
+    foreign key(nuproduct) references product(idproduct)
 );
 
-create table if not exists commande (
-    idcommande integer not null,
-    datecommande date not null,
-    idproduit varchar(255) not null,
-    quantite varchar(255) not null,
-    idclient integer not null,
-    idadresse int not null,
-    etat varchar(15) not null,
-    primary key(idcommande),
-    foreign key(idadresse) references localisation(idadresse),
-    foreign key(idclient) references utilisateur(id),
+create table if not exists `order` (
+    idorder int not null,
+    dateorder date not null,
+    idproduct varchar(255) not null,
+    quantity varchar(255) not null,
+    iduser int not null,
+    idlocation int not null,
+    state varchar(15) not null,
+    primary key(idorder),
+    foreign key(idlocation) references location(idlocation),
+    foreign key(iduser) references user(id),
     constraint status_not_valid 
-        check(etat in ('Non preparer','En preparation','Preparer','Expedier'))
+        check(state in ('Non preparer','En preparation','Preparer','Expedier'))
 );
 
 -- Ajout de la table captcha pour la gestion des captcha
