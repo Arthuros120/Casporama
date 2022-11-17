@@ -20,12 +20,29 @@ class Test extends CI_Controller
     public function index()
     {
         
-        $data['heading'] = "Erreur lors de la création de l'utilisateur";
-        $data['message'] = "Il y a une erreur lors de la création de votre compte,
-        veuillez nous excuser pour la gêne occasionnée.";
+        // chemin d'accès à votre fichier JSON
+        $linkGouvApi = 'https://api-adresse.data.gouv.fr/search/?q=190+Boulevard+Jules+Vernes&postcode=44300';
+        // mettre le contenu du fichier dans une variable
+        $data = file_get_contents($linkGouvApi);
+        // décoder le flux JSON
+        $jsonObj = json_decode($data);
+    // accéder à l'élément approprié
+        $long = $jsonObj->features[0]->geometry->coordinates[0];
+        $lat = $jsonObj->features[0]->geometry->coordinates[1];
 
-        $this->load->view('errors/html/error_general', $data);
+        $listLong = array($long, -1.5, 0, 1.5, 2.5);
+        $listLat = array($lat, 47.5, 48, 48.5, 49);
 
+        $dataContent = array(
+            'latitude' => $listLat,
+            'longitude' => $listLong
+        );
+
+        $data = array(
+            'content' => $dataContent
+        );
+
+        $this->LoaderView->load('Test/index', $data);
     }
 
 }

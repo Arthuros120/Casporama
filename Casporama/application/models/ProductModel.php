@@ -116,11 +116,10 @@ class ProductModel extends CI_Model
     {
 
         // * Requete SQL pour récupérer le stock du produit
-        $queryStock = $this->db->query("Call getStock(".$idProduct.")");
+        $queryStock = $this->db->query("Call getStock(" . $idProduct . ")");
 
         // * On extrait le stock du produit du résultat de la requete
         $stock = $queryStock->row();
-
 
         // * On passe le stock du produit en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
         $queryStock->next_result();

@@ -8,7 +8,7 @@
 '''bash
 
 sudo apt-get update && sudo apt-get upgrade
-sudo apt install python-software-properties software-properties-common
+sudo apt install software-properties-common
 
 '''
 
@@ -76,7 +76,7 @@ sudo chmod -R 777 /var/www/html/
 
 '''bash
 
-sudo apt-get install php-mysql php-yaml php-gd php-xml php-mbstring php-zip php-curl php-cli php-json php-common php-mcrypt
+sudo apt-get install php-mysql php-yaml php-gd php-xml php-mbstring php-zip php-curl php-cli php-json php-common
 
 '''
 
@@ -133,4 +133,3 @@ cp src/.htaccess Casporama/
 ### 2.7. Configuration de l'application
 
 Modifier le fichier Casporama/.htaccess pour y mettre les informations de connexion à la base de données et vos informations de connexion à l'application.
-

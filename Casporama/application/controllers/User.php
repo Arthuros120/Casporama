@@ -480,20 +480,30 @@ class User extends CI_Controller
         * Et les fonction disponible pour l'utilisateur
 
     */
-    public function home(string $action = '')
+    public function home(string $action = '', int $hint = -1)
     {
 
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
 
-        if (!in_array($action, array('', 'info', 'modifEmail', 'modifPass'))) {
+        if (!in_array($action, array(
+            '',
+            'info',
+            'modifEmail',
+            'modifPass',
+            'modifMobile',
+            'modifFixe',
+            'modifLastName',
+            'modifFirstName',
+            'modifAddress',
+            'supprAddress'
+            ))) {
 
             // * Si le sport ou la catégorie n'est pas disponible, on affiche une erreur 404.
-            
-            $data['heading'] = "404 Page non trouvée";
-            $data['message'] = "La page que vous avez demandée n'a pas été trouvée.";
 
-            $this->load->view('errors/html/error_404', $data);
+            var_dump($action);
+
+            $this->load->view('errors/html/error_404');
 
         }else {
 
@@ -526,6 +536,14 @@ class User extends CI_Controller
 
                     $this->LoaderView->load('User/home/info', $data);
 
+                } elseif ($action == 'modifLastName') {
+
+                    echo "modifLastName";
+
+                } elseif ($action == 'modifFirstName') {
+
+                    echo "modifFirstName";
+
                 } elseif ($action == 'modifEmail') {
 
                     echo "modifEmail";
@@ -533,6 +551,34 @@ class User extends CI_Controller
                 } elseif ($action == 'modifPass') {
 
                     echo "modifPass";
+
+                } elseif ($action == 'modifMobile') {
+
+                    echo "modifMobile";
+
+                } elseif ($action == 'modifFixe') {
+
+                    echo "modifFixe";
+
+                } elseif ($action == 'modifAddress') {
+
+                    if ($hint <= 0) {
+
+                        $this->load->view('errors/html/error_404');
+
+                    }
+
+                    echo "modifAddress : " . $hint;
+
+                } elseif ($action == 'supprAddress') {
+
+                    if ($hint <= 0) {
+
+                        $this->load->view('errors/html/error_404');
+
+                    }
+
+                    echo "supprAddress : " . $hint;
 
                 }
     

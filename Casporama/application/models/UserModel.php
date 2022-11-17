@@ -305,33 +305,73 @@ class UserModel extends CI_Model
         // * On récupère les coordonnées de l'utilisateur en fonction de son id
         $query = $this->db->query("Call getUserInfoById('" . $id . "')");
 
-<<<<<<< HEAD
-        
-=======
+        // * On récupère les coordonnées
+        $coordId = $query->row()->id;
         $firstname = $query->row()->firstname;
         $name = $query->row()->name;
         $email = $query->row()->mail;
         $mobile = $query->row()->mobile;
         $fix = $query->row()->fix;
 
-        // * On attend un résultat
-        $query->next_result();
-        $query->free_result();
-
-        if (!isset($firstname) || !isset($name) || !isset($email) || !isset($mobile) || !isset($fix)) {
+        if (!isset($firstname) || !isset($name) || !isset($email) || !isset($mobile)) {
 
             return null;
+
+        }
+
+        $coord = new CoordonneesEntity();
+
+        $coord->setId($coordId);
+        $coord->setPrenom($firstname);
+        $coord->setNom($name);
+        $coord->setEmail($email);
+        $coord->setTelephone($mobile);
+        
+        if (isset($fix)) {
+
+            $coord->setFixe($fix);
+
+        } else {
+
+            $coord->setFixe("");
         }
 
         // * On attend un résultat
         $query->next_result();
         $query->free_result();
 
-        $query2 = $this->db->query("Call getUserLocationById('" . $id . "')");
+        $queryAdress = $this->db->query("Call getUserLocationById('" . $id . "')");
 
-        var_dump($query2->row());
+        $addressList = [];
 
->>>>>>> refs/remotes/origin/main
+        $addressResult = $queryAdress->result();
+
+        foreach ($addressResult as &$address) {
+
+            $addressEntity = new LocalisationEntity();
+
+            // * On hydrate l'objet
+            $addressEntity->setId($address->id);
+            $addressEntity->setAdresse($address->location);
+            $addressEntity->setCodePostal($address->codepostal);
+            $addressEntity->setVille($address->city);
+            $addressEntity->setPays($address->country);
+            $addressEntity->setDepartement($address->department);
+            
+            array_push($addressList, $addressEntity);
+        }
+
+        $user = new UserEntity();
+
+        $user->setId($id);
+        $user->setLogin($login);
+        $user->setStatus($status);
+        $user->setLocalisation($addressList);
+        $user->setCoordonnees($coord);
+
+
+        return $user;
+
     }
 
     /*
