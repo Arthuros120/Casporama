@@ -1,6 +1,19 @@
 <?php
 defined('BASEPATH') || exit('No direct script access allowed');
 
+
+/*
+|--------------------------------------------------------------------------
+| ServerMode - Luna Manson
+|--------------------------------------------------------------------------
+|
+| Mode of the server
+|
+|
+*/
+
+$config['Deploymentmode'] = getenv("Deploymentmode");
+
 /*
 |--------------------------------------------------------------------------
 | LoaderView URL - Hamelin Arthur FVAEF

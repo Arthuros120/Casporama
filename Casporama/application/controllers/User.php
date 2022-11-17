@@ -514,7 +514,17 @@ class User extends CI_Controller
 
                 } elseif ($action == 'info') {
 
-                    echo "info";
+                    $id = $this->UserModel->getUserBySession()->getId();
+
+                    $user = $this->UserModel->getUserById($id);
+
+                    $dataContent['user'] = $user;
+
+                    $data = array(
+                        'content' => $dataContent
+                    );
+
+                    $this->LoaderView->load('User/home/info', $data);
 
                 } elseif ($action == 'modifEmail') {
 

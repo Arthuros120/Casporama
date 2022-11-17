@@ -80,16 +80,14 @@ $query_builder = true;
     *      a distance.
 
 */
-$config['Deploymentmode'] = getenv("Deploymentmode");
-$dbName = "";
-if ($config['Deploymentmode'] == "Production" )   {
-    $dbName = 'Casporama';
 
-}elseif ($config['Deploymentmode'] == "Developement") {
+$dbName = "Casporama";
+
+if (isset($config['Deploymentmode']) && $config['Deploymentmode'] == "Developement") {
+
     $dbName = 'CasporamaDEV';
+
 }
-
-
 
 $db['default'] = array(
     'dsn'    => '',

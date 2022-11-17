@@ -4,9 +4,14 @@ drop table if exists captcha cascade;
 
 drop table if exists catalog cascade;
 
+<<<<<<< HEAD
 drop table if exists `order` cascade;
 
+=======
+>>>>>>> refs/remotes/origin/main
 drop table if exists information cascade;
+
+drop table if exists `order` cascade;
 
 drop table if exists location cascade;
 
@@ -130,5 +135,9 @@ drop procedure if exists verifyId;
 
 drop procedure if exists verifyLogin;
 
+<<<<<<< HEAD
 drop procedure if exists verifyPhone;
 
+=======
+drop procedure if exists verifyPhone;
+>>>>>>> refs/remotes/origin/main
