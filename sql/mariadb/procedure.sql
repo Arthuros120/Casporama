@@ -1,6 +1,6 @@
 use Casporama;
 
-#---------- Select ----------------
+-- Select ----------------
 
 create procedure getUserInfoById(iduser integer)
     Begin
