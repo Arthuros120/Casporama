@@ -59,7 +59,7 @@ class ProductModel extends CI_Model
         $queryIdSport = $this->db->query("Call getNameSport('".$sport."')");
 
         // * On extrait le nom du sport du résultat de la requete
-        $idSport = $queryIdSport->row()->nom;
+        $idSport = $queryIdSport->row()->name;
 
         // * On passe le nom du sport en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
         $queryIdSport->next_result();
