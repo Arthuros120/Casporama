@@ -303,8 +303,30 @@ class UserModel extends CI_Model
         // * On cherche les coordonnées de l'utilisateur si il existe
 
         // * On récupère les coordonnées de l'utilisateur en fonction de son id
-        $query = $this->db->query("Call getUserCoordById('" . $id . "')");
+        $query = $this->db->query("Call getUserInfoById('" . $id . "')");
 
+        $firstname = $query->row()->firstname;
+        $name = $query->row()->name;
+        $email = $query->row()->mail;
+        $mobile = $query->row()->mobile;
+        $fix = $query->row()->fix;
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        if (!isset($firstname) || !isset($name) || !isset($email) || !isset($mobile) || !isset($fix)) {
+
+            return null;
+        }
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        $query2 = $this->db->query("Call getUserLocationById('" . $id . "')");
+
+        var_dump($query2->row());
 
     }
 

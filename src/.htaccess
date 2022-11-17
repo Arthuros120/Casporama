@@ -7,3 +7,4 @@ SetEnv DbHost 167.71.67.196
 SetEnv DbUser site
 SetEnv DbPass Casporama123$
 SetEnv CryptoKey 62284e613d889f5f99090b9f12253e40
+SetEnv Deploymentmode Production
