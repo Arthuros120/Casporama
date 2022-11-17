@@ -193,14 +193,14 @@ class ProductModel extends CI_Model
             $newProduct = new ProductEntity();
 
             // * On hydrate l'objet
-            $newProduct->setId($product->idproduit);
+            $newProduct->setId($product->idproduct);
             //$newProduct->setReference($product->reference);
             $newProduct->setType($product->type);
             $newProduct->setSport($product->nusport);
-            $newProduct->setBrand($product->marque);
-            $newProduct->setName($product->nom);
-            $newProduct->setGenre($product->genre);
-            $newProduct->setPrice($product->prix);
+            $newProduct->setBrand($product->brand);
+            $newProduct->setName($product->name);
+            $newProduct->setGenre($product->gender);
+            $newProduct->setPrice($product->price);
             $newProduct->setDescription($product->description);
 
             // * On ajoute une image de couverture si une image est fournie
@@ -252,14 +252,14 @@ class ProductModel extends CI_Model
             $newProduct = new ProductEntity();
 
             // * On hydrate l'objet
-            $newProduct->setId($product->idproduit);
+            $newProduct->setId($product->idproduct);
             //$newProduct->setReference($product->reference);
             $newProduct->setType($product->type);
             $newProduct->setSport($product->nusport);
-            $newProduct->setBrand($product->marque);
-            $newProduct->setName($product->nom);
-            $newProduct->setGenre($product->genre);
-            $newProduct->setPrice($product->prix);
+            $newProduct->setBrand($product->brand);
+            $newProduct->setName($product->name);
+            $newProduct->setGenre($product->gender);
+            $newProduct->setPrice($product->price);
             $newProduct->setDescription($product->description);
 
             // * On ajoute une image de couverture si une image est fournie
