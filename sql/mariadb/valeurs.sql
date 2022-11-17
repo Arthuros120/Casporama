@@ -1,6 +1,6 @@
-use CasporamaDEV;
+use Casporama;
 
-insert into utilisateur (id, login, password, salt, status)
+insert into user (id, login, password, salt, status)
 values
     (1,'root','$2y$10$MCDgDzmwpaP.JVNIU5zZluM2fgms.ev5i2cOVK5EmEwbcQhamHMYy','117503329635307be4a2976.09876691','Administrateur'), -- CA$torama2022A
     (2,'arthur','$2y$10$2A4swofgoN/cg8bZYMk9fe6rvys6To1fIDJQiMBeGuusRPYsvPaIK','561630926353082e643284.05064160','Administrateur'), -- arthur123
@@ -10,25 +10,25 @@ values
     (6,'michel','$2y$10$Po1OOq1FZmxVV9v4mMFWwOR4ZbDtKQaZGFZ/ttEJhwSMfjfjU.yj.','1878903195635308709421d5.58691612','Client'), -- client1234
     (7,'michelle','$2y$10$bGRZi8h7Yvef/iQ0GcWBwed38pAA6iK0Ss6US/bpVVI0OkNjyvdIK','4849665063530884cfa935.33716248','Caspor'); -- client1234
 
-insert into coordonnees (id, prenom, nom, mail, mobile, fixe)
+insert into information (id, firstname, name, mail, mobile, fix)
 values
     (2,'Arthur','Hamelin','arthur.hamelin@etu.univ-nantes.fr','0600000000','0200000000'),
     (6,'michel','duponse','duponse@test.com','0602030405','0402030405'),
     (7,'michelle','duponse','michelle@test.com','0602030404','0402030405');
 
-insert into localisation (idadresse,id , adresse, codepostal, ville, departement, pays)
+insert into location (idlocation,id , location, codepostal, city, department, country)
 values
     (1,6,'12 av du 35 juillet','44000','Nantes','Loire-Atlantique','France'),
     (2,7,'12 av du 35 juillet','44000','Nantes','Loire-Atlantique','France');
 
-INSERT INTO sport (nusport,nom)
+INSERT INTO sport (nusport,name)
  VALUES
  (1,'Football'),
  (2,'Volleyball'),
  (3,'Badminton'),
  (4,'Arts-martiaux');
 
-insert into produit (idproduit, type, nusport, marque, nom, genre, prix, description, image)
+insert into product (idproduct, type, nusport, brand, name, gender, price, description, image)
 values
     (   1,
         'Vêtement',
@@ -79,17 +79,14 @@ values
          );
 
 
-insert into catalogue (id, nuproduit,reference, couleur, taille, quantite)
+insert into catalog (id, nuproduct, reference, color, size, quantity)
 values
-    (1,1,405,'RouRge','XS',42),
-    (2,2,4052,'Bleu','35',11),
-    (3,3,12939,null,null,5),
-    (4,1,29283,'VerRt','XS',2),
-    (5,4,294,'Bleu','L',1);
+    (1,1,4064,'Rouge','XS',2),
+    (2,2,7064,'Bleu','35',1),
+    (3,3,6064,null,null,5),
+    (4,1,5064,'Vert','XS',2),
+    (5,4,5065,'Bleu','L',1);
 
-insert into commande (idcommande,datecommande, idproduit, quantite, idclient,idadresse , etat)
+insert into `order` (idorder,dateorder, idproduct, quantity, iduser,idlocation , state)
 values
-    (1,'2022-10-10', 1, 1 ,6,1,'En preparation');
-
-
-
+    (1,'2022-10-10', '1', 1 ,6,1,'En preparation');
