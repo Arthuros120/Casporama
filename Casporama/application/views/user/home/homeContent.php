@@ -1,10 +1,16 @@
 <!-- user/home/homeContent -->
 
-<a href="<?= base_url() ?>">
 
-    <img src="<?= base_url() . "static/image/icon/casporama.svg" ?>" alt="Casporama" />
+<div class="user_home_content">
+    <div class="user_nav">
+        <a href="<?= base_url() ?>">
+            <img src="<?= base_url() . "static/image/icon/casporama.svg" ?>" alt="Casporama" />
+        </a>
+    </div>
 
-</a></br>
+</div>
+
+<!--
 
 <a href="<?php echo base_url('User/home/info'); ?>">Consulter mes informations</a></br>
 <a href="<?php echo base_url('User/card'); ?>">Mon panier</a></br>
@@ -27,6 +33,6 @@
 ?>
 
 
-<a href="<?php echo base_url('User/logout'); ?>">Se déconnecter</a>
+<a href="<?php echo base_url('User/logout'); ?>">Se déconnecter</a> -->
 
 <!-- user/home/homeContent -->

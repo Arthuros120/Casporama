@@ -16,10 +16,6 @@
             <h2>Inscription</h2>
         </div>
         <div class="form">
-            <div class="name">
-                <input class="input" type="text" name="Surname" placeholder="Name" />
-                <input class="input" type="text" name="Firstname" placeholder="First Name" />
-            </div>
             <div class="login">
                 <input class="input" type="text" name="login" placeholder="Votre login" />
             </div>
@@ -31,10 +27,10 @@
                 <input class="input" type="password" name="passConf" autocomplete="off" placeholder="Comfiramtion du Mots de passe" />
             </div>
             <?php if ($captcha_form) { ?>
-                <input class="input" name="not_robot" id="not_robot" type="text" placeholder="Rentrer le captcha" />
                 <div class="captcha">
                     <p><?php echo $captcha_html; ?></p>
                 </div>
+                <input class="input" name="not_robot" id="not_robot" type="text" placeholder="Rentrer le captcha" />
             <?php } ?>
             <button class="submit" type="submit">Suivant</button>
         </div>
@@ -42,11 +38,6 @@
     </div>
 
 </div>
-
-
-
-
-
 
 <div class="error" 
     <?php

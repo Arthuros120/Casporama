@@ -622,9 +622,9 @@ $config['proxy_ips'] = '';
 
 $config['captcha_form'] = true;
 $config['captcha_path'] = 'captcha/';
-$config['captcha_width'] = 150;
+$config['captcha_width'] = 380;
 $config['captcha_height'] = 50;
-$config['captcha_font_size'] = 25;
+$config['captcha_font_size'] = 100;
 $config['captcha_expire'] = 180;
 $config['captcha_grid'] = false;
 $config['captcha_case_sensitive'] = true;

@@ -1,12 +1,23 @@
 <!-- user/login/success/successContent -->
 
-<h1> Bonjour <?= $user->getLogin() ?></h1>
+<div class="success_content">
+    <div class="success_loading">
+        <h1 class="text-pop-up-top loading_text">
+            C
+            A
+            <span class="S">S</span>
+            <span class="P">P</span>
+            <span class="O">O</span>
+            <span class="R">R</span>
+            A
+            M
+            A
+        </h1>
+        <h2>Chargment...</h2>
+    </div>
+</div>
 
-<div class="loadingio-spinner-cube-oepgmquqacj"><div class="ldio-2udsc5nic6w">
-<div></div><div></div><div></div><div></div>
-</div></div>
 
-<h2>Chargment...</h2>
 
 
 <!-- user/login/success/successContent -->
