@@ -138,6 +138,7 @@
                     <a href="<?php echo base_url('User/home/modifAddress/') . $localisation->getId(); ?>">Modifier</a>
 
                     <a href="<?php echo base_url('User/home/supprAddress/') . $localisation->getId(); ?>">Supprimer</a>
+
                 </p>
 
                 <div class="map">
@@ -150,9 +151,8 @@
     <?php }
     } else {
 
-        echo '
-        <div class="card"><p>Vous n\'avez pas d\'adresse enregistré<p></div>
-        ';
+        echo ' <div class="card"><p>Vous n\'avez pas d\'adresse enregistré<p></div>';
+
     }
 
     ?>

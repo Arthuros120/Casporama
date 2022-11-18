@@ -25,6 +25,7 @@ class User extends CI_Controller
         parent::__construct();
         $this->load->model('CaptchaModel', 'cm');
         $this->load->helper('captcha');
+
     }
 
     /*
@@ -509,11 +510,13 @@ class User extends CI_Controller
 
             if ($this->UserModel->isConnected()) {
 
-                if ($action == '') {
+                    $id = $this->UserModel->getUserBySession()->getId();
 
-                    $status = $this->UserModel->getStatus();
-    
-                    $dataContent['status'] = $status;
+                    $user = $this->UserModel->getUserById($id);
+
+                    $dataContent['user'] = $user;
+
+                if ($action == '') {
     
                     $data = array(
                         'content' => $dataContent
@@ -523,12 +526,6 @@ class User extends CI_Controller
                     $this->LoaderView->load('User/home', $data);
 
                 } elseif ($action == 'info') {
-
-                    $id = $this->UserModel->getUserBySession()->getId();
-
-                    $user = $this->UserModel->getUserById($id);
-
-                    $dataContent['user'] = $user;
 
                     $data = array(
                         'content' => $dataContent
