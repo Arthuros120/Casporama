@@ -100,13 +100,10 @@
 .captcha {
     width: 100%;
     display: flex;
-    justify-content: center;
-}
+    border: 2px solid #ebebeb;
 
-.captcha > p {
-    display: flex;
-    width: 100%;
-    background-color: red;
+    justify-content: center;
+    align-items: center;
 }
 
 .submit {
