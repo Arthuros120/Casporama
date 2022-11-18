@@ -9,8 +9,20 @@
     </div>
     <div class="user_account">
         <div class="user_title">
-            <h1>Bonjour <span class="name"></span><?= $user->getCoordonnees()->getPrenom() ?> - Votre Compte</h1>
+            <h1>Bonjour <span><?= $user->getCoordonnees()->getPrenom() ?></span> - Votre Compte</h1>
             <hr>
+        </div>
+        <div class="user_info">
+            <a class="user_btn" href="<?php echo base_url('User/home/info'); ?>">
+                <h3>Consulter mes informations</h3>
+            </a>
+            <a class="user_btn" href="<?php echo base_url('User/card'); ?>">
+                <h3>Mon panier</h3>
+            </a>
+            <a class="user_btn" href="<?php echo base_url('User/command'); ?>">
+                <h3>Mes commandes</h3>
+                <img src="">
+            </a>
         </div>
     </div>
 
