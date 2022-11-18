@@ -21,6 +21,10 @@
 
 - TODO : SQL -> Faire Coupon de réduction
 - 
+- Todo : Backend -> Implementer les cartes dans la page info user
+
+- Todo : SQL -> Ajouter la longitude et la latitude dans la table location
+
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
@@ -48,3 +52,5 @@
 - Done : Backend -> Supprimer référence de productEntity car présent dans catalog dans la bd
 
 - Done : Frontend -> Bien rendre cliquable les case de la page d'accueil
+
+- Done : Backend -> Dans info user, ajouter une icone en fonction du role

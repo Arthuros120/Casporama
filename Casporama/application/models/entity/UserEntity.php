@@ -21,7 +21,7 @@ class UserEntity
     
     private string $status;
 
-    private LocalisationEntity $localisation;
+    private array $localisation;
     private CoordonneesEntity $coordonnees;
 
     /*
@@ -156,12 +156,12 @@ class UserEntity
     
         * Function getLocalisation
     
-        @return LocalisationEntity
+        @return array
     
         * Cette fonction retourne la localisation de l'entité
     
     */
-    public function getLocalisation() : LocalisationEntity
+    public function getLocalisation() : array
     {
 
         return $this->localisation;
@@ -172,12 +172,12 @@ class UserEntity
     
         * Function setLocalisation
     
-        @param LocalisationEntity $Localisation
+        @param array $Localisation
     
         * Cette fonction modifie la localisation de l'entité
     
     */
-    public function setLocalisation(LocalisationEntity $localisation)
+    public function setLocalisation(array $localisation)
     {
 
         $this->localisation = $localisation;
@@ -188,7 +188,7 @@ class UserEntity
     
         * Function getCoordonnees
     
-        @return CoordonneesEntity
+        @return array
     
         * Cette fonction retourne les coordonnées de l'entité
     
@@ -204,7 +204,7 @@ class UserEntity
     
         * Function setCoordonnees
     
-        @param CoordonneesEntity $coordonnees
+        @param array $coordonnees
     
         * Cette fonction modifie les coordonnées de l'entité
     

@@ -12,7 +12,7 @@ END;
 CREATE OR REPLACE PACKAGE BODY sport AS
   procedure getNameSport( nusport integer) as
     begin
-        select nom from sport where sport.nusport = nusport;
+        select name from sport where sport.nusport = nusport;
     end;
 
   procedure getIdSport( name VARCHAR(20)) as

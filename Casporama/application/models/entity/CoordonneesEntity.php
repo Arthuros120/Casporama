@@ -146,7 +146,7 @@ class CoordonneesEntity
     public function setTelephone(string $telephone)
     {
 
-        $this->telephone = "0" . $telephone;
+        $this->telephone = $telephone;
 
     }
 
@@ -208,11 +208,17 @@ class CoordonneesEntity
         * en ajoutant automatiquement un 0 au début
 
     */
-    public function setFixe(int $fixe)
+    public function setFixe($fixe)
     {
+        if ($fixe != "") {
 
-        $this->fixe = "0" . (string) $fixe;
+            $this->fixe = $fixe;
 
+        } else {
+
+            $this->fixe = "Non renseigné";
+
+        }
     }
 
 }
