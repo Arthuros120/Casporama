@@ -519,7 +519,9 @@ class User extends CI_Controller
                 if ($action == '') {
     
                     $data = array(
+
                         'content' => $dataContent
+
                     );
     
                     // * On charge la page d'accueil de l'utilisateur
@@ -527,8 +529,48 @@ class User extends CI_Controller
 
                 } elseif ($action == 'info') {
 
+                    $listLoc = $user->getLocalisation();
+
+                    if (isset($listLoc) && !empty($listLoc)) {
+
+                        $dataContent['listLoc'] = $listLoc;
+
+                        $dataMap = [];
+
+                        foreach ($listLoc as $loc) {
+
+                            if ($loc->getLatitude() != null && $loc->getLongitude() != null) {
+
+                                $dataMap[$loc->getId()] = array(
+
+                                    'lat' => $loc->getLatitude(),
+                                    'lng' => $loc->getLongitude(),
+
+                                );
+                            }
+                        }
+
+                        if (!empty($dataMap)) {
+
+                            $dataScript['dataMap'] = $dataMap;
+
+                        } else {
+
+                            $dataScript['dataMap'] = null;
+
+                        }
+
+                    } else {
+
+                        $dataScript['dataMap'] = null;
+
+                    }
+
                     $data = array(
-                        'content' => $dataContent
+
+                        'content' => $dataContent,
+                        'script' => $dataScript,
+
                     );
 
                     $this->LoaderView->load('User/home/info', $data);

@@ -10,26 +10,22 @@
 
 <?php
 
-    $status = $user->getStatus();
+$status = $user->getStatus();
 
-    if ($status == "Administrateur") {
+if ($status == "Administrateur") {
 
-        echo '<img src="' . base_url() . 'static/image/icon/castor/AdminCastor.svg" alt="Administrateur" />';
+    echo '<img src="' . base_url() . 'static/image/icon/castor/AdminCastor.svg" alt="Administrateur" />';
+} elseif ($status == "Caspor") {
 
-    } elseif ($status == "Caspor") {
+    echo '<img src="' . base_url() . 'static/image/icon/castor/Caspor.svg" alt="Caspor" />';
+} elseif ($status == "Client") {
 
-        echo '<img src="' . base_url() . 'static/image/icon/castor/Caspor.svg" alt="Caspor" />';
+    echo '<img src="' . base_url() . 'static/image/icon/castor/castor.png" alt="Castor" />';
+} else {
 
-    } elseif ($status == "Client") {
-
-        echo '<img src="' . base_url() . 'static/image/icon/castor/castor.png" alt="Castor" />';
-
-    } else {
-
-        // Todo: Voir ce cas
-        echo "Votre compte est en attente de validation";
-
-    }
+    // Todo: Voir ce cas
+    echo "Votre compte est en attente de validation";
+}
 
 ?>
 
@@ -95,9 +91,7 @@
 
     <?php
 
-    $listLoc = $user->getLocalisation();
-
-    if (isset($listLoc) && count($listLoc) > 0) {
+    if (isset($listLoc)) {
 
         foreach ($listLoc as $localisation) { ?>
 
@@ -108,7 +102,10 @@
                     <span class="label">Adresse :</span>
 
                     <span class="value"><?=
-                    $localisation->getAdresse()['number'] . " " . $localisation->getAdresse()['street'] ?></span>
+
+                        $localisation->getAdresse()['number'] . " " . $localisation->getAdresse()['street']
+
+                    ?></span>
 
                     <br>
 
@@ -136,16 +133,27 @@
 
                     <br>
 
-                    <a href="<?php echo base_url('User/home/modifAddress/') . $localisation->getId(); ?>">Modifier</a>
+                    <a href="<?= base_url('User/home/modifAddress/') . $localisation->getId(); ?>">Modifier</a>
 
-                    <a href="<?php echo base_url('User/home/supprAddress/') . $localisation->getId(); ?>">Supprimer</a>
+                    <a href="<?= base_url('User/home/supprAddress/') . $localisation->getId(); ?>">Supprimer</a>
 
                 </p>
 
-                <div class="map">
+                <div class="card-map">
+
+                    <?php
+
+                    if ($localisation->getLatitude() != null && $localisation->getLongitude() != null) { ?>
+
+                        <div id="map<?= $localisation->getId() ?>" class="map"></div>
+
+                    <?php } else { ?>
+
+                        <p> Aucune localisation n'a été trouvé pour cette adresse </p>
+
+                    <?php } ?>
 
                 </div>
-
 
             </div>
 
@@ -153,10 +161,11 @@
     } else {
 
         echo ' <div class="card"><p>Vous n\'avez pas d\'adresse enregistré<p></div>';
-
     }
 
     ?>
+
+</div>
 
 </div>
 

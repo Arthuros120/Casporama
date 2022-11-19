@@ -108,11 +108,10 @@ User/home/info:
 
     views :
         head : "user/home/info/head"
-        header : "templates/blank"
         content : "user/home/info/content"
-        footer : "templates/blank"
+        script : "user/home/info/script"
 
-    baseView : "templates/base"
+    baseView : "user/home/info/base"
 
 Test/index :
 

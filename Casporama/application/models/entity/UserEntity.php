@@ -161,7 +161,7 @@ class UserEntity
         * Cette fonction retourne la localisation de l'entité
     
     */
-    public function getLocalisation() : array
+    public function getLocalisation() : ?array
     {
 
         return $this->localisation;

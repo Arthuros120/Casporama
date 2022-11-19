@@ -19,8 +19,8 @@ class LocationEntity
     private string $country;
     private string $department;
 
-    private float $latitude;
-    private float $longitude;
+    private ?float $latitude;
+    private ?float $longitude;
 
     /*
     
@@ -276,7 +276,7 @@ class LocationEntity
         * Cette fonction retourne la latitude de l'entité
     
     */
-    public function getLatitude() : float
+    public function getLatitude() : ?float
     {
 
         return $this->latitude;
@@ -292,7 +292,7 @@ class LocationEntity
         * Cette fonction modifie la latitude de l'entité
     
     */
-    public function setLatitude(float $latitude)
+    public function setLatitude(?float $latitude)
     {
 
         $this->latitude = $latitude;
@@ -308,7 +308,7 @@ class LocationEntity
         * Cette fonction retourne la longitude de l'entité
     
     */
-    public function getLongitude() : float
+    public function getLongitude() : ?float
     {
 
         return $this->longitude;
@@ -324,7 +324,7 @@ class LocationEntity
         * Cette fonction modifie la longitude de l'entité
     
     */
-    public function setLongitude(float $longitude)
+    public function setLongitude(?float $longitude)
     {
 
         $this->longitude = $longitude;

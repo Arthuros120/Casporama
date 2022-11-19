@@ -11,25 +11,19 @@
 
 - Todo : Frontend -> Rendre plus styler la page login
 
-- Todo : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
-
 - Todo : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les procedure mariadb
 
 - Todo : SQL -> Créer un trigger sur la création user
 
-- Todo : Sysadmin/Backend -> crée un dédoublement du site et de la base de donnée sur le serveur distant
-
 - TODO : SQL -> Faire Coupon de réduction
-
-- Todo : Backend -> Implementer les cartes dans la page info user
-
-- Todo : SQL -> Ajouter la longitude et la latitude dans la table location
 
 - Todo : Backend/Frotend -> Progress bar sur la loading page (pour le fun)
 
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
+
+- Do : Sysadmin/Backend -> crée un dédoublement du site et de la base de donnée sur le serveur distant
 
 ## Fait
 
@@ -55,4 +49,10 @@
 
 - Done : Frontend -> Bien rendre cliquable les case de la page d'accueil
 
+- Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
+
 - Done : Backend -> Dans info user, ajouter une icone en fonction du role
+
+- Done : SQL -> Ajouter la longitude et la latitude dans la table location
+
+- Done : Backend -> Implementer les cartes dans la page info user

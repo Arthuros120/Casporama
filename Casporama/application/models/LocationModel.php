@@ -34,11 +34,8 @@ class LocationModel extends CI_Model
             $addressEntity->setCity($address->city);
             $addressEntity->setCountry($address->country);
             $addressEntity->setDepartment($address->department);
-            
-            if ($address->latitude != null && $address->longitude != null) {
-                $addressEntity->setLatitude($address->latitude);
-                $addressEntity->setLongitude($address->longitude);
-            }
+            $addressEntity->setLatitude($address->latitude);
+            $addressEntity->setLongitude($address->longitude);
             
             array_push($addressList, $addressEntity);
         }
