@@ -284,6 +284,9 @@ class UserModel extends CI_Model
     public function getUserById(int $id): ?UserEntity
     {
 
+        $this->load->model('LocationModel');
+        $this->load->model('InformationModel');
+
         // * On récupère le status de l'utilisateur en fonction de son id
         $query = $this->db->query("Call getUserById('" . $id . "')");
 
@@ -300,66 +303,19 @@ class UserModel extends CI_Model
             return null;
         }
 
-        // * On cherche les coordonnées de l'utilisateur si il existe
+        $information = $this->InformationModel->getInformationByUserId($id);
 
-        // * On récupère les coordonnées de l'utilisateur en fonction de son id
-        $query = $this->db->query("Call getUserInfoById('" . $id . "')");
-
-        // * On récupère les coordonnées
-        $coordId = $query->row()->id;
-        $firstname = $query->row()->firstname;
-        $name = $query->row()->name;
-        $email = $query->row()->mail;
-        $mobile = $query->row()->mobile;
-        $fix = $query->row()->fix;
-
-        if (!isset($firstname) || !isset($name) || !isset($email) || !isset($mobile)) {
+        if ($information == null) {
 
             return null;
 
-        }
-
-        $coord = new CoordonneesEntity();
-
-        $coord->setId($coordId);
-        $coord->setPrenom($firstname);
-        $coord->setNom($name);
-        $coord->setEmail($email);
-        $coord->setTelephone($mobile);
-        
-        if (isset($fix)) {
-
-            $coord->setFixe($fix);
-
-        } else {
-
-            $coord->setFixe("");
         }
 
         // * On attend un résultat
         $query->next_result();
         $query->free_result();
 
-        $queryAdress = $this->db->query("Call getUserLocationById('" . $id . "')");
-
-        $addressList = [];
-
-        $addressResult = $queryAdress->result();
-
-        foreach ($addressResult as &$address) {
-
-            $addressEntity = new LocalisationEntity();
-
-            // * On hydrate l'objet
-            $addressEntity->setId($address->id);
-            $addressEntity->setAdresse($address->location);
-            $addressEntity->setCodePostal($address->codepostal);
-            $addressEntity->setVille($address->city);
-            $addressEntity->setPays($address->country);
-            $addressEntity->setDepartement($address->department);
-            
-            array_push($addressList, $addressEntity);
-        }
+        $addressList = $this->LocationModel->getLocationsByUserId($id);
 
         $user = new UserEntity();
 
@@ -367,7 +323,7 @@ class UserModel extends CI_Model
         $user->setLogin($login);
         $user->setStatus($status);
         $user->setLocalisation($addressList);
-        $user->setCoordonnees($coord);
+        $user->setCoordonnees($information);
 
 
         return $user;

@@ -16,12 +16,12 @@ values
     (6,'michel','duponse','duponse@test.com','0602030405','0402030405'),
     (7,'michelle','duponse','michelle@test.com','0602030404','0402030405');
 
-insert into location (idlocation,id , location, codepostal, city, department, country)
+insert into location (idlocation, id, name, location, codepostal, city, department, country, latitude, longitude)
 values
-    (1,6,'12 av du 35 juillet','44000','Nantes','Loire-Atlantique','France'),
-    (2,7,'12 av du 35 juillet','44000','Nantes','Loire-Atlantique','France');
-    (3,2,'12 av du 35 juillet','44000','Nantes','Loire-Atlantique','France');
-    (4,2,'13 av du 35 juillet','44000','Nantes','Loire-Atlantique','France');
+    (1, 6, 'domicile', '12;av du 35 juillet','44000','Nantes','Loire-Atlantique','France', null, null),
+    (2, 7, 'domicile','12;av du 35 juillet','44000','Nantes','Loire-Atlantique','France', null, null),
+    (3, 2, 'local', '22;Rue des bergeronnettes','44210','Pornic','Loire-Atlantique','France', 47.246678, -1.523291),
+    (4, 2, 'domicile', '190;Boulevard Jules Vernes','44300','Nantes','Loire-Atlantique','France', null, null);
 
 INSERT INTO sport (nusport,name)
  VALUES

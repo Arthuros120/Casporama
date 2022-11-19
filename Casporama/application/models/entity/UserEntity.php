@@ -1,8 +1,8 @@
 <?php
 
 // * Importe les entités nécessaires
-require_once APPPATH . 'models/entity/CoordonneesEntity.php';
-require_once APPPATH . 'models/entity/LocalisationEntity.php';
+require_once APPPATH . 'models/entity/InformationEntity.php';
+require_once APPPATH . 'models/entity/LocationEntity.php';
 
 /*
 
@@ -22,7 +22,7 @@ class UserEntity
     private string $status;
 
     private array $localisation;
-    private CoordonneesEntity $coordonnees;
+    private InformationEntity $coordonnees;
 
     /*
     
@@ -193,7 +193,7 @@ class UserEntity
         * Cette fonction retourne les coordonnées de l'entité
     
     */
-    public function getCoordonnees() : CoordonneesEntity
+    public function getCoordonnees() : InformationEntity
     {
 
         return $this->coordonnees;
@@ -209,7 +209,7 @@ class UserEntity
         * Cette fonction modifie les coordonnées de l'entité
     
     */
-    public function setCoordonnees(CoordonneesEntity $coordonnees)
+    public function setCoordonnees(InformationEntity $coordonnees)
     {
 
         $this->coordonnees = $coordonnees;

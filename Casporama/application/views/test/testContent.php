@@ -20,13 +20,20 @@
 </head>
 
 <body>
-    <?php foreach ($latitude as $key => $value) { ?>
+    <?php foreach ($dataMap as $key => $value) { if ($value != null) { ?>
 
         <div class="map" id="map<?= $key ?>"></div>
 
-    <?php } ?>
-    <div class="map" id="map1"></div>
-    <div class="map" id="map2"></div>
+    <?php
+    
+        } else {
+
+            echo "<p> L'adresse n'a pas été validé par l'API </p>";
+            
+        }
+    }
+    
+    ?>
 
     <!-- Fichiers Javascript -->
     <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
@@ -57,11 +64,16 @@
 
         window.onload = function() {
 
-        <?php foreach ($latitude as $key => $value) { ?>
+        <?php foreach ($dataMap as $key => $value) { if ($value != null) { ?>
 
-            initMap(<?= $latitude[$key]; ?>, <?= $longitude[$key]; ?>, 'map<?= $key ?>');
+            initMap(<?= $value['lat']; ?>, <?= $value['lng']; ?>, 'map<?= $key ?>');
         
-        <?php } ?>
+        <?php
+ 
+            }
+        }
+
+        ?>
 
         };
     </script>

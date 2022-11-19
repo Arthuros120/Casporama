@@ -193,7 +193,6 @@ class ProductModel extends CI_Model
 
             // * On hydrate l'objet
             $newProduct->setId($product->idproduct);
-            //$newProduct->setReference($product->reference);
             $newProduct->setType($product->type);
             $newProduct->setSport($product->nusport);
             $newProduct->setBrand($product->brand);
@@ -252,7 +251,6 @@ class ProductModel extends CI_Model
 
             // * On hydrate l'objet
             $newProduct->setId($product->idproduct);
-            //$newProduct->setReference($product->reference);
             $newProduct->setType($product->type);
             $newProduct->setSport($product->nusport);
             $newProduct->setBrand($product->brand);

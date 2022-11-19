@@ -10,7 +10,6 @@ class ProductEntity
 {
 
     private int $id;
-    //private int $reference;
 
     private string $type;
     private string $sport;

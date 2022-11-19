@@ -2,12 +2,12 @@
 
 /*
 
-    * CoordonneesEntity
+    * InformationEntity
 
     * Cette classe représente une entité de la table coordonnees
 
 */
-class CoordonneesEntity
+class InformationEntity
 {
 
     private int $id;

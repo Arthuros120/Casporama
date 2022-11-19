@@ -297,3 +297,11 @@ create procedure updateStatus( iduser int,  newstate varchar(20))
     BEGIN
         update user set status=newstate where id=iduser;
     end;
+
+#---------- Arthur ----------------
+
+create procedure getLocationById(idloc integer)
+    Begin
+        select * from location where idlocation = idloc;
+    END;
+

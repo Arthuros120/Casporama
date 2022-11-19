@@ -1,4 +1,4 @@
-<!-- user/home/infoContent -->
+<!-- user/home/info/content -->
 
 <a href="<?= base_url() ?>">
 
@@ -107,7 +107,8 @@
 
                     <span class="label">Adresse :</span>
 
-                    <span class="value"><?= $localisation->getAdresse() ?></span>
+                    <span class="value"><?=
+                    $localisation->getAdresse()['number'] . " " . $localisation->getAdresse()['street'] ?></span>
 
                     <br>
 
@@ -119,19 +120,19 @@
 
                     <span class="label">Ville :</span>
 
-                    <span class="value"><?= $localisation->getVille() ?></span>
+                    <span class="value"><?= $localisation->getCity() ?></span>
 
                     <br>
 
                     <span class="label">Département :</span>
 
-                    <span class="value"><?= $localisation->getDepartement() ?></span>
+                    <span class="value"><?= $localisation->getDepartment() ?></span>
 
                     <br>
 
                     <span class="label">Pays :</span>
 
-                    <span class="value"><?= $localisation->getPays() ?></span>
+                    <span class="value"><?= $localisation->getCountry() ?></span>
 
                     <br>
 
@@ -159,4 +160,4 @@
 
 </div>
 
-<!-- user/home/infoContent -->
+<!-- user/home/info/content -->

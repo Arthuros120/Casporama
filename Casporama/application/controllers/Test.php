@@ -20,45 +20,53 @@ class Test extends CI_Controller
     public function index()
     {
 
-        $addr1 = new LocalisationEntity();
+        $this->load->model('LocationModel');
+
+        $addr1 = new LocationEntity();
 
         // * On hydrate l'objet
         $addr1->setId(18900);
         $addr1->setAdresse("11;Rue des ecachoirs");
         $addr1->setCodePostal("44000");
-        $addr1->setVille("Nantes");
-        $addr1->setPays("France");
-        $addr1->setDepartement("Loire Atlantique");
+        $addr1->setCity("Nantes");
+        $addr1->setCountry("France");
+        $addr1->setDepartment("Loire Atlantique");
 
-        $addr2 = new LocalisationEntity();
+        $addr2 = new LocationEntity();
 
         // * On hydrate l'objet
         $addr2->setId(18901);
         $addr2->setAdresse("190;Boulevard Jules Vernes");
         $addr2->setCodePostal("44300");
-        $addr2->setVille("Nantes");
-        $addr2->setPays("France");
-        $addr2->setDepartement("Loire Atlantique");
+        $addr2->setCity("Nantes");
+        $addr2->setCountry("France");
+        $addr2->setDepartment("Loire Atlantique");
 
-        $addr3 = new LocalisationEntity();
+        $addr3 = new LocationEntity();
 
         // * On hydrate l'objet
         $addr3->setId(18789);
-        $addr3->setAdresse("22;Rue Des Bergeronette");
+        $addr3->setAdresse("22;Rue Des Bergeronettes");
         $addr3->setCodePostal("44210");
-        $addr3->setVille("Pornic");
-        $addr3->setPays("France");
-        $addr3->setDepartement("Loire Atlantique");
+        $addr3->setCity("Pornic");
+        $addr3->setCountry("France");
+        $addr3->setDepartment("Loire Atlantique");
+
+        $locations = $this->LocationModel->searchLatLong($addr3->getAdresse(), $addr3->getCodePostal());
+
+        var_dump($locations);
 
         $listAddrr = array($addr1, $addr2, $addr3);
+
+        $dataMap = [];
 
         foreach ($listAddrr as $value) {
             
             $linkGouvApi = "https://api-adresse.data.gouv.fr/search/?q=";
 
-            $addresse = explode(";", $value->getAdresse());
-            $numero = $addresse[0];
-            $rue = explode(" ", $addresse[1]);
+            $addresse = $value->getAdresse();
+            $numero = $addresse['number'];
+            $rue = explode(" ", $addresse['street']);
 
             $linkGouvApi = $linkGouvApi . $numero . "+";
 
@@ -77,36 +85,38 @@ class Test extends CI_Controller
             // décoder le flux JSON
             $jsonObj = json_decode($data);
 
-            foreach ($jsonObj->features as $value) {
+            $countRemember = 0;
+            $objRemember = null;
 
-                if ($value->properties->score > 0.8) {
+            foreach ($jsonObj->features as $objValue) {
 
-                    echo "Accept - (";
-                    echo $value->properties->score . " - ";
-                    echo $value->properties->postcode . " - ";
-                    echo ") ";
+                if ($objValue->properties->score > 0.8 && $objValue->properties->score > $countRemember) {
 
-                } else {
-
-                    echo "Reject - (";
-                    echo $value->properties->score . " - ";
-                    echo $value->properties->postcode . " - ";
-                    echo ") ";
+                    $countRemember = $objValue->properties->score;
+                    $objRemember = $objValue;
 
                 }
+
+            }
+
+            if ($objRemember != null) {
+
+                $dataMap[$value->getId()] = array (
+
+                    "lat" => $objRemember->geometry->coordinates[1],
+                    "lng" => $objRemember->geometry->coordinates[0]
+
+                );
+
+            } else {
+
+                $dataMap[$value->getId()] = null;
+            
             }
         }
-        
-        // accéder à l'élément approprié
-        $long = $jsonObj->features[0]->geometry->coordinates[0];
-        $lat = $jsonObj->features[0]->geometry->coordinates[1];
-
-        $listLong = array($long, -1.5, 0, 1.5, 2.5);
-        $listLat = array($lat, 47.5, 48, 48.5, 49);
 
         $dataContent = array(
-            'latitude' => $listLat,
-            'longitude' => $listLong
+            'dataMap' => $dataMap,
         );
 
         $data = array(

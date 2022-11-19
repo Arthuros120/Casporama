@@ -27,11 +27,14 @@ CREATE TABLE IF NOT EXISTS information (
 CREATE TABLE IF NOT EXISTS location (
     idlocation int not null unique,
     id INTEGER NOT NULL,
+    name VARCHAR(255) not null,
     location VARCHAR(255) not null,
     codepostal varchar(5) NOT NULL,
     city VARCHAR(255) not null,
     department VARCHAR(255) not null,
-    country VARCHAR(255) not null,
+    country VARCHAR(255) not nu ll,
+    latitude double,
+    longitude double,
     PRIMARY KEY(idlocation),
     FOREIGN KEY(id) REFERENCES user(id)
 );
