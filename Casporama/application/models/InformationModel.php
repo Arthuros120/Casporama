@@ -36,6 +36,10 @@ class InformationModel extends CI_Model
 
         }
 
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
         $information = new InformationEntity();
 
         $information->setId($coordId);

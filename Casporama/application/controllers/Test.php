@@ -20,6 +20,20 @@ class Test extends CI_Controller
     public function index()
     {
 
+        echo "Bienvenue sur la page de test";
+
+    }
+
+    public function modale()
+    {
+
+        $this->LoaderView->load('Test/modale');
+
+    }
+
+    public function map()
+    {
+
         $this->load->model('LocationModel');
 
         $addr1 = new LocationEntity();
@@ -123,7 +137,7 @@ class Test extends CI_Controller
             'content' => $dataContent
         );
 
-        $this->LoaderView->load('Test/index', $data);
+        $this->LoaderView->load('Test/map', $data);
     }
 
 }

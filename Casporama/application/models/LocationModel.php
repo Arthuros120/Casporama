@@ -39,6 +39,10 @@ class LocationModel extends CI_Model
             
             array_push($addressList, $addressEntity);
         }
+
+        // * On attend un résultat
+        $queryAdress->next_result();
+        $queryAdress->free_result();
     
         return $addressList;
 

@@ -305,3 +305,8 @@ create procedure getLocationById(idloc integer)
         select * from location where idlocation = idloc;
     END;
 
+
+create procedure updateLastName(targetId integer, newLastName varchar(255))
+    BEGIN
+        update information set name=newLastName where id = targetId;
+    end;

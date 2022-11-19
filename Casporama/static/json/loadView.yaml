@@ -113,12 +113,34 @@ User/home/info:
 
     baseView : "user/home/info/base"
 
-Test/index :
+User/home/modifLastName:
+
+    views :
+        head : "user/home/info/head"
+        overlayHead : "user/home/overlay/head"
+        overlay : "user/home/overlay/modifLastName"
+        content : "user/home/info/content"
+        script : "user/home/info/script"
+
+    baseView : "user/home/overlay/base"
+
+Test/map :
 
     views :
         head : "templates/blank"
         header : "templates/blank"
-        content : "test/testContent"
+        content : "test/testMap"
+        footer : "templates/blank"
+    
+    baseView : "templates/base"
+
+
+Test/modale :
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "test/testModale"
         footer : "templates/blank"
     
     baseView : "templates/base"

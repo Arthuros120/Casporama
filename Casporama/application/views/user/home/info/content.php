@@ -39,7 +39,7 @@ if ($status == "Administrateur") {
 
     <span class="label">Mots de passe : ●●●●●●●●●</span>
 
-    <a href="<?php echo base_url('User/home/modifPass'); ?>">Modifier</a></br>
+    <a href="<?= base_url('User/home/modifPass'); ?>">Modifier</a></br>
 
 </p>
 
@@ -52,35 +52,35 @@ if ($status == "Administrateur") {
     <span class="label">Nom :</span>
 
     <span class="value"><?= $user->getCoordonnees()->getNom() ?></span>
-    <a href="<?php echo base_url('User/home/modifLastName'); ?>">Modifier</a>
+    <a href="<?= base_url('User/home/modifLastName'); ?>">Modifier</a>
 
     <br>
 
     <span class="label">Prénom :</span>
 
     <span class="value"><?= $user->getCoordonnees()->getPrenom() ?></span>
-    <a href="<?php echo base_url('User/home/modifFirstName'); ?>">Modifier</a>
+    <a href="<?= base_url('User/home/modifFirstName'); ?>">Modifier</a>
 
     <br>
 
     <span class="label">Email :</span>
 
     <span class="value"><?= $user->getCoordonnees()->getEmail() ?></span>
-    <a href="<?php echo base_url('User/home/modifEmail'); ?>">Modifier</a>
+    <a href="<?= base_url('User/home/modifEmail'); ?>">Modifier</a>
 
     <br>
 
     <span class="label">Téléphone mobile :</span>
 
     <span class="value"><?= $user->getCoordonnees()->getTelephone() ?></span>
-    <a href="<?php echo base_url('User/home/modifMobile'); ?>">Modifier</a>
+    <a href="<?= base_url('User/home/modifMobile'); ?>">Modifier</a>
 
     <br>
 
     <span class="label">Téléphone fixe :</span>
 
     <span class="value"><?= $user->getCoordonnees()->getFixe() ?></span>
-    <a href="<?php echo base_url('User/home/modifFixe'); ?>">Modifier</a>
+    <a href="<?= base_url('User/home/modifFixe'); ?>">Modifier</a>
 
 
 </p>

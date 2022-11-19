@@ -25,7 +25,6 @@ class User extends CI_Controller
         parent::__construct();
         $this->load->model('CaptchaModel', 'cm');
         $this->load->helper('captcha');
-
     }
 
     /*
@@ -46,8 +45,6 @@ class User extends CI_Controller
 
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
-
-        
 
         // * Si l'utilisateur est déjà connecté, on le redirige vers la page d'accueil
         // * On vérifie que l'utilisateur n'est pas déjà connecté
@@ -440,7 +437,7 @@ class User extends CI_Controller
                 $this->LoaderView->load('User/registerUserIdentity', $data);
 
             } else {
-                
+
                 $dataUser['prenom'] = $this->input->post('prenom');
                 $dataUser['nom'] = $this->input->post('nom');
                 $dataUser['mobilePhone'] = $this->input->post('mobilePhone');
@@ -498,36 +495,34 @@ class User extends CI_Controller
             'modifFirstName',
             'modifAddress',
             'supprAddress'
-            ))) {
+        ))) {
 
             // * Si le sport ou la catégorie n'est pas disponible, on affiche une erreur 404.
 
             var_dump($action);
 
             $this->load->view('errors/html/error_404');
-
-        }else {
+        } else {
 
             if ($this->UserModel->isConnected()) {
 
-                    $id = $this->UserModel->getUserBySession()->getId();
+                $id = $this->UserModel->getUserBySession()->getId();
 
-                    $user = $this->UserModel->getUserById($id);
+                $user = $this->UserModel->getUserById($id);
 
-                    $dataContent['user'] = $user;
+                $dataContent['user'] = $user;
 
                 if ($action == '') {
-    
+
                     $data = array(
 
                         'content' => $dataContent
 
                     );
-    
+
                     // * On charge la page d'accueil de l'utilisateur
                     $this->LoaderView->load('User/home', $data);
-
-                } elseif ($action == 'info') {
+                } else {
 
                     $listLoc = $user->getLocalisation();
 
@@ -557,7 +552,6 @@ class User extends CI_Controller
                         } else {
 
                             $dataScript['dataMap'] = null;
-
                         }
 
                     } else {
@@ -573,59 +567,110 @@ class User extends CI_Controller
 
                     );
 
-                    $this->LoaderView->load('User/home/info', $data);
+                    if ($action == 'info') {
 
-                } elseif ($action == 'modifLastName') {
+                        $this->LoaderView->load('User/home/info', $data);
 
-                    echo "modifLastName";
+                    } elseif ($action == 'modifLastName') {
 
-                } elseif ($action == 'modifFirstName') {
+                        // Todo : Ajouter une phase de comfirmation de la demande de modification
 
-                    echo "modifFirstName";
+                        $dataModal['user'] = $user;
 
-                } elseif ($action == 'modifEmail') {
+                        $this->form_validation->set_rules(
+                            'newLastName',
+                            'Nom de famile',
+                            'trim|required|min_length[3]|max_length[255]|alpha',
+                            array( // * On définit les messages d'erreurs
+                                'required' => 'Vous avez oublié %s.',
+                                "min_length" => "Le %s doit faire au moins 3 caractères",
+                                "max_length" => "Le %s doit faire au plus 255 caractères",
+                                'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                            )
+                        );
 
-                    echo "modifEmail";
+                        if (!$this->form_validation->run()) {
 
-                } elseif ($action == 'modifPass') {
+                            $dataModal['error'] = validation_errors();
 
-                    echo "modifPass";
+                            $data['overlay'] = $dataModal;
 
-                } elseif ($action == 'modifMobile') {
+                            $this->LoaderView->load('User/home/modifLastName', $data);
 
-                    echo "modifMobile";
+                        } else {
 
-                } elseif ($action == 'modifFixe') {
+                            $newLastName = $this->input->post('newLastName');
 
-                    echo "modifFixe";
+                            $this->UserModel->updateLastName($user->getId(), $newLastName);
 
-                } elseif ($action == 'modifAddress') {
+                            redirect("User/home/info");
 
-                    if ($hint <= 0) {
+                        }
 
-                        $this->load->view('errors/html/error_404');
+                    } elseif ($action == 'modifFirstName') {
+
+                        // TODO : Modifier le prénom de l'utilisateur
+
+                        echo "modifFirstName";
+
+                    } elseif ($action == 'modifEmail') {
+
+                        // TODO : Modifier l'email de l'utilisateur
+
+                        echo "modifEmail";
+
+                    } elseif ($action == 'modifPass') {
+
+                        // TODO : Modifier le mot de passe de l'utilisateur
+
+                        echo "modifPass";
+
+                    } elseif ($action == 'modifMobile') {
+
+                        // TODO : Modifier le numéro de téléphone mobile de l'utilisateur
+
+                        echo "modifMobile";
+
+                    } elseif ($action == 'modifFixe') {
+
+                        // TODO : Modifier le numéro de téléphone fixe de l'utilisateur
+
+                        echo "modifFixe";
+
+                    } elseif ($action == 'modifAddress') {
+
+                        // TODO : Modifier l'adresse de l'utilisateur
+
+                        if ($hint <= 0) {
+
+                            $this->load->view('errors/html/error_404');
+                        }
+
+                        echo "modifAddress : " . $hint;
+
+                    } elseif ($action == 'supprAddress') {
+
+                        // TODO : Supprimer l'adresse de l'utilisateur
+
+                        if ($hint <= 0) {
+
+                            $this->load->view('errors/html/error_404');
+                        }
+
+                        echo "supprAddress : " . $hint;
 
                     }
 
-                    echo "modifAddress : " . $hint;
-
-                } elseif ($action == 'supprAddress') {
-
-                    if ($hint <= 0) {
-
-                        $this->load->view('errors/html/error_404');
-
-                    }
-
-                    echo "supprAddress : " . $hint;
+                    // Todo : Ajouter la fonctionnalité de suppression de l'utilisateur
 
                 }
-    
+
             } else {
-    
+
                 // * Si l'utilisateur n'est pas connecté, on le redirige vers la page de connexion
                 redirect("User/login");
-    
+
             }
         }
     }

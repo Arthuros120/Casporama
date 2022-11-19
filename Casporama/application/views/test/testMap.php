@@ -1,4 +1,4 @@
-<!-- test/testContent -->
+<!-- test/testMap -->
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -81,4 +81,4 @@
 
 </html>
 
-<!-- test/testContent -->
+<!-- test/testMap -->
