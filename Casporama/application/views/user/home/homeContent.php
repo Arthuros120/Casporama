@@ -1,37 +1,5 @@
 <!-- user/home/homeContent -->
 
-
-<script>
-        function hover(elem) {
-            let rd = Math.floor(Math.random()*4)
-            console.log(rd)
-            if (rd == 0) {
-                elem.classList.add('green_hover')
-                elem.classList.remove('blue_hover')
-                elem.classList.remove('yellow_hover')
-                elem.classList.remove('red_hover')
-            }
-            if (rd == 1) {
-                elem.classList.add('blue_hover')
-                elem.classList.remove('green_hover')
-                elem.classList.remove('yellow_hover')
-                elem.classList.remove('red_hover')
-            }
-            if (rd == 2) {
-                elem.classList.add('yellow_hover')
-                elem.classList.remove('green_hover')
-                elem.classList.remove('blue_hover')
-                elem.classList.remove('red_hover')
-            }
-            if (rd == 3) {
-                elem.classList.add('red_hover')
-                elem.classList.remove('green_hover')
-                elem.classList.remove('blue_hover')
-                elem.classList.remove('yellow_hover')
-            }
-        }
-</script>
-
 <div class="user_home_content">
     <div class="user_nav">
         <a href="<?= base_url() ?>">
@@ -65,7 +33,7 @@
                 <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('admin/home') ?>">
                     <h3>Panneau Administrateur</h3>
                     <img src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
-            <?php } ?> 
+            <?php } ?>
             <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('User/logout'); ?>">
                 <h3>Se déconnecter</h3>
                 <img src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
