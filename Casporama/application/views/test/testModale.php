@@ -160,7 +160,7 @@
 <body>
 
     <!-- The Modal -->
-    <div id="myModal" class="modal">
+    <div id="modal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
@@ -170,6 +170,14 @@
                 <p>Some text in the Modal Body</p>
                 <p>Some other text...</p>
 
+                <form id="modifForm" accept-charset="utf-8">
+
+                    <input type="text" id="newLastName" placeholder="Nouveau nom de famille" required/>
+
+                    <button type="submit">Valider</button>
+
+                </form>
+
                 <a href="<?= base_url('User/home/info'); ?>">Annuler</a></br>
 
             </div>
@@ -178,6 +186,23 @@
 
 
     <h1>BlaBla</h1>
+
+    <script type="text/javascript">
+    
+    const modalBody = document.getElementById('modal-body');
+    const form = document.getElementById("modifForm");
+
+    form.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        var newLastName = document.getElementById("newLastName").value;
+
+        modalBody.innerHTML = "";
+
+    });
+
+    </script>
 
 </body>
 
