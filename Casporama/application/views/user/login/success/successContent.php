@@ -13,7 +13,7 @@
             M
             A
         </h1>
-        <h2>Chargment...</h2>
+        <h2>Chargement...</h2>
     </div>
 </div>
 

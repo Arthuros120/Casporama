@@ -9,6 +9,11 @@
 .user_home_content {
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: var(--bg);
 }
 
 .user_nav {
@@ -25,8 +30,9 @@
 
 .user_account {
     display: flex;
+    align-items: center;
     flex-direction: column;
-    width: 100%;
+    width: 80%;
     height: 90%;
 
     gap: 3vh;
@@ -51,11 +57,16 @@
 }
 
 .user_info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  align-self: center;
 
-  gap: 2vh;
+  padding-left: 5vw;
+  row-gap: 5vh;
+
+  width: 80%;
+
 }
 
 .user_btn {
@@ -65,11 +76,38 @@
   border-radius: 12px;
 
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
+  padding: 0vh 2vh;
 
-  height: 5vh;
-  padding-left: 2vh;
-  margin: 0 5vw;
+  width: 15vw;
+  height: 20vh;
+
+  transition: background-color 200ms ease-in-out;
+
+
+}
+
+.green_hover:hover {
+  background-color: var(--green2);
+}
+
+.blue_hover:hover {
+  background-color: var(--blue2);
+}
+
+.yellow_hover:hover {
+  background-color: var(--yellow2);
+}
+
+.red_hover:hover {
+  background-color: var(--red2);
+}
+
+.user_btn > img {
+  width: 1vw;
+  height: auto;
 }
 
 
