@@ -1,6 +1,5 @@
 function hover(elem) {
     let rd = Math.floor(Math.random()*4)
-    console.log(rd)
     if (rd == 0) {
         elem.classList.add('green_hover')
         elem.classList.remove('blue_hover')

@@ -149,3 +149,13 @@ Test/modale :
         footer : "templates/blank"
     
     baseView : "templates/base"
+
+Test/progress :
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "test/testProgress"
+        footer : "templates/blank"
+    
+    baseView : "templates/base"
