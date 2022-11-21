@@ -25,6 +25,8 @@
 
 ---
 
+#---------------------------------Casporma View---------------------------------#
+
 Home/index :
 
     views :
@@ -117,12 +119,15 @@ User/home/modifLastName:
 
     views :
         head : "user/home/info/head"
-        overlayHead : "user/home/overlay/head"
-        overlay : "user/home/overlay/modifLastName"
+        modaleHead : "user/home/modale/global/head"
+        modaleContent : "user/home/modale/modifLastName/content"
         content : "user/home/info/content"
         script : "user/home/info/script"
+        modaleScript: "user/home/modale/modifLastName/script"
 
-    baseView : "user/home/overlay/base"
+    baseView : "user/home/modale/global/base"
+
+#---------------------------------Test View---------------------------------#
 
 Test/map :
 
@@ -141,6 +146,16 @@ Test/modale :
         head : "templates/blank"
         header : "templates/blank"
         content : "test/testModale"
+        footer : "templates/blank"
+    
+    baseView : "templates/base"
+
+Test/progress :
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "test/testProgress"
         footer : "templates/blank"
     
     baseView : "templates/base"

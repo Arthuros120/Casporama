@@ -573,8 +573,6 @@ class User extends CI_Controller
 
                     } elseif ($action == 'modifLastName') {
 
-                        // Todo : Ajouter une phase de comfirmation de la demande de modification
-
                         $dataModal['user'] = $user;
 
                         $this->form_validation->set_rules(
@@ -594,7 +592,7 @@ class User extends CI_Controller
 
                             $dataModal['error'] = validation_errors();
 
-                            $data['overlay'] = $dataModal;
+                            $data['modaleContent'] = $dataModal;
 
                             $this->LoaderView->load('User/home/modifLastName', $data);
 

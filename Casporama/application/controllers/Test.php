@@ -24,6 +24,13 @@ class Test extends CI_Controller
 
     }
 
+    public function progress()
+    {
+
+        $this->LoaderView->load('Test/progress');
+
+    }
+
     public function modale()
     {
 

@@ -17,7 +17,8 @@
     </div>
 </div>
 
+<div id="progressBar"></div>
 
-
+<script type="text/javascript" src="<?= base_url() ?>static/js/lib/progressBarLib.js" defer></script>
 
 <!-- user/login/success/successContent -->
