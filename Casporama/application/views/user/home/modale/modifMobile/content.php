@@ -1,0 +1,32 @@
+<!--- user/home/modale/modifMobile/content -->
+
+
+<h1>Changement de votre numéro de téléphone</h1>
+
+<h2>Veuillez entrer le nouveau numéro de téléphone</h2>
+
+<p>Votre numéro de téléphone actuel: <?= $user->getCoordonnees()->getTelephone() ?></p>
+
+<form id="modifForm" accept-charset="utf-8">
+
+    <input type="text" id="newMobile" placeholder="Nouveau numéro de téléphone" required />
+
+    <button type="submit">Valider</button>
+
+    <a class="close-button" href="<?= base_url('User/home/info'); ?>">
+        <p>Annuler</p>
+    </a>
+
+</form>
+
+<div class="error" <?php
+
+                    if ($error == null) {
+                        echo "hidden";
+                    }
+
+                    ?>><?= $error ?>
+</div>
+
+
+<!-- user/home/modale/modifMobile/content -->

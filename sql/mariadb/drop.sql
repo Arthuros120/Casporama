@@ -1,4 +1,4 @@
-use Casporama;
+use CasporamaDEV;
 
 drop table if exists captcha cascade;
 

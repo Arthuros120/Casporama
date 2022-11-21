@@ -1,4 +1,4 @@
-<!--- user/home/modale/modifFirstName/content -->
+<!--- user/home/modale/modifEmail/content -->
 
 
 <h1>Changement de votre email</h1>
@@ -29,4 +29,4 @@
 </div>
 
 
-<!-- user/home/modale/modifFirstName/content -->
+<!-- user/home/modale/modifEmail/content -->

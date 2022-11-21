@@ -684,9 +684,38 @@ class User extends CI_Controller
 
                     } elseif ($action == 'modifMobile') {
 
-                        // TODO : Modifier le numéro de téléphone mobile de l'utilisateur
+                        $dataModal['user'] = $user;
 
-                        echo "modifMobile";
+                        $this->form_validation->set_rules(
+                            'newMobile',
+                            'numéro de téléphone',
+                            'trim|required|min_length[10]|max_length[10]|numeric|callback_IsUniqueMobilePhone',
+                            array( // * On définit les messages d'erreurs
+                                'required' => 'Vous avez oublié %s.',
+                                "min_length" => "Le %s doit faire au moins 10 caractères",
+                                "max_length" => "Le %s doit faire au plus 10 caractères",
+                                'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                            ),
+                        );
+
+                        if (!$this->form_validation->run()) {
+
+                            $dataModal['error'] = validation_errors();
+
+                            $data['modaleContent'] = $dataModal;
+
+                            $this->LoaderView->load('User/home/modifMobile', $data);
+
+                        } else {
+
+                            $newMobile = $this->input->post('newMobile');
+
+                            $this->UserModel->updateMobile($user->getId(), $newMobile);
+
+                            redirect("User/home/info");
+
+                        }
 
                     } elseif ($action == 'modifFixe') {
 

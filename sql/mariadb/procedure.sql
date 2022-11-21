@@ -1,4 +1,4 @@
-use Casporama;
+use CasporamaDEV;
 
 -- Select ----------------
 
@@ -316,7 +316,12 @@ create procedure updateFirstName(targetId integer, newFirstName varchar(255))
         update information set firstname=newFirstName where id = targetId;
     end;
 
-create procedure updateEmail(targetId integer, newFirstName varchar(255))
+create procedure updateEmail(targetId integer, newMail varchar(255))
     BEGIN
-        update information set firstname=newFirstName where id = targetId;
+        update information set mail=newMail where id = targetId;
+    end;
+
+create procedure updateMobile(targetId integer, newMobile varchar(255))
+    BEGIN
+        update information set mobile=newMobile where id = targetId;
     end;

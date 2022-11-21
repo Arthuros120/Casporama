@@ -1,4 +1,4 @@
-use Casporama;
+use CasporamaDEV;
 
 insert into user (id, login, password, salt, status)
 values

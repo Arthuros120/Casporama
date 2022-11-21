@@ -151,6 +151,18 @@ User/home/modifEmail:
 
     baseView : "user/home/modale/global/base"
 
+User/home/modifMobile:
+
+    views :
+        head : "user/home/info/head"
+        modaleHead : "user/home/modale/global/head"
+        modaleContent : "user/home/modale/modifMobile/content"
+        content : "user/home/info/content"
+        script : "user/home/info/script"
+        modaleScript: "user/home/modale/modifMobile/script"
+
+    baseView : "user/home/modale/global/base"
+
 #---------------------------------Test View---------------------------------#
 
 Test/map :
