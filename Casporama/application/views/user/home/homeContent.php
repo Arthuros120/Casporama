@@ -46,29 +46,29 @@
         <div class="user_info">
             <a class="user_btn" onmouseenter ="hover(this)" href="<?php echo base_url('User/home/info'); ?>">
                 <h3>Consulter mes informations</h3>
-                <img src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
+                <img class="user_img" src="<?= base_url() . "static/image/icon/info.svg" ?>" alt="info" />
             </a>
             <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('User/card'); ?>">
                 <h3>Mon panier</h3>
-                <img src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
+                <img class="user_img" src="<?= base_url() . "static/image/icon/bag_outline.svg" ?>" alt="bag_outline" />
             </a>
             <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('User/command'); ?>">
                 <h3>Mes commandes</h3>
-                <img src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
+                <img class="user_img" src="<?= base_url() . "static/image/icon/delivery.svg" ?>" alt="arrow" />
             </a>
             <?php if ($user -> getStatus() == "Client") { ?>
                 <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('User/newCaspor') ?>">
                     <h3>Devenir un Caspor</h3>
-                    <img src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
+                    <img class="user_img" src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
             <?php } ?>
             <?php if ($user -> getStatus() == "Administrateur") { ?>
                 <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('admin/home') ?>">
                     <h3>Panneau Administrateur</h3>
-                    <img src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
+                    <img class="user_img" src="<?= base_url() . "static/image/icon/admin.svg" ?>" alt="admin" />
             <?php } ?> 
             <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('User/logout'); ?>">
                 <h3>Se déconnecter</h3>
-                <img src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
+                <img class="arrow" src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
             </a>
         </div>
     </div>

@@ -105,8 +105,17 @@
   background-color: var(--red2);
 }
 
-.user_btn > img {
-  width: 1vw;
+.user_btn > h3 {
+  width: 60%;
+}
+
+.user_img {
+  width: 4vw;
+  height: auto;
+}
+
+.arrow {
+  width: 2vw;
   height: auto;
 }
 
