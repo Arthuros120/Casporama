@@ -769,4 +769,11 @@ class UserModel extends CI_Model
         $this->db->query('Call updateMobile(' . $id . ', "' . $newMobile . '")');
 
     }
+
+    public function updateFixe(int $id, string $newFixe)
+    {
+
+        $this->db->query('Call updateFixe(' . $id . ', "' . $newFixe . '")');
+
+    }
 }

@@ -719,9 +719,38 @@ class User extends CI_Controller
 
                     } elseif ($action == 'modifFixe') {
 
-                        // TODO : Modifier le numéro de téléphone fixe de l'utilisateur
+                        $dataModal['user'] = $user;
 
-                        echo "modifFixe";
+                        $this->form_validation->set_rules(
+                            'newFixe',
+                            'numéro de téléphone fixe',
+                            'trim|required|min_length[10]|max_length[10]|numeric',
+                            array( // * On définit les messages d'erreurs
+                                'required' => 'Vous avez oublié %s.',
+                                "min_length" => "Le %s doit faire au moins 10 caractères",
+                                "max_length" => "Le %s doit faire au plus 10 caractères",
+                                'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                            ),
+                        );
+
+                        if (!$this->form_validation->run()) {
+
+                            $dataModal['error'] = validation_errors();
+
+                            $data['modaleContent'] = $dataModal;
+
+                            $this->LoaderView->load('User/home/modifFixe', $data);
+
+                        } else {
+
+                            $newFixe = $this->input->post('newFixe');
+
+                            $this->UserModel->updateFixe($user->getId(), $newFixe);
+
+                            redirect("User/home/info");
+
+                        }
 
                     } elseif ($action == 'modifAddress') {
 

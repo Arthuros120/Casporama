@@ -325,3 +325,8 @@ create procedure updateMobile(targetId integer, newMobile varchar(255))
     BEGIN
         update information set mobile=newMobile where id = targetId;
     end;
+
+create procedure updateFixe(targetId integer, newFixe varchar(255))
+    BEGIN
+        update information set fix=newFixe where id = targetId;
+    end;

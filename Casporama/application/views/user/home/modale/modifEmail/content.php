@@ -9,7 +9,7 @@
 
 <form id="modifForm" accept-charset="utf-8">
 
-    <input type="text" id="newEmail" placeholder="Nouvelle email" required />
+    <input type="email" id="newEmail" placeholder="Nouvelle email" required />
 
     <button type="submit">Valider</button>
 

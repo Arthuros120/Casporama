@@ -163,6 +163,18 @@ User/home/modifMobile:
 
     baseView : "user/home/modale/global/base"
 
+User/home/modifFixe:
+
+    views :
+        head : "user/home/info/head"
+        modaleHead : "user/home/modale/global/head"
+        modaleContent : "user/home/modale/modifFixe/content"
+        content : "user/home/info/content"
+        script : "user/home/info/script"
+        modaleScript: "user/home/modale/modifFixe/script"
+
+    baseView : "user/home/modale/global/base"
+
 #---------------------------------Test View---------------------------------#
 
 Test/map :

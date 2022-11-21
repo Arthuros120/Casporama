@@ -9,7 +9,7 @@
 
 <form id="modifForm" accept-charset="utf-8">
 
-    <input type="text" id="newMobile" placeholder="Nouveau numéro de téléphone" required />
+    <input type="tel" id="newMobile" placeholder="Nouveau numéro de téléphone" required />
 
     <button type="submit">Valider</button>
 

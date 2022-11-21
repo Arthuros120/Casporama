@@ -17,13 +17,13 @@
 
 - TODO : SQL -> Faire Coupon de réduction
 
-- Todo : Backend/Frotend -> Progress bar sur la loading page (pour le fun)
-
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
 
 - Do : Sysadmin/Backend -> crée un dédoublement du site et de la base de donnée sur le serveur distant
+
+- Do : Backend/Frotend -> Progress bar sur la loading page (pour le fun)
 
 ## Fait
 
