@@ -83,7 +83,7 @@ $query_builder = true;
 
 $dbName = "Casporama";
 
-if (ENVIRONMENT == 'Developement') {
+if (ENVIRONMENT == 'Development') {
 
     $dbName = 'CasporamaDEV';
 
