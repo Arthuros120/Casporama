@@ -755,4 +755,11 @@ class UserModel extends CI_Model
         $this->db->query('Call updateFirstName(' . $id . ', "' . $newFirstName . '")');
 
     }
+
+    public function updateEmail(int $id, string $newEmail)
+    {
+
+        $this->db->query('Call updateEmail(' . $id . ', "' . $newEmail . '")');
+
+    }
 }

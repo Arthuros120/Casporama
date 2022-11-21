@@ -315,3 +315,8 @@ create procedure updateFirstName(targetId integer, newFirstName varchar(255))
     BEGIN
         update information set firstname=newFirstName where id = targetId;
     end;
+
+create procedure updateEmail(targetId integer, newFirstName varchar(255))
+    BEGIN
+        update information set firstname=newFirstName where id = targetId;
+    end;

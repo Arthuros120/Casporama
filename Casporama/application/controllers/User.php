@@ -643,9 +643,38 @@ class User extends CI_Controller
 
                     } elseif ($action == 'modifEmail') {
 
-                        // TODO : Modifier l'email de l'utilisateur
+                        $dataModal['user'] = $user;
 
-                        echo "modifEmail";
+                        $this->form_validation->set_rules(
+                            'newEmail',
+                            'email',
+                            'trim|required|min_length[5]|max_length[255]|valid_email|callback_IsUniqueEmail',
+                            array( // * On définit les messages d'erreurs
+                                'required' => 'Vous avez oublié %s.',
+                                "min_length" => "Le %s doit faire au moins 5 caractères",
+                                "max_length" => "Le %s doit faire au plus 255 caractères",
+                                'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                'valid_email' => 'Le %s n\'est pas valide',
+                            ),
+                        );
+
+                        if (!$this->form_validation->run()) {
+
+                            $dataModal['error'] = validation_errors();
+
+                            $data['modaleContent'] = $dataModal;
+
+                            $this->LoaderView->load('User/home/modifEmail', $data);
+
+                        } else {
+
+                            $newEmail = $this->input->post('newEmail');
+
+                            $this->UserModel->updateEmail($user->getId(), $newEmail);
+
+                            redirect("User/home/info");
+
+                        }
 
                     } elseif ($action == 'modifPass') {
 

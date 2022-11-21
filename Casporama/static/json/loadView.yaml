@@ -139,6 +139,18 @@ User/home/modifFirstName:
 
     baseView : "user/home/modale/global/base"
 
+User/home/modifEmail:
+
+    views :
+        head : "user/home/info/head"
+        modaleHead : "user/home/modale/global/head"
+        modaleContent : "user/home/modale/modifEmail/content"
+        content : "user/home/info/content"
+        script : "user/home/info/script"
+        modaleScript: "user/home/modale/modifEmail/script"
+
+    baseView : "user/home/modale/global/base"
+
 #---------------------------------Test View---------------------------------#
 
 Test/map :
