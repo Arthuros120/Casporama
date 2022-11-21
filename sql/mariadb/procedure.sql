@@ -310,3 +310,8 @@ create procedure updateLastName(targetId integer, newLastName varchar(255))
     BEGIN
         update information set name=newLastName where id = targetId;
     end;
+
+create procedure updateFirstName(targetId integer, newFirstName varchar(255))
+    BEGIN
+        update information set firstname=newFirstName where id = targetId;
+    end;

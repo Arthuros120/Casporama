@@ -165,6 +165,12 @@ if ($status == "Administrateur") {
 
     ?>
 
+    <div class="card">
+
+        <a href="<?= base_url('User/home/addAddress'); ?>">Ajouter une adresse</a>
+    
+    </div>
+
 </div>
 
 </div>

@@ -748,4 +748,11 @@ class UserModel extends CI_Model
         $this->db->query('Call updateLastName(' . $id . ', "' . $newLastName . '")');
 
     }
+
+    public function updateFirstName(int $id, string $newFirstName)
+    {
+
+        $this->db->query('Call updateFirstName(' . $id . ', "' . $newFirstName . '")');
+
+    }
 }

@@ -608,9 +608,38 @@ class User extends CI_Controller
 
                     } elseif ($action == 'modifFirstName') {
 
-                        // TODO : Modifier le prénom de l'utilisateur
+                        $dataModal['user'] = $user;
 
-                        echo "modifFirstName";
+                        $this->form_validation->set_rules(
+                            'newFirstName',
+                            'prénom',
+                            'trim|required|min_length[3]|max_length[255]|alpha',
+                            array( // * On définit les messages d'erreurs
+                                'required' => 'Vous avez oublié %s.',
+                                "min_length" => "Le %s doit faire au moins 3 caractères",
+                                "max_length" => "Le %s doit faire au plus 255 caractères",
+                                'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                            )
+                        );
+
+                        if (!$this->form_validation->run()) {
+
+                            $dataModal['error'] = validation_errors();
+
+                            $data['modaleContent'] = $dataModal;
+
+                            $this->LoaderView->load('User/home/modifFirstName', $data);
+
+                        } else {
+
+                            $newFirstName = $this->input->post('newFirstName');
+
+                            $this->UserModel->updateFirstName($user->getId(), $newFirstName);
+
+                            redirect("User/home/info");
+
+                        }
 
                     } elseif ($action == 'modifEmail') {
 
