@@ -837,9 +837,24 @@ class User extends CI_Controller
                         if ($hint <= 0) {
 
                             $this->load->view('errors/html/error_404');
-                        }
 
-                        echo "modifAddress : " . $hint;
+                        } else {
+
+                            $address = $this->LocationModel->getLocationByUserId($user->getId(), $hint);
+
+                            if ($address != null && $address->getIsAlive()) {
+
+                                // TODO : Modifier l'adresse de l'utilisateur reprendre ici
+
+                                var_dump($address);
+
+                            } else {
+
+                                $this->load->view('errors/html/error_404');
+
+                            }
+
+                        }
 
                     } elseif ($action == 'supprAddress') {
 

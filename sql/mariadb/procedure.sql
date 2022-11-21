@@ -340,3 +340,9 @@ create procedure verifySalt(newSalt varchar(255))
     begin
         select login from user where newSalt = salt;
     end;
+
+create procedure getLocationByIdAndUserId(idUser int, idLoc int)
+    Begin
+        select * from location where id = iduser and idlocation = idloc;
+    END;
+

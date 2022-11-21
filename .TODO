@@ -19,6 +19,8 @@
 
 - TODO : Backend/SQL -> Créer la fonction mots de passe oublié
 
+- TODO : Backend -> Revoir tout les demande d'affichage des pages d'erreur et savoir si c'est les pages d'erreur adapté
+
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status

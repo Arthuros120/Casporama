@@ -42,7 +42,7 @@ class LocationModel extends CI_Model
                 $addressEntity = new LocationEntity();
 
                 // * On hydrate l'objet
-                $addressEntity->setId($address->id);
+                $addressEntity->setId($address->idlocation);
                 $addressEntity->setName($address->name);
                 $addressEntity->setAdresse($address->location);
                 $addressEntity->setCodePostal($address->codepostal);
@@ -66,6 +66,59 @@ class LocationModel extends CI_Model
         return $addressList;
 
     }
+
+        /*
+
+        * Fonction getLocationByUserId
+
+        @param $idUser : l'id de l'utilisateur
+        @param $locationId : l'id de la localisation
+
+        @return LocationEntity : retourne l'objet localisation demandé si il existe
+
+        * Cette fonction permet de récupérer la localisations d'un utilisateur avec son id et l'id de la localisation
+
+    */
+    public function getLocationByUserId(int $idUser, int $locationId) : ?LocationEntity
+    {
+
+        $query = $this->db->query("Call getLocationByIdAndUserId('" . $idUser . "', '". $locationId . "')");
+
+        $resutl = $query->result();
+
+        if (count($resutl) != 1) {
+
+            return null;
+
+        } else {
+
+            $resutl = $resutl[0];
+
+        }
+
+        $addressEntity = new LocationEntity();
+
+        // * On hydrate l'objet
+        $addressEntity->setId($resutl->idlocation);
+        $addressEntity->setName($resutl->name);
+        $addressEntity->setAdresse($resutl->location);
+        $addressEntity->setCodePostal($resutl->codepostal);
+        $addressEntity->setCity($resutl->city);
+        $addressEntity->setCountry($resutl->country);
+        $addressEntity->setDepartment($resutl->department);
+        $addressEntity->setLatitude($resutl->latitude);
+        $addressEntity->setLongitude($resutl->longitude);
+        $addressEntity->setIsAlive($resutl->isALive);
+        $addressEntity->setIsDefault($resutl->isDefault);
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        return $addressEntity;
+
+    }
+
 
     public function searchLatLong(array $address, string $codePostal) : ?array
     {
