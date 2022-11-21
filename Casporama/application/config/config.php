@@ -12,7 +12,7 @@ defined('BASEPATH') || exit('No direct script access allowed');
 |
 */
 
-$config['Deploymentmode'] = getenv("Deploymentmode");
+//$config['Deploymentmode'] = getenv("Deploymentmode");
 
 /*
 |--------------------------------------------------------------------------

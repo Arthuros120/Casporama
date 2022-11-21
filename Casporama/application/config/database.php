@@ -83,7 +83,7 @@ $query_builder = true;
 
 $dbName = "Casporama";
 
-if (isset($config['Deploymentmode']) && $config['Deploymentmode'] == "Developement") {
+if (ENVIRONMENT == 'Developement') {
 
     $dbName = 'CasporamaDEV';
 
