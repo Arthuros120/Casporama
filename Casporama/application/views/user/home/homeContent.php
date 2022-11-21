@@ -33,7 +33,7 @@
                 <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('admin/home') ?>">
                     <h3>Panneau Administrateur</h3>
                     <img class="user_img" src="<?= base_url() . "static/image/icon/admin.svg" ?>" alt="admin" />
-            <?php } ?> 
+            <?php } ?>
             <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('User/logout'); ?>">
                 <h3>Se déconnecter</h3>
                 <img class="arrow" src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />

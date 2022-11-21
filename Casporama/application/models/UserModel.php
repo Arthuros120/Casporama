@@ -315,7 +315,7 @@ class UserModel extends CI_Model
         $query->next_result();
         $query->free_result();
 
-        $addressList = $this->LocationModel->getLocationsByUserId($id);
+        $addressList = $this->LocationModel->getLocationsByUserId($id, true);
 
         $user = new UserEntity();
 
@@ -742,6 +742,8 @@ class UserModel extends CI_Model
         return $id;
     }
 
+    // TODO: Ajouter le generateur de mot de passe
+
     public function updateLastName(int $id, string $newLastName)
     {
 
@@ -774,6 +776,19 @@ class UserModel extends CI_Model
     {
 
         $this->db->query('Call updateFixe(' . $id . ', "' . $newFixe . '")');
+
+    }
+
+    public function updatePassword(int $id, string $newPassword)
+    {
+
+        $newSalt = uniqid(mt_rand(), true);
+
+        $newPassword = $newPassword . $newSalt;
+
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $this->db->query('Call updatePassword(' . $id . ', "' . $newPassword . '", "' . $newSalt . '")');
 
     }
 }

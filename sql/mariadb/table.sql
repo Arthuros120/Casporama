@@ -32,9 +32,13 @@ CREATE TABLE IF NOT EXISTS location (
     codepostal varchar(5) NOT NULL,
     city VARCHAR(255) not null,
     department VARCHAR(255) not null,
-    country VARCHAR(255) not nu ll,
+    country VARCHAR(255) not null,
     latitude double,
     longitude double,
+    isDefault bool,
+    isALive bool not null,
+    dateAlive datetime not null,
+
     PRIMARY KEY(idlocation),
     FOREIGN KEY(id) REFERENCES user(id)
 );

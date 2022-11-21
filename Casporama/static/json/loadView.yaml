@@ -119,61 +119,73 @@ User/home/modifLastName:
 
     views :
         head : "user/home/info/head"
-        modaleHead : "user/home/modale/global/head"
-        modaleContent : "user/home/modale/modifLastName/content"
+        modaleHead : "user/home/info/modale/global/head"
+        modaleContent : "user/home/info/modale/modifLastName/content"
         content : "user/home/info/content"
         script : "user/home/info/script"
-        modaleScript: "user/home/modale/modifLastName/script"
+        modaleScript: "user/home/info/modale/modifLastName/script"
 
-    baseView : "user/home/modale/global/base"
+    baseView : "user/home/info/modale/global/base"
 
 User/home/modifFirstName:
 
     views :
         head : "user/home/info/head"
-        modaleHead : "user/home/modale/global/head"
-        modaleContent : "user/home/modale/modifFirstName/content"
+        modaleHead : "user/home/info/modale/global/head"
+        modaleContent : "user/home/info/modale/modifFirstName/content"
         content : "user/home/info/content"
         script : "user/home/info/script"
-        modaleScript: "user/home/modale/modifFirstName/script"
+        modaleScript: "user/home/info/modale/modifFirstName/script"
 
-    baseView : "user/home/modale/global/base"
+    baseView : "user/home/info/modale/global/base"
 
 User/home/modifEmail:
 
     views :
         head : "user/home/info/head"
-        modaleHead : "user/home/modale/global/head"
-        modaleContent : "user/home/modale/modifEmail/content"
+        modaleHead : "user/home/info/modale/global/head"
+        modaleContent : "user/home/info/modale/modifEmail/content"
         content : "user/home/info/content"
         script : "user/home/info/script"
-        modaleScript: "user/home/modale/modifEmail/script"
+        modaleScript: "user/home/info/modale/modifEmail/script"
 
-    baseView : "user/home/modale/global/base"
+    baseView : "user/home/info/modale/global/base"
+
+User/home/modifPass:
+
+    views :
+        head : "user/home/info/head"
+        modaleHead : "user/home/info/modale/global/head"
+        modaleContent : "user/home/info/modale/modifPass/content"
+        content : "user/home/info/content"
+        script : "user/home/info/script"
+        modaleScript: "user/home/info/modale/modifPass/script"
+
+    baseView : "user/home/info/modale/global/base"
 
 User/home/modifMobile:
 
     views :
         head : "user/home/info/head"
-        modaleHead : "user/home/modale/global/head"
-        modaleContent : "user/home/modale/modifMobile/content"
+        modaleHead : "user/home/info/modale/global/head"
+        modaleContent : "user/home/info/modale/modifMobile/content"
         content : "user/home/info/content"
         script : "user/home/info/script"
-        modaleScript: "user/home/modale/modifMobile/script"
+        modaleScript: "user/home/info/modale/modifMobile/script"
 
-    baseView : "user/home/modale/global/base"
+    baseView : "user/home/info/modale/global/base"
 
 User/home/modifFixe:
 
     views :
         head : "user/home/info/head"
-        modaleHead : "user/home/modale/global/head"
-        modaleContent : "user/home/modale/modifFixe/content"
+        modaleHead : "user/home/info/modale/global/head"
+        modaleContent : "user/home/info/modale/modifFixe/content"
         content : "user/home/info/content"
         script : "user/home/info/script"
-        modaleScript: "user/home/modale/modifFixe/script"
+        modaleScript: "user/home/info/modale/modifFixe/script"
 
-    baseView : "user/home/modale/global/base"
+    baseView : "user/home/info/modale/global/base"
 
 #---------------------------------Test View---------------------------------#
 

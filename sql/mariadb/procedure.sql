@@ -330,3 +330,8 @@ create procedure updateFixe(targetId integer, newFixe varchar(255))
     BEGIN
         update information set fix=newFixe where id = targetId;
     end;
+
+create procedure updatePassword(targetId integer, newPass varchar(255), newSalt varchar(45))
+    BEGIN
+        update user set password=newPass, salt=newSalt where id = targetId;
+    end;

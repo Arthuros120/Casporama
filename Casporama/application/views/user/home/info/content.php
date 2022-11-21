@@ -93,7 +93,7 @@ if ($status == "Administrateur") {
 
     if (isset($listLoc)) {
 
-        foreach ($listLoc as $localisation) { ?>
+        foreach ($listLoc as $localisation) {  ?>
 
             <div class="card">
 

@@ -673,15 +673,93 @@ class User extends CI_Controller
                             $this->UserModel->updateEmail($user->getId(), $newEmail);
 
                             redirect("User/home/info");
-
                         }
-
                     } elseif ($action == 'modifPass') {
 
-                        // TODO : Modifier le mot de passe de l'utilisateur
+                        $dataModal['user'] = $user;
 
-                        echo "modifPass";
+                        // * On configure les règles de validation du formulaire
+                        $configRules = array(
 
+                            // * Configuration des paramètre du champ password
+                            array(
+                                'field' => 'pass',
+                                'label' => 'Mot de passe',
+                                'rules' => 'trim|required',
+                                'errors' => array(
+                                    'required' => 'Vous avez oublié le %s.',
+                                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                ),
+                            ),
+
+                            // * Configuration des paramètre du champ password
+                            array(
+                                'field' => 'newPass',
+                                'label' => 'Nouveau mot de passe',
+                                'rules' => 'trim|required|min_length[8]|max_length[255]|callback_ComformPassword',
+                                'errors' => array(
+                                    'required' => 'Vous avez oublié %s.',
+                                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                    "min_length" => "Le %s doit faire au moins 8 caractères",
+                                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                                ),
+                            ),
+
+                            // * Configuration des paramètre du champ password confirm
+                            array(
+                                'field' => 'confNewPass',
+                                'label' => 'Confirmation du nouveau mot de passe',
+                                'rules' => 'trim|required|matches[newPass]',
+                                'errors' => array(
+                                    'required' => 'Vous avez oublié %s.',
+                                    'matches' => 'Les deux Mots de passe ne sont pas identiques',
+                                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                ),
+                            )
+                        );
+
+                        $this->form_validation->set_rules($configRules);
+
+                        if (!$this->form_validation->run()) {
+
+                            $dataModal['error'] = validation_errors();
+
+                            $data['modaleContent'] = $dataModal;
+
+                            $this->LoaderView->load('User/home/modifPass', $data);
+                        } else {
+
+                            $pass = $this->input->post('pass');
+                            $newPass = $this->input->post('newPass');
+
+                            if ($this->UserModel->passwordCheck($pass, $user)) {
+
+                                if ($this->UserModel->passwordCheck($newPass, $user)) {
+
+                                    $dataModal['error'] = "Le nouveau mot de passe doit être différent de l'ancien";
+
+                                    $data['modaleContent'] = $dataModal;
+
+                                    $this->LoaderView->load('User/home/modifPass', $data);
+
+                                } else {
+
+                                    $this->UserModel->updatePassword($user->getId(), $newPass);
+
+                                    redirect("User/logout");
+
+                                }
+
+                            } else {
+
+                                $dataModal['error'] = "Mot de passe actuel incorrect";
+
+                                $data['modaleContent'] = $dataModal;
+
+                                $this->LoaderView->load('User/home/modifPass', $data);
+
+                            }
+                        }
                     } elseif ($action == 'modifMobile') {
 
                         $dataModal['user'] = $user;

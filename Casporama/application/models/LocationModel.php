@@ -7,13 +7,26 @@ require_once APPPATH . 'models/entity/LocationEntity.php';
 
     * Class LocationModel
 
-    * Cette classe permet de gérer les localisation
+    * Cette classe permet de gérer les données de la table localisation
 
 */
 class LocationModel extends CI_Model
 {
 
-    public function getLocationsByUserId(int $id) : array
+    /*
+
+        * Fonction getLocationsByUserId
+
+        @param $id : l'id de l'utilisateur
+        @param $selectALive : si on veut récupérer les adresses en cours de vie ou non
+
+        @return array : un tableau contenant toutes les localisations de l'utilisateur
+        en fonction de si il sont en cours de vie ou non
+
+        * Cette fonction permet de récupérer toutes les localisations d'un utilisateur
+
+    */
+    public function getLocationsByUserId(int $id, bool $selectALive) : array
     {
 
         $addressList = [];
@@ -24,20 +37,26 @@ class LocationModel extends CI_Model
 
         foreach ($addressResult as &$address) {
 
-            $addressEntity = new LocationEntity();
+            if (($selectALive && $address->isALive) || !$selectALive) {
 
-            // * On hydrate l'objet
-            $addressEntity->setId($address->id);
-            $addressEntity->setName($address->name);
-            $addressEntity->setAdresse($address->location);
-            $addressEntity->setCodePostal($address->codepostal);
-            $addressEntity->setCity($address->city);
-            $addressEntity->setCountry($address->country);
-            $addressEntity->setDepartment($address->department);
-            $addressEntity->setLatitude($address->latitude);
-            $addressEntity->setLongitude($address->longitude);
+                $addressEntity = new LocationEntity();
+
+                // * On hydrate l'objet
+                $addressEntity->setId($address->id);
+                $addressEntity->setName($address->name);
+                $addressEntity->setAdresse($address->location);
+                $addressEntity->setCodePostal($address->codepostal);
+                $addressEntity->setCity($address->city);
+                $addressEntity->setCountry($address->country);
+                $addressEntity->setDepartment($address->department);
+                $addressEntity->setLatitude($address->latitude);
+                $addressEntity->setLongitude($address->longitude);
+                $addressEntity->setIsAlive($address->isALive);
+                $addressEntity->setIsDefault($address->isDefault);
             
-            array_push($addressList, $addressEntity);
+                array_push($addressList, $addressEntity);
+
+            }
         }
 
         // * On attend un résultat
