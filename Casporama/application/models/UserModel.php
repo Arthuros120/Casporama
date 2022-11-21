@@ -65,8 +65,42 @@ class UserModel extends CI_Model
     public function heHaveUserById(int $id): Bool
     {
 
-        // * On récupère l'utilisateur en fonction de son login
+        // * On récupère l'utilisateur en fonction de son id
         $query = $this->db->query("Call verifyId('" . $id . "')");
+
+        // * On vérifie si l'utilisateur existe
+        $user = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne le résultat
+        if (isset($user->login)) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+        /*
+    
+        * heHaveUserBySalt
+    
+        * Cette méthode permet de vérifier si un utilisateur existe dans la base de données
+        * en fonction de son salt
+    
+        @param: $salt
+    
+        @return: boolean
+    
+    */
+    public function heHaveUserBySalt(string $salt): Bool
+    {
+
+        // * On récupère l'utilisateur en fonction de son salt
+        $query = $this->db->query("Call verifySalt('" . $salt . "')");
 
         // * On vérifie si l'utilisateur existe
         $user = $query->row();
@@ -704,12 +738,13 @@ class UserModel extends CI_Model
             }
 
             $data['id'] = $this->generateId();
-            $data['salt'] = uniqid(mt_rand(), true);
 
             $data['login'] = strtolower($data['login']);
 
-            $data['password'] = $data['password'] . $data['salt'];
-            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+            $identifyValue = $this->generateHashPassword($data['password']);
+    
+            $data['password'] = $identifyValue['password'];
+            $data['salt'] = $identifyValue['salt'];
 
             $requeteSql = "Call createUser(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -728,21 +763,6 @@ class UserModel extends CI_Model
             $this->db->query($requeteSql, $dataRequete);
         }
     }
-
-    private function generateId(): Int
-    {
-
-        $id = rand(10000, 999999999);
-
-        if ($this->heHaveUserById($id)) {
-
-            $id = $this->generateId();
-        }
-
-        return $id;
-    }
-
-    // TODO: Ajouter le generateur de mot de passe
 
     public function updateLastName(int $id, string $newLastName)
     {
@@ -782,13 +802,54 @@ class UserModel extends CI_Model
     public function updatePassword(int $id, string $newPassword)
     {
 
-        $newSalt = uniqid(mt_rand(), true);
+        $identifyValue = $this->generateHashPassword($newPassword);
 
-        $newPassword = $newPassword . $newSalt;
+        $newSalt = $identifyValue['salt'];
 
-        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        $newPassword = $identifyValue['password'];
 
         $this->db->query('Call updatePassword(' . $id . ', "' . $newPassword . '", "' . $newSalt . '")');
 
+    }
+
+    private function generateId(): Int
+    {
+
+        $id = rand(10000, 999999999);
+
+        if ($this->heHaveUserById($id)) {
+
+            $id = $this->generateId();
+        }
+
+        return $id;
+    }
+    
+    private function generateHashPassword(string $password): array
+    {
+        $genSalt = uniqid(rand(10000, 999999999), true);
+        $salt = null;
+
+        while ($salt == null) {
+
+            if ($this->heHaveUserBySalt($genSalt)) {
+
+                $genSalt = uniqid(rand(10000, 999999999), true);
+
+            } else {
+
+                $salt = $genSalt;
+            }
+
+        }
+
+        $password = $password . $salt;
+
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+        return array(
+            'password' => $password,
+            'salt' => $salt,
+        );
     }
 }

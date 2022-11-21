@@ -335,3 +335,8 @@ create procedure updatePassword(targetId integer, newPass varchar(255), newSalt 
     BEGIN
         update user set password=newPass, salt=newSalt where id = targetId;
     end;
+
+create procedure verifySalt(newSalt varchar(255))
+    begin
+        select login from user where newSalt = salt;
+    end;

@@ -90,7 +90,7 @@ create table if not exists `order` (
     primary key(idorder),
     foreign key(idlocation) references location(idlocation),
     foreign key(iduser) references user(id),
-    constraint status_not_valid 
+    constraint status_not_valid
         check(state in ('Non preparer','En preparation','Preparer','Expedier'))
 );
 
