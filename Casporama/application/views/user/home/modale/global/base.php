@@ -28,6 +28,14 @@
 
                 <?= $loadView['modaleContent'] ?>
 
+                <div class="error" <?php
+
+                    if ($error == null) {
+                        echo "hidden";
+                    }
+
+                    ?>><?= $error ?>
+                </div>
             </div>
         </div>
     </div>

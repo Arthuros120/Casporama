@@ -19,14 +19,4 @@
 
 </form>
 
-<div class="error" <?php
-
-                    if ($error == null) {
-                        echo "hidden";
-                    }
-
-                    ?>><?= $error ?>
-</div>
-
-
 <!-- user/home/modale/modifFirstName/content -->
