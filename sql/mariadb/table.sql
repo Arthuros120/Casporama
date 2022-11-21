@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS location (
     longitude double,
     isDefault bool,
     isALive bool not null,
-    dateAlive datetime not null,
+    dateLastUpdate datetime not null,
 
     PRIMARY KEY(idlocation),
     FOREIGN KEY(id) REFERENCES user(id)
