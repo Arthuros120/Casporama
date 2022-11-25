@@ -732,9 +732,10 @@ class UserModel extends CI_Model
             isset($data['mobilePhone'])
         ) {
 
-            if (!isset($data['fixePhone'])) {
+            if (!isset($data['fixePhone']) || $data['fixePhone'] == 0) {
 
                 $data['fixePhone'] = null;
+
             }
 
             $data['id'] = $this->generateId();

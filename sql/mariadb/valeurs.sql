@@ -23,9 +23,9 @@ insert into location (idlocation, id, name, location, codepostal, city, departme
 values
     (1, 6, 'domicile', '12;av du 35 juillet','44000','Nantes','Loire-Atlantique','France', null, null, true, true, '2022-11-21 20:05:37'),
     (2, 7, 'domicile','12;av du 35 juillet','44000','Nantes','Loire-Atlantique','France', null, null, true, true, '2022-11-21 20:05:37'),
-    (3, 2, 'local', '22;Rue des bergeronnettes','44210','Pornic','Loire-Atlantique','France', 47.246678, -1.523291, true, true, '2022-11-21 20:05:37'),
-    (4, 2, 'domicile', '190;Boulevard Jules Vernes','44300','Nantes','Loire-Atlantique','France', null, null, false, true, '2022-11-21 20:05:37'),
-    (5, 2, 'domicile', '4;Avenue Michel Ange','44300','Nantes','Loire-Atlantique','France', null, null, false, false, '2022-11-21 20:05:37');
+    (3, 2, 'local', '22;Rue des bergeronnettes','44210','Pornic','Loire-Atlantique','France', null, null, true, true, '2022-11-21 20:05:37'),
+    (4, 2, 'domicile', '190;Boulevard Jules Vernes','44300','Nantes','Loire-Atlantique','France', 47.246678, -1.523291, false, true, '2022-11-21 20:05:37'),
+    (5, 2, 'Apartement', '4;Avenue Michel Ange','44300','Nantes','Loire-Atlantique','France', null, null, false, false, '2022-11-21 20:05:37');
 
 INSERT INTO sport (nusport,name)
  VALUES

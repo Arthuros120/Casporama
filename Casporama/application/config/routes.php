@@ -78,3 +78,8 @@ $route['User/IsUniqueMobilePhone(:any)'] = 'Error404';
 $route['User/ComformPassword(:any)'] = 'Error404';
 $route['User/create_captcha(:any)'] = 'Error404';
 $route['User/checkCaptcha(:any)'] = 'Error404';
+$route['User/IsUniqueAddressName(:any)'] = 'Error404';
+
+// !Api route
+
+//$route['api/v1/Location/AllCountry']  = 'api/v1/Location/getAllCountry';
