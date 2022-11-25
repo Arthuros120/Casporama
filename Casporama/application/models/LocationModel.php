@@ -31,7 +31,7 @@ class LocationModel extends CI_Model
 
         $addressList = [];
 
-        $queryAdress = $this->db->query("Call getUserLocationById('" . $id . "')");
+        $queryAdress = $this->db->query("Call user.getUserLocationById('" . $id . "')");
 
         $addressResult = $queryAdress->result();
 
@@ -82,7 +82,7 @@ class LocationModel extends CI_Model
     public function getLocationByUserId(int $idUser, int $locationId) : ?LocationEntity
     {
 
-        $query = $this->db->query("Call getLocationByIdAndUserId('" . $idUser . "', '". $locationId . "')");
+        $query = $this->db->query("Call user.getLocationByIdAndUserId('" . $idUser . "', '". $locationId . "')");
 
         $resutl = $query->result();
 

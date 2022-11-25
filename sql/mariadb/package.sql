@@ -49,7 +49,7 @@ CREATE OR REPLACE PACKAGE user AS
     -- Permet d'ajouter un user et ses coordonnées
     procedure createUser( newId integer,  newLogin varchar(255),  newPass varchar(255),  newSalt varchar(45),  newfirstname varchar(255),  newname varchar(255),  newEmail varchar(255),  newMobile int,  newFix int);
     -- Permet d'ajouter une location à un user
-    procedure addLocalisation( newidlocation int,  newid int,  newlocation varchar(255),  newcode int,  newcity varchar(255),  newdep varchar(255),  newcountry varchar(255));
+    procedure addLocalisation( newidlocation int,  newid int, newname varchar(255), newlocation varchar(255),  newcode int,  newcity varchar(255),  newdep varchar(255),  newcountry varchar(255));
     -- Permet de supprimer un user, ses coordonnées et sa location
     procedure delUser( iduser int);
     -- Permet d'ajouter un cookie à un user
@@ -67,9 +67,9 @@ CREATE OR REPLACE PACKAGE user AS
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
-    procedure verifyLogin( loginSearch VARCHAR(255)) as
+    procedure verifyLogin( loginSearch VARCHAR(255))as
     begin
-        select login from user where loginSearch = login;
+        select login from user where login = loginSearch;
     end;
 
     procedure verifyEmail( mailSearch VARCHAR(255)) as
@@ -135,7 +135,7 @@ CREATE OR REPLACE PACKAGE BODY user AS
 
     procedure addLocalisation( newidlocation int,  newid int,  newlocation varchar(255),  newcode int,  newcity varchar(255),  newdep varchar(255),  newcountry varchar(255)) as
     BEGIN
-        insert into location(idlocation,id,location,codepostal,city,department,country) value (newidlocation,newid,newlocation,newcode,newcity,newdep,newcountry);
+        insert into location(idlocation,id,name, location,codepostal,city,department,country) value (newidlocation,newid,newlocation,newcode,newcity,newdep,newcountry);
     end;
 
     procedure delUser( iduser int) as
@@ -160,9 +160,9 @@ CREATE OR REPLACE PACKAGE BODY user AS
         update information set firstname=newfirstname, name=newname, mail=newmail, mobile=newmobile, fix=newfix where id=iduser;
     end;
 
-    procedure updateLocalisation( newidlocation int, iduser int,  newlocation varchar(255),  newcode int,  newcity varchar(255),  newdep varchar(255),  newcountry varchar(255)) as
+    procedure updateLocalisation( newidlocation int, iduser int, newname varchar(255), newlocation varchar(255),  newcode int,  newcity varchar(255),  newdep varchar(255),  newcountry varchar(255)) as
     BEGIN
-        update location set location=newlocation, codepostal=newcode, city=newcity, department=newdep, country=newcountry where id = iduser and idlocation=newidlocation;
+        update location set newname=name, location=newlocation, codepostal=newcode, city=newcity, department=newdep, country=newcountry where id = iduser and idlocation=newidlocation;
     end;
 
     procedure updateUtilisateur( iduser int,  newlogin varchar(255),  newpass varchar(255)) as
@@ -393,4 +393,6 @@ CREATE OR REPLACE PACKAGE BODY captcha AS
     end;
 END;
 
---call `order`.getCommandeClient(6);
+use Casporama;
+call `order`.getCommandeClient(6);
+Call product.getProductBySportType(1, 'Vetement');

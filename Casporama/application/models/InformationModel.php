@@ -18,7 +18,7 @@ class InformationModel extends CI_Model
 
         // * On cherche les coordonnées de l'utilisateur si il existe
         // * On récupère les coordonnées de l'utilisateur en fonction de son id
-        $query = $this->db->query("Call getUserInfoById('" . $id . "')");
+        $query = $this->db->query("Call user.getUserInfoById('" . $id . "')");
 
         if (isset($query -> result()[0])) {
 
