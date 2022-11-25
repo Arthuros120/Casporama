@@ -326,7 +326,7 @@ class LocationModel extends CI_Model
     public function IsUniqueModifAddressName(string $name, int $id) : int
     {
 
-        $query = $this->db->query("Call isUniqueAddressName(?, ?)", array($name, $id));
+        $query = $this->db->query("Call user.isUniqueAddressName(?, ?)", array($name, $id));
 
         $result = (int) $query->row()->count;
 
