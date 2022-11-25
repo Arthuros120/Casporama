@@ -907,13 +907,12 @@ class User extends CI_Controller
 
                                         'field' => 'city',
                                         'label' => 'Ville',
-                                        "rules" => 'trim|required|min_length[3]|max_length[255]|alpha_numeric_spaces',
+                                        "rules" => 'trim|required|min_length[3]|max_length[255]',
                                         'errors' => array( // * On définit les messages d'erreurs
                                             'required' => 'Vous avez oublié %s.',
                                             "min_length" => "Le %s doit faire au moins 3 caractères",
                                             "max_length" => "Le %s doit faire au plus 255 caractères",
                                             'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
-'alpha_numeric_spaces' => 'Le %s ne doit contenir que des caractères alphanumeriques et/ou des espaces',
                                         ),
                                     ),
 
@@ -925,6 +924,20 @@ class User extends CI_Controller
                                         'errors' => array( // * On définit les messages d'erreurs
                                             'required' => 'Vous avez oublié %s.',
                                         )
+                                    ),
+
+                                    array(
+
+                                        'field' => 'postalCode',
+                                        'label' => 'Code postal',
+                                        'rules' => 'trim|required|is_natural|min_length[5]|max_length[5]',
+                                        'errors' => array( // * On définit les messages d'erreurs
+                                            'required' => 'Vous avez oublié %s.',
+                                            'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                            "min_length" => "Le %s doit faire 5 caractères",
+                                            "max_length" => "Le %s doit faire 5 caractères",
+                                            'is_natural' => 'Le %s ne doit contenir que des caractères numériques',
+                                        ),
                                     )
                                 );
 
