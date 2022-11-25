@@ -352,3 +352,10 @@ create procedure isUniqueAddressName(searchName varchar(255), searchIdUser int)
     END;
 
 call isUniqueAddressName('local', 2);
+
+-- Reséparation demandé par le chef SQL --
+
+create procedure getAddresseById(searchId int)
+    Begin
+        select name, location, codepostal, city, department, latitude, longitude, isDefault from location where id = searchId;
+    End;

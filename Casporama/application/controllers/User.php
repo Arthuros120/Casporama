@@ -963,6 +963,21 @@ class User extends CI_Controller
 
                                 } else {
 
+                                    $dataNewAddress = array (
+
+                                        'name' => $this->input->post('name'),
+                                        'number' => $this->input->post('number'),
+                                        'street' => $this->input->post('street'),
+                                        'department' => explode(";", $this->input->post('department')[1]),
+                                        'city' => $this->input->post('city'),
+                                        'country' => $this->input->post('country'),
+                                        'postalCode' => $this->input->post('postalCode'),
+                                        'isDefault' => $this->input->post('default'),
+
+                                    );
+
+                                    $this->LocationModel->newAddress();
+
                                     var_dump($this->input->post());
 
                                 }
