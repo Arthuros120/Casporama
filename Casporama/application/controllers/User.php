@@ -27,6 +27,13 @@ class User extends CI_Controller
         $this->load->helper('captcha');
     }
 
+    public function index()
+    {
+
+        redirect('user/home');
+
+    }
+
     /*
 
         * Login Page
@@ -499,8 +506,6 @@ class User extends CI_Controller
 
             // * Si le sport ou la catégorie n'est pas disponible, on affiche une erreur 404.
 
-            var_dump($action);
-
             $this->load->view('errors/html/error_404');
         } else {
 
@@ -522,6 +527,7 @@ class User extends CI_Controller
 
                     // * On charge la page d'accueil de l'utilisateur
                     $this->LoaderView->load('User/home', $data);
+
                 } else {
 
                     $listLoc = $user->getLocalisation();
@@ -832,8 +838,6 @@ class User extends CI_Controller
 
                     } elseif ($action == 'modifAddress') {
 
-                        // TODO : Modifier l'adresse de l'utilisateur
-
                         if ($hint <= 0) {
 
                             $this->load->view('errors/html/error_404');
@@ -842,15 +846,130 @@ class User extends CI_Controller
 
                             $address = $this->LocationModel->getLocationByUserId($user->getId(), $hint);
 
+                            $this->session->set_flashdata('defaultAddressName', $address->getName());
+
                             if ($address != null && $address->getIsAlive()) {
 
-                                // TODO : Modifier l'adresse de l'utilisateur reprendre ici
+                                $configRules = array(
 
-                                var_dump($address);
+                                    // * Configuration des paramètre du champlogin
+                                    array(
+                                        'field' => 'name',
+                                        'label' => 'Nom de l\'adresse',
+'rules' => 'trim|required|min_length[3]|max_length[255]|alpha_numeric_spaces|callback_IsUniqueAddressName['.$user->getId().']',
+                                        'errors' => array( // * On définit les messages d'erreurs
+                                            'required' => 'Vous avez oublié %s.',
+                                            "min_length" => "Le %s doit faire au moins 3 caractères",
+                                            "max_length" => "Le %s doit faire au plus 255 caractères",
+                                            'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+'alpha_numeric_spaces' => 'Le %s ne doit contenir que des caractères alphanumeriques et/ou des espaces',
+                                        ),
+                                    ),
+                    
+                                    array(
+                                        'field' => 'number',
+                                        'label' => 'Numéro de voie',
+                                        'rules' => 'trim|required|is_natural|min_length[1]|max_length[5]',
+                                        'errors' => array( // * On définit les messages d'erreurs
+                                            'required' => 'Vous avez oublié %s.',
+                                            'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                            "min_length" => "Le %s doit faire au moins 1 caractères",
+                                            "max_length" => "Le %s doit faire au plus 5 caractères",
+                                            'is_natural' => 'Le %s ne doit contenir que des caractères numériques',
+                                        ),
+                                    ),
+
+                                    array(
+
+                                        'field' => 'street',
+                                        'label' => 'Nom de la voie',
+                                        'rules' => 'trim|required|min_length[3]|max_length[250]|alpha_numeric_spaces',
+                                        'errors' => array( // * On définit les messages d'erreurs
+                                            'required' => 'Vous avez oublié %s.',
+                                            "min_length" => "Le %s doit faire au moins 3 caractères",
+                                            "max_length" => "Le %s doit faire au plus 250 caractères",
+                                            'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+'alpha_numeric_spaces' => 'Le %s ne doit contenir que des caractères alphanumeriques et/ou des espaces',
+                                        ),
+                                    ),
+
+                                    array (
+
+                                        'field' => 'department',
+                                        'label' => 'Département',
+                                        "rules" => 'required|callback_InListDepartment',
+                                        'errors' => array( // * On définit les messages d'erreurs
+                                            'required' => 'Vous avez oublié %s.',
+                                        ),
+                                    ),
+
+                                    array (
+
+                                        'field' => 'city',
+                                        'label' => 'Ville',
+                                        "rules" => 'trim|required|min_length[3]|max_length[255]',
+                                        'errors' => array( // * On définit les messages d'erreurs
+                                            'required' => 'Vous avez oublié %s.',
+                                            "min_length" => "Le %s doit faire au moins 3 caractères",
+                                            "max_length" => "Le %s doit faire au plus 255 caractères",
+                                            'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                        ),
+                                    ),
+
+                                    array (
+
+                                        'field' => 'country',
+                                        'label' => 'Pays',
+                                        "rules" => 'required|callback_InListCountry',
+                                        'errors' => array( // * On définit les messages d'erreurs
+                                            'required' => 'Vous avez oublié %s.',
+                                        )
+                                    ),
+
+                                    array(
+
+                                        'field' => 'postalCode',
+                                        'label' => 'Code postal',
+                                        'rules' => 'trim|required|is_natural|min_length[5]|max_length[5]',
+                                        'errors' => array( // * On définit les messages d'erreurs
+                                            'required' => 'Vous avez oublié %s.',
+                                            'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                            "min_length" => "Le %s doit faire 5 caractères",
+                                            "max_length" => "Le %s doit faire 5 caractères",
+                                            'is_natural' => 'Le %s ne doit contenir que des caractères numériques',
+                                        ),
+                                    )
+                                );
+
+                                $this->form_validation->set_rules($configRules);
+
+                                if (!$this->form_validation->run()) {
+                                    
+                                    $dataContent['error'] = validation_errors();
+                                    $dataContent['address'] = $address;
+                                    $dataScript['address'] = $address;
+
+                                    $dataHead['nameAddress'] = $address->getName();
+
+                                    $data = array(
+
+                                        'head' => $dataHead,
+                                        'content' => $dataContent,
+                                        'script' => $dataScript,
+
+                                    );
+
+                                    $this->LoaderView->load('User/home/modifAddress', $data);
+
+                                } else {
+
+                                    var_dump($this->input->post());
+
+                                }
 
                             } else {
 
-                                $this->load->view('errors/html/error_404');
+                                show_404();
 
                             }
 
@@ -1001,6 +1120,85 @@ class User extends CI_Controller
         }
 
         return true;
+    }
+
+    // TODO : ! Bloquer l'accès à cette fonction via le routeur
+    public function IsUniqueAddressName(string $strName = "", int $id = -1): bool
+    {
+
+        $defaultName = $this->session->flashdata('defaultAddressName');
+
+        if ($strName == "" && $id == -1 && $defaultName != null) {
+
+            $this->form_validation->set_message('IsUniqueAddressName', 'Le nom de l\'adresse est vide !');
+
+            return false;
+        }
+
+        $count = $this->LocationModel->IsUniqueModifAddressName($strName, $id);
+
+        $defaultName = strtolower($defaultName);
+
+        // * On vérifie que le mobile n'existe pas
+        if ($count == 0 || ($count == 1 && strtolower($strName) == $defaultName)) {
+
+            return true;
+        }
+
+        // * On retourne une erreur
+        $this->form_validation->set_message('IsUniqueAddressName', 'Vous avez déja utilisé ce nom d\'adresse !');
+
+        return false;
+    }
+
+    // TODO : ! Bloquer l'accès à cette fonction via le routeur
+    public function InListCountry(string $strCountry = ""): bool
+    {
+
+        if ($strCountry == "") {
+
+            $this->form_validation->set_message('InListCountry', 'Le pays est vide !');
+
+            return false;
+        }
+
+        // * On vérifie que le mobile n'existe pas
+        if ($this->LocationModel->IsCountry($strCountry)) {
+
+            return true;
+
+        }
+
+        // * On retourne une erreur
+        $this->form_validation->set_message('InListCountry', 'Ce pays n\'existe pas !');
+
+        return false;
+    }
+
+    // TODO : ! Bloquer l'accès à cette fonction via le routeur
+    public function InListDepartment(string $strDep = ""): bool
+    {
+
+        if ($strDep == "") {
+
+            $this->form_validation->set_message('InListDepartment', 'Le département est vide !');
+
+            return false;
+        }
+
+        $strDep = explode(";", $strDep)[1];
+
+        // * On vérifie que le mobile n'existe pas
+        if ($this->LocationModel->IsDepartment($strDep)) {
+
+            return true;
+
+        }
+
+        // * On retourne une erreur
+        $this->form_validation->set_message('InListDepartment', 'Ce département n\'existe pas !');
+
+        return false;
     }
 
 

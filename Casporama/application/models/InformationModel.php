@@ -54,7 +54,8 @@ class InformationModel extends CI_Model
 
         } else {
 
-            $information->setFixe("");
+            $information->setFixe("Non renseigné");
+
         }
 
         return $information;

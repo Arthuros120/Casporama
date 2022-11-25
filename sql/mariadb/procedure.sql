@@ -346,3 +346,9 @@ create procedure getLocationByIdAndUserId(idUser int, idLoc int)
         select * from location where id = iduser and idlocation = idloc;
     END;
 
+create procedure isUniqueAddressName(searchName varchar(255), searchIdUser int)
+    Begin
+        select count(*) as count from location where name = searchName and id = searchIdUser and isALive = true;
+    END;
+
+call isUniqueAddressName('local', 2);
