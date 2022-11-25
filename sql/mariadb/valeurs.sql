@@ -1,4 +1,4 @@
-use CasporamaDEV;
+use Casporama;
 
 insert into user (id, login, password, salt, status)
 values
@@ -12,8 +12,6 @@ values
 
 insert into information (id, firstname, name, mail, mobile, fix)
 values
-    (5,'Titouan','Gautier','gautier@loireatlantique.fr','0600000010','0200000000'),
-    (4,'Maxime','S','sa@loireatlantique.fr','0600000002','0200000000'),
     (2,'Arthur','Hamelin','arthur.hamelin@etu.univ-nantes.fr','0600000000','0200000000'),
     (3,'Maxime','Franco', 'maxime.franco@etu.univ-nantes.fr', '1922422810', '1569137253'),
     (4,'Maxime','Santos', 'maxime.santos@etu.univ-nantes.fr', '1844196596', '1994286298'),

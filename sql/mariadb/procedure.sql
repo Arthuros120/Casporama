@@ -316,37 +316,37 @@ create procedure updateFirstName(targetId integer, newFirstName varchar(255))
         update information set firstname=newFirstName where id = targetId;
     end;
 
-create procedure updateEmail(targetId integer, newMail varchar(255))
+create procedure updateEmail(targetId integer, newMail varchar(255)) as
     BEGIN
         update information set mail=newMail where id = targetId;
     end;
 
-create procedure updateMobile(targetId integer, newMobile varchar(255))
+create procedure updateMobile(targetId integer, newMobile varchar(255)) as
     BEGIN
         update information set mobile=newMobile where id = targetId;
     end;
 
-create procedure updateFixe(targetId integer, newFixe varchar(255))
+create procedure updateFixe(targetId integer, newFixe varchar(255)) as
     BEGIN
         update information set fix=newFixe where id = targetId;
     end;
 
-create procedure updatePassword(targetId integer, newPass varchar(255), newSalt varchar(45))
+create procedure updatePassword(targetId integer, newPass varchar(255), newSalt varchar(45)) as
     BEGIN
         update user set password=newPass, salt=newSalt where id = targetId;
     end;
 
-create procedure verifySalt(newSalt varchar(255))
+create procedure verifySalt(newSalt varchar(255)) as
     begin
         select login from user where newSalt = salt;
     end;
 
-create procedure getLocationByIdAndUserId(idUser int, idLoc int)
+create procedure getLocationByIdAndUserId(idUser int, idLoc int) as
     Begin
         select * from location where id = iduser and idlocation = idloc;
     END;
 
-create procedure isUniqueAddressName(searchName varchar(255), searchIdUser int)
+create procedure isUniqueAddressName(searchName varchar(255), searchIdUser int) as
     Begin
         select count(*) as count from location where name = searchName and id = searchIdUser and isALive = true;
     END;
@@ -355,7 +355,7 @@ call isUniqueAddressName('local', 2);
 
 -- Reséparation demandé par le chef SQL --
 
-create procedure getAddresseById(searchId int)
+create procedure getAddresseById(searchId int) as
     Begin
         select name, location, codepostal, city, department, latitude, longitude, isDefault from location where id = searchId;
     End;

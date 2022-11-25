@@ -1,5 +1,4 @@
-create database if not exists CasporamaDEV;
-use CasporamaDEV;
+use Casporama;
 
 CREATE TABLE IF NOT EXISTS user (
     id INTEGER NOT NULL,
@@ -103,3 +102,4 @@ CREATE TABLE captcha (
 	PRIMARY KEY `captcha_id` (`captcha_id`),
 	KEY `word` (`word`)
 );
+

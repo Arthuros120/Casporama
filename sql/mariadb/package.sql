@@ -1,3 +1,5 @@
+use CasporamaDEV;
+
 SET sql_mode=ORACLE;
 
 -- Les packages sont construit en fonction des différentes tables présentes dans la base de donnée
@@ -76,9 +78,14 @@ CREATE OR REPLACE PACKAGE user AS
     procedure verifySalt(newSalt varchar(255));
     procedure getLocationByIdAndUserId(idUser int, idLoc int);
     procedure isUniqueAddressName(searchName varchar(255), searchIdUser int);
+    procedure getAddresseById(searchId int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
+    procedure getAddresseById(searchId int) as
+    Begin
+        select name, location, codepostal, city, department, latitude, longitude, isDefault from location where id = searchId;
+    End;
     procedure isUniqueAddressName(searchName varchar(255), searchIdUser int) as
     Begin
         select count(*) as count from location where name = searchName and id = searchIdUser and isALive = true;
@@ -87,6 +94,7 @@ CREATE OR REPLACE PACKAGE BODY user AS
     Begin
         select * from location where id = iduser and idlocation = idloc;
     END;
+
     procedure verifySalt(newSalt varchar(255)) as
     begin
         select login from user where newSalt = salt;
@@ -130,12 +138,12 @@ CREATE OR REPLACE PACKAGE BODY user AS
     END;
     procedure verifyLogin( loginSearch VARCHAR(255)) as
     begin
-        select login from user where login = loginSearch;
+        select login from user where loginSearch = login;
     end;
 
     procedure verifyEmail( mailSearch VARCHAR(255)) as
     begin
-        select login from user where id in (select information.id from information where mailSearch = information.mail);
+        select login from user where id in (select id from information where mailSearch = information.mail);
     end;
 
     procedure verifyPhone( phone int) as
@@ -155,7 +163,7 @@ CREATE OR REPLACE PACKAGE BODY user AS
 
     procedure getUserById( idSearch VARCHAR(255)) as
     begin
-        select id, cookieId, status from user where id = idSearch;
+        select id, login ,cookieId, status from user where id = idSearch;
     end;
 
     procedure getUserByEmail( mailSearch VARCHAR(255)) as
@@ -183,20 +191,20 @@ CREATE OR REPLACE PACKAGE BODY user AS
         insert into user(id, login,password,salt,status) value (newid, newlogin,newpass,newsalt, newstatus);
     end;
 
-    procedure addCoordonnee( newid int,  newfirstname varchar(255),  newname varchar(255),  newmail varchar(255),  newmobile int,  newfix int) as
+    procedure addCoordonnee( newid int,  newprenom varchar(255),  newnom varchar(255),  newmail varchar(255),  newmobile int,  newfixe int) as
     BEGIN
-        insert into information(id,firstname,name,mail,mobile,fix) value (newid,newfirstname,newname,newmail,newmobile,newfix);
+        insert into information(id,firstname,name,mail,mobile,fix) value (newid,newprenom,newnom,newmail,newmobile,newfixe);
     end;
 
-    procedure createUser( newId integer,  newLogin varchar(255),  newPass varchar(255),  newSalt varchar(45),  newfirstname varchar(255),  newname varchar(255),  newEmail varchar(255),  newMobile int,  newFix int) as
+    procedure createUser( newId integer,  newLogin varchar(255),  newPass varchar(255),  newSalt varchar(45),  newPrenom varchar(255),  newNom varchar(255),  newEmail varchar(255),  newMobile int,  newFixe int) as
     begin
         insert into user(id, login, password, salt, status) value (newId, newLogin, newPass, newSalt, 'Client');
-        insert into information(id, firstname, name, mail, mobile, fix) value (newId, newfirstname, newname, newEmail, newMobile, newFix);
+        insert into information(id, firstname, name, mail, mobile, fix) value (newId, newPrenom, newNom, newEmail, newMobile, newFixe);
     end;
 
-    procedure addLocalisation( newidlocation int,  newid int, newname varchar(255), newlocation varchar(255),  newcode int,  newcity varchar(255),  newdep varchar(255),  newcountry varchar(255)) as
+    procedure addLocalisation( newidadresse int,  newid int,  newname varchar(255), newadresse varchar(255),  newcode int,  newville varchar(255),  newdep varchar(255),  newpays varchar(255)) as
     BEGIN
-        insert into location(idlocation,id,name, location,codepostal,city,department,country) value (newidlocation,newid,newname,newlocation,newcode,newcity,newdep,newcountry);
+        insert into location(idlocation,id,name,location,codepostal,city,department,country) value (newidadresse,newid,newname,newadresse,newcode,newville,newdep,newpays);
     end;
 
     procedure delUser( iduser int) as
@@ -213,7 +221,7 @@ CREATE OR REPLACE PACKAGE BODY user AS
 
     procedure delCookieId( iduser int) as
     BEGIN
-        update user set cookieId=null where id = iduser;
+        update user set cookieId='' where id = iduser;
     end;
 
     procedure updateCoordonnees( iduser int,  newfirstname varchar(255),  newname varchar(255),  newmail varchar(255),  newmobile int,  newfix int) as
@@ -232,9 +240,9 @@ CREATE OR REPLACE PACKAGE BODY user AS
         update user set login=newlogin, password=newpass where id=iduser;
     end;
 
-    procedure updateStatus( iduser int,  newstatus varchar(20)) as
+    procedure updateStatus( iduser int,  newstate varchar(20)) as
     BEGIN
-        update user set status=newstatus where id=iduser;
+        update user set status=newstate where id=iduser;
     end;
 
 END;
@@ -259,8 +267,7 @@ CREATE OR REPLACE PACKAGE product AS
     -- Permet d'avoir un product par son ID
     procedure getProductById( id integer);
     -- Permet d'ajouter un product à la BD
-    procedure addProduct( newid int,  newreference int,  newtype varchar(15),  newnusport int,  newbrand varchar(255),  newname varchar(255), newgender varchar(5),  newprice float,  newdesc varchar(255),  newimage varchar(255));
-    -- Permet de mettre à jour le prix d'un product
+    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage varchar(255));    -- Permet de mettre à jour le prix d'un product
     procedure updatePrice( nuproduct int,  newprice int);
     -- Permet de mettre à jour la description d'un product
     procedure updateDescription( nuproduct int,  newdesc varchar(255));
@@ -271,7 +278,7 @@ CREATE OR REPLACE PACKAGE product AS
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
-   procedure getProductBySport( sport integer) as
+    procedure getProductBySport( sport integer) as
     Begin
         select * from product where nusport = sport;
     END;
@@ -313,13 +320,12 @@ CREATE OR REPLACE PACKAGE BODY product AS
 
     procedure getProductById( id integer) as
     begin
-        SET sql_mode=ORACLE;
         select * from product where idproduct = id;
     end;
 
-    procedure addProduct( newid int,  newreference int,  newtype varchar(15),  newnusport int,  newbrand varchar(255),  newname varchar(255), newgender varchar(5),  newprice float,  newdesc varchar(255),  newimage varchar(255)) as
+    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage varchar(255)) as
     BEGIN
-        insert into product(idproduct, reference, type, nusport, brand, name, gender, price, description, image) value (newid, newreference,newtype,newnusport,newbrand,newname,newgender,newprice,newdesc,newimage);
+        insert into product(idproduct, type, nusport, brand, name, gender, price, description, image) value (newid, newtype,newnusport,newmarque,newnom,newgenre,newprix,newdesc,newimage);
     end;
 
     procedure delProduct( nuproduct int) as
@@ -338,7 +344,7 @@ CREATE OR REPLACE PACKAGE BODY product AS
         update product set description=newdesc where idproduct=nuproduct;
     end;
 
-    procedure updateImage( nuproduit int,  newimage varchar(255)) as
+    procedure updateImage( nuproduct int,  newimage varchar(255)) as
     BEGIN
         update product set image=newimage where idproduct=nuproduct;
     end;
@@ -369,9 +375,9 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
         select * from `order` where iduser = iduser;
     end;
 
-    procedure addCommande( newid int,  newdate varchar(10),  newproduct varchar(255),  newquantity int,  newuser int, newlocation int,  newstate varchar(15)) as
+    procedure addCommande( newid int,  newdate varchar(10),  newproduit int,  newquantite int,  newclient int, newadresse int,  newetat varchar(15)) as
     BEGIN
-        insert into `order`(idorder, dateorder, idproduct, quantity, iduser,idlocation , state) value (newid, newdate,newproduct,newquantity,newuser,newlocation,newstate);
+        insert into `order`(idorder, dateorder, idproduct, quantity, iduser,idlocation , state) value (newid, newdate,newproduit,newquantite,newclient,newadresse,newetat);
     end;
 
     procedure updateEtat( nuorder int, newstate varchar(15)) as
@@ -393,7 +399,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     -- Permet d'avoir le nombre total en stock d'un product
     procedure getStockTotal( id integer);
     -- Permet d'ajouter au Catalogue un nouveau product ou variante d'un product, la variante étant par exemple un même t-shirt mais de différente couleur ou taille
-    procedure addCatalogue( newid int,  newproduct int,  newcolor varchar(20),  newsize varchar(3),  newquantity int);
+    procedure addCatalogue( newid int, newreference int , newproduit int,  newcouleur varchar(20),  newtaille varchar(3),  newquantite int);
     -- Permet de supprimer une variante
     procedure delVariante( idvariante int);
     -- Permet de mettre à jour la quantité d'une variante donnée
@@ -411,9 +417,9 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
         select sum(quantity) from catalog where nuproduct = id;
     end;
 
-    procedure addCatalogue( newid int,  newproduct int,  newcolor varchar(20),  newsize varchar(3),  newquantity int) as
+    procedure addCatalogue( newid int, newreference int , newproduit int,  newcouleur varchar(20),  newtaille varchar(3),  newquantite int) as
     BEGIN
-        insert into catalog(id, nuproduct, color, size,quantity) value (newid,newproduct,newcolor,newsize,newquantity);
+        insert into catalog(id, reference, nuproduct, color, size,quantity) value (newid, newreference,newproduit,newcouleur,newtaille,newquantite);
     end;
 
     procedure delVariante( idvariante int) as
@@ -421,9 +427,9 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
         delete from catalog where id = idvariante;
     end;
 
-    procedure updateQuantite( idvariante int,  newquantity int) as
+    procedure updateQuantite( iduser int,  newquantity int) as
     BEGIN
-        update catalog set quantity=newquantity where id = idvariante;
+        update catalog set quantity=newquantity where id = iduser;
     end;
 
 END;
@@ -441,17 +447,23 @@ END;
 CREATE OR REPLACE PACKAGE BODY captcha AS
     procedure countWordCapchat( newWord varchar(20),  ipAddress varchar(45),  expiration int) as
     begin
-        select count(*) as count from captcha where word = newWord and ip_address = ipAddress and captcha_time > expiration;
+
+        select count(*)   count from captcha where word = newWord and ip_address = ipAddress and captcha_time > expiration;
+
     end;
 
     procedure addCaptchat( captchaTime int,  ipAddress varchar(45),  newWord varchar(20)) as
     BEGIN
+
         insert into captcha(captcha_time, ip_address, word) value (captchaTime, ipAddress, newWord);
+
     end;
 
     procedure cleanCaptchat( expiration int) as
     begin
+
         delete from captcha where captcha_time < expiration;
+
     end;
 END;
 

@@ -1,6 +1,6 @@
 <?php
 
-// * On importe les classes nécessaires
+// * On importe les classes nécessaire
 require_once APPPATH . 'models/entity/UserEntity.php';
 
 /*
@@ -747,7 +747,7 @@ class UserModel extends CI_Model
             $data['password'] = $identifyValue['password'];
             $data['salt'] = $identifyValue['salt'];
 
-            $requeteSql = "Call createUser(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $requeteSql = "Call user.createUser(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $dataRequete = array(
                 $data['id'],
