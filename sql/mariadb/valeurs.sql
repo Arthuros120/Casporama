@@ -1,4 +1,4 @@
-use Casporama;
+use CasporamaDEV;
 
 insert into user (id, login, password, salt, status)
 values
@@ -13,15 +13,19 @@ values
 insert into information (id, firstname, name, mail, mobile, fix)
 values
     (2,'Arthur','Hamelin','arthur.hamelin@etu.univ-nantes.fr','0600000000','0200000000'),
-    (6,'michel','duponse','duponse@test.com','0602030405','0402030405'),
-    (7,'michelle','duponse','michelle@test.com','0602030404','0402030405');
+    (3,'Maxime','Franco', 'maxime.franco@etu.univ-nantes.fr', '1922422810', '1569137253'),
+    (4,'Maxime','Santos', 'maxime.santos@etu.univ-nantes.fr', '1844196596', '1994286298'),
+    (5, 'Titouan', 'Gautier', 'titouan.gautier@etu.univ-nantes.fr', '1790525843', '1889548291'),
+    (6,'Michelle','Dupont','dupont@test.com','0602030405','0402030405'),
+    (7,'Jackie','Michelle','jackiemichelle@test.com','0602030404','0402030405');
 
-insert into location (idlocation, id, name, location, codepostal, city, department, country, latitude, longitude)
+insert into location (idlocation, id, name, location, codepostal, city, department, country, latitude, longitude, isDefault, isALive, dateLastUpdate)
 values
-    (1, 6, 'domicile', '12;av du 35 juillet','44000','Nantes','Loire-Atlantique','France', null, null),
-    (2, 7, 'domicile','12;av du 35 juillet','44000','Nantes','Loire-Atlantique','France', null, null),
-    (3, 2, 'local', '22;Rue des bergeronnettes','44210','Pornic','Loire-Atlantique','France', 47.246678, -1.523291),
-    (4, 2, 'domicile', '190;Boulevard Jules Vernes','44300','Nantes','Loire-Atlantique','France', null, null);
+    (1, 6, 'domicile', '12;av du 35 juillet','44000','Nantes','Loire-Atlantique','France', null, null, true, true, '2022-11-21 20:05:37'),
+    (2, 7, 'domicile','12;av du 35 juillet','44000','Nantes','Loire-Atlantique','France', null, null, true, true, '2022-11-21 20:05:37'),
+    (3, 2, 'local', '22;Rue des bergeronnettes','44210','Pornic','Loire-Atlantique','France', null, null, true, true, '2022-11-21 20:05:37'),
+    (4, 2, 'domicile', '190;Boulevard Jules Vernes','44300','Nantes','Loire-Atlantique','France', 47.246678, -1.523291, false, true, '2022-11-21 20:05:37'),
+    (5, 2, 'Apartement', '4;Avenue Michel Ange','44300','Nantes','Loire-Atlantique','France', null, null, false, false, '2022-11-21 20:05:37');
 
 INSERT INTO sport (nusport,name)
  VALUES

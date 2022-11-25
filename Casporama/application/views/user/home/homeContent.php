@@ -33,7 +33,7 @@
                 <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('admin/home') ?>">
                     <h3>Panneau Administrateur</h3>
                     <img class="user_img" src="<?= base_url() . "static/image/icon/admin.svg" ?>" alt="admin" />
-            <?php } ?> 
+            <?php } ?>
             <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('User/logout'); ?>">
                 <h3>Se déconnecter</h3>
                 <img class="arrow" src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
@@ -42,30 +42,3 @@
     </div>
 
 </div>
-
-<!--
-
-<a href="<?php echo base_url('User/home/info'); ?>">Consulter mes informations</a></br>
-<a href="<?php echo base_url('User/card'); ?>">Mon panier</a></br>
-<a href="<?php echo base_url('User/command'); ?>">Mes commandes</a></br>
-
-<?php
-
-    if ($user -> getStatus() == "Client") {
-
-        echo "<a href='" . base_url('User/newCaspor') . "'>Devenir un Caspor</a></br>";
-
-    }
-
-    if ($user->getStatus() == "Administrateur") {
-
-        echo "<a href='" . base_url('admin/home') . "'>Accéder au panneaux administrateur</a></br>";
-
-    }
-
-?>
-
-
-<a href="<?php echo base_url('User/logout'); ?>">Se déconnecter</a> -->
-
-<!-- user/home/homeContent -->

@@ -1,4 +1,4 @@
-use Casporama;
+use CasporamaDEV;
 
 -- Select ----------------
 
@@ -310,3 +310,45 @@ create procedure updateLastName(targetId integer, newLastName varchar(255))
     BEGIN
         update information set name=newLastName where id = targetId;
     end;
+
+create procedure updateFirstName(targetId integer, newFirstName varchar(255))
+    BEGIN
+        update information set firstname=newFirstName where id = targetId;
+    end;
+
+create procedure updateEmail(targetId integer, newMail varchar(255))
+    BEGIN
+        update information set mail=newMail where id = targetId;
+    end;
+
+create procedure updateMobile(targetId integer, newMobile varchar(255))
+    BEGIN
+        update information set mobile=newMobile where id = targetId;
+    end;
+
+create procedure updateFixe(targetId integer, newFixe varchar(255))
+    BEGIN
+        update information set fix=newFixe where id = targetId;
+    end;
+
+create procedure updatePassword(targetId integer, newPass varchar(255), newSalt varchar(45))
+    BEGIN
+        update user set password=newPass, salt=newSalt where id = targetId;
+    end;
+
+create procedure verifySalt(newSalt varchar(255))
+    begin
+        select login from user where newSalt = salt;
+    end;
+
+create procedure getLocationByIdAndUserId(idUser int, idLoc int)
+    Begin
+        select * from location where id = iduser and idlocation = idloc;
+    END;
+
+create procedure isUniqueAddressName(searchName varchar(255), searchIdUser int)
+    Begin
+        select count(*) as count from location where name = searchName and id = searchIdUser and isALive = true;
+    END;
+
+call isUniqueAddressName('local', 2);

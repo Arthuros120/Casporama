@@ -22,6 +22,9 @@ class LocationEntity
     private ?float $latitude;
     private ?float $longitude;
 
+    private bool $isDefault;
+    private bool $isAlive;
+
     /*
     
         * Function getId
@@ -328,6 +331,86 @@ class LocationEntity
     {
 
         $this->longitude = $longitude;
+
+    }
+
+    /*
+    
+        * Function getIsDefault
+    
+        @param bool $isDefault
+    
+        * Cette fonction modifie la valeur de isDefault de l'entité
+    
+    */
+    public function getIsDefault() : bool
+    {
+
+        return $this->isDefault;
+
+    }
+
+    /*
+    
+        * Function setIsDefault
+    
+        @param bool $isDefault
+    
+        * Cette fonction modifie la valeur de isDefault de l'entité
+    
+    */
+    public function setIsDefault(string $isDefault)
+    {
+
+        if ($isDefault == "1" || $isDefault == "true") {
+
+            $this->isDefault = true;
+
+        } else {
+
+            $this->isDefault = false;
+
+        }
+
+    }
+
+    /*
+    
+        * Function getIsAlive
+    
+        @return bool
+    
+        * Cette fonction retourne la valeur de isAlive de l'entité
+    
+    */
+    public function getIsAlive() : bool
+    {
+
+        return $this->isAlive;
+
+    }
+
+    /*
+    
+        * Function setIsAlive
+    
+        @param bool $isAlive
+    
+        * Cette fonction modifie la valeur de isAlive de l'entité
+    
+    */
+    public function setIsAlive(string $isAlive)
+    {
+
+        if ($isAlive == "1" || $isAlive == "true") {
+
+            $this->isAlive = true;
+
+        } else {
+
+            $this->isAlive = false;
+
+        }
 
     }
 }

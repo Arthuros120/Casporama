@@ -1,5 +1,5 @@
-create database if not exists Casporama;
-use Casporama;
+create database if not exists CasporamaDEV;
+use CasporamaDEV;
 
 CREATE TABLE IF NOT EXISTS user (
     id INTEGER NOT NULL,
@@ -32,9 +32,13 @@ CREATE TABLE IF NOT EXISTS location (
     codepostal varchar(5) NOT NULL,
     city VARCHAR(255) not null,
     department VARCHAR(255) not null,
-    country VARCHAR(255) not nu ll,
+    country VARCHAR(255) not null,
     latitude double,
     longitude double,
+    isDefault bool,
+    isALive bool not null,
+    dateLastUpdate datetime not null,
+
     PRIMARY KEY(idlocation),
     FOREIGN KEY(id) REFERENCES user(id)
 );
@@ -86,7 +90,7 @@ create table if not exists `order` (
     primary key(idorder),
     foreign key(idlocation) references location(idlocation),
     foreign key(iduser) references user(id),
-    constraint status_not_valid 
+    constraint status_not_valid
         check(state in ('Non preparer','En preparation','Preparer','Expedier'))
 );
 
