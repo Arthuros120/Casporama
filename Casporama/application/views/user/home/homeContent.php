@@ -27,7 +27,7 @@
             <?php if ($user -> getStatus() == "Client") { ?>
                 <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('User/newCaspor') ?>">
                     <h3>Devenir un Caspor</h3>
-                    <img class="user_img" src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
+                    <img class="user_img" src="<?= base_url() . "static/image/icon/castor/castor_outline.png" ?>" alt="castor" />
             <?php } ?>
             <?php if ($user -> getStatus() == "Administrateur") { ?>
                 <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('admin/home') ?>">

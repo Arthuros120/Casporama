@@ -4,3 +4,148 @@
     width: 400px;
     z-index: 1;
 }
+
+:root {
+    background-color: var(--bg);
+}
+
+h2 {
+    text-overflow: ellipsis;
+    font-size: 1.3em;
+}
+
+.user_info_content {
+    width: 90vw;
+    height: 100vh;
+
+    margin: 0vw 5vw;
+}
+
+.user_info_logo {
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    align-items: center;
+
+
+}
+
+.user_info_info {
+    width: 90%;
+    min-height: 100%;
+    margin: 0% 5%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+
+}
+
+.user_info_login {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.user_info_title {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user_info_login_content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 2% 0%;
+
+    background-color: var(--grey1);
+}
+
+.user_info_login_content > div {
+    width: 33%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2vh;
+}
+
+.user_info_statut > img {
+    width: 20%;
+    height: auto;
+}
+
+.user_info_pass > a {
+
+    width: 10%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user_info_pass > a > img{
+    display: flex;
+    max-width: 50%;
+    height: auto;
+}
+
+
+
+/* Parti NAME */
+
+.user_info_name {
+
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+
+   
+}
+
+.user_info_name_content {
+    display: grid;
+    
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    padding: 3% 10%;
+
+    row-gap: 2vh;
+
+    background-color: var(--grey1);
+}
+
+.user_info_name_content > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    text-overflow: ellipsis;
+}
+
+.user_info_name_content > div > a {
+    max-width: 10%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user_info_name_content > div > a > img {
+    display: flex;
+    max-width: 50%;
+    height: auto;
+}
+

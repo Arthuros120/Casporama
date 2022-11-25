@@ -19,14 +19,13 @@
     background-size: cover;
 }
 
-.register_box {
+.register_box2 {
     width: 25vw;
-    height: 70vh;
+    height: 50vh;
 
     border-radius: 25px;
     background-color: #F2F2F2;
 
-    background-color: white;
 }
 
 .logo {
@@ -36,12 +35,14 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+
+    margin: 1vw 0vw;
 }
 
-/* .logo > a > img {
+.logo > a > img {
     max-width: 100%;
     height: auto;
-} */
+}
 
 .title {
     width: 100%;
@@ -49,6 +50,12 @@
     display: flex;
     justify-content: center ;
     align-items: center;
+
+    margin: 1vw 0vw;
+}
+
+.title > h2 {
+    font-size: 1.5vw;
 }
 
 .form {
@@ -75,22 +82,6 @@
 }
 
 .phone {
-    display: flex;
-    flex-direction: column;
-    gap: 1vh;
-}
-
-.login {
-    display: flex;
-    flex-direction: column;
-}
-
-.email {
-    display: flex;
-    flex-direction: column;
-}
-
-.pass {
     display: flex;
     flex-direction: column;
     gap: 1vh;
