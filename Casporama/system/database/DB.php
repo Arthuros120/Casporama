@@ -215,5 +215,6 @@ function &DB($params = '', $query_builder_override = NULL)
 	}
 
 	$DB->initialize();
+	$DB->query('SET sql_mode=ORACLE');
 	return $DB;
 }
