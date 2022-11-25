@@ -768,35 +768,35 @@ class UserModel extends CI_Model
     public function updateLastName(int $id, string $newLastName)
     {
 
-        $this->db->query('Call user.updateLastName(' . $id . ', "' . $newLastName . '")');
+        $this->db->query("Call user.updateLastName(" . $id . ",' "  . $newLastName . "')");
 
     }
 
     public function updateFirstName(int $id, string $newFirstName)
     {
 
-        $this->db->query('Call user.updateFirstName(' . $id . ', "' . $newFirstName . '")');
+        $this->db->query("Call user.updateFirstName(" . $id . ",' " . $newFirstName . "')");
 
     }
 
     public function updateEmail(int $id, string $newEmail)
     {
 
-        $this->db->query('Call user.updateEmail(' . $id . ', "' . $newEmail . '")');
+        $this->db->query("Call user.updateEmail(" . $id . ", '" . $newEmail . "')");
 
     }
     
     public function updateMobile(int $id, string $newMobile)
     {
 
-        $this->db->query('Call user.updateMobile(' . $id . ', "' . $newMobile . '")');
+        $this->db->query("Call user.updateMobile(" . $id . ", '" . $newMobile . "')");
 
     }
 
     public function updateFixe(int $id, string $newFixe)
     {
 
-        $this->db->query('Call user.updateFixe(' . $id . ', "' . $newFixe . '")');
+        $this->db->query("Call user.updateFixe(" . $id . ", '" . $newFixe . "')");
 
     }
 
@@ -809,7 +809,7 @@ class UserModel extends CI_Model
 
         $newPassword = $identifyValue['password'];
 
-        $this->db->query('Call user.updatePassword(' . $id . ', "' . $newPassword . '", "' . $newSalt . '")');
+        $this->db->query("Call user.updatePassword(" . $id . ", '" . $newPassword . "', '" . $newSalt . "')");
 
     }
 
