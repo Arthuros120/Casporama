@@ -74,9 +74,17 @@
     border-radius: 25px;
 
     background-color: var(--color0);
+
+    cursor: pointer;
 }
 
-.second_img > div > img {
+.second_img > div > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.second_img > div > a > img {
     width: 80%;
     height: auto;
     object-fit: cover;
