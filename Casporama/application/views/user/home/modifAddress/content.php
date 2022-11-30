@@ -38,7 +38,7 @@
 
             <div class="modif_adress_zipcode">
                 <h3>Code Postal:</h3>
-                <input class="modif_adress_input" type="number" id="postalCode" list="postalList" name="postalCode" value="<?= $address->getCodePostal() ?>">
+                <input class="modif_adress_input input_adress_adress" type="number" id="postalCode" list="postalList" name="postalCode" value="<?= $address->getCodePostal() ?>">
             </div>
 
             <div class="modif_adress_country">
@@ -69,29 +69,18 @@
 
 </div>
 
-
-
-
-
-
-
-<!-- 
-
-
 <?php echo form_close(); ?>
+
 
 <?php if (isset($error)) { ?>
     <div class="error">
-        <?= $error ?>
+        <p><?= $error ?></p>
     </div>
 <?php } ?>
 
 
-<datalist name="cityList" id="cityList">
 
-</datalist>
+<datalist name="postalList" id="postalList"></datalist>
+<datalist name="cityList" id="cityList"></datalist>
 
-<datalist name="postalList" id="postalList">
-
-</datalist> -->
 <!-- user/home/modifAddress/content -->

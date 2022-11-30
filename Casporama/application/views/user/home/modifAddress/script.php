@@ -298,7 +298,7 @@
 
             error: function(data) {
 
-                divMap.innerHTML = "Pas de localisation disponible";
+                divMap.innerHTML = "<div class='map_error'><img src='<?= base_url() ?>static/image/icon/data_error.svg'><h3>Localisation non trouvée</h3></div>";
 
             }
         });

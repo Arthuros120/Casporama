@@ -5,6 +5,20 @@
     z-index: 1;
 }
 
+.map_error {
+    width: 50vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2vh;
+}
+
+
+
 .modif_adress_content {
     width: 100vw;
     height: 100vh;
@@ -116,4 +130,12 @@
     color: #ebebeb;
 }
 
+.modif_adress_zipcode > input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.modif_adress_zipcode > input[type=number] {
+    -moz-appearance: textfield;
+}
 
