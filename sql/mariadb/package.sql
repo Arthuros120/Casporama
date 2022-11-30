@@ -1,4 +1,4 @@
-use Casporama;
+use CasporamaDEV;
 
 SET sql_mode=ORACLE;
 
@@ -79,6 +79,22 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getLocationByIdAndUserId(idUser int, idLoc int);
     procedure isUniqueAddressName(searchName varchar(255), searchIdUser int);
     procedure getAddresseById(searchId int);
+    procedure verifyLocId(searchId int);
+    procedure updateLocById(
+        searchId int,
+        newId int,
+        idUser int,
+        newLocName varchar(255),
+        newLocAddress varchar(255),
+        newLocCode int,
+        newLocCity varchar(255),
+        newLocDep varchar(255),
+        newLocCountry varchar(255),
+        newLocLat double,
+        newLocLong double,
+        newIsDefault bool,
+        dateCreation date
+        );
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -245,7 +261,61 @@ CREATE OR REPLACE PACKAGE BODY user AS
         update user set status=newstate where id=iduser;
     end;
 
-END;
+    procedure verifyLocId(searchId int) as
+    begin
+        select `name` from location where idlocation = searchId;
+    end;
+
+    procedure updateLocById(
+        searchId int,
+        newId int,
+        idUser int,
+        newLocName varchar(255),
+        newLocAddress varchar(255),
+        newLocCode int,
+        newLocCity varchar(255),
+        newLocDep varchar(255),
+        newLocCountry varchar(255),
+        newLocLat double,
+        newLocLong double,
+        newIsDefault bool,
+        dateCreation datetime
+        ) as
+    begin
+
+        update location set isDefault = false, isALive = false, dateLastUpdate = dateCreation where idlocation = searchId;
+        insert into location(
+                             idlocation,
+                             id,
+                             name,
+                             location,
+                             codepostal,
+                             city,
+                             department,
+                             country,
+                             latitude,
+                             longitude,
+                             isDefault,
+                             isALive,
+                             dateLastUpdate) value (
+                                             newId,
+                                             idUser,
+                                             newLocName,
+                                             newLocAddress,
+                                             newLocCode,
+                                             newLocCity,
+                                             newLocDep,
+                                             newLocCountry,
+                                             newLocLat,
+                                             newLocLong,
+                                             newIsDefault,
+                                             true,
+                                             dateCreation
+                                            );
+
+    end;
+end;
+
 
 CREATE OR REPLACE PACKAGE product AS
     -- Permet d'avoir les différents produits d'un sport spécifique
@@ -476,3 +546,5 @@ Call product.getProductBySportType(1, 'Vetement');
 Call user.updateLastName(2, 'ptitcon');
 
 Call user.updateLastName(2, 'Hamelin');
+
+Call user.verifyLocId('256481299');

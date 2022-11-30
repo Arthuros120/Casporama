@@ -48,7 +48,7 @@
 
             <div class="modif_adress_default">
                 <h3>Addresse par défault:</h3>
-                <input class="modif_adress_check" type="checkbox" name="default" 
+                <input class="modif_adress_check" type="checkbox" name="default"
                     <?php if ($address->getIsDefault()) {
                         echo "checked";
                     } ?>
@@ -77,8 +77,6 @@
         <p><?= $error ?></p>
     </div>
 <?php } ?>
-
-
 
 <datalist name="postalList" id="postalList"></datalist>
 <datalist name="cityList" id="cityList"></datalist>
