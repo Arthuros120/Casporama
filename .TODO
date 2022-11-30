@@ -9,10 +9,6 @@
 
 - Todo : Backend -> Changer les message d'erreur page 404
 
-- Todo : Frontend -> Rendre plus styler la page login
-
-- Todo : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les procedure mariadb
-
 - Todo : SQL -> Créer un trigger sur la création user
 
 - TODO : SQL -> Faire Coupon de réduction
@@ -46,6 +42,10 @@
 - Do : Backend/Frotend -> Progress bar sur la loading page (pour le fun)
 
 ## Fait
+
+- Done : Frontend -> Rendre plus styler la page login
+
+- Done : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les packages mariadb
 
 - Done : Backend/Frontend -> Avoir avec le dev frontend pour mettre required dans le html du register
   - Après discussion avec le dev frontend, il a dit que c'était pas nécessaire de mettre required dans le html car il y a déjà un check côté backend. Donc on laisse comme ça pour le moment.

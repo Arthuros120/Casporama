@@ -1,4 +1,4 @@
-use CasporamaDEV;
+use Casporama;
 
 SET sql_mode=ORACLE;
 
@@ -472,3 +472,7 @@ use Casporama;
 call `order`.getCommandeClient(6);
 Call product.getProductBySportType(1, 'Vetement');
 */
+
+Call user.updateLastName(2, 'ptitcon');
+
+Call user.updateLastName(2, 'Hamelin');
