@@ -16,11 +16,11 @@
 
             <div class="user_info_login_content">
                 <div class="user_info_login">
-                    <h2 class="value">Login : <?= $user->getLogin() ?></h2>
+                    <h2 class="value">Login : <span class="text_content"><?= $user->getLogin() ?></span></h2>
                 </div>
 
                 <div class="user_info_pass">
-                    <h2>Mots de passe : ●●●●●●●●●</h2>
+                    <h2>Mots de passe : <span class="text_content">●●●●●●●●●</span></h2>
                     <a href="<?= base_url('User/home/modifPass'); ?>"><img src="<?=base_url() . "static/image/icon/modify.svg"?>"></a>
                 </div>
 
@@ -50,26 +50,26 @@
             <div class="user_info_name_content">
 
                 <div class="user_info_name_name">
-                    <h2 class="value">Nom : <?= $user->getCoordonnees()->getNom() ?></h2>
+                    <h2 class="value">Nom : <span class="text_content"><?= $user->getCoordonnees()->getNom() ?></span></h2>
                     <a href="<?= base_url('User/home/modifLastName'); ?>"><img src="<?=base_url() . "static/image/icon/modify.svg"?>"></a>
                 </div>
                 <div class="user_info_name_firstName">
-                    <h2 class="value">Prénom : <?= $user->getCoordonnees()->getPrenom() ?></h2>
+                    <h2 class="value">Prénom : <span class="text_content"><?= $user->getCoordonnees()->getPrenom() ?></span></h2>
                     <a href="<?= base_url('User/home/modifFirstName'); ?>"><img src="<?=base_url() . "static/image/icon/modify.svg"?>"></a>
                 </div>
                 <div class="user_info_name_email">
-                    <h2 class="value">Email : <?= $user->getCoordonnees()->getEmail() ?></h2>
+                    <h2 class="value">Email : <span class="text_content"><?= $user->getCoordonnees()->getEmail() ?></span></h2>
                     <a href="<?= base_url('User/home/modifEmail'); ?>"><img src="<?=base_url() . "static/image/icon/modify.svg"?>"></a>
                 </div>  
 
                 <div class="user_info_name_telMobile">
-                    <h2 class="value">Téléphone mobile : <?= $user->getCoordonnees()->getTelephone() ?></h2>
+                    <h2 class="value">Téléphone mobile : <span class="text_content"><?= $user->getCoordonnees()->getTelephone() ?></span></h2>
                     <a href="<?= base_url('User/home/modifMobile'); ?>"><img src="<?=base_url() . "static/image/icon/modify.svg"?>"></a>
                 </div>    
                 
                 <div class="user_info_name_telFixe">
-                    <h2 class="value">Téléphone fixe : <?= $user->getCoordonnees()->getFixe() ?></h2>
-                    <a href="<?= base_url('User/home/modifFixe'); ?>"><img src="<?=base_url() . "static/image/icon/modify.svg"?>"></a>
+                    <h2 class="value">Téléphone fixe : <span class="text_content"><?= $user->getCoordonnees()->getFixe() ?></span></h2>
+                    <a href="<?= base_url('User/home/modifFixe'); ?>"><img src="<?=base_url() . "static/image/icon/modify.svg"?>"></span></a>
                 </div>
 
             </div>           
@@ -77,90 +77,64 @@
 
         <div class="user_info_address">
 
-        <h1>Vos address</h1>
+            <div class="user_info_title">
+                <h1>Vos addresse</h1>
+                <hr>
+            </div>
 
-            <div class="cards">
-
-                <?php
-
-                if (isset($listLoc)) {
-
+            <div class="cards_address">
+                <?php if (isset($listLoc)) {
                     foreach ($listLoc as $localisation) { ?>
+                    <div class="card_all">
+                        <div class="card_address">
+                            <div class="user_info_address_addr">
+                                <h2>Adresse : <span class="text_content"><?=$localisation->getAdresse()['number'] . " " . $localisation->getAdresse()['street']?></span></h2>
+                            </div>
+                            
+                            <div class="user_info_address_loc">
+                                <h2>Code postal : <span class="text_content"><?= $localisation->getCodePostal() ?></span></h2>
+                            </div>
 
-                        <div class="card">
+                            <div class="user_info_address_city">
+                                <h2>Ville : <span class="text_content"><?= $localisation->getCity() ?></span></h2>
+                            </div>
 
-                            <p>
+                            <div class="user_info_address_dep">
+                                <h2>Département : <span class="text_content"><?= $localisation->getDepartment() ?></span></h2>
+                            </div>
 
-                                <span class="label">Adresse :</span>
+                            <div class="user_info_address_country">
+                                <h2>Pays : <span class="text_content"><?= $localisation->getCountry() ?></span></h2>
+                            </div>
 
-                                <span class="value"><?=
-
-                                    $localisation->getAdresse()['number'] . " " . $localisation->getAdresse()['street']
-
-                                ?></span>
-
-                                <br>
-
-                                <span class="label">Code postal :</span>
-
-                                <span class="value"><?= $localisation->getCodePostal() ?></span>
-
-                                <br>
-
-                                <span class="label">Ville :</span>
-
-                                <span class="value"><?= $localisation->getCity() ?></span>
-
-                                <br>
-
-                                <span class="label">Département :</span>
-
-                                <span class="value"><?= $localisation->getDepartment() ?></span>
-
-                                <br>
-
-                                <span class="label">Pays :</span>
-
-                                <span class="value"><?= $localisation->getCountry() ?></span>
-
-                                <br>
-
-                                <a href="<?= base_url('User/home/modifAddress/') . $localisation->getId(); ?>">Modifier</a>
-
-                                <a href="<?= base_url('User/home/supprAddress/') . $localisation->getId(); ?>">Supprimer</a>
-
-                            </p>
-
-                            <div class="card-map">
-
-                                <?php
-
-                                if ($localisation->getLatitude() != null && $localisation->getLongitude() != null) { ?>
-
-                                    <div id="map<?= $localisation->getId() ?>" class="map"></div>
-
-                                <?php } else { ?>
-
-                                    <p> Aucune localisation n'a été trouvé pour cette adresse </p>
-
-                                <?php } ?>
-
+                            <div class="user_info_address_modify">
+                                <a href="<?= base_url('User/home/modifAddress/') . $localisation->getId(); ?>"><img src="<?=base_url() . "static/image/icon/modify.svg"?>" ></a>
+                                <a href="<?= base_url('User/home/supprAddress/') . $localisation->getId(); ?>"><img src="<?=base_url() . "static/image/icon/delete.svg"?>" ></a>
                             </div>
 
                         </div>
-
+                        <div class="card-map">
+                                <?php
+                                if ($localisation->getLatitude() != null && $localisation->getLongitude() != null) { ?>
+                                    <div id="map<?= $localisation->getId() ?>" class="map"></div>
+                                <?php } else { ?>
+                                    <div class="map_error">
+                                        <h2>Aucune localisation n'a été trouvé pour cette adresse</h2>
+                                        <img src="<?= base_url() . "static/image/icon/error.svg" ?>" alt="error">
+                                    </div>
+                                <?php } ?>
+                        </div>
+                    </div>
+                        
+                        
                 <?php }
                 } else {
-
                     echo ' <div class="card"><p>Vous n\'avez pas d\'adresse enregistré<p></div>';
-                }
-
-                ?>
-
+                }?>
+            <div class="card_add_address">
+                <a href="<?= base_url('User/home/modifAddress/')?>" ><img src="<?= base_url() . "static/image/icon/add.svg" ?>" alt="Add" ></a>
             </div>
-
             </div>
-
         </div>
     </div>
 </div>

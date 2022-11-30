@@ -1,40 +1,82 @@
 <!-- user/home/modifAddress/content -->
 
-<h1>Modification de l'address: <?= $address->getName() ?></h1>
+<div class="modif_adress_content">
 
-<?php echo form_open('user/home/modifAddress/' . $address->getId()); ?>
+    <div class="modif_adress_form_content">
+        <div class="modif_adress_form_title">
+            <h1>Modification de l'address: <?= $address->getName() ?></h1>
+        </div>
 
-<p>Nom de l'addresse: <input type="text" id="name" name="name" value="<?= $address->getName() ?>" required></p>
-<p>Numéro: <input type="number" id="number" name="number" value="<?= $address->getAdresse()['number'] ?>" required></p>
-<p>Addresse: <input type="text" id="street" name="street" value="<?= $address->getAdresse()['street'] ?>" required></p>
+        <?php echo form_open('user/home/modifAddress/' . $address->getId()); ?>
+        
+        <div class="modif_adress_form">
 
-<p>Département:
-    <select id="department" name="department">
+            <div class="modif_adress_name">
+                <h3>Nom de l'addresse:</h3>
+                <input class="modif_adress_input" type="text" id="name" name="name" value="<?= $address->getName() ?>" required>
+            </div>
 
-    </select>
-</p>
+            <div class="modif_adress_num">
+                <h3>Numéro:</h3>
+                <input class="modif_adress_input" type="number" id="number" name="number" value="<?= $address->getAdresse()['number'] ?>" required>
+            </div>
 
-<p>Ville: <input type="text" id="city" list="cityList" name="city" value="<?= $address->getCity() ?>"></p>
+            <div class="modif_adress_adress">
+                <h3>Adresse:</h3>
+                <input class="modif_adress_input" type="text" id="street" name="street" value="<?= $address->getAdresse()['street'] ?>" required>
+            </div>
 
-<p>Code Postal <input type="number" id="postalCode" list="postalList" name="postalCode" value="<?= $address->getCodePostal() ?>"></p>
+            <div class="modif_adress_dep">
+                <h3>Département:</h3>
+                <select class="modif_adress_input" id="department" name="department"></select>
+            </div>
 
-<p>Pays:
-    <select id="country" name="country">
+            <div class="modif_adress_city">
+                <h3>Ville:</h3>
+                <input class="modif_adress_input" type="text" id="city" list="cityList" name="city" value="<?= $address->getCity() ?>">
+            </div>
 
-    </select>
-</p>
+            <div class="modif_adress_zipcode">
+                <h3>Code Postal:</h3>
+                <input class="modif_adress_input" type="number" id="postalCode" list="postalList" name="postalCode" value="<?= $address->getCodePostal() ?>">
+            </div>
 
-<div id="div-map"></div>
+            <div class="modif_adress_country">
+                <h3>Pays:</h3>
+                <select class="modif_adress_input" id="country" name="country"></select>
+            </div>
 
-<p>Addresse par défault ?:<input type="checkbox" name="default" <?php if ($address->getIsDefault()) {
+            <div class="modif_adress_default">
+                <h3>Addresse par défault:</h3>
+                <input class="modif_adress_check" type="checkbox" name="default" 
+                    <?php if ($address->getIsDefault()) {
+                        echo "checked";
+                    } ?>
+                >
+            </div>
 
-                                                                    echo "checked";
-                                                                } ?>>
+            <div class="modif_adress_submit">
+                <input class="modif_btn" type="submit" value="Modifier">
+                <input class="delete_btn" type="reset" value="Tout supprimé">
+            </div>
+        </div>
+        
+    </div>
 
-</p>
+    <div class="modif_adress_map">
+        <div id="div-map"></div>
+    </div>
 
-<input type="reset" value="Tout supprimé">
-<p><input type="submit" value="Modifier"></p>
+</div>
+
+
+
+
+
+
+
+<!-- 
+
 
 <?php echo form_close(); ?>
 
@@ -51,5 +93,5 @@
 
 <datalist name="postalList" id="postalList">
 
-</datalist>
+</datalist> -->
 <!-- user/home/modifAddress/content -->
