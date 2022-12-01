@@ -963,12 +963,14 @@ class User extends CI_Controller
 
                                 } else {
 
+                                    $depTab = explode(";", $this->input->post('department'));
+
                                     $dataNewAddress = array (
 
                                         'name' => $this->input->post('name'),
                                         'number' => $this->input->post('number'),
                                         'street' => $this->input->post('street'),
-                                        'department' => explode(";", $this->input->post('department')[1]),
+                                        'department' => $depTab[1],
                                         'city' => $this->input->post('city'),
                                         'country' => $this->input->post('country'),
                                         'postalCode' => $this->input->post('postalCode'),
@@ -976,9 +978,15 @@ class User extends CI_Controller
 
                                     );
 
-                                    $this->LocationModel->newAddress();
+                                    $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
 
-                                    var_dump($this->input->post());
+                                    $this->LocationModel->updateAddress(
+                                        $newAdresse,
+                                        $address->getId(),
+                                        $user->getId()
+                                    );
+
+                                    redirect("User/home/info");
 
                                 }
 

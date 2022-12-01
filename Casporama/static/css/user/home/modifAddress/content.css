@@ -166,7 +166,7 @@
     color: #ebebeb;
 }
 
-.modif_adress_zipcode > input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+/* .modif_adress_zipcode > input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -174,4 +174,4 @@
 .modif_adress_zipcode > input[type=number] {
     -moz-appearance: textfield;
 }
-
+ */

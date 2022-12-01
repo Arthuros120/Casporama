@@ -105,6 +105,13 @@ class LocationEntity
 
     }
 
+    public function getStringAdresse() : string
+    {
+
+        return $this->location['number'] . ";" . $this->location['street'];
+
+    }
+
     /*
     
         * Function setAdresse
@@ -160,16 +167,13 @@ class LocationEntity
 
         if (strlen($codePostal) < 5) {
 
-            $this->codePostal = "0" . $codePostal;
+            $this->codePostal = "0" . (string) $codePostal;
 
         } else {
 
             $this->codePostal = $codePostal;
 
         }
-
-        $this->codePostal = $codePostal;
-
     }
 
     /*

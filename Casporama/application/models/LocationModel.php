@@ -14,11 +14,125 @@ class LocationModel extends CI_Model
 {
 
 
-    public function newAddress(array $dataAddress)
+    public function newAddress(array $dataAddress) : ?LocationEntity
     {
 
-        echo "ok";
+        if (
+            isset($dataAddress['name']) &&
+            isset($dataAddress['number']) &&
+            isset($dataAddress['street']) &&
+            isset($dataAddress['postalCode']) &&
+            isset($dataAddress['city']) &&
+            isset($dataAddress['country']) &&
+            isset($dataAddress['department'])
+            ) {
 
+                if (!isset($dataAddress['isDefault'])) {
+
+                    $dataAddress['isDefault'] = false;
+
+                }
+
+                if (!isset($dataAddress['id'])) {
+
+                        $dataAddress['id'] = $this->generateId();
+    
+                }
+
+                $address = new LocationEntity();
+
+                $address->setId($dataAddress['id']);
+                $address->setName($dataAddress['name']);
+                $address->setAdresse($dataAddress['number'] . ";" . $dataAddress['street']);
+                $address->setCodePostal((int) $dataAddress['postalCode']);
+                $address->setCity($dataAddress['city']);
+                $address->setCountry($dataAddress['country']);
+                $address->setDepartment($dataAddress['department']);
+                $address->setIsDefault($dataAddress['isDefault']);
+
+                return $address;
+
+        } else {
+
+            return null;
+
+        }
+    }
+
+    private function generateId(): Int
+    {
+
+        $id = rand(100, 999999999);
+
+        if ($this->heHaveAddressById($id)) {
+
+            $id = $this->generateId();
+        }
+
+        return $id;
+    }
+
+    public function updateAddress(
+        LocationEntity $newAddresse,
+        int $lastAddresseId,
+        int $userId
+        )
+    {
+
+        $this->load->helper('date');
+
+        $arrayCoord = $this->searchLatLong(
+            $newAddresse->getAdresse(),
+            $newAddresse->getCodePostal()
+        );
+
+        $datestring = 'Y-m-d h:i:s';
+        $time = time();
+        $dateLastUpdate = date($datestring, $time);
+
+        $strRequest = "CALL user.updateLocById(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        $dataRequest = array(
+
+            $lastAddresseId,
+            $newAddresse->getId(),
+            $userId,
+            $newAddresse->getName(),
+            $newAddresse->getStringAdresse(),
+            $newAddresse->getCodePostal(),
+            $newAddresse->getCity(),
+            $newAddresse->getDepartment(),
+            $newAddresse->getCountry(),
+            $arrayCoord['latitude'],
+            $arrayCoord['longitude'],
+            $newAddresse->getIsDefault(),
+            $dateLastUpdate
+
+        );
+
+        $this->db->query($strRequest, $dataRequest);
+    }
+
+    public function heHaveAddressById(int $id): Bool
+    {
+
+        // * On récupère l'utilisateur en fonction de son id
+        $query = $this->db->query("Call user.verifyLocId('" . $id . "')");
+
+        // * On vérifie si l'utilisateur existe
+        $location = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne le résultat
+        if (isset($location->name)) {
+
+            return true;
+        }
+
+        return false;
     }
 
     /*

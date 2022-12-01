@@ -49,7 +49,7 @@
 
             <div class="modif_adress_default">
                 <h3>Addresse par défault:</h3>
-                <input class="modif_adress_check" type="checkbox" name="default" 
+                <input class="modif_adress_check" type="checkbox" name="default"
                     <?php if ($address->getIsDefault()) {
                         echo "checked";
                     } ?>
@@ -80,7 +80,6 @@
 </div>
 
 <?php echo form_close(); ?>
-
 
 
 
