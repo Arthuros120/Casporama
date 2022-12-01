@@ -21,7 +21,7 @@
 
 .modif_adress_content {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -46,6 +46,7 @@
     width: 100%;
     height: 10vh;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 
@@ -55,9 +56,22 @@
     background-color: #202087;
 }
 
+.modif_adress_form_title > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-right: 2vh;
+}
+
+.modif_adress_form_title > a > img {
+    transform: rotate(180deg);
+    width: 60%;
+}
+
 .modif_adress_form {
     width: 40vw;
-    margin: 5vh 5vw;
+    margin: 2vh 5vw;
 
     display: flex;
     flex-direction: column;
@@ -97,6 +111,28 @@
     border: 2px solid #ebebeb;
 
     padding-left: 10px;
+}
+
+.modif_adress_error {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 2vh;
+
+    padding-left: 2vh;
+
+    border-radius: 12px;
+
+    background-color: red;
+    color: white;
+}
+
+.modif_adress_error > img {
+    width: 5%;
+    height: auto;
 }
 
 .delete_btn {

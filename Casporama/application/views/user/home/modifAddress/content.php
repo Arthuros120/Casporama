@@ -4,6 +4,7 @@
 
     <div class="modif_adress_form_content">
         <div class="modif_adress_form_title">
+            <a href="<?= base_url()?>user/home"><img src="<?= base_url()?>/static/image/icon/arrow_white.svg"></a>
             <h1>Modification de l'address: <?= $address->getName() ?></h1>
         </div>
 
@@ -38,7 +39,7 @@
 
             <div class="modif_adress_zipcode">
                 <h3>Code Postal:</h3>
-                <input class="modif_adress_input input_adress_adress" type="number" id="postalCode" list="postalList" name="postalCode" value="<?= $address->getCodePostal() ?>">
+                <input class="modif_adress_input" type="number" id="postalCode" list="postalList" name="postalCode" value="<?= $address->getCodePostal() ?>">
             </div>
 
             <div class="modif_adress_country">
@@ -54,6 +55,15 @@
                     } ?>
                 >
             </div>
+
+            
+            <?php if (isset($error) && $error != "") { ?>
+                <div class="modif_adress_error">
+                    <img src=" <?= base_url() ?>/static/image/icon/error_white.svg"> 
+                    <h3><?= $error ?></h3>
+                </div>
+            <?php } ?>
+            
 
             <div class="modif_adress_submit">
                 <input class="modif_btn" type="submit" value="Modifier">
@@ -71,12 +81,6 @@
 
 <?php echo form_close(); ?>
 
-
-<?php if (isset($error)) { ?>
-    <div class="error">
-        <p><?= $error ?></p>
-    </div>
-<?php } ?>
 
 
 
