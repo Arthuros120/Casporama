@@ -113,6 +113,17 @@ class LocationModel extends CI_Model
         $this->db->query($strRequest, $dataRequest);
     }
 
+    public function addressIsDead(int $id)
+    {
+
+        $datestring = 'Y-m-d h:i:s';
+        $time = time();
+        $dateLastUpdate = date($datestring, $time);
+
+        $this->db->query("Call user.addressIsDead('" . $id . "', '" . $dateLastUpdate . "')");
+
+    }
+
     public function heHaveAddressById(int $id): Bool
     {
 

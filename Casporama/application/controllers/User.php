@@ -1004,11 +1004,57 @@ class User extends CI_Controller
 
                         if ($hint <= 0) {
 
-                            $this->load->view('errors/html/error_404');
+                            show_404();
+
                         }
+                        
+                        $this->form_validation->set_rules(
+                            'sameName',
+                            'Nom de l\'adresse',
+                            'trim|required|min_length[3]|max_length[255]',
+                            array( // * On définit les messages d'erreurs
+                                'required' => 'Vous avez oublié %s.',
+                                "min_length" => "Le %s doit faire au moins 3 caractères",
+                                "max_length" => "Le %s doit faire au plus 255 caractères",
+                                'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                            ),
+                        );
 
-                        echo "supprAddress : " . $hint;
+                        $address = $this->LocationModel->getLocationByUserId($user->getId(), $hint);
 
+                        $dataModal['address'] = $address;
+                        $dataScript['hint'] = $hint;
+
+                        if (!$this->form_validation->run()) {
+
+                            $dataModal['error'] = validation_errors();
+
+                            $data['modaleContent'] = $dataModal;
+                            $data['script'] = $dataScript;
+
+                            $this->LoaderView->load('User/home/supprAddress', $data);
+
+                        } else {
+
+                            if (strtolower($this->input->post('sameName')) == strtolower($address->getName())) {
+
+                                $this->LocationModel->addressIsDead($address->getId());
+
+                                redirect("User/home/info");
+
+                            } else {
+
+                                $dataModal['error'] = "Le nom de l'adresse n'est pas le même";
+
+                                $data['modaleContent'] = $dataModal;
+                                $data['script'] = $dataScript;
+
+                                $this->LoaderView->load('User/home/supprAddress', $data);
+
+                            }
+
+
+                        }
                     }
 
                     // Todo : Ajouter la fonctionnalité de suppression de l'utilisateur

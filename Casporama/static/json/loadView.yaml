@@ -195,6 +195,18 @@ User/home/modifAddress:
         script : "user/home/modifAddress/script"
 
     baseView : "user/home/info/base"
+
+User/home/supprAddress:
+
+    views :
+        head : "user/home/info/head"
+        modaleHead : "user/home/info/modale/global/head"
+        modaleContent : "user/home/info/modale/supprAddress/content"
+        content : "user/home/info/content"
+        script : "user/home/info/script"
+        modaleScript: "user/home/info/modale/supprAddress/script"
+
+    baseView : "user/home/info/modale/global/base"
 #---------------------------------Test View---------------------------------#
 
 Test/map :
