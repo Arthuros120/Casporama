@@ -19,7 +19,6 @@
 </head>
 
 <body>
-
     <!-- The Modal -->
     <div id="myModal" class="modal">
         <!-- Modal content -->

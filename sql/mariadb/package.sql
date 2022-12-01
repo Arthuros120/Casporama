@@ -95,6 +95,7 @@ CREATE OR REPLACE PACKAGE user AS
         newIsDefault bool,
         dateCreation date
         );
+    procedure addressIsDead(searchId int, newDateLastUpdate datetime);
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -264,6 +265,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
     procedure verifyLocId(searchId int) as
     begin
         select `name` from location where idlocation = searchId;
+    end;
+
+    procedure addressIsDead(searchId int, newDateLastUpdate datetime) as
+    begin
+        update location set dateLastUpdate=newDateLastUpdate, isALive = false where idlocation = searchId;
     end;
 
     procedure updateLocById(
