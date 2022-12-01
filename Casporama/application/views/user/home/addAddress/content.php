@@ -7,10 +7,10 @@
             <a
             href="<?= base_url()?>user/home">
             <img alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow_white.svg"></a>
-            <h1>Modification de l'address: <?= $address->getName() ?></h1>
+            <h1>Ajout d'une addresse</h1>
         </div>
 
-        <?php echo form_open('user/home/modifAddress/' . $address->getId()); ?>
+        <?php echo form_open('user/home/addAddress') ?>
         
         <div class="modif_adress_form">
 
@@ -21,18 +21,18 @@
                 type="text"
                 id="name"
                 name="name"
-                value="<?= $address->getName() ?>"
+                placeholder="Nom de l'addresse"
                 required>
             </div>
 
             <div class="modif_adress_num">
                 <h3>Numéro:</h3>
                 <input
-                class="modif_adress_input"alt="fleche arrière"
+                class="modif_adress_input"
                 type="number"
                 id="number"
                 name="number"
-                value="<?= $address->getAdresse()['number'] ?>"
+                placeholder="numéro de voie"
                 required>
             </div>
 
@@ -43,7 +43,7 @@
                 type="text"
                 id="street"
                 name="street"
-                value="<?= $address->getAdresse()['street'] ?>"
+                placeholder="Nom de la voie"
                 required>
             </div>
 
@@ -60,7 +60,8 @@
                 id="city"
                 list="cityList"
                 name="city"
-                value="<?= $address->getCity() ?>">
+                placeholder="Nom de la ville"
+                required>
             </div>
 
             <div class="modif_adress_zipcode">
@@ -71,7 +72,8 @@
                 id="postalCode"
                 list="postalList"
                 name="postalCode"
-                value="<?= $address->getCodePostal() ?>">
+                placeholder="Code postal"
+                reqired>
             </div>
 
             <div class="modif_adress_country">
@@ -81,11 +83,7 @@
 
             <div class="modif_adress_default">
                 <h3>Addresse par défault:</h3>
-                <input class="modif_adress_check" type="checkbox" name="default"
-                    <?php if ($address->getIsDefault()) {
-                        echo "checked";
-                    } ?>
-                >
+                <input class="modif_adress_check" type="checkbox" name="default">
             </div>
 
             
@@ -98,7 +96,7 @@
             
 
             <div class="modif_adress_submit">
-                <input class="modif_btn" type="submit" value="Modifier">
+                <input class="modif_btn" type="submit" value="Ajouter l'addresse">
                 <input class="delete_btn" type="reset" value="Tout supprimé">
             </div>
         </div>
@@ -112,8 +110,6 @@
 </div>
 
 <?php echo form_close(); ?>
-
-
 
 <datalist name="postalList" id="postalList"></datalist>
 <datalist name="cityList" id="cityList"></datalist>

@@ -132,7 +132,7 @@
                     echo ' <div class="card"><p>Vous n\'avez pas d\'adresse enregistré<p></div>';
                 }?>
             <div class="card_add_address">
-                <a href="<?= base_url('User/home/modifAddress/')?>" ><img src="<?= base_url() . "static/image/icon/add.svg" ?>" alt="Add" ></a>
+                <a href="<?= base_url('User/home/addAddress/')?>" ><img src="<?= base_url() . "static/image/icon/add.svg" ?>" alt="Add" ></a>
             </div>
             </div>
         </div>
@@ -143,19 +143,5 @@
 
 
 <?php
-
-/*
-
-
-    
-
-</p>
-
-<!-- Todo: Faire le logo du castor pour le status -->
-
-
-
-
-*/
 
 /* <!-- user/home/info/content --> */

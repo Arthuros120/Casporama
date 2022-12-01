@@ -72,6 +72,45 @@ class LocationModel extends CI_Model
         return $id;
     }
 
+    public function addAddressToUser(
+        LocationEntity $newAddresse,
+        int $userId
+        )
+    {
+
+        $this->load->helper('date');
+
+        $arrayCoord = $this->searchLatLong(
+            $newAddresse->getAdresse(),
+            $newAddresse->getCodePostal()
+        );
+
+        $datestring = 'Y-m-d h:i:s';
+        $time = time();
+        $dateLastUpdate = date($datestring, $time);
+
+        $strRequest = "CALL user.createLoc(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        $dataRequest = array(
+
+            $newAddresse->getId(),
+            $userId,
+            $newAddresse->getName(),
+            $newAddresse->getStringAdresse(),
+            $newAddresse->getCodePostal(),
+            $newAddresse->getCity(),
+            $newAddresse->getDepartment(),
+            $newAddresse->getCountry(),
+            $arrayCoord['latitude'],
+            $arrayCoord['longitude'],
+            $newAddresse->getIsDefault(),
+            $dateLastUpdate
+
+        );
+
+        $this->db->query($strRequest, $dataRequest);
+    }
+
     public function updateAddress(
         LocationEntity $newAddresse,
         int $lastAddresseId,
@@ -121,6 +160,27 @@ class LocationModel extends CI_Model
         $dateLastUpdate = date($datestring, $time);
 
         $this->db->query("Call user.addressIsDead('" . $id . "', '" . $dateLastUpdate . "')");
+
+    }
+
+    public function sameNameByUserId(int $id, string $name)
+    {
+
+        $query = $this->db->query("Call user.countAddressByIdAndName('" . $id . "', '" . $name . "')");
+
+        $result = $query->row()->total;
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        if ($result > 0) {
+
+            return true;
+
+        }
+
+        return false;
 
     }
 
@@ -268,6 +328,21 @@ class LocationModel extends CI_Model
         }
 
         return $departmentList;
+
+    }
+
+    public function getDepartment(int $num) : ?string
+    {
+
+        $depList = $this->allDepartementList();
+
+        if (isset($depList[$num])) {
+
+            return $depList[$num];
+
+        }
+
+        return null;
 
     }
 
@@ -519,6 +594,8 @@ class LocationModel extends CI_Model
         $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
         $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. 'œ'
         $str = preg_replace('#&[^;]+;#', '', $str);
+        $str = str_replace('-', '+', $str);
+        $str = str_replace('\'', '+', $str);
 
         $str = strtolower($str);
 

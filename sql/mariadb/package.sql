@@ -96,6 +96,21 @@ CREATE OR REPLACE PACKAGE user AS
         dateCreation date
         );
     procedure addressIsDead(searchId int, newDateLastUpdate datetime);
+    procedure countAddressByIdAndName(searchId int, searchName varchar(255));
+    procedure createLoc(
+        newId int,
+        idUser int,
+        newLocName varchar(255),
+        newLocAddress varchar(255),
+        newLocCode int,
+        newLocCity varchar(255),
+        newLocDep varchar(255),
+        newLocCountry varchar(255),
+        newLocLat double,
+        newLocLong double,
+        newIsDefault bool,
+        dateCreation date
+        );
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -251,7 +266,6 @@ CREATE OR REPLACE PACKAGE BODY user AS
         update location set name=newname, location=newlocation, codepostal=newcode, city=newcity, department=newdep, country=newcountry where id = iduser and idlocation=newidlocation;
     end;
 
-
     procedure updateUtilisateur( iduser int,  newlogin varchar(255),  newpass varchar(255)) as
     BEGIN
         update user set login=newlogin, password=newpass where id=iduser;
@@ -318,7 +332,56 @@ CREATE OR REPLACE PACKAGE BODY user AS
                                              true,
                                              dateCreation
                                             );
+    end;
 
+    procedure countAddressByIdAndName(searchId int, searchName varchar(255)) as
+    begin
+        select count(*) as total from location where id = searchId and name = searchName and isALive=true;
+    end;
+
+    procedure createLoc(
+        newId int,
+        idUser int,
+        newLocName varchar(255),
+        newLocAddress varchar(255),
+        newLocCode int,
+        newLocCity varchar(255),
+        newLocDep varchar(255),
+        newLocCountry varchar(255),
+        newLocLat double,
+        newLocLong double,
+        newIsDefault bool,
+        dateCreation datetime
+        ) as
+    begin
+        insert into location(
+                             idlocation,
+                             id,
+                             name,
+                             location,
+                             codepostal,
+                             city,
+                             department,
+                             country,
+                             latitude,
+                             longitude,
+                             isDefault,
+                             isALive,
+                             dateLastUpdate) value (
+                                             newId,
+                                             idUser,
+                                             newLocName,
+                                             newLocAddress,
+                                             newLocCode,
+                                             newLocCity,
+                                             newLocDep,
+                                             newLocCountry,
+                                             newLocLat,
+                                             newLocLong,
+                                             newIsDefault,
+                                             true,
+                                             dateCreation
+                                            );
     end;
 end;
 
@@ -548,9 +611,3 @@ use Casporama;
 call `order`.getCommandeClient(6);
 Call product.getProductBySportType(1, 'Vetement');
 */
-
-Call user.updateLastName(2, 'ptitcon');
-
-Call user.updateLastName(2, 'Hamelin');
-
-Call user.verifyLocId('256481299');

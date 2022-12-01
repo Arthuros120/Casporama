@@ -187,6 +187,15 @@ User/home/modifFixe:
 
     baseView : "user/home/info/modale/global/base"
 
+User/home/addAddress:
+
+    views :
+        head : "user/home/addAddress/head"
+        content : "user/home/addAddress/content"
+        script : "user/home/addAddress/script"
+
+    baseView : "user/home/info/base"
+
 User/home/modifAddress:
 
     views :
