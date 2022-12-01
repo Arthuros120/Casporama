@@ -4,7 +4,7 @@
 
     <div class="modif_adress_form_content">
         <div class="modif_adress_form_title">
-            <a href="<?= base_url()?>user/home"><img src="<?= base_url()?>/static/image/icon/arrow_white.svg"></a>
+            <a href="<?= base_url()?>user/home/info"><img src="<?= base_url()?>/static/image/icon/arrow_white.svg"></a>
             <h1>Modification de l'address: <?= $address->getName() ?></h1>
         </div>
 
