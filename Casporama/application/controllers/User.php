@@ -970,33 +970,80 @@ class User extends CI_Controller
 
                                     if ($dep != null) {
 
-                                        $dataNewAddress = array (
+                                        if ($this->LocationModel->samePostalCodeByDepartment(
+                                            $depTab[0],
+                                            $this->input->post('postalCode')
+                                            )) {
 
-                                            'name' => $this->input->post('name'),
-                                            'number' => $this->input->post('number'),
-                                            'street' => $this->input->post('street'),
-                                            'department' => $dep,
-                                            'city' => $this->input->post('city'),
-                                            'country' => $this->input->post('country'),
-                                            'postalCode' => $this->input->post('postalCode')
-    
-                                        );
-    
-                                        if ($this->input->post('default') == 'on') {
-    
-                                            $dataNewAddress['default'] = true;
-        
-                                        }
-    
-                                        $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
-    
-                                        $this->LocationModel->updateAddress(
-                                            $newAdresse,
-                                            $address->getId(),
-                                            $user->getId()
-                                        );
-    
-                                        redirect("User/home/info");
+                                                $dataNewAddress = array (
+
+                                                    'name' => $this->input->post('name'),
+                                                    'number' => $this->input->post('number'),
+                                                    'street' => $this->input->post('street'),
+                                                    'department' => $dep,
+                                                    'city' => $this->input->post('city'),
+                                                    'country' => $this->input->post('country'),
+                                                    'postalCode' => $this->input->post('postalCode')
+            
+                                                );
+            
+                                                if ($this->input->post('default') == 'on') {
+            
+                                                    $dataNewAddress['default'] = true;
+                
+                                                }
+            
+                                                $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
+
+                                                if (!$this->LocationModel->sameAddresse($user->getId(), $newAdresse)) {
+
+                                                    $this->LocationModel->updateAddress(
+                                                        $newAdresse,
+                                                        $address->getId(),
+                                                        $user->getId()
+                                                    );
+                
+                                                    redirect("User/home/info");
+
+                                                } else {
+
+                                                    $dataContent['error'] = "Cette addresse est trop similaire a une autre";
+                                                    $dataContent['address'] = $address;
+                                                    $dataScript['address'] = $address;
+
+                                                    $dataHead['nameAddress'] = $address->getName();
+
+                                                    $data = array(
+
+                                                        'head' => $dataHead,
+                                                        'content' => $dataContent,
+                                                        'script' => $dataScript,
+
+                                                    );
+
+                                                    $this->LoaderView->load('User/home/modifAddress', $data);
+                                                    
+                                                    }
+
+                                            } else {
+
+                                                $dataContent['error'] = "Le code postal ne correspond pas au département";
+                                                $dataContent['address'] = $address;
+                                                $dataScript['address'] = $address;
+
+                                                $dataHead['nameAddress'] = $address->getName();
+
+                                                $data = array(
+
+                                                    'head' => $dataHead,
+                                                    'content' => $dataContent,
+                                                    'script' => $dataScript,
+
+                                                );
+
+                                                $this->LoaderView->load('User/home/modifAddress', $data);
+
+                                            }
 
                                     } else {
 
@@ -1205,29 +1252,67 @@ class User extends CI_Controller
 
                                 if ($dep != null) {
 
-                                    $dataNewAddress = array (
+                                    if ($this->LocationModel->samePostalCodeByDepartment(
+                                        $depTab[0],
+                                        $this->input->post('postalCode')) ||
+                                        (strtolower(
+                                            $this->input->post('country')) != 'france'
+                                        )
+                                        ) {
 
-                                        'name' => $this->input->post('name'),
-                                        'number' => $this->input->post('number'),
-                                        'street' => $this->input->post('street'),
-                                        'department' => $dep,
-                                        'city' => $this->input->post('city'),
-                                        'country' => $this->input->post('country'),
-                                        'postalCode' => $this->input->post('postalCode')
+                                            $dataNewAddress = array (
 
-                                    );
+                                                'name' => $this->input->post('name'),
+                                                'number' => $this->input->post('number'),
+                                                'street' => $this->input->post('street'),
+                                                'department' => $dep,
+                                                'city' => $this->input->post('city'),
+                                                'country' => $this->input->post('country'),
+                                                'postalCode' => $this->input->post('postalCode')
+        
+                                            );
+        
+                                            if ($this->input->post('default') == 'on') {
+        
+                                                $dataNewAddress['default'] = true;
+        
+                                            }
+        
+                                            $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
 
-                                    if ($this->input->post('default') == 'on') {
+                                            if (!$this->LocationModel->sameAddresse($user->getId(), $newAdresse)) {
 
-                                        $dataNewAddress['default'] = true;
+                                                $this->LocationModel->addAddressToUser($newAdresse, $user->getId());
+
+                                                redirect('User/home/info');
+
+                                            } else {
+
+                                                $dataContent['error'] = "L'addresse est trop similaire a une autre";
+
+                                                $data = array(
+
+                                                    'content' => $dataContent,
+    
+                                                );
+    
+                                                $this->LoaderView->load('User/home/addAddress', $data);
+
+                                            }
+
+                                    } else {
+
+                                        $dataContent['error'] = "Le code postal ne correspond pas au département";
+
+                                        $data = array(
+
+                                            'content' => $dataContent,
+    
+                                        );
+    
+                                        $this->LoaderView->load('User/home/addAddress', $data);
 
                                     }
-
-                                    $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
-
-                                    $this->LocationModel->addAddressToUser($newAdresse, $user->getId());
-
-                                    redirect('User/home/info');
 
                                 } else {
 

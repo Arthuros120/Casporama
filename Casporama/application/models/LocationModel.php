@@ -80,10 +80,25 @@ class LocationModel extends CI_Model
 
         $this->load->helper('date');
 
-        $arrayCoord = $this->searchLatLong(
-            $newAddresse->getAdresse(),
-            $newAddresse->getCodePostal()
-        );
+        if (strtolower($this->input->post('country')) != 'france') {
+
+            $arrayCoord = $this->searchLatLong(
+                $newAddresse->getAdresse(),
+                $newAddresse->getCodePostal()
+            );
+
+        } else {
+
+            $arrayCoord = null;
+
+        }
+
+        if ($arrayCoord == null) {
+
+            $arrayCoord['latitude'] = null;
+            $arrayCoord['longitude'] = null;
+
+        }
 
         $datestring = 'Y-m-d h:i:s';
         $time = time();
@@ -336,6 +351,8 @@ class LocationModel extends CI_Model
 
         $depList = $this->allDepartementList();
 
+        $depList[1000] = 'Pays étrangé';
+
         if (isset($depList[$num])) {
 
             return $depList[$num];
@@ -582,6 +599,46 @@ class LocationModel extends CI_Model
         }
 
         return false;
+
+    }
+
+    public function samePostalCodeByDepartment(int $depId, string $postalCode) : bool
+    {
+
+        $postalCode = (int) $postalCode[0] * 10 + $postalCode[1];
+
+        return $postalCode == $depId;
+
+    }
+
+    public function sameAddresse(int $userId, LocationEntity $newAddresse) : bool
+    {
+
+        if (!isset($newAddresse) || $newAddresse->getStringAdresse() == null|| $newAddresse->getCity() == null) {
+
+            return true;
+
+        }
+
+        $addresse = $newAddresse->getStringAdresse();
+        $city = $newAddresse->getCity();
+
+
+        $query = $this->db->query("call user.sameAddresse('" . $userId . "', '" . $addresse . "', '" . $city . "')");
+
+        $result = (int) $query->row()->total;
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        if ($result <= 1) {
+
+            return false;
+
+        }
+
+        return true;
 
     }
 

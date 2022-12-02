@@ -111,6 +111,7 @@ CREATE OR REPLACE PACKAGE user AS
         newIsDefault bool,
         dateCreation date
         );
+    procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -283,7 +284,7 @@ CREATE OR REPLACE PACKAGE BODY user AS
 
     procedure addressIsDead(searchId int, newDateLastUpdate datetime) as
     begin
-        update location set dateLastUpdate=newDateLastUpdate, isALive = false where idlocation = searchId;
+        update location set dateLastUpdate=newDateLastUpdate, isALive = false where idlocation = searchId;  
     end;
 
     procedure updateLocById(
@@ -383,6 +384,12 @@ CREATE OR REPLACE PACKAGE BODY user AS
                                              dateCreation
                                             );
     end;
+
+    procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255)) as
+    begin
+        select count(*) as total from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
+    end;
+
 end;
 
 
@@ -611,3 +618,5 @@ use Casporama;
 call `order`.getCommandeClient(6);
 Call product.getProductBySportType(1, 'Vetement');
 */
+
+call user.sameAddresse(2, '78;Boulevard Jules Verne', 'Nantes')
