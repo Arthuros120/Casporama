@@ -536,6 +536,9 @@ class User extends CI_Controller
                     if (isset($listLoc) && !empty($listLoc)) {
 
                         $dataContent['listLoc'] = $listLoc;
+                        $dataContent['nbrAddr'] = $this->LocationModel->countAddressByUserId($user->getId());
+                        $dataContent['nbrAddr'] = $dataContent['nbrAddr'] . "/" . $this->config->item('address_MaxAdd');
+                        $dataContent['addAddIsPos'] = $this->LocationModel->heHaveMaxAddress($user->getId());
 
                         $dataMap = [];
 
@@ -1133,6 +1136,12 @@ class User extends CI_Controller
                         }
 
                     } elseif ($action == 'addAddress') {
+
+                        if ($this->LocationModel->heHaveMaxAddress($user->getId())) {
+
+                            show_error("Vous avez atteint le nombre maximum d'adresse", 403, "Erreur");
+
+                        }
 
                         $configRules = array(
 

@@ -44,9 +44,18 @@ crossorigin=""></script>
 
                 for (var i = 0; i < countryList.length; i++) {
 
-                    $("select[name='country']").append(
-                        "<option value='" + countryList[i] + "'>" + countryList[i] + "</option>"
-                    );
+                    if (countryList[i].toLowerCase() == "france") {
+
+                        $("select[name='country']").append(
+                            "<option value='" + countryList[i] + "' selected>" + countryList[i] + "</option>"
+                        );
+
+                    } else {
+
+                        $("select[name='country']").append(
+                            "<option value='" + countryList[i] + "'>" + countryList[i] + "</option>"
+                        );
+                    }
                 }
             }
         });
@@ -284,8 +293,8 @@ crossorigin=""></script>
 
             error: function(data) {
 
-                divMap.innerHTML = "<div class='map_error'><img src='<?= base_url() ?>"
-                divMap.innerHTML += "static/image/icon/data_error.svg'><h3>Localisation non trouvée</h3></div>";
+                divMap.innerHTML = "<div class='map_error'><img src='<?= base_url() ?>" +
+                "static/image/icon/data_error.svg'><h3>Localisation non trouvée</h3></div>";
 
             }
         });
@@ -294,6 +303,7 @@ crossorigin=""></script>
     $(document).ready(function() {
 
         setCountryList();
+        setDepList("france");
 
     });
 
