@@ -284,7 +284,8 @@ CREATE OR REPLACE PACKAGE BODY user AS
 
     procedure addressIsDead(searchId int, newDateLastUpdate datetime) as
     begin
-        update location set dateLastUpdate=newDateLastUpdate, isALive = false where idlocation = searchId;  
+        update location set dateLastUpdate=newDateLastUpdate, isALive = false where idlocation = searchId;
+        delete from location where isALive = false and idlocation not in (select o.idlocation from `order` o);
     end;
 
     procedure updateLocById(
