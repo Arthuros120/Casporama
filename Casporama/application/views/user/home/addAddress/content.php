@@ -5,7 +5,7 @@
     <div class="modif_adress_form_content">
         <div class="modif_adress_form_title">
             <a
-            href="<?= base_url()?>user/home">
+            href="<?= base_url()?>user/home/info">
             <img alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow_white.svg"></a>
             <h1>Ajout d'une addresse</h1>
         </div>
