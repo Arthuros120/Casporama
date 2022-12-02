@@ -286,6 +286,7 @@ CREATE OR REPLACE PACKAGE BODY user AS
     procedure addressIsDead(searchId int, newDateLastUpdate datetime) as
     begin
         update location set dateLastUpdate=newDateLastUpdate, isALive = false where idlocation = searchId;
+        delete from location where isALive = false and idlocation not in (select o.idlocation from `order` o);
     end;
 
     procedure updateLocById(
@@ -566,7 +567,7 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
 
     procedure getStockTotal( id integer) as
     begin
-        select sum(quantity) from catalog where nuproduct = id;
+        select sum(quantity) as total from catalog where nuproduct = id;
     end;
 
     procedure addCatalogue( newid int, newreference int , newproduit int,  newcouleur varchar(20),  newtaille varchar(3),  newquantite int) as

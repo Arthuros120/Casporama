@@ -1,5 +1,7 @@
 <!-- shop/product/productContent -->
 
+<?php echo form_open('Card/add'); ?>
+
 <div class="productContent">
     <ul class="grid_product">
         <li class="card1">
@@ -29,6 +31,16 @@
                     </div>
                 </div>
                 <div class="bas">
+                    <?php if ($product->getStock()[0]->getColor() != null) : ?>
+                        <div class="color">
+                            <h2>Couleur</h2>
+                            <div class="allbox">
+                                <?php for ($i = 0; $i < count($product->getStock()); $i++) : ?>
+                                <div class="box"><?= $product->getStock()[$i]->getColor() ?></div>
+                                <?php endfor?>
+                            </div>
+                        </div>
+                    <?php endif;?>
                     <div class="size">
                         <h2>Taille</h2>
                         <div class="allbox">
@@ -46,7 +58,9 @@
                     </div>
                     <div class="price">
                         <h2><?= $product -> getPrice() ?>€</h2>
-                        <a><h3>AJOUTER AU PANIER</h3></a>
+                    </div>
+                    <div class="form">
+                        <button><h3>AJOUTER AU PANIER</h3></button>
                     </div>
                 </div> 
             </div>
@@ -54,14 +68,5 @@
     </ul>
 </div>
 
-
-
-<!-- <?= $product -> getBrand() ?>
-<?= $product -> getName() ?>
-<?= $product -> getDescription() ?>
-<?= $product -> getPrice() ?>
-<img src=<?= $product->getCover() ?>>
-<img src="<?= base_url($product -> getImages()[1]) ?>">
-<?= $product -> getImages()[1] ?> -->
 
 <!-- shop/product/productContent -->

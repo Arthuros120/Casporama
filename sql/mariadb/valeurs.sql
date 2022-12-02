@@ -96,3 +96,6 @@ values
 insert into `order` (idorder,dateorder, idproduct, quantity, iduser,idlocation , state)
 values
     (1,'2022-10-10', '1', 1 ,6,1,'En preparation');
+
+
+call catalog.getStock(1);
