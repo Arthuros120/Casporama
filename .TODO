@@ -31,7 +31,9 @@
 
 - TODO : Backend -> Faire en sorte que la db ce nettoie toute seul ou suite a une demande de l'admin
 
-- Todo : Frontend -> Erreur au niveau des inputs
+- Todo : Frontend -> Erreur au niveau des inputs (required ect...)
+
+- Todo : Backend -> Gerer les addresse par défault
 
 ## En cours
 

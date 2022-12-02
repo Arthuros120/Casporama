@@ -1,10 +1,3 @@
-.map {
-    /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
-    height: 400px;
-    width: 400px;
-    z-index: 1;
-}
-
 :root {
     background-color: var(--bg);
 }
@@ -12,6 +5,10 @@
 h2 {
     text-overflow: ellipsis;
     font-size: 1.3em;
+}
+
+.text_content {
+    font-weight: 300;
 }
 
 .user_info_content {
@@ -96,7 +93,7 @@ h2 {
 
 .user_info_pass > a > img{
     display: flex;
-    max-width: 50%;
+    width: 50%;
     height: auto;
 }
 
@@ -149,3 +146,113 @@ h2 {
     height: auto;
 }
 
+
+/* Partie ADDRESS */
+
+
+.user_info_address {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 2vh;
+
+    padding-bottom: 5vh;
+}
+
+.cards_address {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    column-gap: 1vw;
+}
+
+.card_all {
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.card_address {
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 100%;
+    height: 50vh;
+    padding: 2% 5%;
+
+    background-color: var(--grey1);
+}
+
+.card_address > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.user_info_address_modify {
+    display: flex;
+    flex-direction: row;
+    gap: 1vh;
+}
+
+.user_info_address_modify > a {
+    width: 10%;
+    height: auto;
+}
+
+.user_info_address_modify > a > img {
+    width: 60%;
+    height: auto;
+
+}
+
+.card-map {
+    width: 100%;
+    height: 100%;
+}
+
+.map {
+    /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.map_error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0% 5%;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--grey2);
+}
+
+.card_add_address {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--grey2);
+}
+
+.card_add_address > a {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

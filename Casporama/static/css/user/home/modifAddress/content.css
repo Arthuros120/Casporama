@@ -1,6 +1,177 @@
 .map {
     /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
-    height: 400px;
-    width: 400px;
+    height: 100vh;
+    width: 50vw;
     z-index: 1;
 }
+
+.map_error {
+    width: 50vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2vh;
+}
+
+
+
+.modif_adress_content {
+    width: 100vw;
+    min-height: 100vh;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+.modif_adress_map {
+    width: 100%;
+    height: 100%;
+    background-color: var(--grey1);
+}
+
+.modif_adress_form_content {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.modif_adress_form_title {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1vw;
+    color: #ebebeb;
+
+    background-color: #202087;
+}
+
+.modif_adress_form_title > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-right: 2vh;
+}
+
+.modif_adress_form_title > a > img {
+    transform: rotate(180deg);
+    width: 60%;
+}
+
+.modif_adress_form {
+    width: 40vw;
+    margin: 2vh 5vw;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+.modif_adress_form > .modif_adress_name,.modif_adress_num,
+.modif_adress_adress,.modif_adress_dep,.modif_adress_city,.modif_adress_zipcode,
+.modif_adress_country {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+
+.modif_adress_default {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2vh;
+}
+
+.modif_adress_submit {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 2vh;
+}
+
+.modif_adress_submit > input {
+    width: 50%;
+}
+
+.modif_adress_input{
+    height: 5vh;
+    border: 2px solid #ebebeb;
+
+    padding-left: 10px;
+}
+
+.modif_adress_error {
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 2vh;
+
+    padding-left: 2vh;
+
+    border-radius: 12px;
+
+    background-color: red;
+    color: white;
+}
+
+.modif_adress_error > img {
+    width: 5%;
+    height: auto;
+}
+
+.delete_btn {
+    height: 5vh;
+    border: 2px solid #ebebeb;
+    font-size: 1vw;
+
+    cursor: pointer;
+
+    padding-left: 10px;
+}
+
+.modif_btn {
+    height: 5vh;
+    border: 2px solid #202087;
+
+    font-size: 1vw;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    padding-left: 10px;
+
+    transition: background-color 250ms ease-in-out, border 250ms ease-in-out, color 250ms ease-in-out;
+}
+
+
+.modif_btn:hover {
+    background-color: #202087;
+    border: none;
+    color: #ebebeb;
+}
+
+/* .modif_adress_zipcode > input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.modif_adress_zipcode > input[type=number] {
+    -moz-appearance: textfield;
+}
+ */

@@ -44,18 +44,9 @@ crossorigin=""></script>
 
                 for (var i = 0; i < countryList.length; i++) {
 
-                    if (countryList[i].toLowerCase() == "<?php echo strtolower($address->getCountry()) ?>") {
-
-                        $("select[name='country']").append(
-                            "<option value='" + countryList[i] + "' selected>" + countryList[i] + "</option>"
-                        );
-
-                    } else {
-
-                        $("select[name='country']").append(
-                            "<option value='" + countryList[i] + "'>" + countryList[i] + "</option>"
-                        );
-                    }
+                    $("select[name='country']").append(
+                        "<option value='" + countryList[i] + "'>" + countryList[i] + "</option>"
+                    );
                 }
             }
         });
@@ -90,18 +81,9 @@ crossorigin=""></script>
                     let value = numberDep + ";" + dep.sansAccent().replace('-', "+");
                     value = value.replace('\'', "+").replace(/ /g, "+");
 
-                    if (dep.toLowerCase() == "<?php echo strtolower($address->getDepartment()) ?>") {
-
-                        $("select[name='department']").append(
-                            "<option value='" + value + "' selected>" + numberDep + " - " + dep + "</option>"
-                        );
-
-                    } else {
-
-                        $("select[name='department']").append(
+                    $("select[name='department']").append(
                             "<option value='" + value + "'>" + numberDep + " - " + dep + "</option>"
-                        );
-                    }
+                    );
                 }
             },
 
@@ -312,16 +294,6 @@ crossorigin=""></script>
     $(document).ready(function() {
 
         setCountryList();
-        setDepList("<?php echo $address->getCountry() ?>");
-        getZipDep("<?php echo $address->getCodePostal() ?>");
-        setCityName("<?php echo $address->getCodePostal() ?>")
-        getCityDep(zipDep);
-        getPostalCode(zipDep, "<?php echo $address->getCity() ?>")
-        getLatLong(
-            "<?= $address->getAdresse()['number'] ?>",
-            "<?= $address->getAdresse()['street'] ?>",
-            "<?= $address->getCodePostal() ?>"
-            );
 
     });
 

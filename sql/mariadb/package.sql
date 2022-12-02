@@ -1,4 +1,4 @@
-use Casporama;
+use CasporamaDEV;
 
 SET sql_mode=ORACLE;
 
@@ -79,6 +79,39 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getLocationByIdAndUserId(idUser int, idLoc int);
     procedure isUniqueAddressName(searchName varchar(255), searchIdUser int);
     procedure getAddresseById(searchId int);
+    procedure verifyLocId(searchId int);
+    procedure updateLocById(
+        searchId int,
+        newId int,
+        idUser int,
+        newLocName varchar(255),
+        newLocAddress varchar(255),
+        newLocCode int,
+        newLocCity varchar(255),
+        newLocDep varchar(255),
+        newLocCountry varchar(255),
+        newLocLat double,
+        newLocLong double,
+        newIsDefault bool,
+        dateCreation date
+        );
+    procedure addressIsDead(searchId int, newDateLastUpdate datetime);
+    procedure countAddressByIdAndName(searchId int, searchName varchar(255));
+    procedure createLoc(
+        newId int,
+        idUser int,
+        newLocName varchar(255),
+        newLocAddress varchar(255),
+        newLocCode int,
+        newLocCity varchar(255),
+        newLocDep varchar(255),
+        newLocCountry varchar(255),
+        newLocLat double,
+        newLocLong double,
+        newIsDefault bool,
+        dateCreation date
+        );
+    procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -234,7 +267,6 @@ CREATE OR REPLACE PACKAGE BODY user AS
         update location set name=newname, location=newlocation, codepostal=newcode, city=newcity, department=newdep, country=newcountry where id = iduser and idlocation=newidlocation;
     end;
 
-
     procedure updateUtilisateur( iduser int,  newlogin varchar(255),  newpass varchar(255)) as
     BEGIN
         update user set login=newlogin, password=newpass where id=iduser;
@@ -245,7 +277,121 @@ CREATE OR REPLACE PACKAGE BODY user AS
         update user set status=newstate where id=iduser;
     end;
 
-END;
+    procedure verifyLocId(searchId int) as
+    begin
+        select `name` from location where idlocation = searchId;
+    end;
+
+    procedure addressIsDead(searchId int, newDateLastUpdate datetime) as
+    begin
+        update location set dateLastUpdate=newDateLastUpdate, isALive = false where idlocation = searchId;  
+    end;
+
+    procedure updateLocById(
+        searchId int,
+        newId int,
+        idUser int,
+        newLocName varchar(255),
+        newLocAddress varchar(255),
+        newLocCode int,
+        newLocCity varchar(255),
+        newLocDep varchar(255),
+        newLocCountry varchar(255),
+        newLocLat double,
+        newLocLong double,
+        newIsDefault bool,
+        dateCreation datetime
+        ) as
+    begin
+
+        update location set isDefault = false, isALive = false, dateLastUpdate = dateCreation where idlocation = searchId;
+        insert into location(
+                             idlocation,
+                             id,
+                             name,
+                             location,
+                             codepostal,
+                             city,
+                             department,
+                             country,
+                             latitude,
+                             longitude,
+                             isDefault,
+                             isALive,
+                             dateLastUpdate) value (
+                                             newId,
+                                             idUser,
+                                             newLocName,
+                                             newLocAddress,
+                                             newLocCode,
+                                             newLocCity,
+                                             newLocDep,
+                                             newLocCountry,
+                                             newLocLat,
+                                             newLocLong,
+                                             newIsDefault,
+                                             true,
+                                             dateCreation
+                                            );
+    end;
+
+    procedure countAddressByIdAndName(searchId int, searchName varchar(255)) as
+    begin
+        select count(*) as total from location where id = searchId and name = searchName and isALive=true;
+    end;
+
+    procedure createLoc(
+        newId int,
+        idUser int,
+        newLocName varchar(255),
+        newLocAddress varchar(255),
+        newLocCode int,
+        newLocCity varchar(255),
+        newLocDep varchar(255),
+        newLocCountry varchar(255),
+        newLocLat double,
+        newLocLong double,
+        newIsDefault bool,
+        dateCreation datetime
+        ) as
+    begin
+        insert into location(
+                             idlocation,
+                             id,
+                             name,
+                             location,
+                             codepostal,
+                             city,
+                             department,
+                             country,
+                             latitude,
+                             longitude,
+                             isDefault,
+                             isALive,
+                             dateLastUpdate) value (
+                                             newId,
+                                             idUser,
+                                             newLocName,
+                                             newLocAddress,
+                                             newLocCode,
+                                             newLocCity,
+                                             newLocDep,
+                                             newLocCountry,
+                                             newLocLat,
+                                             newLocLong,
+                                             newIsDefault,
+                                             true,
+                                             dateCreation
+                                            );
+    end;
+
+    procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255)) as
+    begin
+        select count(*) as total from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
+    end;
+
+end;
+
 
 CREATE OR REPLACE PACKAGE product AS
     -- Permet d'avoir les différents produits d'un sport spécifique
@@ -473,6 +619,4 @@ call `order`.getCommandeClient(6);
 Call product.getProductBySportType(1, 'Vetement');
 */
 
-Call user.updateLastName(2, 'ptitcon');
-
-Call user.updateLastName(2, 'Hamelin');
+call user.sameAddresse(2, '78;Boulevard Jules Verne', 'Nantes')

@@ -22,6 +22,7 @@ class Test extends CI_Controller
 
         echo "Bienvenue sur la page de test";
 
+
     }
 
     public function progress()

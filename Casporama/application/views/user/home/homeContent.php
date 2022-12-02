@@ -22,7 +22,7 @@
             </a>
             <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('User/command'); ?>">
                 <h3>Mes commandes</h3>
-                <img class="user_img" src="<?= base_url() . "static/image/icon/delivery.svg" ?>" alt="arrow" />
+                <img class="user_img" src="<?= base_url() . "static/image/icon/delivery.svg" ?>" alt="delivery" />
             </a>
             <?php if ($user -> getStatus() == "Client") { ?>
                 <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('User/newCaspor') ?>">
@@ -36,7 +36,7 @@
             <?php } ?>
             <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('User/logout'); ?>">
                 <h3>Se déconnecter</h3>
-                <img class="arrow" src="<?= base_url() . "static/image/icon/arrow.png" ?>" alt="arrow" />
+                <img class="arrow" src="<?= base_url() . "static/image/icon/arrow.svg" ?>" alt="arrow" />
             </a>
         </div>
     </div>

@@ -187,6 +187,15 @@ User/home/modifFixe:
 
     baseView : "user/home/info/modale/global/base"
 
+User/home/addAddress:
+
+    views :
+        head : "user/home/addAddress/head"
+        content : "user/home/addAddress/content"
+        script : "user/home/addAddress/script"
+
+    baseView : "user/home/info/base"
+
 User/home/modifAddress:
 
     views :
@@ -195,6 +204,18 @@ User/home/modifAddress:
         script : "user/home/modifAddress/script"
 
     baseView : "user/home/info/base"
+
+User/home/supprAddress:
+
+    views :
+        head : "user/home/info/head"
+        modaleHead : "user/home/info/modale/global/head"
+        modaleContent : "user/home/info/modale/supprAddress/content"
+        content : "user/home/info/content"
+        script : "user/home/info/script"
+        modaleScript: "user/home/info/modale/supprAddress/script"
+
+    baseView : "user/home/info/modale/global/base"
 #---------------------------------Test View---------------------------------#
 
 Test/map :
