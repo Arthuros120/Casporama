@@ -414,7 +414,7 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
 
     procedure getStockTotal( id integer) as
     begin
-        select sum(quantity) from catalog where nuproduct = id;
+        select sum(quantity) as total from catalog where nuproduct = id;
     end;
 
     procedure addCatalogue( newid int, newreference int , newproduit int,  newcouleur varchar(20),  newtaille varchar(3),  newquantite int) as

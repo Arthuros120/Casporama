@@ -1,4 +1,7 @@
 <?php
+
+require_once APPPATH . 'models/entity/StockEntity.php';
+
 /*
 
     * ProductEntity
@@ -111,7 +114,7 @@ class ProductEntity
     
         * Function setSport
     
-        @param string $sport
+        @param int $sport
     
         * Cette fonction modifie le sport de l'entité
     
@@ -327,21 +330,6 @@ class ProductEntity
 
     }
 
-    /*
-    
-        * Function getStock
-    
-        @return array
-    
-        * Cette fonction retourne le stock de l'entité
-    
-    */
-    public function getStock() : array
-    {
-
-        return $this->stock;
-
-    }
 
     /*
     
@@ -354,9 +342,39 @@ class ProductEntity
     */
     public function setStock(array $stock)
     {
+        $res = array();
 
-        $this->stock = $stock;
+        foreach ($stock as &$i) {
+
+            //var_dump($i);
+
+            $newStockEntity = new StockEntity();
+
+            $newStockEntity->setId((int) $i->id);
+            $newStockEntity->setReference((int) $i->reference);
+            $newStockEntity->setColor((string) $i->color);
+            $newStockEntity->setSize((string) $i->size);
+            $newStockEntity->setQuantity((int) $i->quantity);
+
+            array_push($res, $newStockEntity);
+
+        }
+
+        $this->stock = $res;
 
     }
 
+    /*
+    
+        * Function getStock
+
+        * Cette fonction retourne le stock de l'entité
+    
+    */
+
+    public function getStock() : array {
+
+        return $this->stock;
+
+    }
 }

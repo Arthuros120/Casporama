@@ -17,4 +17,15 @@ END
 
 */
 
+use CasporamaDEV;
+
 SET sql_mode=ORACLE;
+
+create or replace trigger isAlive after update on location for each row
+    begin
+        if NEW.isALive = false and NEW.idlocation not in (select `order`.idlocation from `order`) then
+            delete from location where idlocation = NEW.idlocation;
+        end if;
+    end;
+
+
