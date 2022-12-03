@@ -5,7 +5,7 @@
     <div class="modif_adress_form_content">
         <div class="modif_adress_form_title">
             <a
-            href="<?= base_url()?>user/home/info">
+            href="javascript:history.back()">
             <img alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow_white.svg"></a>
             <h1>Modification de l'address: <?= $address->getName() ?></h1>
         </div>
@@ -99,7 +99,7 @@
 
             <div class="modif_adress_submit">
                 <input class="modif_btn" type="submit" value="Modifier">
-                <input class="delete_btn" type="reset" value="Tout supprimé">
+                <input class="delete_btn" type="reset" onclick="resetEvent();" value="Tout supprimé">
             </div>
         </div>
         

@@ -13,7 +13,7 @@
 
     <button type="submit">Valider</button>
 
-    <a class="close-button" href="<?= base_url('User/home/info'); ?>">
+    <a class="close-button" href="javascript:history.back()">
         <p>Annuler</p>
     </a>
 

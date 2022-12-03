@@ -8,7 +8,18 @@ crossorigin=""></script>
 <script type="text/javascript" src="<?= base_url('static/js/global/map.js') ?>"></script>
 
 <script type="text/javascript">
+
     var zipDep = -1;
+
+    function resetEvent() {
+
+            document.getElementById('name').innerHTML.value = "";
+            document.getElementById('number').innerHTML.value = "";
+            document.getElementById('street').innerHTML.value = "";
+            document.getElementById('city').innerHTML.value = "";
+            
+
+    }
 
     String.prototype.sansAccent = function() {
         var accent = [
