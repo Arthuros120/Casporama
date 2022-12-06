@@ -2,7 +2,7 @@
 
 <div class="modal_modif_content">
     <div class="modal_title">
-        <h1>Changement du nom de famillem</h1>
+        <h1>Changement du nom de famille</h1>
     </div>
     <div class="modal_form_content">
 

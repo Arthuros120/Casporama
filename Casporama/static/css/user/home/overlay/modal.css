@@ -32,6 +32,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  font-size: 0.5vw;
 }
 
 .modal_actual_name {
@@ -44,6 +46,10 @@
   border-radius: 12px;
 
   background-color: var(--grey1);
+}
+
+.modal_actual_name > p {
+  font-size: 0.8em;
 }
 
 .actual_name {

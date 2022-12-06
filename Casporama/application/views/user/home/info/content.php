@@ -86,6 +86,12 @@
                 <?php if (isset($listLoc)) {
                     foreach ($listLoc as $localisation) { ?>
                     <div class="card_all">
+                        <div class="user_info_address_title">
+                            <h2><?= $localisation->getName()?></h2>
+                            <?php if ($localisation->getIsDefault() == true) { ?>
+                                <h2>(Par défaut)</h2>
+                            <?php } ?>
+                        </div>
                         <div class="card_address">
                             <div class="user_info_address_addr">
                                 <h2>Adresse : <span class="text_content"><?=$localisation->getAdresse()['number'] . " " . $localisation->getAdresse()['street']?></span></h2>
@@ -113,17 +119,20 @@
                             </div>
 
                         </div>
-                        <div class="card-map">
-                                <?php
-                                if ($localisation->getLatitude() != null && $localisation->getLongitude() != null) { ?>
-                                    <div id="map<?= $localisation->getId() ?>" class="map"></div>
-                                <?php } else { ?>
-                                    <div class="map_error">
-                                        <h2>Aucune localisation n'a été trouvé pour cette adresse</h2>
-                                        <img src="<?= base_url() . "static/image/icon/error.svg" ?>" alt="error">
-                                    </div>
-                                <?php } ?>
+                        <div class="map_all">
+                            <div class="card-map">
+                                    <?php
+                                    if ($localisation->getLatitude() != null && $localisation->getLongitude() != null) { ?>
+                                        <div id="map<?= $localisation->getId() ?>" class="map"></div>
+                                    <?php } else { ?>
+                                        <div class="map_error">
+                                            <h2>Aucune localisation n'a été trouvé pour cette adresse</h2>
+                                            <img src="<?= base_url() . "static/image/icon/error.svg" ?>" alt="error">
+                                        </div>
+                                    <?php } ?>
+                            </div>
                         </div>
+                        
                     </div>
                         
                         
