@@ -1,4 +1,7 @@
-use Casporama;
+Create database if not exists CasporamaDEV;
+Create database if not exists Casporama;
+
+use CasporamaDEV;
 
 CREATE TABLE IF NOT EXISTS user (
     id INTEGER NOT NULL,
@@ -7,8 +10,22 @@ CREATE TABLE IF NOT EXISTS user (
     salt VARCHAR(45) NOT NULL unique,
     cookieId VARCHAR(45),
     status VARCHAR(20) not null,
+    isVerified bool not null,
+    isALive bool not null,
+    dateLastUpdate datetime not null,
     constraint status_not_valid
         check(status in ('Administrateur','Client','Caspor')),
+    PRIMARY KEY (id)
+);
+
+Create table if not exists verifKey (
+    id INTEGER not null,
+    keyValue VARCHAR(45) not null unique,
+    dateCreation datetime not null,
+    dateExpiration datetime not null,
+    idUser INTEGER not null,
+    constraint fk_verifKey_user
+        foreign key (idUser) references user(id),
     PRIMARY KEY (id)
 );
 
