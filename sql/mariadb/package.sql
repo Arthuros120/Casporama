@@ -9,9 +9,14 @@ CREATE OR REPLACE PACKAGE sport AS
     procedure getNameSport( nusport integer);
     -- Permet d'avoir l'id du sport en fonction de son nom
     procedure getIdSport( name VARCHAR(20));
+    procedure getAll();
 END;
 
 CREATE OR REPLACE PACKAGE BODY sport AS
+    procedure getAll() as
+    Begin
+        select * from sport;
+    End;
   procedure getNameSport( nusport integer) as
     begin
         select name from sport where sport.nusport = nusport;
@@ -113,9 +118,24 @@ CREATE OR REPLACE PACKAGE user AS
         );
     procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
     procedure countAliveAddressByUserId(searchUserId int);
+    procedure getAllUser();
+    procedure getAllLocation();
+    procedure getAllInformation();
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
+    procedure getAllUser() as
+    Begin
+        select * from user;
+    End;
+    procedure getAllLocation() as
+    Begin
+        select * from location;
+    End;
+    procedure getAllInformation() as
+    Begin
+        select * from information;
+    End;
     procedure getAddresseById(searchId int) as
     Begin
         select name, location, codepostal, city, department, latitude, longitude, isDefault from location where id = searchId;
@@ -428,9 +448,14 @@ CREATE OR REPLACE PACKAGE product AS
     procedure updateImage( nuproduct int,  newimage varchar(255));
     -- Permet de supprimer un product
     procedure delProduct( nuproduct int);
+    procedure getAll();
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
+    procedure getAll() as
+    Begin
+        select * from product;
+    End;
     procedure getProductBySport( sport integer) as
     Begin
         select * from product where nusport = sport;
@@ -515,9 +540,14 @@ CREATE OR REPLACE PACKAGE `order` AS
     procedure updateEtat( nuorder int, newstate varchar(15));
     -- Permet de mettre à jour l'adresse d'une commande
     procedure updateAdresseCommande( nuorder int, newlocation varchar(15));
+    procedure getAll();
 END;
 
 CREATE OR REPLACE PACKAGE BODY `order` AS
+    procedure getAll() as
+    Begin
+        select * from `order`;
+    End;
     procedure getCommande( nuorder int) as
     Begin
         select * from `order` where idorder = nuorder;
@@ -557,9 +587,14 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure delVariante( idvariante int);
     -- Permet de mettre à jour la quantité d'une variante donnée
     procedure updateQuantite( idvariante int,  newquantity int);
+    procedure getAll();
 END;
 
 CREATE OR REPLACE PACKAGE BODY catalog AS
+    procedure getAll() as
+    Begin
+        select * from catalog;
+    End;
     procedure getStock( id integer) as
     begin
         select * from catalog where nuproduct = id;
