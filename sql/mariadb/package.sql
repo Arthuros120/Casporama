@@ -118,14 +118,11 @@ CREATE OR REPLACE PACKAGE user AS
         );
     procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
     procedure countAliveAddressByUserId(searchUserId int);
-<<<<<<< HEAD
     procedure getAllUser();
     procedure getAllLocation();
     procedure getAllInformation();
-=======
     procedure getIsVerifiedById( idSearch VARCHAR(255));
     procedure getIsALiveById( idSearch VARCHAR(255));
->>>>>>> refs/remotes/origin/main
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
