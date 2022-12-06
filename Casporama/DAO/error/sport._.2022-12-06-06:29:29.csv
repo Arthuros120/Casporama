@@ -1,0 +1,6 @@
+SQL error : TypeError: Unsupported operand types: string + string in /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/models/DAO/DAO_CSV.php:59
+Stack trace:
+#0 /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/controllers/Test.php(49): DAO_CSV->addData()
+#1 /home/mrmaxpomme/Domo/equipe1-1/Casporama/system/core/CodeIgniter.php(533): Test->DAO()
+#2 /home/mrmaxpomme/Domo/equipe1-1/Casporama/index.php(320): require_once('...')
+#3 {main}

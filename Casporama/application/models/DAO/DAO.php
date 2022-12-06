@@ -13,7 +13,7 @@ abstract class DAO extends CI_Model {
 
     function getAllData($id,$table) {}
     function getData($id,$table,$filter) {}
-    function addData($file) {}
+    function addData($file, $table) {}
 }
 
 ?>
