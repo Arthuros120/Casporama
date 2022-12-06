@@ -96,6 +96,16 @@ User/registerUserIdentity :
 
     baseView : "templates/base"
 
+User/dead: 
+
+    views :
+        head : "user/dead/head"
+        header : "templates/blank"
+        content : "user/dead/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
 User/home:
 
     views :

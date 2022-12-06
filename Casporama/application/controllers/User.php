@@ -1390,9 +1390,32 @@ class User extends CI_Controller
 
         $id = $this->session->flashdata('id');
 
-        var_dump($id);
+        if (isset($id)) {
 
-        //$this->LoaderView->load('User/dead');
+            $date = $this->UserModel->getDateLastUpdateById($id);
+
+            $dayRemaining = $this->UserModel->getDayRemaining($date);
+
+            $dataContent = array(
+
+                'date' => $date,
+                'dayRemaining' => $dayRemaining
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent,
+
+            );
+
+            $this->LoaderView->load('User/dead', $data);
+
+        } else {
+
+            redirect('User/login');
+
+        }
 
     }
 
