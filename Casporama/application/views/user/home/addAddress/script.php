@@ -8,18 +8,7 @@ crossorigin=""></script>
 <script type="text/javascript" src="<?= base_url('static/js/global/map.js') ?>"></script>
 
 <script type="text/javascript">
-
     var zipDep = -1;
-
-    function resetEvent() {
-
-            document.getElementById('name').innerHTML.value = "";
-            document.getElementById('number').innerHTML.value = "";
-            document.getElementById('street').innerHTML.value = "";
-            document.getElementById('city').innerHTML.value = "";
-            
-
-    }
 
     String.prototype.sansAccent = function() {
         var accent = [
@@ -55,7 +44,7 @@ crossorigin=""></script>
 
                 for (var i = 0; i < countryList.length; i++) {
 
-                    if (countryList[i].toLowerCase() == "<?php echo strtolower($address->getCountry()) ?>") {
+                    if (countryList[i].toLowerCase() == "france") {
 
                         $("select[name='country']").append(
                             "<option value='" + countryList[i] + "' selected>" + countryList[i] + "</option>"
@@ -101,18 +90,9 @@ crossorigin=""></script>
                     let value = numberDep + ";" + dep.sansAccent().replace('-', "+");
                     value = value.replace('\'', "+").replace(/ /g, "+");
 
-                    if (dep.toLowerCase() == "<?php echo strtolower($address->getDepartment()) ?>") {
-
-                        $("select[name='department']").append(
-                            "<option value='" + value + "' selected>" + numberDep + " - " + dep + "</option>"
-                        );
-
-                    } else {
-
-                        $("select[name='department']").append(
+                    $("select[name='department']").append(
                             "<option value='" + value + "'>" + numberDep + " - " + dep + "</option>"
-                        );
-                    }
+                    );
                 }
             },
 
@@ -323,16 +303,7 @@ crossorigin=""></script>
     $(document).ready(function() {
 
         setCountryList();
-        setDepList("<?php echo $address->getCountry() ?>");
-        getZipDep("<?php echo $address->getCodePostal() ?>");
-        setCityName("<?php echo $address->getCodePostal() ?>")
-        getCityDep(zipDep);
-        getPostalCode(zipDep, "<?php echo $address->getCity() ?>")
-        getLatLong(
-            "<?= $address->getAdresse()['number'] ?>",
-            "<?= $address->getAdresse()['street'] ?>",
-            "<?= $address->getCodePostal() ?>"
-            );
+        setDepList("france");
 
     });
 

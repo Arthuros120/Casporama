@@ -30,8 +30,18 @@ class ProductModel extends CI_Model
         $queryIdSport = $this->db->query("Call sport.getIdSport('".$sport."')");
 
         // * On extrait l'id du sport du résultat de la requete
-        $idSport = (int) $queryIdSport->row()->nusport;
 
+        if ($queryIdSport->row() != null) {
+
+            $idSport = (int) $queryIdSport->row()->nusport;
+
+        } else {
+
+            $idSport = -1;
+
+        }
+
+        
         // * On passe l'id du sport en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
         $queryIdSport->next_result();
         $queryIdSport->free_result();
@@ -112,14 +122,14 @@ class ProductModel extends CI_Model
         * Cette fonction permet de récupérer le stock d'un produit
     
     */
-    public function getStock(int $idProduct)
+    public function getStock(int $idProduct) : array
     {
 
         // * Requete SQL pour récupérer le stock du produit
         $queryStock = $this->db->query("Call catalog.getStock(" . $idProduct . ")");
 
         // * On extrait le stock du produit du résultat de la requete
-        $stock = $queryStock->row();
+        $stock = $queryStock->result();
 
         // * On passe le stock du produit en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
         $queryStock->next_result();
@@ -266,7 +276,7 @@ class ProductModel extends CI_Model
                 $newProduct->setImage("");
             }
 
-            //$newProduct->set_Stock($this->getStock($product->idproduit));
+            $newProduct->setStock($this->getStock($product->idproduct));
 
             // * On retourne l'objet
             return $newProduct;

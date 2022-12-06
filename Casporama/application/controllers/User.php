@@ -23,7 +23,7 @@ class User extends CI_Controller
     {
 
         parent::__construct();
-        $this->load->model('CaptchaModel', 'cm');
+        $this->load->model('CaptchaModel');
         $this->load->helper('captcha');
     }
 
@@ -501,7 +501,8 @@ class User extends CI_Controller
             'modifLastName',
             'modifFirstName',
             'modifAddress',
-            'supprAddress'
+            'supprAddress',
+            'addAddress',
         ))) {
 
             // * Si le sport ou la catégorie n'est pas disponible, on affiche une erreur 404.
@@ -535,6 +536,9 @@ class User extends CI_Controller
                     if (isset($listLoc) && !empty($listLoc)) {
 
                         $dataContent['listLoc'] = $listLoc;
+                        $dataContent['nbrAddr'] = $this->LocationModel->countAddressByUserId($user->getId());
+                        $dataContent['nbrAddr'] = $dataContent['nbrAddr'] . "/" . $this->config->item('address_MaxAdd');
+                        $dataContent['addAddIsPos'] = $this->LocationModel->heHaveMaxAddress($user->getId());
 
                         $dataMap = [];
 
@@ -965,29 +969,104 @@ class User extends CI_Controller
 
                                     $depTab = explode(";", $this->input->post('department'));
 
-                                    $dataNewAddress = array (
+                                    $dep = $this->LocationModel->getDepartment($depTab[0]);
 
-                                        'name' => $this->input->post('name'),
-                                        'number' => $this->input->post('number'),
-                                        'street' => $this->input->post('street'),
-                                        'department' => $depTab[1],
-                                        'city' => $this->input->post('city'),
-                                        'country' => $this->input->post('country'),
-                                        'postalCode' => $this->input->post('postalCode'),
-                                        'isDefault' => $this->input->post('default'),
+                                    if ($dep != null) {
 
-                                    );
+                                        if ($this->LocationModel->samePostalCodeByDepartment(
+                                            $depTab[0],
+                                            $this->input->post('postalCode')
+                                            )) {
 
-                                    $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
+                                                $dataNewAddress = array (
 
-                                    $this->LocationModel->updateAddress(
-                                        $newAdresse,
-                                        $address->getId(),
-                                        $user->getId()
-                                    );
+                                                    'name' => $this->input->post('name'),
+                                                    'number' => $this->input->post('number'),
+                                                    'street' => $this->input->post('street'),
+                                                    'department' => $dep,
+                                                    'city' => $this->input->post('city'),
+                                                    'country' => $this->input->post('country'),
+                                                    'postalCode' => $this->input->post('postalCode')
+            
+                                                );
+            
+                                                if ($this->input->post('default') == 'on') {
+            
+                                                    $dataNewAddress['default'] = true;
+                
+                                                }
+            
+                                                $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
 
-                                    redirect("User/home/info");
+                                                if (!$this->LocationModel->sameAddresse($user->getId(), $newAdresse)) {
 
+                                                    $this->LocationModel->updateAddress(
+                                                        $newAdresse,
+                                                        $address->getId(),
+                                                        $user->getId()
+                                                    );
+                
+                                                    redirect("User/home/info");
+
+                                                } else {
+
+                                                    $dataContent['error'] = "Cette addresse est trop similaire a une autre";
+                                                    $dataContent['address'] = $address;
+                                                    $dataScript['address'] = $address;
+
+                                                    $dataHead['nameAddress'] = $address->getName();
+
+                                                    $data = array(
+
+                                                        'head' => $dataHead,
+                                                        'content' => $dataContent,
+                                                        'script' => $dataScript,
+
+                                                    );
+
+                                                    $this->LoaderView->load('User/home/modifAddress', $data);
+                                                    
+                                                    }
+
+                                            } else {
+
+                                                $dataContent['error'] = "Le code postal ne correspond pas au département";
+                                                $dataContent['address'] = $address;
+                                                $dataScript['address'] = $address;
+
+                                                $dataHead['nameAddress'] = $address->getName();
+
+                                                $data = array(
+
+                                                    'head' => $dataHead,
+                                                    'content' => $dataContent,
+                                                    'script' => $dataScript,
+
+                                                );
+
+                                                $this->LoaderView->load('User/home/modifAddress', $data);
+
+                                            }
+
+                                    } else {
+
+                                        $dataContent['error'] = "Le département n'existe pas";
+                                        $dataContent['address'] = $address;
+                                        $dataScript['address'] = $address;
+
+                                        $dataHead['nameAddress'] = $address->getName();
+
+                                        $data = array(
+
+                                            'head' => $dataHead,
+                                            'content' => $dataContent,
+                                            'script' => $dataScript,
+
+                                        );
+
+                                        $this->LoaderView->load('User/home/modifAddress', $data);
+
+                                    }
                                 }
 
                             } else {
@@ -1054,6 +1133,223 @@ class User extends CI_Controller
                             }
 
 
+                        }
+
+                    } elseif ($action == 'addAddress') {
+
+                        if ($this->LocationModel->heHaveMaxAddress($user->getId())) {
+
+                            show_error("Vous avez atteint le nombre maximum d'adresse", 403, "Erreur");
+
+                        }
+
+                        $configRules = array(
+
+                            // * Configuration des paramètre du champlogin
+                            array(
+                                'field' => 'name',
+                                'label' => 'Nom de l\'adresse',
+                                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha_numeric_spaces',
+                                'errors' => array( // * On définit les messages d'erreurs
+                                    'required' => 'Vous avez oublié %s.',
+                                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+'alpha_numeric_spaces' => 'Le %s ne doit contenir que des caractères alphanumeriques et/ou des espaces',
+                                ),
+                            ),
+            
+                            array(
+                                'field' => 'number',
+                                'label' => 'Numéro de voie',
+                                'rules' => 'trim|required|is_natural|min_length[1]|max_length[5]',
+                                'errors' => array( // * On définit les messages d'erreurs
+                                    'required' => 'Vous avez oublié %s.',
+                                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                    "min_length" => "Le %s doit faire au moins 1 caractères",
+                                    "max_length" => "Le %s doit faire au plus 5 caractères",
+                                    'is_natural' => 'Le %s ne doit contenir que des caractères numériques',
+                                ),
+                            ),
+
+                            array(
+
+                                'field' => 'street',
+                                'label' => 'Nom de la voie',
+                                'rules' => 'trim|required|min_length[3]|max_length[250]|alpha_numeric_spaces',
+                                'errors' => array( // * On définit les messages d'erreurs
+                                    'required' => 'Vous avez oublié %s.',
+                                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                                    "max_length" => "Le %s doit faire au plus 250 caractères",
+                                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+'alpha_numeric_spaces' => 'Le %s ne doit contenir que des caractères alphanumeriques et/ou des espaces',
+                                ),
+                            ),
+
+                            array (
+
+                                'field' => 'department',
+                                'label' => 'Département',
+                                "rules" => 'required|callback_InListDepartment',
+                                'errors' => array( // * On définit les messages d'erreurs
+                                    'required' => 'Vous avez oublié %s.',
+                                ),
+                            ),
+
+                            array (
+
+                                'field' => 'city',
+                                'label' => 'Ville',
+                                "rules" => 'trim|required|min_length[3]|max_length[255]',
+                                'errors' => array( // * On définit les messages d'erreurs
+                                    'required' => 'Vous avez oublié %s.',
+                                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                ),
+                            ),
+
+                            array (
+
+                                'field' => 'country',
+                                'label' => 'Pays',
+                                "rules" => 'required|callback_InListCountry',
+                                'errors' => array( // * On définit les messages d'erreurs
+                                    'required' => 'Vous avez oublié %s.',
+                                )
+                            ),
+
+                            array(
+
+                                'field' => 'postalCode',
+                                'label' => 'Code postal',
+                                'rules' => 'trim|required|is_natural|min_length[5]|max_length[5]',
+                                'errors' => array( // * On définit les messages d'erreurs
+                                    'required' => 'Vous avez oublié %s.',
+                                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                                    "min_length" => "Le %s doit faire 5 caractères",
+                                    "max_length" => "Le %s doit faire 5 caractères",
+                                    'is_natural' => 'Le %s ne doit contenir que des caractères numériques',
+                                ),
+                            )
+                        );
+
+                        $this->form_validation->set_rules($configRules);
+
+                        if (!$this->form_validation->run()) {
+
+                            $dataContent['error'] = validation_errors();
+
+                            $data = array(
+
+                                'content' => $dataContent,
+
+                            );
+
+                            $this->LoaderView->load('User/home/addAddress', $data);
+
+                        } else {
+
+                            if (!$this->LocationModel->sameNameByUserId(
+                                $user->getId(),
+                                $this->input->post('name')
+                                )) {
+
+                                $depTab = explode(";", $this->input->post('department'));
+
+                                $dep = $this->LocationModel->getDepartment($depTab[0]);
+
+                                if ($dep != null) {
+
+                                    if ($this->LocationModel->samePostalCodeByDepartment(
+                                        $depTab[0],
+                                        $this->input->post('postalCode')) ||
+                                        (strtolower(
+                                            $this->input->post('country')) != 'france'
+                                        )
+                                        ) {
+
+                                            $dataNewAddress = array (
+
+                                                'name' => $this->input->post('name'),
+                                                'number' => $this->input->post('number'),
+                                                'street' => $this->input->post('street'),
+                                                'department' => $dep,
+                                                'city' => $this->input->post('city'),
+                                                'country' => $this->input->post('country'),
+                                                'postalCode' => $this->input->post('postalCode')
+        
+                                            );
+        
+                                            if ($this->input->post('default') == 'on') {
+        
+                                                $dataNewAddress['default'] = true;
+        
+                                            }
+        
+                                            $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
+
+                                            if (!$this->LocationModel->sameAddresse($user->getId(), $newAdresse)) {
+
+                                                $this->LocationModel->addAddressToUser($newAdresse, $user->getId());
+
+                                                redirect('User/home/info');
+
+                                            } else {
+
+                                                $dataContent['error'] = "L'addresse est trop similaire a une autre";
+
+                                                $data = array(
+
+                                                    'content' => $dataContent,
+    
+                                                );
+    
+                                                $this->LoaderView->load('User/home/addAddress', $data);
+
+                                            }
+
+                                    } else {
+
+                                        $dataContent['error'] = "Le code postal ne correspond pas au département";
+
+                                        $data = array(
+
+                                            'content' => $dataContent,
+    
+                                        );
+    
+                                        $this->LoaderView->load('User/home/addAddress', $data);
+
+                                    }
+
+                                } else {
+
+                                    $dataContent['error'] = "Le département n'existe pas";
+
+                                    $data = array(
+
+                                        'content' => $dataContent,
+
+                                    );
+
+                                    $this->LoaderView->load('User/home/addAddress', $data);
+
+                                }
+
+                            } else {
+
+                                $dataContent['error'] = "Vous avez déjà une adresse avec ce nom";
+
+                                $data = array(
+
+                                    'content' => $dataContent,
+
+                                );
+
+                                $this->LoaderView->load('User/home/addAddress', $data);
+
+                            }
                         }
                     }
 

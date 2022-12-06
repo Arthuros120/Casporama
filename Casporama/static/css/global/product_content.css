@@ -159,6 +159,7 @@
     background-color: var(--color2);
 }
 
+
 .description {
     display: flex;
     flex-direction: column;
@@ -176,7 +177,7 @@
     gap: 1vh;
 }
 
-.price > a {
+.form > button {
     display: flex;
     justify-content: center;
 

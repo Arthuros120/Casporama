@@ -628,3 +628,14 @@ $config['captcha_font_size'] = 100;
 $config['captcha_expire'] = 180;
 $config['captcha_grid'] = false;
 $config['captcha_case_sensitive'] = true;
+
+/*
+|--------------------------------------------------------------------------
+| Global Site
+|--------------------------------------------------------------------------
+|
+| site settings
+|
+*/
+
+$config['address_MaxAdd'] = 6;
