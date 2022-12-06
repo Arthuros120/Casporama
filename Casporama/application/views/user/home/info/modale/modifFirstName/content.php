@@ -15,7 +15,7 @@
             <input class="modal_input" type="text" id="newFirstName" placeholder="Nouveau prénom" required />
             <div class="modal_form_btn">
                 <input class="modal_input" type="submit" value="Valider"/>
-                <a class="close-button modal_input" href="<?= base_url('User/home/info'); ?>"><p>Annuler</p></a>
+                <a class="close-button modal_input" href="javascript:history.back()"><p>Annuler</p></a>
             </div>
         </form>
     </div>

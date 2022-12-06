@@ -80,7 +80,7 @@ class LocationModel extends CI_Model
 
         $this->load->helper('date');
 
-        if (strtolower($this->input->post('country')) != 'france') {
+        if (strtolower($newAddresse->getCountry()) == 'france') {
 
             $arrayCoord = $this->searchLatLong(
                 $newAddresse->getAdresse(),
@@ -135,10 +135,25 @@ class LocationModel extends CI_Model
 
         $this->load->helper('date');
 
-        $arrayCoord = $this->searchLatLong(
-            $newAddresse->getAdresse(),
-            $newAddresse->getCodePostal()
-        );
+         if (strtolower($newAddresse->getCountry()) == 'france') {
+
+            $arrayCoord = $this->searchLatLong(
+                $newAddresse->getAdresse(),
+                $newAddresse->getCodePostal()
+            );
+
+        } else {
+
+            $arrayCoord = null;
+
+        }
+
+        if ($arrayCoord == null) {
+
+            $arrayCoord['latitude'] = null;
+            $arrayCoord['longitude'] = null;
+
+        }
 
         $datestring = 'Y-m-d h:i:s';
         $time = time();
@@ -632,13 +647,41 @@ class LocationModel extends CI_Model
         $query->next_result();
         $query->free_result();
 
-        if ($result <= 1) {
+        if ($result == 0) {
 
             return false;
 
         }
 
         return true;
+
+    }
+
+    public function countAddressByUserId(int $id) : int
+    {
+
+        $query = $this->db->query("call user.countAliveAddressByUserId('" . $id . "')");
+        
+        $result = (int) $query->row()->total;
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        return $result;
+
+    }
+
+    public function heHaveMaxAddress(int $id) : bool
+    {
+
+        if ($this->countAddressByUserId($id) >=$this->config->item('address_MaxAdd')) {
+
+            return true;
+
+        }
+
+        return false;
 
     }
 

@@ -118,9 +118,14 @@ CREATE OR REPLACE PACKAGE user AS
         );
     procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
     procedure countAliveAddressByUserId(searchUserId int);
+<<<<<<< HEAD
     procedure getAllUser();
     procedure getAllLocation();
     procedure getAllInformation();
+=======
+    procedure getIsVerifiedById( idSearch VARCHAR(255));
+    procedure getIsALiveById( idSearch VARCHAR(255));
+>>>>>>> refs/remotes/origin/main
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -217,7 +222,7 @@ CREATE OR REPLACE PACKAGE BODY user AS
 
     procedure getUserById( idSearch VARCHAR(255)) as
     begin
-        select id, login ,cookieId, status from user where id = idSearch;
+        select id, login ,cookieId, status, isVerified, isALive from user where id = idSearch;
     end;
 
     procedure getUserByEmail( mailSearch VARCHAR(255)) as
@@ -415,6 +420,16 @@ CREATE OR REPLACE PACKAGE BODY user AS
     procedure countAliveAddressByUserId(searchUserId int) as
     begin
         select count(*) as total from location where id = searchUserId and isALive=true;
+    end;
+
+    procedure getIsVerifiedById( idSearch VARCHAR(255)) as
+    begin
+        select isVerified from user where id = idSearch;
+    end;
+
+    procedure getIsALiveById( idSearch VARCHAR(255)) as
+    begin
+        select isALive from user where id = idSearch;
     end;
 
 end;

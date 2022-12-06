@@ -8,7 +8,18 @@ crossorigin=""></script>
 <script type="text/javascript" src="<?= base_url('static/js/global/map.js') ?>"></script>
 
 <script type="text/javascript">
+
     var zipDep = -1;
+
+    function resetEvent() {
+
+            document.getElementById('name').innerHTML.value = "";
+            document.getElementById('number').innerHTML.value = "";
+            document.getElementById('street').innerHTML.value = "";
+            document.getElementById('city').innerHTML.value = "";
+            
+
+    }
 
     String.prototype.sansAccent = function() {
         var accent = [
@@ -302,8 +313,8 @@ crossorigin=""></script>
 
             error: function(data) {
 
-                divMap.innerHTML = "<div class='map_error'><img src='<?= base_url() ?>"
-                divMap.innerHTML += "static/image/icon/data_error.svg'><h3>Localisation non trouvée</h3></div>";
+                divMap.innerHTML = "<div class='map_error'><img src='<?= base_url() ?>" +
+                "static/image/icon/data_error.svg'><h3>Localisation non trouvée</h3></div>";
 
             }
         });

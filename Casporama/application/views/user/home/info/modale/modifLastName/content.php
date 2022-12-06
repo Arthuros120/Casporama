@@ -2,7 +2,7 @@
 
 <div class="modal_modif_content">
     <div class="modal_title">
-        <h1>Changement du nom de famillem</h1>
+        <h1>Changement du nom de famille</h1>
     </div>
     <div class="modal_form_content">
 
@@ -15,7 +15,7 @@
             <input class="modal_input" type="text" id="newLastName" placeholder="Nouveau nom de famille" required />
             <div class="modal_form_btn">
                 <input class="modal_input" type="submit" value="Valider"/>
-                <a class="close-button modal_input" href="<?= base_url('User/home/info'); ?>"><p>Annuler</p></a>
+                <a class="close-button modal_input" href="javascript:history.back()"><p>Annuler</p></a>
             </div>
         </form>
     </div>

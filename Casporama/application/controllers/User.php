@@ -126,6 +126,8 @@ class User extends CI_Controller
 
                     // * On récupere le status de l'utilisateur
                     $user->setStatus($this->UserModel->getStatusById($user->getId()));
+                    $user->setIsVerified($this->UserModel->getIsVerifiedById($user->getId()));
+                    $user->setIsALive($this->UserModel->getIsALiveById($user->getId()));
 
                     // * On supprime si il existe le cookie de l'utilisateur
                     $this->UserModel->unsetUserCookie($user);
@@ -138,6 +140,22 @@ class User extends CI_Controller
 
                         // * On crée un cookie pour l'utilisateur contenant ces informations de connexion et son status
                         $this->UserModel->setUserCookie($user);
+                    }
+
+                    if (!$user->getIsALive()) {
+
+                        $this->session->set_flashdata('id', $user->getId());
+
+                        redirect("User/dead");
+
+                    }
+
+                    if (!$user->getIsVerified()) {
+
+                        $this->session->set_flashdata('id', $user->getId());
+
+                        redirect("User/verify");
+
                     }
 
                     // * On crée une session pour l'utilisateur contenant
@@ -153,6 +171,7 @@ class User extends CI_Controller
 
                     // * On charge la page de validation de la connexion
                     $this->LoaderView->load('User/login/success', $data);
+
                 } else {
 
                     // * On stocke les erreurs dans une variable
@@ -536,6 +555,9 @@ class User extends CI_Controller
                     if (isset($listLoc) && !empty($listLoc)) {
 
                         $dataContent['listLoc'] = $listLoc;
+                        $dataContent['nbrAddr'] = $this->LocationModel->countAddressByUserId($user->getId());
+                        $dataContent['nbrAddr'] = $dataContent['nbrAddr'] . "/" . $this->config->item('address_MaxAdd');
+                        $dataContent['addAddIsPos'] = $this->LocationModel->heHaveMaxAddress($user->getId());
 
                         $dataMap = [];
 
@@ -1134,6 +1156,12 @@ class User extends CI_Controller
 
                     } elseif ($action == 'addAddress') {
 
+                        if ($this->LocationModel->heHaveMaxAddress($user->getId())) {
+
+                            show_error("Vous avez atteint le nombre maximum d'adresse", 403, "Erreur");
+
+                        }
+
                         $configRules = array(
 
                             // * Configuration des paramètre du champlogin
@@ -1355,6 +1383,17 @@ class User extends CI_Controller
 
             }
         }
+    }
+
+    public function dead()
+    {
+
+        $id = $this->session->flashdata('id');
+
+        var_dump($id);
+
+        //$this->LoaderView->load('User/dead');
+
     }
 
     // --------------------------------------------------------------------
