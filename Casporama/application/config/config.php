@@ -639,3 +639,4 @@ $config['captcha_case_sensitive'] = true;
 */
 
 $config['address_MaxAdd'] = 6;
+$config['nbrDaysRemaining'] = 30;

@@ -123,6 +123,7 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getAllInformation();
     procedure getIsVerifiedById( idSearch VARCHAR(255));
     procedure getIsALiveById( idSearch VARCHAR(255));
+    procedure getDateLastUpdateById( idSearch VARCHAR(255));
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -427,6 +428,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
     procedure getIsALiveById( idSearch VARCHAR(255)) as
     begin
         select isALive from user where id = idSearch;
+    end;
+
+    procedure getDateLastUpdateById( idSearch VARCHAR(255)) as
+    begin
+        select dateLastUpdate from user where id = idSearch;
     end;
 
 end;

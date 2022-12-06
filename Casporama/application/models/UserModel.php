@@ -465,6 +465,35 @@ class UserModel extends CI_Model
     }
 
     /*
+
+        * getDateLastUpdateById
+
+        * Cette méthode permet de récupérer la date de la dernière mise à jour de l'utilisateur
+
+        @param: $id
+        @return: ?string
+
+    */
+    public function getDateLastUpdateById(int $id): ?string
+    {
+
+        $query = $this->db->query("Call user.getDateLastUpdateById('" . $id . "')");
+
+        $dateLastUpdate = $query->row()->dateLastUpdate;
+
+        $query->next_result();
+        $query->free_result();
+
+        if (isset($dateLastUpdate)) {
+
+            return $dateLastUpdate;
+        }
+
+        return null;
+
+    }
+
+    /*
     
         * password_check
     
@@ -921,4 +950,20 @@ class UserModel extends CI_Model
             'salt' => $salt,
         );
     }
+
+    public function getDayRemaining(string $date)
+    {
+
+        $date = new DateTime($date);
+
+        $date = $date->add(new DateInterval('P' . $this->config->item('nbrDaysRemaining') .  'D'));
+
+        $now = new DateTime();
+
+        $interval = $date->diff($now);
+
+        return $interval->format('%a Jours et %h:%i:%s');
+
+    }
+
 }
