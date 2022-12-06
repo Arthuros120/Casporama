@@ -226,6 +226,19 @@ User/home/supprAddress:
         modaleScript: "user/home/info/modale/supprAddress/script"
 
     baseView : "user/home/info/modale/global/base"
+
+User/home/supprUser:
+
+    views :
+        head : "user/home/info/head"
+        modaleHead : "user/home/info/modale/global/head"
+        modaleContent : "user/home/info/modale/supprUser/content"
+        content : "user/home/info/content"
+        script : "user/home/info/script"
+        modaleScript: "user/home/info/modale/supprUser/script"
+
+    baseView : "user/home/info/modale/global/base"
+
 #---------------------------------Test View---------------------------------#
 
 Test/map :
