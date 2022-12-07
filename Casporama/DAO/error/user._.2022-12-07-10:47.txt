@@ -1,0 +1,1 @@
+DataBase Error : 4025 CONSTRAINT `status_not_valid` failed for `CasporamaDEV`.`user` 

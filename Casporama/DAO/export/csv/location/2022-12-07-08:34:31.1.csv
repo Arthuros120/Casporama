@@ -1,0 +1,6 @@
+idlocation,id,name,location,codepostal,city,department,country,latitude,longitude,isDefault,isALive,dateLastUpdate
+1,6,domicile,"12;av du 35 juillet",44000,Nantes,Loire-Atlantique,France,,,1,1,"2022-11-21 20:05:37"
+2,7,domicile,"12;av du 35 juillet",44000,Nantes,Loire-Atlantique,France,,,1,1,"2022-11-21 20:05:37"
+3,2,local,"22;Rue des bergeronnettes",44210,Pornic,Loire-Atlantique,France,,,1,1,"2022-11-21 20:05:37"
+4,2,domicile,"190;Boulevard Jules Vernes",44300,Nantes,Loire-Atlantique,France,47.246678,-1.523291,0,1,"2022-11-21 20:05:37"
+5,2,Apartement,"4;Avenue Michel Ange",44300,Nantes,Loire-Atlantique,France,,,0,0,"2022-11-21 20:05:37"
