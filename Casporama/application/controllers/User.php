@@ -1447,6 +1447,37 @@ class User extends CI_Controller
 
             $dayRemaining = $this->UserModel->getDayRemaining($date);
 
+            $date = strtotime($date);
+            
+            $date = date('Y-m-d', $date);
+
+            $date = explode("-", $date);
+            
+            $month = array (
+
+                1 => "Janvier",
+                2 => "Février",
+                3 => "Mars",
+                4 => "Avril",
+                5 => "Mai",
+                6 => "Juin",
+                7 => "Juillet",
+                8 => "Août",
+                9 => "Septembre",
+                10 => "Octobre",
+                11 => "Novembre",
+                12 => "Décembre"
+
+            );
+
+            $date = array(
+
+                'day' => $date[2],
+                'month' => $month[$date[1]],
+                'year' => $date[0]
+
+            );
+
             $dataContent = array(
 
                 'date' => $date,

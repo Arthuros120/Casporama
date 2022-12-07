@@ -28,7 +28,24 @@ class Test extends CI_Controller
     public function email()
     {
 
-        echo "email";
+        $this->load->library('email');
+
+        $this->email->from('no_reply@casporama.live', 'Casporama');
+        $this->email->to('arthuros222@gmail.com');
+
+        $data = array(
+            'title' => 'Test',
+            'message' => 'Test'
+        );
+
+        $this->email->subject('Email Test');
+        $this->email->message($this->load->view('email/verifMail', $data, true));
+
+        $this->email->send();
+
+        echo $this->email->print_debugger();
+
+        $this->load->view('email/verifMail', $data);
 
     }
 
