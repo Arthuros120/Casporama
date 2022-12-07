@@ -23,9 +23,25 @@ h2 {
     height: 10%;
 
     display: flex;
+
+    gap: 5vh;
     align-items: center;
+}
 
+.user_info_logo > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.user_info_logo > a > .img_arrow {
+    transform: rotate(180deg);
+    width: 80%;
+    margin-bottom: 10px;
+}
+
+.img_info_logo > .img_logo {
+    padding-left: 2vh;
 }
 
 .user_info_info {

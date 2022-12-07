@@ -2,10 +2,10 @@
 
 <div class="user_info_content">
     <div class="user_info_logo">
-        <a href="javascript:history.back()">
-            <img alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow_white.svg">
+        <a href="<?= base_url("User/home") ?>">
+            <img class="img_arrow" alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow.svg">
         </a>
-        <a href="<?= base_url() ?>">
+        <a class="img_logo" href="<?= base_url() ?>">
             <img src="<?= base_url() . "static/image/icon/casporama.svg" ?>" alt="Casporama" />
         </a>
     </div>

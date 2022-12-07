@@ -68,7 +68,7 @@ $autoload['packages'] = array();
     *   J'ajoute la librairie 'encryption' pour pouvoir crypter des données
 
 */
-$autoload['libraries'] = array('database', 'session', 'form_validation', 'encryption', 'email', 'upload');
+$autoload['libraries'] = array('database', 'session', 'form_validation', 'encryption', 'upload');
 
 /*
 | -------------------------------------------------------------------
@@ -110,7 +110,7 @@ $autoload['drivers'] = array();
 
 */
 
-$autoload['helper'] = array('url', 'form', 'cookie', 'file', 'html');
+$autoload['helper'] = array('url', 'form', 'cookie', 'file', 'html', 'date');
 
 /*
 | -------------------------------------------------------------------

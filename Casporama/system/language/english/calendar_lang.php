@@ -36,7 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') || exit('No direct script access allowed');
 
 $lang['cal_su'] = 'Su';
 $lang['cal_mo'] = 'Mo';
@@ -82,4 +82,4 @@ $lang['cal_august'] = 'August';
 $lang['cal_september'] = 'September';
 $lang['cal_october'] = 'October';
 $lang['cal_november'] = 'November';
-$lang['cal_december'] = 'December';
+$lang['cal_december'] = 'Decembre';

@@ -349,7 +349,10 @@ class User extends CI_Controller
             }
 
             // * On stocke les erreurs dans une variable
-            $dataContent['error'] = validation_errors();
+
+            $error_array = explode("\n",validation_errors());
+
+            $dataContent['error'] = array_slice($error_array,0,-1);
 
             // * On etiquette les données
             $data = array(
@@ -452,7 +455,10 @@ class User extends CI_Controller
                 $this->session->set_flashdata('password', $strPassword);
 
                 // * On stocke les erreurs dans une variable
-                $dataContent['error'] = validation_errors();
+
+                $error_array = explode("\n",validation_errors());
+
+                $dataContent['error'] = array_slice($error_array,0,-1);
 
                 // * On etiquette les données
                 $data = array(
@@ -1447,6 +1453,37 @@ class User extends CI_Controller
 
             $dayRemaining = $this->UserModel->getDayRemaining($date);
 
+            $date = strtotime($date);
+            
+            $date = date('Y-m-d', $date);
+
+            $date = explode("-", $date);
+            
+            $month = array (
+
+                1 => "Janvier",
+                2 => "Février",
+                3 => "Mars",
+                4 => "Avril",
+                5 => "Mai",
+                6 => "Juin",
+                7 => "Juillet",
+                8 => "Août",
+                9 => "Septembre",
+                10 => "Octobre",
+                11 => "Novembre",
+                12 => "Décembre"
+
+            );
+
+            $date = array(
+
+                'day' => $date[2],
+                'month' => $month[$date[1]],
+                'year' => $date[0]
+
+            );
+
             $dataContent = array(
 
                 'date' => $date,
@@ -1478,6 +1515,8 @@ class User extends CI_Controller
 
         if (isset($id)) {
 
+            $this->session->set_flashdata('id', $id);
+
             $user = $this->UserModel->getUserById($id);
 
             $dataContent = array(
@@ -1494,7 +1533,7 @@ class User extends CI_Controller
 
             $this->LoaderView->load('User/verify/errNotVerif', $data);
 
-        } elseif (!empty($getData) && isset($getData['key'])) {
+        } elseif (!empty($getData) && isset($getData['id'])) {
 
             var_dump($getData);
 
@@ -1506,6 +1545,40 @@ class User extends CI_Controller
 
         }
 
+    }
+
+    public function sendVerify()
+    {
+
+        $id = $this->session->flashdata('id');
+
+        if (isset($id)) {
+
+            $this->session->set_flashdata('id', $id);
+
+            $user = $this->UserModel->getUserById($id);
+
+            $this->VerifModel->sendVerifCode($id);
+
+            $dataContent = array(
+
+                'user' => $user
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->load->view('User/verify/sendVerify', $data);
+
+        } else {
+
+            show_404();
+
+        }
     }
 
     // --------------------------------------------------------------------
@@ -1731,10 +1804,7 @@ class User extends CI_Controller
 
             // * On retourne une erreur
             $this->form_validation->set_message(
-                'ComformPassword',
-                'Le mot de passe n\'est pas valide !
-                Il doit contenir au moins une lettre minuscule,
-                une lettre majuscule, un chiffre et un caractère spécial'
+                'ComformPassword','Le mot de passe n\'est pas valide ! Il doit contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial'
             );
 
             return false;

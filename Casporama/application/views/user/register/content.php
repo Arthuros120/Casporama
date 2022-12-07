@@ -37,14 +37,25 @@
 
     </div>
 
+    <div class="register_error_content" 
+        <?php
+            if ($error == null) {
+                echo "hidden";
+            }?>>
+        <?php foreach ($error as $msg_error) { ?>
+            <div class="register_error">
+                <div class="img_error">
+                    <img src="<?= base_url() . "static/image/icon/error_white.svg"?>">
+                </div>
+                <div class="msg_error">
+                    <h3><?= $msg_error ?></h3>
+                </div>
+            </div>
+        <?php }?>
+    </div>
+
 </div>
 
-<div class="error" 
-    <?php
-        if ($error == null) {
-            echo "hidden";
-        }?>>
-    <?= $error ?>
-</div>
+
 
 <!-- user/register/Content -->
