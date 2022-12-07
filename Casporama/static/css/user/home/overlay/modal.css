@@ -59,6 +59,10 @@
   font-size: 0.8em;
 }
 
+.modal_actual_name > p > span {
+  font-weight: 600;
+}
+
 .actual_name {
   font-weight: 600;
 }

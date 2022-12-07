@@ -1,21 +1,24 @@
 <!-- user/home/modale/supprAddress/content -->
 
-<h1>Suppresion de l'addresse: <?= $address->getName()  ?></h1>
+<div class="modal_modif_content">
+    <div class="modal_title">
+        <h1>Suppresion de l'adresse: <?= $address->getName()  ?></h1>
+    </div>
+    <div class="modal_form_content">
 
-<h2>Veuillez entrer le nom de l'addresse pour supprimé celle ci</h2>
+        <div class="modal_actual_name">
+            <p>Nom de l'adresse actuel:</p>
+            <p class="actual_name"><?= $address->getName() ?></p>
+        </div>
 
-<p>Nom de l'addresse actuel: <?= $address->getName() ?></p>
-
-<form id="supprAddress" accept-charset="utf-8">
-
-    <input type="text" id="sameName" placeholder="Nom de l'addresse" required />
-
-    <button type="submit">Valider</button>
-
-    <a class="close-button" href="javascript:history.back()">
-        <p>Annuler</p>
-    </a>
-
-</form>
+        <form class="modal_form" id="supprAddress" accept-charset="utf-8">
+            <input class="modal_input" type="text" id="sameName" placeholder="Veuillez valider avec le nom de l'adresse" required />
+            <div class="modal_form_btn">
+                <input class="modal_input" type="submit" value="Valider"/>
+                <a class="close-button modal_input" href="<?= base_url('User/home/info'); ?>"><p>Annuler</p></a>
+            </div>
+        </form>
+    </div>
+</div>
 
 <!-- user/home/modale/supprAddress/content -->

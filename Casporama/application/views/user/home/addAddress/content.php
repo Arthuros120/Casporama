@@ -26,16 +26,6 @@
             </div>
 
             <div class="modif_adress_adress">
-                <div class="modif_addres_adress_name">
-                    <h3>Adresse:</h3>
-                    <input
-                    class="modif_adress_input"
-                    type="text"
-                    id="street"
-                    name="street"
-                    placeholder="Nom de la voie"
-                    required>
-                </div>
                 <div class="modif_adress_num">
                     <h3>Numéro:</h3>
                     <input
@@ -44,6 +34,16 @@
                     id="number"
                     name="number"
                     placeholder="numéro de voie"
+                    required>
+                </div>
+                <div class="modif_addres_adress_name">
+                    <h3>Adresse:</h3>
+                    <input
+                    class="modif_adress_input"
+                    type="text"
+                    id="street"
+                    name="street"
+                    placeholder="Nom de la voie"
                     required>
                 </div>
                 
