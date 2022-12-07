@@ -2,10 +2,10 @@
 
 $config = array(
     'protocol' => 'smtp',
-    'smtp_host' => 'ssl://smtp.googlemail.com',
-    'smtp_port' => 465,
-    'smtp_user' => 'livecasporama@gmail.com',
-    'smtp_pass' => 'iaqesisgyoepvrrq',
+    'smtp_host' => getenv("EmailHost"),
+    'smtp_port' => getenv("EmailPort"),
+    'smtp_user' => getenv("EmailUser"),
+    'smtp_pass' => getenv("EmailPass"),
     'mailtype'  => 'html',
     'charset'   => 'utf-8',
     'newline'   => "\r\n"

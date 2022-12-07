@@ -1509,6 +1509,8 @@ class User extends CI_Controller
 
         if (isset($id)) {
 
+            $this->session->set_flashdata('id', $id);
+
             $user = $this->UserModel->getUserById($id);
 
             $dataContent = array(
@@ -1525,7 +1527,7 @@ class User extends CI_Controller
 
             $this->LoaderView->load('User/verify/errNotVerif', $data);
 
-        } elseif (!empty($getData) && isset($getData['key'])) {
+        } elseif (!empty($getData) && isset($getData['id'])) {
 
             var_dump($getData);
 
@@ -1537,6 +1539,40 @@ class User extends CI_Controller
 
         }
 
+    }
+
+    public function sendVerify()
+    {
+
+        $id = $this->session->flashdata('id');
+
+        if (isset($id)) {
+
+            $this->session->set_flashdata('id', $id);
+
+            $user = $this->UserModel->getUserById($id);
+
+            $this->VerifModel->sendVerifCode($id);
+
+            $dataContent = array(
+
+                'user' => $user
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->load->view('User/verify/sendVerify', $data);
+
+        } else {
+
+            show_404();
+
+        }
     }
 
     // --------------------------------------------------------------------

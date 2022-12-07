@@ -976,5 +976,4 @@ class UserModel extends CI_Model
         $this->db->query("Call user.userIsDead('" . $id . "', '" . $dateLastUpdate . "')");
 
     }
-
 }
