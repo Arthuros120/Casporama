@@ -249,6 +249,16 @@ User/verify/errNotVerif :
 
     baseView : "templates/base"
 
+User/verify/sendVerify :
+
+    views :
+        head:  "templates/blank"
+        header : "templates/blank"
+        content : "user/verify/sendVerify/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
 #---------------------------------Test View---------------------------------#
 
 Test/map :

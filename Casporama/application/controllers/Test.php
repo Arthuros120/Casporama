@@ -28,7 +28,24 @@ class Test extends CI_Controller
     public function email()
     {
 
-        echo "email";
+        $this->load->library('email');
+
+        $this->email->from('no_reply@casporama.live', 'Casporama');
+        $this->email->to('arthuros222@gmail.com');
+
+        $data = array(
+            'title' => 'Test',
+            'message' => 'Test'
+        );
+
+        $this->email->subject('Email Test');
+        $this->email->message($this->load->view('email/verifMail', $data, true));
+
+        $this->email->send();
+
+        echo $this->email->print_debugger();
+
+        $this->load->view('email/verifMail', $data);
 
     }
 
@@ -46,15 +63,14 @@ class Test extends CI_Controller
 
     }
 
-    public function DAO()
-    {
-        $this->load->model('DAO/DAO_CSV');
+    public function DAO() {
+        $this->load->model('DAO/DAO_JSON');
 
-        $test = new DAO_CSV;
+        $test = new DAO_JSON;
 
         // $test->getAllData(1,'location');
 
-        // $test->addData('./DAO/import/test.csv','sport');
+        $test->addData('./DAO/import/test.json','user');
     }
 
     public function map()

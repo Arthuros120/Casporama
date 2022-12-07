@@ -23,7 +23,6 @@
 </div>
 
 
-// TODO: mettre le lien du resend de mail
-<p> <a href="<?php echo site_url(''); ?>"> Renvoyer l'email de confirmation </a> </p>
+<p> <a href="<?php echo site_url('User/sendVerify'); ?>"> Renvoyer l'email de confirmation </a> </p>
 
 <!-- user/verify/errNotVerif/conntent -->
