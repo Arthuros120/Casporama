@@ -965,5 +965,13 @@ class UserModel extends CI_Model
         return $interval->format('%a Jours et %h:%i:%s');
 
     }
+    
+    public function deleteUser(int $id)
+    {
+        $dateLastUpdate = date('Y-m-d h:i:s', time());
+
+        $this->db->query("Call user.userIsDead('" . $id . "', '" . $dateLastUpdate . "')");
+
+    }
 
 }
