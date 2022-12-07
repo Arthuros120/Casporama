@@ -965,7 +965,7 @@ class UserModel extends CI_Model
 
         $interval = $date->diff($now);
 
-        return $interval->format('%a Jours et %h:%i:%s');
+        return $interval->format('%a,%h,%i,%s');
 
     }
     
