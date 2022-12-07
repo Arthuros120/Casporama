@@ -242,7 +242,7 @@ User/home/supprUser:
 User/verify/errNotVerif :
 
     views :
-        head:  "templates/blank"
+        head:  "user/verify/errNotVerif/head"
         header : "templates/blank"
         content : "user/verify/errNotVerif/content"
         footer : "templates/blank"

@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: var(--main-font);
+
+}
+
+.dead_account_content {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10vh;
+    
+}
+
+.dead_title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+.dead_title > p {
+    font-size: 1vw;
+}
+
+.dead_title_main {
+    display: flex;
+    flex-direction: row;
+    gap: 1vh;
+
+    font-size: 2.3vw;
+}
+
+.dead_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.green {
+    color: #399B39;
+}
+
+.blue {
+    color: #3284E4;
+}
+
+.yellow {
+    color: #E0C323;
+}
+
+.red {
+    color: #E94138;
+}

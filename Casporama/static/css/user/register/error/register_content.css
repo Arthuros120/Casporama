@@ -11,6 +11,7 @@
     height: 100vh;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -122,4 +123,43 @@
     color: white;
     font-weight: 600;
     font-size: 1vw;
+}
+
+.register_error_content {
+
+    width: 40%;
+    margin-top: 2vh;
+    background-color: red;
+    color: white;
+
+    padding: 2vh;
+    border-radius: 24px;
+}
+
+.register_error {
+    display: grid;
+    grid-template-columns: 10% 90%;
+
+}
+
+.img_error {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.img_error > img {
+    width: 50%;
+    height: auto;
+}
+
+.msg_error {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.msg_error > h3 {
+    padding-left: 1vh;
+    font-size: 0.8vw;
 }
