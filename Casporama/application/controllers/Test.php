@@ -39,6 +39,16 @@ class Test extends CI_Controller
 
     }
 
+    public function DAO() {
+        $this->load->model('DAO/DAO_CSV');
+
+        $test = new DAO_CSV;
+
+        // $test->getAllData(1,'location');
+
+        // $test->addData('./DAO/import/test.csv','sport');
+    }
+
     public function map()
     {
 

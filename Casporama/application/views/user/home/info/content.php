@@ -170,6 +170,7 @@
     </div>
 </div>
 
+<a href="<?= base_url("User/home/supprUser") ?>">Supprimer l'utilisateur</a>
 
 
 

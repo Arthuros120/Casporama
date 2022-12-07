@@ -1,14 +1,14 @@
-use Casporama;
+use CasporamaDEV;
 
-insert into user (id, login, password, salt, status)
+insert into user (id, login, password, salt, status, isVerified, isALive, dateLastUpdate)
 values
-    (1,'root','$2y$10$MCDgDzmwpaP.JVNIU5zZluM2fgms.ev5i2cOVK5EmEwbcQhamHMYy','117503329635307be4a2976.09876691','Administrateur'), -- CA$torama2022A
-    (2,'arthur','$2y$10$2A4swofgoN/cg8bZYMk9fe6rvys6To1fIDJQiMBeGuusRPYsvPaIK','561630926353082e643284.05064160','Administrateur'), -- arthur123
-    (3,'maximef','$2y$10$0hr30fUMXc3JvBdBPg2c7O0usKf4Kz5szidUmVpAqNdzK1fvKfjmC','16911063756353084b2bba54.99559659','Administrateur'), -- maxime123
-    (4,'maximes','$2y$10$CpJ8tVdCdgY7c0npGR6NzeV6wAVQSdXfCWl8OlMgbShPv.Wdh8X2W','132452177363530853c62e81.40022211','Administrateur'), -- maxime123
-    (5,'titouan','$2y$10$sInu14PLYWwRQ0Mmo/31EuPoF6gy1zmJueU6F9Pmc8Ops42gDDG..','1184225843635308612f6222.30318460','Administrateur'), -- titouan123
-    (6,'michel','$2y$10$Po1OOq1FZmxVV9v4mMFWwOR4ZbDtKQaZGFZ/ttEJhwSMfjfjU.yj.','1878903195635308709421d5.58691612','Client'), -- client1234
-    (7,'michelle','$2y$10$bGRZi8h7Yvef/iQ0GcWBwed38pAA6iK0Ss6US/bpVVI0OkNjyvdIK','4849665063530884cfa935.33716248','Caspor'); -- client1234
+    (1,'root','$2y$10$MCDgDzmwpaP.JVNIU5zZluM2fgms.ev5i2cOVK5EmEwbcQhamHMYy','117503329635307be4a2976.09876691','Administrateur', true, true, '2022-12-06 14:59:37'), -- CA$torama2022A
+    (2,'arthur','$2y$10$2A4swofgoN/cg8bZYMk9fe6rvys6To1fIDJQiMBeGuusRPYsvPaIK','561630926353082e643284.05064160','Administrateur', true, true, '2022-12-06 14:59:37'), -- arthur123
+    (3,'maximef','$2y$10$0hr30fUMXc3JvBdBPg2c7O0usKf4Kz5szidUmVpAqNdzK1fvKfjmC','16911063756353084b2bba54.99559659','Administrateur', true, true, '2022-12-06 14:59:37'), -- maxime123
+    (4,'maximes','$2y$10$CpJ8tVdCdgY7c0npGR6NzeV6wAVQSdXfCWl8OlMgbShPv.Wdh8X2W','132452177363530853c62e81.40022211','Administrateur', true, true, '2022-12-06 14:59:37'), -- maxime123
+    (5,'titouan','$2y$10$sInu14PLYWwRQ0Mmo/31EuPoF6gy1zmJueU6F9Pmc8Ops42gDDG..','1184225843635308612f6222.30318460','Administrateur', true, true, '2022-12-06 14:59:37'), -- titouan123
+    (6,'michel','$2y$10$Po1OOq1FZmxVV9v4mMFWwOR4ZbDtKQaZGFZ/ttEJhwSMfjfjU.yj.','1878903195635308709421d5.58691612','Client', true, true, '2022-12-06 14:59:37'), -- client1234
+    (7,'michelle','$2y$10$bGRZi8h7Yvef/iQ0GcWBwed38pAA6iK0Ss6US/bpVVI0OkNjyvdIK','4849665063530884cfa935.33716248','Caspor', true, true, '2022-12-06 14:59:37'); -- client1234
 
 insert into information (id, firstname, name, mail, mobile, fix)
 values
@@ -96,6 +96,3 @@ values
 insert into `order` (idorder,dateorder, idproduct, quantity, iduser,idlocation , state)
 values
     (1,'2022-10-10', '1', 1 ,6,1,'En preparation');
-
-
-call catalog.getStock(1);

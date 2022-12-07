@@ -126,6 +126,8 @@ class User extends CI_Controller
 
                     // * On récupere le status de l'utilisateur
                     $user->setStatus($this->UserModel->getStatusById($user->getId()));
+                    $user->setIsVerified($this->UserModel->getIsVerifiedById($user->getId()));
+                    $user->setIsALive($this->UserModel->getIsALiveById($user->getId()));
 
                     // * On supprime si il existe le cookie de l'utilisateur
                     $this->UserModel->unsetUserCookie($user);
@@ -138,6 +140,22 @@ class User extends CI_Controller
 
                         // * On crée un cookie pour l'utilisateur contenant ces informations de connexion et son status
                         $this->UserModel->setUserCookie($user);
+                    }
+
+                    if (!$user->getIsALive()) {
+
+                        $this->session->set_flashdata('id', $user->getId());
+
+                        redirect("User/dead");
+
+                    }
+
+                    if (!$user->getIsVerified()) {
+
+                        $this->session->set_flashdata('id', $user->getId());
+
+                        redirect("User/verify");
+
                     }
 
                     // * On crée une session pour l'utilisateur contenant
@@ -153,6 +171,7 @@ class User extends CI_Controller
 
                     // * On charge la page de validation de la connexion
                     $this->LoaderView->load('User/login/success', $data);
+
                 } else {
 
                     // * On stocke les erreurs dans une variable
@@ -503,6 +522,7 @@ class User extends CI_Controller
             'modifAddress',
             'supprAddress',
             'addAddress',
+            'supprUser'
         ))) {
 
             // * Si le sport ou la catégorie n'est pas disponible, on affiche une erreur 404.
@@ -1079,8 +1099,6 @@ class User extends CI_Controller
 
                     } elseif ($action == 'supprAddress') {
 
-                        // TODO : Supprimer l'adresse de l'utilisateur
-
                         if ($hint <= 0) {
 
                             show_404();
@@ -1351,10 +1369,58 @@ class User extends CI_Controller
 
                             }
                         }
+                    } elseif ($action == "supprUser") {
+
+                        $this->form_validation->set_rules(
+                            'sameLogin',
+                            'Login',
+                            'trim|required|min_length[5]|max_length[255]',
+                            array( // * On définit les messages d'erreurs
+                                'required' => 'Vous avez oublié %s.',
+                                "min_length" => "Le %s doit faire au moins 5 caractères",
+                                "max_length" => "Le %s doit faire au plus 255 caractères",
+                                'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                            ),
+                        );
+
+                        if (!$this->form_validation->run()) {
+
+                            $dataModal = array(
+
+                                'user' => $user,
+                                'error' => validation_errors()
+
+                            );
+
+                            $data['modaleContent'] = $dataModal;
+
+                            $this->LoaderView->load('User/home/supprUser', $data);
+
+                        } else {
+
+                            if ($this->input->post('sameLogin') == $user->getLogin()) {
+
+                                $this->UserModel->deleteUser($user->getId());
+
+                                redirect('User/logout');
+
+                            } else {
+
+                                $dataModal = array(
+
+                                    'user' => $user,
+                                    'error' => "Le login n'est pas le même"
+
+                                );
+
+                                $data['modaleContent'] = $dataModal;
+
+                                $this->LoaderView->load('User/home/supprUser', $data);
+
+                            }
+
+                        }
                     }
-
-                    // Todo : Ajouter la fonctionnalité de suppression de l'utilisateur
-
                 }
 
             } else {
@@ -1364,6 +1430,40 @@ class User extends CI_Controller
 
             }
         }
+    }
+
+    public function dead()
+    {
+
+        $id = $this->session->flashdata('id');
+
+        if (isset($id)) {
+
+            $date = $this->UserModel->getDateLastUpdateById($id);
+
+            $dayRemaining = $this->UserModel->getDayRemaining($date);
+
+            $dataContent = array(
+
+                'date' => $date,
+                'dayRemaining' => $dayRemaining
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent,
+
+            );
+
+            $this->LoaderView->load('User/dead', $data);
+
+        } else {
+
+            redirect('User/login');
+
+        }
+
     }
 
     // --------------------------------------------------------------------

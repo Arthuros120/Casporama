@@ -93,3 +93,4 @@ $RECYCLE.BIN/
 .idea/
 Casporama/captcha/*.jpg
 Casporama/application/cache/*
+Casporama/application/export/csv/*/*.csv

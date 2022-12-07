@@ -21,8 +21,7 @@ class UserModel extends CI_Model
         * en fonction de son login
     
         @param: $login
-    
-        @return: boolean
+    captcha
     
     */
     public function heHaveUserByLogin(string $login): Bool
@@ -327,14 +326,17 @@ class UserModel extends CI_Model
         // * On récupère le status et le login
         $login = $query->row()->login;
         $status = $query->row()->status;
+        $isVerified = $query->row()->isVerified;
+        $isAlive = $query->row()->isALive;
 
         // * On attend un résultat
         $query->next_result();
         $query->free_result();
 
-        if (!isset($status) || !isset($login)) {
+        if (!isset($status) || !isset($login) || !isset($isVerified) || !isset($isAlive)) {
 
             return null;
+
         }
 
         $information = $this->InformationModel->getInformationByUserId($id);
@@ -356,6 +358,8 @@ class UserModel extends CI_Model
         $user->setId($id);
         $user->setLogin($login);
         $user->setStatus($status);
+        $user->setIsVerified($isVerified);
+        $user->setIsAlive($isAlive);
         $user->setLocalisation($addressList);
         $user->setCoordonnees($information);
 
@@ -396,6 +400,97 @@ class UserModel extends CI_Model
         }
 
         return null;
+    }
+
+    /*
+    
+        * getIsVerifiedById
+    
+        * Cette méthode permet de vérifier si un utilisateur existe dans la base de données
+        * en fonction de son login et de son mot de passe
+    
+        @param: $id
+    
+        @return: ?string
+    
+    */
+    public function getIsVerifiedById(int $id): ?bool
+    {
+
+        $query = $this->db->query("Call user.getIsVerifiedById('" . $id . "')");
+
+        $isVerified = $query->row()->isVerified;
+
+        $query->next_result();
+        $query->free_result();
+
+        if (isset($isVerified)) {
+
+            return $isVerified;
+        }
+
+        return null;
+
+    }
+
+    /*
+    
+        * getIsAliveById
+    
+        * Cette méthode permet de vérifier si un utilisateur existe dans la base de données
+        * en fonction de son login et de son mot de passe
+    
+        @param: $id
+    
+        @return: ?string
+    
+    */
+    public function getIsAliveById(int $id): ?bool
+    {
+
+        $query = $this->db->query("Call user.getIsAliveById('" . $id . "')");
+
+        $isAlive = $query->row()->isALive;
+
+        $query->next_result();
+        $query->free_result();
+
+        if (isset($isAlive)) {
+
+            return $isAlive;
+        }
+
+        return null;
+
+    }
+
+    /*
+
+        * getDateLastUpdateById
+
+        * Cette méthode permet de récupérer la date de la dernière mise à jour de l'utilisateur
+
+        @param: $id
+        @return: ?string
+
+    */
+    public function getDateLastUpdateById(int $id): ?string
+    {
+
+        $query = $this->db->query("Call user.getDateLastUpdateById('" . $id . "')");
+
+        $dateLastUpdate = $query->row()->dateLastUpdate;
+
+        $query->next_result();
+        $query->free_result();
+
+        if (isset($dateLastUpdate)) {
+
+            return $dateLastUpdate;
+        }
+
+        return null;
+
     }
 
     /*
@@ -667,7 +762,9 @@ class UserModel extends CI_Model
         // * On vérifie si l'utilisateur existe
         if (isset($user)) {
 
+            // * On retourne true
             return true;
+
         }
 
         return false;
@@ -853,4 +950,28 @@ class UserModel extends CI_Model
             'salt' => $salt,
         );
     }
+
+    public function getDayRemaining(string $date)
+    {
+
+        $date = new DateTime($date);
+
+        $date = $date->add(new DateInterval('P' . $this->config->item('nbrDaysRemaining') .  'D'));
+
+        $now = new DateTime();
+
+        $interval = $date->diff($now);
+
+        return $interval->format('%a Jours et %h:%i:%s');
+
+    }
+    
+    public function deleteUser(int $id)
+    {
+        $dateLastUpdate = date('Y-m-d h:i:s', time());
+
+        $this->db->query("Call user.userIsDead('" . $id . "', '" . $dateLastUpdate . "')");
+
+    }
+
 }

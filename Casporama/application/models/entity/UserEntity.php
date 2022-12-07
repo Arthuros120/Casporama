@@ -21,6 +21,9 @@ class UserEntity
     
     private string $status;
 
+    private bool $isVerified;
+    private bool $isAlive;
+
     private array $localisation;
     private InformationEntity $coordonnees;
 
@@ -149,6 +152,70 @@ class UserEntity
     {
 
         $this->status = $status;
+
+    }
+
+    /*
+    
+        * Function getIsVerified
+    
+        @return bool
+    
+        * Cette fonction retourne si l'entité est vérifiée
+    
+    */
+    public function getIsVerified() : bool
+    {
+
+        return $this->isVerified;
+
+    }
+
+    /*
+    
+        * Function setIsVerified
+    
+        @param bool $isVerified
+    
+        * Cette fonction modifie si l'entité est vérifiée
+    
+    */
+    public function setIsVerified(bool $isVerified)
+    {
+
+        $this->isVerified = $isVerified;
+
+    }
+
+    /*
+    
+        * Function getIsAlive
+    
+        @return bool
+    
+        * Cette fonction retourne si l'entité est en vie
+    
+    */
+    public function getIsAlive() : bool
+    {
+
+        return $this->isAlive;
+
+    }
+
+    /*
+    
+        * Function setIsAlive
+    
+        @param bool $isAlive
+    
+        * Cette fonction modifie si l'entité est en vie
+    
+    */
+    public function setIsAlive(bool $isAlive)
+    {
+
+        $this->isAlive = $isAlive;
 
     }
 

@@ -1,0 +1,9 @@
+idproduct,type,nusport,brand,name,gender,price,description,image
+1,Vêtement,1,Nike,"Maillot foot",Femme,99.99,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
+         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ",/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png
+2,Chaussure,2,Puma,"Chaussure volley",Mixte,99.99,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
+         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ",/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png
+3,Equipement,3,Addidas,Raquette,Homme,99.99,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
+         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ",/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg
+4,Vêtement,1,Nike,"Maillot foot v2",Homme,99.99,"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
+         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ",/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png
