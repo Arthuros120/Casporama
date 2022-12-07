@@ -239,6 +239,16 @@ User/home/supprUser:
 
     baseView : "user/home/info/modale/global/base"
 
+User/verify/errNotVerif :
+
+    views :
+        head:  "templates/blank"
+        header : "templates/blank"
+        content : "user/verify/errNotVerif/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
 #---------------------------------Test View---------------------------------#
 
 Test/map :

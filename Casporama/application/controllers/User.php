@@ -586,6 +586,10 @@ class User extends CI_Controller
 
                     } else {
 
+                        $dataContent['addAddIsPos'] = false;
+
+                        $dataContent['nbrAddr'] = "0/0";
+
                         $dataScript['dataMap'] = null;
 
                     }
@@ -1466,6 +1470,44 @@ class User extends CI_Controller
 
     }
 
+    public function verify()
+    {
+
+        $id = $this->session->flashdata('id');
+        $getData = $this->input->get(null, true);
+
+        if (isset($id)) {
+
+            $user = $this->UserModel->getUserById($id);
+
+            $dataContent = array(
+
+                'user' => $user
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('User/verify/errNotVerif', $data);
+
+        } elseif (!empty($getData) && isset($getData['key'])) {
+
+            var_dump($getData);
+
+            echo "verifykey";
+
+        } else {
+
+            redirect("User/login");
+
+        }
+
+    }
+
     // --------------------------------------------------------------------
 
     // * Casual function
@@ -1737,7 +1779,7 @@ class User extends CI_Controller
         $cap = create_captcha($capConfig);
 
         // * On créer le captcha dans la base de données et on retourne l'url de l'image du captcha
-        return $this->cm->_create_captcha($cap);
+        return $this->CaptchaModel->_create_captcha($cap);
     }
 
     /*
@@ -1758,7 +1800,7 @@ class User extends CI_Controller
     {
 
         // * On vérifie que le captcha est valide
-        if ($code == '' || strlen($code)  != 8 || $this->cm->check_captcha($code) == 0) {
+        if ($code == '' || strlen($code)  != 8 || $this->CaptchaModel->check_captcha($code) == 0) {
 
             // * On retourne une erreur
             $this->form_validation->set_message('checkCaptcha', 'Le Captcha est incorrect !');

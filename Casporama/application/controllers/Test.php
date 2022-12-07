@@ -25,6 +25,13 @@ class Test extends CI_Controller
 
     }
 
+    public function email()
+    {
+
+        echo "email";
+
+    }
+
     public function progress()
     {
 
@@ -39,7 +46,8 @@ class Test extends CI_Controller
 
     }
 
-    public function DAO() {
+    public function DAO()
+    {
         $this->load->model('DAO/DAO_CSV');
 
         $test = new DAO_CSV;

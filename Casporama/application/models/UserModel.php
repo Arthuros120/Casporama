@@ -844,7 +844,9 @@ class UserModel extends CI_Model
             $data['password'] = $identifyValue['password'];
             $data['salt'] = $identifyValue['salt'];
 
-            $requeteSql = "Call user.createUser(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $data['dateLastUpdate'] = date('Y-m-d h:i:s', time());
+
+            $requeteSql = "Call user.createUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             $dataRequete = array(
                 $data['id'],
@@ -856,6 +858,7 @@ class UserModel extends CI_Model
                 $data['email'],
                 $data['mobilePhone'],
                 $data['fixePhone'],
+                $data['dateLastUpdate']
             );
 
             $this->db->query($requeteSql, $dataRequete);
