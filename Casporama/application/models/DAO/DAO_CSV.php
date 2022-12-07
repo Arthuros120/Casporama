@@ -1,8 +1,8 @@
 <?php
 
-require_once APPPATH . 'models/DAO/DAO.php';
+require_once APPPATH . 'interfaces/DAO.php';
 
-class DAO_CSV extends DAO {
+class DAO_CSV extends CI_Model implements DAO{
 
 
     function getAllData($id,$table) {
@@ -13,7 +13,7 @@ class DAO_CSV extends DAO {
         }
         
         $time = date("Y-m-d-h:i:s",time());
-        $fp = fopen("./DAO/export/csv/$table/$time.$id.csv","w");
+        $fp = fopen("./DAO/export/csv/$table/$time'_'$id.csv","w");
         $result = $query->result_array();
 
         $header = [];
@@ -32,9 +32,7 @@ class DAO_CSV extends DAO {
         
         fclose($fp);
     }
-    function getData($id,$table,$filter) {
-
-    }
+    
     function addData($file, $table) {
 
         $fp = fopen($file, "r"); 
@@ -52,7 +50,10 @@ class DAO_CSV extends DAO {
                         }
                         $query = substr($query,0,-1);
                         $query .= ")";
-                        $this->db->query($query, $dataRequete);
+                        $this->db->db_debug = false;
+                        $err = $this->db->query($query, $dataRequete);
+                        $this->db->db_debug = true;
+                        
                     } else {
                         $query ="Call $table.add$table(";
                         $dataRequete = [];
@@ -62,27 +63,32 @@ class DAO_CSV extends DAO {
                         }
                         $query = substr($query,0,-1);
                         $query .= ")";
-                        $this->db->query($query, $dataRequete);
+                        $this->db->db_debug = false;
+                        $err = $this->db->query($query, $dataRequete);
+                        $this->db->db_debug = true;
                     }
+                    
+                    if ($err == false) {
+                        ErrorFile($this->db->error(), $table);
+                    }
+
                 } catch (Error $err) {
-                    $time = date("Y-m-d-h:i:s",time());
-                    $errorFile = fopen("./DAO/error/$table._.$time.csv","w");
-                    fwrite($errorFile,"SQL error : ".$err);
-                    fclose($errorFile);
+                    ErrorFile($err, $table);
                 }
             } else {
                 $size = count($row);
-                if ($size != count($this->db->query("desc $table;")->result_array())) {
-                    $time = date("Y-m-d-h:i:s",time());
-                    $errorFile = fopen("./DAO/error/$table._.$time.csv","w");
-                    fwrite($errorFile,"Nombres de colonnes insuffisantes");
-                    fclose($errorFile);
+                if ($size != count($this->db->query("desc $table")->result_array())) {
+                    ErrorFile("Nombre de colonne insuffisant", $table);
                     break;
                 }
                 $first = false;
             }
         }
-        fclose($fp);        
+        fclose($fp);
+
+    }
+
+    function getData($id,$table,$filter) {
 
     }
 }
