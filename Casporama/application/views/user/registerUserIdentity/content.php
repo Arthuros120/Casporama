@@ -7,8 +7,8 @@
     <div class="register_box2">
         <div class="logo">
             <a href="<?= base_url() ?>">
-                <img 
-                src="<?= base_url() . "static/image/icon/casporama.svg" ?>" 
+                <img
+                src="<?= base_url() . "static/image/icon/casporama.svg" ?>"
                 alt="Casporama" />
             </a>
         </div>

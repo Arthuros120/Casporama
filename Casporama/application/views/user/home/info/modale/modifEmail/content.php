@@ -19,6 +19,13 @@
                 <a class="close-button modal_input" href="<?= base_url('User/home/info'); ?>"><p>Annuler</p></a>
             </div>
         </form>
+
+        <?php if (isset($error) && $error != "") { ?>
+                <div class="modal_error">
+                    <img alt="error Icon" src=" <?= base_url() ?>/static/image/icon/error_white.svg">
+                    <h3><?= $error ?></h3>
+                </div>
+        <?php } ?>
     </div>
 </div>
 

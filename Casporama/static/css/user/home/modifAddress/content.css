@@ -78,13 +78,29 @@
     gap: 2vh;
 }
 
-.modif_adress_form > .modif_adress_name,.modif_adress_num,
-.modif_adress_adress,.modif_adress_dep,.modif_adress_city,.modif_adress_zipcode,
+.modif_adress_form > .modif_adress_name,.modif_adress_dep,.modif_adress_city,.modif_adress_zipcode,
 .modif_adress_country {
     display: flex;
     flex-direction: column;
     width: 100%;
 
+}
+
+.modif_adress_adress {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 2vh;
+}
+
+.modif_adress_adress > div {
+    display: flex;
+    flex-direction: column;
+    width: 49%;
+}
+
+.modif_adress_adress > div > input {
+    width: 100%;
 }
 
 .modif_adress_default {

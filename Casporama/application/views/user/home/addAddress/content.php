@@ -4,9 +4,9 @@
 
     <div class="modif_adress_form_content">
         <div class="modif_adress_form_title">
-            <a
-            href="javascript:history.back()">
-            <img alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow_white.svg"></a>
+            <a href="javascript:history.back()">
+                <img alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow_white.svg">
+            </a>
             <h1>Ajout d'une addresse</h1>
         </div>
 
@@ -25,27 +25,31 @@
                 required>
             </div>
 
-            <div class="modif_adress_num">
-                <h3>Numéro:</h3>
-                <input
-                class="modif_adress_input"
-                type="number"
-                id="number"
-                name="number"
-                placeholder="numéro de voie"
-                required>
+            <div class="modif_adress_adress">
+                <div class="modif_adress_num">
+                    <h3>Numéro:</h3>
+                    <input
+                    class="modif_adress_input"
+                    type="number"
+                    id="number"
+                    name="number"
+                    placeholder="numéro de voie"
+                    required>
+                </div>
+                <div class="modif_addres_adress_name">
+                    <h3>Adresse:</h3>
+                    <input
+                    class="modif_adress_input"
+                    type="text"
+                    id="street"
+                    name="street"
+                    placeholder="Nom de la voie"
+                    required>
+                </div>
+                
             </div>
 
-            <div class="modif_adress_adress">
-                <h3>Adresse:</h3>
-                <input
-                class="modif_adress_input"
-                type="text"
-                id="street"
-                name="street"
-                placeholder="Nom de la voie"
-                required>
-            </div>
+            
 
             <div class="modif_adress_dep">
                 <h3>Département:</h3>

@@ -185,9 +185,7 @@ class LocationModel extends CI_Model
     public function addressIsDead(int $id)
     {
 
-        $datestring = 'Y-m-d h:i:s';
-        $time = time();
-        $dateLastUpdate = date($datestring, $time);
+        $dateLastUpdate = date('Y-m-d h:i:s', time());
 
         $this->db->query("Call user.addressIsDead('" . $id . "', '" . $dateLastUpdate . "')");
 

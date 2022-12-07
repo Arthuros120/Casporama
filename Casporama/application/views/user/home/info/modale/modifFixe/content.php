@@ -7,7 +7,7 @@
     <div class="modal_form_content">
 
         <div class="modal_actual_name">
-            <p>Votre prénom actuel:</p>
+            <p>Votre numéro actuel:</p>
             <p class="actual_name"><?= $user->getCoordonnees()->getFixe() ?></p>
         </div>
 

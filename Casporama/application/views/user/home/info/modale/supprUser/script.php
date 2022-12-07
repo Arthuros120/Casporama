@@ -11,20 +11,23 @@
 
         var sameLogin = document.getElementById("sameLogin").value;
 
-        modalBody.innerHTML = "<p> Votre compte vas être suprimé</p>";
-
-        modalBody.innerHTML += "<p> Voulez-vous vraiment effectuer cette modification ? </p>";
-
-        modalBody.innerHTML += "<form " +
-        "action='<?= base_url('User/home/supprUser/'); ?>'" +
-        "method='post'" +
-        "accept-charset='utf-8'>" +
-        "<input type='hidden' name='sameLogin' value='" + sameLogin + "' />" +
-        "<button type='submit'>Valider</button>" +
-        "<a class='close-button' href='<?= base_url('User/home/info'); ?>'>" +
-        "<p>Annuler</p>" +
-        "</a>" +
-        "</form>";
+        modalBody.innerHTML ="<div class='modal_modif_content'>"
+                             +"<div class='modal_title'>"
+                             +"<h1> Voulez-vous vraiment effectuer cette modification ? </h1>"
+                             +"</div>"
+                             +"<div class='modal_form_content'>"
+                             +"<div class='modal_actual_name'>"
+                             +"<p>Votre compte <span>"+sameLogin+"</span> va être supprmé</p>"
+                             +"</div>"
+                             +"<form class='modal_form' action='<?= base_url('User/home/supprUser');?>' method='post' accept-charset='utf-8'>"
+                             +"<input class='modal_input' type='hidden' name='sameLogin' value='" + sameLogin + "' />"
+                             +"<div class='modal_form_btn'>"
+                             +"<input class='modal_input' type='submit' value='Valider' >"
+                             +"<a class='modal_input' class='close-button' href='<?= base_url('User/home/info'); ?>'><p>Annuler</p></a>"
+                             +"</div>"
+                             +"</form>"
+                             +"</div>"
+                             +"</div>"
 
     });
 

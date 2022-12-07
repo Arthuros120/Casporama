@@ -56,7 +56,7 @@ CREATE OR REPLACE PACKAGE user AS
     -- Permet d'ajouter les coordonnées d'un user par son ID
     procedure addInformation( newid int,  newfirstname varchar(255),  newname varchar(255),  newmail varchar(255),  newmobile int,  newfix int);
     -- Permet d'ajouter un user et ses coordonnées
-    procedure createUser( newId integer,  newLogin varchar(255),  newPass varchar(255),  newSalt varchar(45),  newfirstname varchar(255),  newname varchar(255),  newEmail varchar(255),  newMobile int,  newFix int);
+    procedure createUser( newId integer,  newLogin varchar(255),  newPass varchar(255),  newSalt varchar(45),  newfirstname varchar(255),  newname varchar(255),  newEmail varchar(255),  newMobile int,  newFix int, dateLastUpdate date);
     -- Permet d'ajouter une location à un user
     procedure addLocation( newidlocation int,  newid int, newname varchar(255), newlocation varchar(255),  newcode int,  newcity varchar(255),  newdep varchar(255),  newcountry varchar(255));
     -- Permet de supprimer un user, ses coordonnées et sa location
@@ -124,6 +124,7 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getIsVerifiedById( idSearch VARCHAR(255));
     procedure getIsALiveById( idSearch VARCHAR(255));
     procedure getDateLastUpdateById( idSearch VARCHAR(255));
+    procedure userIsDead(searchId int, newDateLastUpdate date);
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -253,9 +254,9 @@ CREATE OR REPLACE PACKAGE BODY user AS
         insert into information(id,firstname,name,mail,mobile,fix) value (newid,newprenom,newnom,newmail,newmobile,newfixe);
     end;
 
-    procedure createUser( newId integer,  newLogin varchar(255),  newPass varchar(255),  newSalt varchar(45),  newPrenom varchar(255),  newNom varchar(255),  newEmail varchar(255),  newMobile int,  newFixe int) as
+    procedure createUser( newId integer,  newLogin varchar(255),  newPass varchar(255),  newSalt varchar(45),  newPrenom varchar(255),  newNom varchar(255),  newEmail varchar(255),  newMobile int,  newFixe int, dateLastUpdate date) as
     begin
-        insert into user(id, login, password, salt, status) value (newId, newLogin, newPass, newSalt, 'Client');
+        insert into user(id, login, password, salt, status, isALive, dateLastUpdate) value (newId, newLogin, newPass, newSalt, 'Client', true, dateLastUpdate);
         insert into information(id, firstname, name, mail, mobile, fix) value (newId, newPrenom, newNom, newEmail, newMobile, newFixe);
     end;
 
@@ -435,6 +436,10 @@ CREATE OR REPLACE PACKAGE BODY user AS
         select dateLastUpdate from user where id = idSearch;
     end;
 
+    procedure userIsDead(searchId int, newDateLastUpdate date) as
+    begin
+        update user set dateLastUpdate=newDateLastUpdate, isALive = false where id = searchId;
+    end;
 end;
 
 
@@ -551,7 +556,7 @@ CREATE OR REPLACE PACKAGE `order` AS
     -- Permet d'avoir une commande par son ID
     procedure getOrder( nuorder int);
     -- Permet d'avoir les commandes d'un client
-    procedure getOrderClient( iduser int);
+    procedure getOrderUser( iduser int);
     -- Permet d'ajouter une commande à un client
     procedure addOrder( newid int,  newdate varchar(10),  newproduct varchar(255),  newuantity int,  newuser int, newlocation int,  newstate varchar(15));
     -- Permet de mettre à jour l'état d'une commande

@@ -4,10 +4,10 @@
 
     <div class="modif_adress_form_content">
         <div class="modif_adress_form_title">
-            <a
-            href="javascript:history.back()">
-            <img alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow_white.svg"></a>
-            <h1>Modification de l'address: <?= $address->getName() ?></h1>
+            <a href="javascript:history.back()">
+                <img alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow_white.svg">
+            </a>
+            <h1>Modification de l'adresse: <?= $address->getName() ?></h1>
         </div>
 
         <?php echo form_open('user/home/modifAddress/' . $address->getId()); ?>
@@ -26,25 +26,33 @@
             </div>
 
             <div class="modif_adress_num">
-                <h3>Numéro:</h3>
-                <input
-                class="modif_adress_input"alt="fleche arrière"
-                type="number"
-                id="number"
-                name="number"
-                value="<?= $address->getAdresse()['number'] ?>"
-                required>
+                
             </div>
 
             <div class="modif_adress_adress">
-                <h3>Adresse:</h3>
-                <input
-                class="modif_adress_input"
-                type="text"
-                id="street"
-                name="street"
-                value="<?= $address->getAdresse()['street'] ?>"
-                required>
+                <div class="modif_adress_num">
+                    <h3>Numéro:</h3>
+                    <input 
+                        class="modif_adress_input"alt="fleche arrière"
+                        type="number"
+                        id="number"
+                        name="number"
+                        value="<?= $address->getAdresse()['number'] ?>"
+                        required
+                    >
+                </div>
+                <div class="modif_adress_adress_name">
+                    <h3>Adresse:</h3>
+                    <input
+                        class="modif_adress_input"
+                        type="text"
+                        id="street"
+                        name="street"
+                        value="<?= $address->getAdresse()['street'] ?>"
+                        required
+                    >
+                </div>
+                
             </div>
 
             <div class="modif_adress_dep">

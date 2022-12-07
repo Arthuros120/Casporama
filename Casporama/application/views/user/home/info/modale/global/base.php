@@ -21,24 +21,23 @@
 <body>
     <!-- The Modal -->
     <div id="myModal" class="modal">
-        <!-- Modal content -->
+        <!-- Modal content -->     
+        <div class="out_modal">
+            <a class="out_modal" href="<?= base_url() . "User/home/info" ?>"></a>
+        </div>
+   
         <div class="modal-content">
+            
+            
             <div class="modal-body" id="modal-body">
 
                 <?= $loadView['modaleContent'] ?>
 
-                <div class="error" <?php
-
-                    if ($error == null) {
-                        echo "hidden";
-                    }
-
-                    ?>><?= $error ?>
-                </div>
             </div>
         </div>
     </div>
 
+    
         <?= $loadView['content'] ?>
 
         <?= $loadView['script'] ?>

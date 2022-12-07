@@ -8,7 +8,7 @@
 .home {
     display: flex;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .grid {
@@ -97,7 +97,7 @@
 .home_title > h3 {
     font-family: var(--main-font);
     font-weight: 600;
-    font-size: 100%;
+    font-size: 1vw;
 }
 
 .logo_container {
@@ -110,4 +110,65 @@
 .round_logo {
     width: 100%;
     height: auto;
+}
+
+.home_login {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    
+    .grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr; 
+        height: auto;
+        margin: 0vh 0vw;
+        padding-left: 0%;
+        gap: 0.5%;
+    }
+
+    .card {
+        width: 100vw;
+        height: 100%;
+    }
+
+    .home_img {
+        width: 45%;
+        height: auto;
+    }
+
+    .bg_title {
+        padding: 4% 15%;
+    }
+
+    .home_title > h3 {
+        font-size: 3vw;
+    }
+
+    .link2 {
+        display: none;
+    }
+
+    .round_logo {
+        display: none;
+        
+    }
+
+    .home_login {
+        display: flex;
+        background-color: var(--grey2);
+    }
+
+    .home_login > a {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .home_login > a > h2 {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }

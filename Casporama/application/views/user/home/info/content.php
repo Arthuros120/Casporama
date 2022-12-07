@@ -2,6 +2,9 @@
 
 <div class="user_info_content">
     <div class="user_info_logo">
+        <a href="javascript:history.back()">
+            <img alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow_white.svg">
+        </a>
         <a href="<?= base_url() ?>">
             <img src="<?= base_url() . "static/image/icon/casporama.svg" ?>" alt="Casporama" />
         </a>
@@ -92,7 +95,7 @@
                     <div class="card_all">
                         <div class="user_info_address_title">
                             <h2><?= $localisation->getName()?></h2>
-                            <?php if ($localisation->getIsDefault() == true) { ?>
+                            <?php if ($localisation->getIsDefault()) { ?>
                                 <h2>(Par défaut)</h2>
                             <?php } ?>
                         </div>
@@ -148,32 +151,28 @@
                         </div>
                         
                     </div>
-                        
-                        
+                               
                 <?php }
                 } else {
                     echo ' <div class="card"><p>Vous n\'avez pas d\'adresse enregistré<p></div>';
                 }
-                
-                if (!$addAddIsPos) { ?>
 
+                if (!$addAddIsPos) { ?>
                     <div class="card_add_address">
                         <a
                         href="<?= base_url('User/home/addAddress/')?>" >
                         <img src="<?= base_url() . "static/image/icon/add.svg" ?>"
                         alt="Add" ></a>
                     </div>
-
                 <?php } ?>
+
             </div>
+            <div class="user_info_delete">
+                <a href="<?= base_url("User/home/supprUser") ?>">Supprimer l'utilisateur</a>
+            </div> 
         </div>
     </div>
 </div>
-
-<a href="<?= base_url("User/home/supprUser") ?>">Supprimer l'utilisateur</a>
-
-
-
 <?php
 
 /* <!-- user/home/info/content --> */
