@@ -1484,6 +1484,8 @@ class User extends CI_Controller
 
             );
 
+            $dayRemaining = explode(",",$dayRemaining);
+
             $dataContent = array(
 
                 'date' => $date,
