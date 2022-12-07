@@ -92,7 +92,7 @@
                     <div class="card_all">
                         <div class="user_info_address_title">
                             <h2><?= $localisation->getName()?></h2>
-                            <?php if ($localisation->getIsDefault() == true) { ?>
+                            <?php if ($localisation->getIsDefault()) { ?>
                                 <h2>(Par défaut)</h2>
                             <?php } ?>
                         </div>

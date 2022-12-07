@@ -13,22 +13,27 @@
         var newPass = document.getElementById("newPass").value;
         var confNewPass = document.getElementById('confNewPass').value;
 
-        modalBody.innerHTML = "<p> Votre mots de passe vas être modifié</p>";
-
-        modalBody.innerHTML += "<p> Voulez-vous vraiment effectuer cette modification ? </p>";
-
-        modalBody.innerHTML += "<form " +
-        "action='<?= base_url('User/home/modifPass'); ?>'" +
-        "method='post'" +
-        "accept-charset='utf-8'>" +
-        "<input type='hidden' name='pass' value='" + pass + "' />" +
-        "<input type='hidden' name='newPass' value='" + newPass + "' />" +
-        "<input type='hidden' name='confNewPass' value='" + confNewPass + "' />" +
-        "<button type='submit'>Valider</button>" +
-        "<a class='close-button' href='<?= base_url('User/home/info'); ?>'>" +
-        "<p>Annuler</p>" +
-        "</a>" +
-        "</form>";
+        
+        modalBody.innerHTML ="<div class='modal_modif_content'>"
+                             +"<div class='modal_title'>"
+                             +"<h1> Voulez-vous vraiment effectuer cette modification ? </h1>"
+                             +"</div>"
+                             +"<div class='modal_form_content'>"
+                             +"<div class='modal_actual_name'>"
+                             +"<p>Votre mot de passe vas être modifié en :</p>"
+                             +"<p class='actual_name'>"+newPass+"</p>"
+                             +"</div>"
+                             +"<form class='modal_form' action='<?= base_url('User/home/modifPass');?>' method='post' accept-charset='utf-8'>"
+                             +"<input type='hidden' name='pass' value='" + pass + "' />"
+                             +"<input type='hidden' name='newPass' value='" + newPass + "' />"
+                             +"<input type='hidden' name='confNewPass' value='" + confNewPass + "' />"
+                             +"<div class='modal_form_btn'>"
+                             +"<input class='modal_input' type='submit' value='Valider' >"
+                             +"<a class='modal_input' class='close-button' href='<?= base_url('User/home/info'); ?>'><p>Annuler</p></a>"
+                             +"</div>"
+                             +"</form>"
+                             +"</div>"
+                             +"</div>"
 
     });
 

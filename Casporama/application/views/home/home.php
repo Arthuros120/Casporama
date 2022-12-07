@@ -82,7 +82,13 @@
                 alt='logo casporama'>
             </a>
         </div>
+        <div class="home_login">  
+            <a href="<?= base_url() ?>User/login">
+                <h2>Se Connecter</h2>
+            </a>
+        </div>
     </ul>
+    
 </div>
 
 <!-- home/home -->

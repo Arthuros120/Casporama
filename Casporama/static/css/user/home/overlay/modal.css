@@ -16,6 +16,13 @@
   /* Black w/ opacity */
 }
 
+.out_modal {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  cursor: default;
+}
+
 .modal_modif_content {
 
   width: 100%;
@@ -73,7 +80,24 @@
   display: flex;
   flex-direction: column;
 
-  gap: 2vh;
+  gap: 1vh;
+}
+
+.modal_error {
+  width: 100%;
+  height: 3vh;
+  background-color: red;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1vh;
+
+  color: white;
+
+  margin-bottom: 2vh;
+  border-radius: 6px;
+
 }
 
 .modal_form > input {
@@ -127,8 +151,6 @@
   width: 48%;
 }
 
-.modal_form_btn > a, input {
-}
 
 .modal_input{
   height: 5vh;
