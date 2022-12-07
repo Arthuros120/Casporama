@@ -2,7 +2,7 @@
 
 require_once APPPATH . 'interfaces/DAO.php';
 
-class DAO_JSON extends CI_Model implements DAO {
+class DAO_XML extends CI_Model implements DAO {
 
 
     function getAllData($id,$table) {
@@ -12,21 +12,32 @@ class DAO_JSON extends CI_Model implements DAO {
             $query = $this->db->query("Call $table.getAll()");
         }
         
-        $time = date("Y-m-d-h:i:s",time());
-        $fp = fopen("./DAO/export/json/$time"."_"."$id.json","w");
+        $_xml = new SimpleXMLElement("<$table"."s/>");
+
         $result = $query->result_array();
-        $msg = json_encode($result);
-        fwrite($fp,$msg);
+         
+        $cpt = 0;
+        foreach ($result as $value) { 
+            $test = $_xml->addChild($table.$cpt);
+            $cpt++;
+            foreach ($value as $i => $y) {
+                $test->addChild($i,$y);
+            }
+        }
+
+        $msg = $_xml->asXML();
         
+        $time = date("Y-m-d-H:i:s",time());
+        $fp = fopen("./DAO/export/xml/$time"."_"."$id.xml","w");
+        fwrite($fp,$msg);
         fclose($fp);
     }
     
     function addData($file, $table) {
 
-        $json = file_get_contents($file);
-        $json_data = json_decode($json,true);
+        $xmldata = simplexml_load_file($file);
 
-        foreach ($json_data as $value) {
+        foreach ($xmldata->children() as $value) {
             $size = count($value);
             if ($size != count($this->db->query("desc $table")->result_array())) {
                 errorFile("Nombre de colonne insuffisant", $table);
@@ -37,7 +48,7 @@ class DAO_JSON extends CI_Model implements DAO {
 
                     $query ="Call user.add$table(";
                     $dataRequete = [];
-                    foreach ($value as $i) {
+                    foreach ($value->children() as $i) {
                         $query .= "?,";
                         array_push($dataRequete,$i);
                     }
@@ -51,7 +62,7 @@ class DAO_JSON extends CI_Model implements DAO {
 
                     $query ="Call $table.add$table(";
                     $dataRequete = [];
-                    foreach ($value as $i) {
+                    foreach ($value->children() as $i) {
                         $query .= "?,";
                         array_push($dataRequete,$i);
                     }

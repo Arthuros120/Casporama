@@ -13,7 +13,7 @@ class DAO_CSV extends CI_Model implements DAO{
         }
         
         $time = date("Y-m-d-h:i:s",time());
-        $fp = fopen("./DAO/export/csv/$table/$time'_'$id.csv","w");
+        $fp = fopen("./DAO/export/csv/$table/$time"."_"."$id.csv","w");
         $result = $query->result_array();
 
         $header = [];
@@ -69,16 +69,16 @@ class DAO_CSV extends CI_Model implements DAO{
                     }
                     
                     if ($err == false) {
-                        ErrorFile($this->db->error(), $table);
+                        errorFile($this->db->error(), $table);
                     }
 
                 } catch (Error $err) {
-                    ErrorFile($err, $table);
+                    errorFile($err, $table);
                 }
             } else {
                 $size = count($row);
                 if ($size != count($this->db->query("desc $table")->result_array())) {
-                    ErrorFile("Nombre de colonne insuffisant", $table);
+                    errorFile("Nombre de colonne insuffisant", $table);
                     break;
                 }
                 $first = false;
