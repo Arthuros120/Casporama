@@ -64,13 +64,13 @@ class Test extends CI_Controller
     }
 
     public function DAO() {
-        $this->load->model('DAO/DAO_YAML');
+        $this->load->model('DAO/DAO_CSV');
 
-        $test = new DAO_YAML;
+        $test = new DAO_CSV;
 
-        // $test->getAllData(1,'user');
+        $test->getAllData(1,'product');
 
-        $test->addData('./DAO/import/test.yaml','user');
+        // $test->addData('./DAO/import/test.yaml','user');
     }
 
     public function map()

@@ -4,6 +4,17 @@ require_once APPPATH . 'interfaces/DAO.php';
 
 class DAO_CSV extends CI_Model implements DAO{
 
+    public function __construct()
+    {
+        $folders = glob( "./DAO/export/csv/" ."*" );
+        foreach ($folders as $folder) {
+            $files = glob( "$folder/" ."*" );
+            if ($files && count($files) >= 10) {
+                array_map('unlink', glob("$folder/*.csv"));
+            }
+        }
+    }
+
 
     function getAllData($id,$table) {
         if (in_array($table,['user','location','information'])) {

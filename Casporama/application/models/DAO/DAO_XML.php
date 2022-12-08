@@ -4,6 +4,14 @@ require_once APPPATH . 'interfaces/DAO.php';
 
 class DAO_XML extends CI_Model implements DAO {
 
+    public function __construct()
+    {
+        $files = glob( "./DAO/export/xml/" ."*" );
+        if ($files && count($files) >= 10) {
+            array_map('unlink', glob("./DAO/export/xml/*.xml"));
+        }
+    }
+
 
     function getAllData($id,$table) {
         if (in_array($table,['user','location','information'])) {
