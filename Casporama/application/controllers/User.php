@@ -349,7 +349,10 @@ class User extends CI_Controller
             }
 
             // * On stocke les erreurs dans une variable
-            $dataContent['error'] = validation_errors();
+
+            $error_array = explode("\n",validation_errors());
+
+            $dataContent['error'] = array_slice($error_array,0,-1);
 
             // * On etiquette les données
             $data = array(
@@ -452,7 +455,10 @@ class User extends CI_Controller
                 $this->session->set_flashdata('password', $strPassword);
 
                 // * On stocke les erreurs dans une variable
-                $dataContent['error'] = validation_errors();
+
+                $error_array = explode("\n",validation_errors());
+
+                $dataContent['error'] = array_slice($error_array,0,-1);
 
                 // * On etiquette les données
                 $data = array(
@@ -1478,6 +1484,8 @@ class User extends CI_Controller
 
             );
 
+            $dayRemaining = explode(",",$dayRemaining);
+
             $dataContent = array(
 
                 'date' => $date,
@@ -1800,10 +1808,7 @@ class User extends CI_Controller
 
             // * On retourne une erreur
             $this->form_validation->set_message(
-                'ComformPassword',
-                'Le mot de passe n\'est pas valide !
-                Il doit contenir au moins une lettre minuscule,
-                une lettre majuscule, un chiffre et un caractère spécial'
+                'ComformPassword','Le mot de passe n\'est pas valide ! Il doit contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial'
             );
 
             return false;

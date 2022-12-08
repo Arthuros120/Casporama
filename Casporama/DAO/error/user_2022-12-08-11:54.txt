@@ -1,0 +1,1 @@
+DataBase Error : 1062 Duplicate entry '193' for key 'PRIMARY' 

@@ -37,11 +37,11 @@
 
 - Todo : Backend -> Gerer les addresse par défault
 
-- Todo : Backend -> Supprimer les fichiers export csv lors qu'il y en a 10
-
 - Todo : Backend -> Ajouter la possibilité de recuperer sont compte mort
 
 - Todo : Backend -> Ajouter la possibilité de recuperer sont mot de passe
+
+- Todo : Backend -> Faire filtre pour DAO
 
 
 ## En cours
@@ -87,3 +87,5 @@
 - Done : SQL -> Ajouter la longitude et la latitude dans la table location
 
 - Done : Backend -> Implementer les cartes dans la page info user
+
+- Done : Backend -> Supprimer les fichiers export lors qu'il y en a 10 ou plus, pour chaque type

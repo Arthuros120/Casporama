@@ -67,11 +67,11 @@ class Test extends CI_Controller
     {
         $this->load->model('DAO/DAO_JSON');
 
-        $test = new DAO_JSON;
+        $test = new DAO_CSV;
 
-        // $test->getAllData(1,'location');
+        // $test->getData(1,'order');
 
-        $test->addData('./DAO/import/test.json', 'user');
+        // $test->addData('./DAO/import/test.json', 'user');
     }
 
     public function map()
