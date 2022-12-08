@@ -243,21 +243,19 @@ User/verify/errNotVerif :
 
     views :
         head:  "user/verify/errNotVerif/head"
-        header : "templates/blank"
+        script : "user/verify/errNotVerif/script"
         content : "user/verify/errNotVerif/content"
-        footer : "templates/blank"
 
-    baseView : "templates/base"
+    baseView : "user/verify/global/base"
 
 User/verify/sendVerify :
 
     views :
         head:  "user/verify/sendVerify/head"
-        header : "templates/blank"
+        scirpt: "templates/blank"
         content : "user/verify/sendVerify/content"
-        footer : "templates/blank"
 
-    baseView : "templates/base"
+    baseView : "user/verify/global/base"
 
 #---------------------------------Test View---------------------------------#
 
