@@ -252,7 +252,7 @@ User/verify/errNotVerif :
 User/verify/sendVerify :
 
     views :
-        head:  "templates/blank"
+        head:  "user/verify/sendVerify/head"
         header : "templates/blank"
         content : "user/verify/sendVerify/content"
         footer : "templates/blank"
