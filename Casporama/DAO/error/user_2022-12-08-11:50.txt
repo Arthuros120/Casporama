@@ -1,1 +1,0 @@
-DataBase Error : 1318 Incorrect number of arguments for PROCEDURE CasporamaDEV.user.addUser; expected 5, got 1 

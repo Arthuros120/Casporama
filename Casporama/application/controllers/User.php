@@ -1556,11 +1556,13 @@ class User extends CI_Controller
 
         if (isset($id)) {
 
+            $this->load->model('VerifyModel');
+
             $this->session->set_flashdata('id', $id);
 
             $user = $this->UserModel->getUserById($id);
 
-            $this->VerifModel->sendVerifCode($id);
+            $this->VerifyModel->sendVerifyCode($user);
 
             $dataContent = array(
 
@@ -1574,7 +1576,7 @@ class User extends CI_Controller
 
             );
 
-            $this->load->view('User/verify/sendVerify', $data);
+            $this->LoaderView->load('User/verify/sendVerify', $data);
 
         } else {
 

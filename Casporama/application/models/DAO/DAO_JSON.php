@@ -7,17 +7,29 @@ class DAO_JSON extends CI_Model implements DAO {
     public function __construct()
     {
         $files = glob( "./DAO/export/json/" ."*" );
-        if ($files && count($files) >= 10) {
+        if ($files && count($files) >= 6) {
             array_map('unlink', glob("./DAO/export/json/*.json"));
         }
     }
 
 
     function getData($id,$table,$filter = null) {
-        if (in_array($table,['user','location','information'])) {
-            $query = $this->db->query("Call user.getAll$table()");
-        } else {
-            $query = $this->db->query("Call $table.getAll()");
+        try {
+            $this->db->db_debug = false;
+            if (in_array($table,['user','location','information'])) {
+                $query = $this->db->query("Call user.getAll$table()");
+            } else {
+                $query = $this->db->query("Call $table.getAll()");
+            }
+            $this->db->db_debug = true;
+
+            if ($query == false) {
+                errorFile($this->db->error(), $table);
+                return;
+            }
+        } catch (Error $err) {
+            errorFile($err, $table);
+            return;
         }
         
         $time = date("Y-m-d-h:i:s",time());
@@ -38,9 +50,10 @@ class DAO_JSON extends CI_Model implements DAO {
             $size = count($value);
             if ($size != count($this->db->query("desc $table")->result_array())) {
                 errorFile("Nombre de colonne insuffisant", $table);
-                break;
+                return;
             }
             try {
+                $this->db->db_debug = false;
                 if (in_array($table,['user','location','information'])) {
 
                     $query ="Call user.add$table(";
@@ -51,9 +64,8 @@ class DAO_JSON extends CI_Model implements DAO {
                     }
                     $query = substr($query,0,-1);
                     $query .= ")";
-                    $this->db->db_debug = false;
+                    
                     $err = $this->db->query($query, $dataRequete);
-                    $this->db->db_debug = true;
 
                 } else {
 
@@ -65,20 +77,24 @@ class DAO_JSON extends CI_Model implements DAO {
                     }
                     $query = substr($query,0,-1);
                     $query .= ")";
-                    $this->db->db_debug = false;
+                    
                     $err = $this->db->query($query, $dataRequete);
-                    $this->db->db_debug = true;
 
                 }
+                $this->db->db_debug = true;
                 
                 if ($err == false) {
                     errorFile($this->db->error(), $table);
+                    return;
                 }
 
             } catch (Error $err) {
                 errorFile($err, $table);
+                return;
             }
         }
+
+        unlink($file);
 
     }
 }
