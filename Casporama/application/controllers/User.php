@@ -1032,7 +1032,13 @@ class User extends CI_Controller
             
                                                 $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
 
-                                                if (!$this->LocationModel->sameAddresse($user->getId(), $newAdresse)) {
+                                                if (
+                                                    !$this->LocationModel->sameAddresseModif(
+                                                        $user->getId(),
+                                                        $newAdresse,
+                                                        $address->getId()
+                                                        )
+                                                    ) {
 
                                                     $this->LocationModel->updateAddress(
                                                         $newAdresse,

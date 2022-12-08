@@ -117,6 +117,7 @@ CREATE OR REPLACE PACKAGE user AS
         dateCreation date
         );
     procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
+    procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
     procedure countAliveAddressByUserId(searchUserId int);
     procedure getAllUser();
     procedure getAllLocation();
@@ -415,6 +416,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
     procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255)) as
     begin
         select count(*) as total from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
+    end;
+
+    procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255)) as
+    begin
+        select count(*) as total, id from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
     end;
 
     procedure countAliveAddressByUserId(searchUserId int) as
@@ -741,3 +747,5 @@ Call product.getProductBySportType(1, 'Vetement');
 /*call user.countAliveAddressByUserId(2);*/
 
 desc user;
+
+call user.sameAddresseModif(2, '22;Rue des bergeronnettes', 'Nantes');
