@@ -93,4 +93,14 @@ $RECYCLE.BIN/
 .idea/
 Casporama/captcha/*.jpg
 Casporama/application/cache/*
-Casporama/application/export/csv/*/*.csv
+Casporama/application/DAO/error/*.txt
+Casporama/application/DAO/json/*.json
+Casporama/application/DAO/yaml/*.yaml
+Casporama/application/DAO/xml/*.xml
+Casporama/application/DAO/csv/order/*.csv
+Casporama/application/DAO/csv/user/*.csv
+Casporama/application/DAO/csv/sport/*.csv
+Casporama/application/DAO/csv/product/*.csv
+Casporama/application/DAO/csv/location/*.csv
+Casporama/application/DAO/csv/information/*.csv
+Casporama/application/DAO/csv/catalog/*.csv

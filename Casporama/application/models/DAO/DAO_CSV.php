@@ -9,7 +9,7 @@ class DAO_CSV extends CI_Model implements DAO{
         $folders = glob( "./DAO/export/csv/" ."*" );
         foreach ($folders as $folder) {
             $files = glob( "$folder/" ."*" );
-            if ($files && count($files) >= 10) {
+            if ($files && count($files) >= 6) {
                 array_map('unlink', glob("$folder/*.csv"));
             }
         }
@@ -17,10 +17,22 @@ class DAO_CSV extends CI_Model implements DAO{
 
 
     function getData($id,$table,$filter = null) {
-        if (in_array($table,['user','location','information'])) {
-            $query = $this->db->query("Call user.getAll$table()");
-        } else {
-            $query = $this->db->query("Call $table.getAll()");
+        try {
+            $this->db->db_debug = false;
+            if (in_array($table,['user','location','information'])) {
+                $query = $this->db->query("Call user.getAll$table()");
+            } else {
+                $query = $this->db->query("Call $table.getAll()");
+            }
+            $this->db->db_debug = true;
+
+            if ($query == false) {
+                errorFile($this->db->error(), $table);
+                return;
+            }
+        } catch (Error $err) {
+            errorFile($err, $table);
+            return;
         }
         
         $time = date("Y-m-d-h:i:s",time());
@@ -52,6 +64,7 @@ class DAO_CSV extends CI_Model implements DAO{
         while (($row = fgetcsv($fp)) !== false) {
             if (!$first) {
                 try {
+                    $this->db->db_debug = false;
                     if (in_array($table,['user','location','information'])) {
                         $query ="Call user.add$table(";
                         $dataRequete = [];
@@ -61,9 +74,8 @@ class DAO_CSV extends CI_Model implements DAO{
                         }
                         $query = substr($query,0,-1);
                         $query .= ")";
-                        $this->db->db_debug = false;
+                        
                         $err = $this->db->query($query, $dataRequete);
-                        $this->db->db_debug = true;
                         
                     } else {
                         $query ="Call $table.add$table(";
@@ -74,28 +86,33 @@ class DAO_CSV extends CI_Model implements DAO{
                         }
                         $query = substr($query,0,-1);
                         $query .= ")";
-                        $this->db->db_debug = false;
+
                         $err = $this->db->query($query, $dataRequete);
-                        $this->db->db_debug = true;
+
                     }
                     
+                    $this->db->db_debug = true;
+
                     if ($err == false) {
                         errorFile($this->db->error(), $table);
+                        return;
                     }
 
                 } catch (Error $err) {
                     errorFile($err, $table);
+                    return;
                 }
             } else {
                 $size = count($row);
                 if ($size != count($this->db->query("desc $table")->result_array())) {
                     errorFile("Nombre de colonne insuffisant", $table);
-                    break;
+                    return;
                 }
                 $first = false;
             }
         }
         fclose($fp);
+        unlink($file);
 
     }
 }

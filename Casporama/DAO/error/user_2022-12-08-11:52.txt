@@ -1,1 +1,0 @@
-DataBase Error : 1062 Duplicate entry 'nec' for key 'login' 
