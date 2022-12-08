@@ -31,7 +31,7 @@ class Test extends CI_Controller
         $this->load->library('email');
 
         $this->email->from('no_reply@casporama.live', 'Casporama');
-        $this->email->to('arthuros222@gmail.com');
+        $this->email->to('titgautier@gmail.com');
 
         $data = array(
             'title' => 'Test',
@@ -63,14 +63,15 @@ class Test extends CI_Controller
 
     }
 
-    public function DAO() {
-        $this->load->model('DAO/DAO_CSV');
+    public function DAO()
+    {
+        $this->load->model('DAO/DAO_JSON');
 
         $test = new DAO_CSV;
 
-        $test->getData(1,'orer');
+        // $test->getData(1,'order');
 
-        // $test->addData('./DAO/import/test.yaml','user');
+        // $test->addData('./DAO/import/test.json', 'user');
     }
 
     public function map()
