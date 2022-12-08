@@ -13,7 +13,7 @@ class DAO_XML extends CI_Model implements DAO {
     }
 
 
-    function getAllData($id,$table) {
+    function getData($id,$table,$filter = null) {
         if (in_array($table,['user','location','information'])) {
             $query = $this->db->query("Call user.getAll$table()");
         } else {
@@ -90,10 +90,6 @@ class DAO_XML extends CI_Model implements DAO {
                 errorFile($err, $table);
             }
         }
-
-    }
-
-    function getData($id,$table,$filter) {
 
     }
 }

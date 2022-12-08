@@ -1,7 +1,6 @@
 <?php
 
 interface DAO {
-    function getAllData($id,$table);
     function getData($id,$table,$filter);
     function addData($file, $table);
 }

@@ -68,7 +68,7 @@ class Test extends CI_Controller
 
         $test = new DAO_CSV;
 
-        $test->getAllData(1,'product');
+        $test->getData(1,'order');
 
         // $test->addData('./DAO/import/test.yaml','user');
     }
