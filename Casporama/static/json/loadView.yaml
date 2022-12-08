@@ -251,8 +251,8 @@ User/verify/errNotVerif :
 User/verify/sendVerify :
 
     views :
-        head:  "templates/blank"
-        script : "templates/blank"
+        head:  "user/verify/sendVerify/head"
+        scirpt: "templates/blank"
         content : "user/verify/sendVerify/content"
 
     baseView : "user/verify/global/base"
