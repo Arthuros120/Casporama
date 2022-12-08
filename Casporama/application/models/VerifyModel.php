@@ -75,6 +75,52 @@ class VerifyModel extends CI_Model
 
     }
 
+    public function checkCode(string $idKey, string $code) : ?int
+    {
+
+        $query = $this->db->query("Call verifKey.checkCode('" . $idKey . "', '" . $code . "')");
+
+        $keyGroup = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        if (isset($keyGroup->idUser)) {
+
+            if (!$this->verifDateExpiration($keyGroup->dateExpiration)) {
+
+                $this->deleteKey($idKey);
+
+                return -1;
+
+            }
+
+            $this->deleteKey($idKey);
+
+            return $keyGroup->idUser;
+
+        } else {
+
+            return null;
+
+        }
+    }
+
+    public function deleteKey(string $idKey)
+    {
+
+        $this->db->query("Call verifKey.deleteKey('" . $idKey . "')");
+
+    }
+
+    public function verifDateExpiration(string $dateExpiration) : bool
+    {
+
+        return date('Y-m-d H:i:s') < date($dateExpiration);
+
+    }
+
     public function generateKey() : string
     {
 

@@ -16,6 +16,7 @@
             <p> Veuillez cliquer sur le lien de confirmation pour activer votre compte. </p>
             <p> Si vous n'avez pas reçu cet email, vous pouvez le demander à nouveau en cliquant sur le lien ci-dessous. </p>
             <p> <a href="<?php echo site_url('User/sendVerify'); ?>"> Renvoyer l'email de confirmation </a> </p>
+            <p> Si vous ne valider pas votre compte dans les 24 heures, votre compte sera supprimé. </p>
         </div>
     </div>
     <div class="verify_redirect">

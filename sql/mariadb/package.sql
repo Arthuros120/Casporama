@@ -125,6 +125,7 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getIsALiveById( idSearch VARCHAR(255));
     procedure getDateLastUpdateById( idSearch VARCHAR(255));
     procedure userIsDead(searchId int, newDateLastUpdate date);
+    procedure setUserVerified(searchId int, newDate datetime);
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -440,6 +441,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
     begin
         update user set dateLastUpdate=newDateLastUpdate, isALive = false where id = searchId;
     end;
+
+    procedure setUserVerified(idSearch int, newDate datetime) as
+    begin
+        update user set isVerified = true, dateLastUpdate = newDate where id = idSearch;
+    end;
 end;
 
 
@@ -684,6 +690,9 @@ CREATE OR REPLACE PACKAGE verifKey AS
     procedure verifyKey(newKey varchar(6));
     procedure createKey(newId varchar(54), newKey varchar(6), newDateCreation datetime, newDateExpiration datetime, newIdUser int);
     procedure allIdKey();
+    procedure deleteKey(searchId varchar(54));
+
+    procedure checkCode(newId varchar(54), newKey varchar(6));
 
 END;
 
@@ -708,6 +717,16 @@ CREATE OR REPLACE PACKAGE BODY verifKey AS
     procedure allIdKey() as
     begin
         select id from verifKey;
+    end;
+
+    procedure deleteKey(searchId varchar(64)) as
+    begin
+        delete from verifKey where id = searchId;
+    end;
+
+    procedure checkCode(newId varchar(64), newKey varchar(6)) as
+    begin
+        select idUser, dateExpiration from verifKey where id = newId and keyValue = newKey;
     end;
 END;
 
