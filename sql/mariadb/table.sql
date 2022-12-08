@@ -18,17 +18,6 @@ CREATE TABLE IF NOT EXISTS user (
     PRIMARY KEY (id)
 );
 
-Create table if not exists verifKey (
-    id INTEGER not null,
-    keyValue VARCHAR(45) not null unique,
-    dateCreation datetime not null,
-    dateExpiration datetime not null,
-    idUser INTEGER not null,
-    constraint fk_verifKey_user
-        foreign key (idUser) references user(id),
-    PRIMARY KEY (id)
-);
-
 CREATE TABLE IF NOT EXISTS information (
     id INTEGER NOT NULL,
     firstname VARCHAR(255),
@@ -111,12 +100,23 @@ create table if not exists `order` (
 );
 
 -- Ajout de la table captcha pour la gestion des captcha
-CREATE TABLE captcha (
+CREATE TABLE if not exists captcha (
 	captcha_id bigint unsigned NOT NULL auto_increment,
 	captcha_time int unsigned NOT NULL,
 	ip_address varchar(45) NOT NULL,
 	word varchar(20) NOT NULL,
 	PRIMARY KEY `captcha_id` (`captcha_id`),
 	KEY `word` (`word`)
+);
+
+Create table if not exists verifKey (
+    id varchar(64) not null,
+    keyValue VARCHAR(6) not null unique,
+    dateCreation datetime not null,
+    dateExpiration datetime not null,
+    idUser INTEGER not null,
+    constraint fk_verifKey_user
+        foreign key (idUser) references user(id),
+    PRIMARY KEY (id)
 );
 
