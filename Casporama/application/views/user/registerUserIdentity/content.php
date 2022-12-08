@@ -29,7 +29,7 @@
 
     </div>
 
-    <div class="register_error_content" 
+    <div class="register_error_content"
         <?php
             if ($error == null) {
                 echo "hidden";

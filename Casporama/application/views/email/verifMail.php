@@ -8,14 +8,14 @@
 </head>
 <body>
 
-<h1>Bonjour Nom Prénom</h1>
+<h1>Bonjour <?= $user->getCoordonnees()->getNom() ?> <?= $user->getCoordonnees()->getPrenom() ?></h1>
 
 <p> Il est important de vérifier votre adresse mail pour activer votre compte</p>
 <p> Voici le lien et le code de vérification pour activer vortre compte :</p>
-<p> Lien de vérification : <a href="lien">Cliquez ici</a></p>
-<p> Code de vérification : CODE</p>
+<p> Lien de vérification : <a href="<?= base_url() ?>user/verify?idKey=<?= $idKey ?>">Cliquez ici</a></p>
+<p> Code de vérification : <?= $key ?></p>
 <p> Ce code est valable 6 heures</p>
-<p> Le lien expire le : DATE</p>
+<p> Le lien expire le : <?= $dateExpiration ?></p>
 <p> Si vous n'avez pas demandé à créer un compte sur Casporama, veuillez ignorer ce mail</p>
 
 

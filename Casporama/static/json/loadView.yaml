@@ -257,6 +257,16 @@ User/verify/sendVerify :
 
     baseView : "user/verify/global/base"
 
+User/verify :
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "user/verify/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
 #---------------------------------Test View---------------------------------#
 
 Test/map :

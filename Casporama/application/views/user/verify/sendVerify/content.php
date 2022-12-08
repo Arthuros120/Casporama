@@ -3,7 +3,7 @@
 <div class="verify_account_content">
 
     <div class="verify_title">
-        <div class="verify_title_main">        
+        <div class="verify_title_main">
             <h1> Un email vient de vous être envoyé</h1>
         </div>
         <p>Vous avez reçu un email de confirmation d'inscription à l'email suivant: <?=$user->getCoordonnees()->getEmail()?></p>
@@ -16,11 +16,5 @@
     </div>
 
 </div>
-
-
-
-
-
-
 
 <!-- user/verify/sendVerify/content -->

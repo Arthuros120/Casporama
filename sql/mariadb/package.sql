@@ -683,6 +683,7 @@ CREATE OR REPLACE PACKAGE verifKey AS
     procedure verifyId(id varchar(54));
     procedure verifyKey(newKey varchar(6));
     procedure createKey(newId varchar(54), newKey varchar(6), newDateCreation datetime, newDateExpiration datetime, newIdUser int);
+    procedure allIdKey();
 
 END;
 
@@ -698,10 +699,15 @@ CREATE OR REPLACE PACKAGE BODY verifKey AS
         select keyValue from verifKey where keyValue = newKey;
     end;
 
-    procedure createKey(newId varchar(54), newKey varchar(6), newDateCreation datetime, newDateExpiration datetime, newIdUser int) as
+    procedure createKey(newId varchar(64), newKey varchar(6), newDateCreation datetime, newDateExpiration datetime, newIdUser int) as
     begin
         delete from verifKey where idUser = newIdUser;
         insert into verifKey(id, keyValue, dateCreation, dateExpiration, idUser) values (newId, newKey, newDateCreation, newDateExpiration, newIdUser);
+    end;
+
+    procedure allIdKey() as
+    begin
+        select id from verifKey;
     end;
 END;
 

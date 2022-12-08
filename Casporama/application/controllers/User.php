@@ -1515,7 +1515,7 @@ class User extends CI_Controller
         $id = $this->session->flashdata('id');
         $getData = $this->input->get(null, true);
 
-        if (isset($id)) {
+        if (isset($id) && empty($getData)) {
 
             $this->session->set_flashdata('id', $id);
 
@@ -1535,11 +1535,25 @@ class User extends CI_Controller
 
             $this->LoaderView->load('User/verify/errNotVerif', $data);
 
-        } elseif (!empty($getData) && isset($getData['id'])) {
+        } elseif (!empty($getData) && isset($getData['idKey'])) {
 
-            var_dump($getData);
+            $this->load->model('VerifyModel');
 
-            echo "verifykey";
+            $idKey = $getData['idKey'];
+
+            $listIdKey = $this->VerifyModel->getListIdKey();
+
+            if (in_array($idKey, $listIdKey)) {
+
+                // TODO: Créer une fonction qui vérifie si l'idKey est valide avec form
+
+                $this->LoaderView->load('User/verify');
+
+            } else {
+
+                show_404();
+
+            }
 
         } else {
 

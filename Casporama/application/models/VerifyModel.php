@@ -13,6 +13,28 @@ require_once APPPATH . 'models/entity/UserEntity.php';
 class VerifyModel extends CI_Model
 {
 
+    public function getListIdKey() : array
+    {
+        $resArray = array();
+
+        $query = $this->db->query("Call verifKey.allIdKey()");
+
+        $listIdKey = $query->result();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        foreach ($listIdKey as $value) {
+
+            array_push($resArray, $value->id);
+
+        }
+
+        return $resArray;
+
+    }
+
     public function sendVerifyCode(UserEntity $user)
     {
 
@@ -26,11 +48,30 @@ class VerifyModel extends CI_Model
 
         $this->db->query($queryMsg, array($idKey, $key, $dateNow, $dateExpiration, $user->getId()));
 
-        var_dump($idKey);
-        var_dump($key);
-        var_dump($dateExpiration);
-        var_dump($dateNow);
-        var_dump($user->getId());
+        $this->load->model('EmailModel');
+
+        $fromEmail = array(
+
+            'email' => 'no_reply@casporama.live',
+            'name' => 'Casporama - No Reply'
+
+        );
+
+        $this->EmailModel->sendEmail(
+
+            $fromEmail,
+            $user->getCoordonnees()->getEmail(),
+            'Casporama - Vérification de votre adresse mail',
+            'email/verifMail',
+            array(
+
+                'user' => $user,
+                'idKey' => $idKey,
+                'key' => $key,
+                'dateExpiration' => $dateExpiration
+
+            )
+        );
 
     }
 
