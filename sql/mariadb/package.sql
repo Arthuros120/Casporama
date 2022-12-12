@@ -272,6 +272,7 @@ CREATE OR REPLACE PACKAGE BODY user AS
         delete from user where id = iduser;
         delete from information where id = iduser;
         delete from location where id = iduser;
+        delete from verifKey where idUser = delUser.iduser;
     end;
 
     procedure setCookieId( newCookieId varchar(45),  iduser int) as
@@ -699,6 +700,7 @@ CREATE OR REPLACE PACKAGE verifKey AS
     procedure deleteKey(searchId varchar(54));
 
     procedure checkCode(newId varchar(54), newKey varchar(6));
+    procedure getIdByIdKey(newId varchar(6));
 
 END;
 
@@ -734,6 +736,11 @@ CREATE OR REPLACE PACKAGE BODY verifKey AS
     begin
         select idUser, dateExpiration from verifKey where id = newId and keyValue = newKey;
     end;
+
+    procedure getIdByIdKey(newId varchar(64)) as
+    begin
+        select idUser from verifKey where id = newId;
+    end;
 END;
 
 /*
@@ -749,3 +756,5 @@ Call product.getProductBySportType(1, 'Vetement');
 desc user;
 
 call user.sameAddresseModif(2, '22;Rue des bergeronnettes', 'Nantes');
+
+call verifKey.getIdByIdKey('8b88e9f89da11a88a28d00225843252fd65995a72d1290cd6618728527b6003e');

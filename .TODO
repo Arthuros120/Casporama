@@ -39,6 +39,10 @@
 
 - Todo : Backend -> Faire en sorte que les valeur donné dans un formulaire soit gardé en cas d'erreur
 
+- Todo : Backend -> Bug dans la modification de l'adresse
+
+- Todo : Backend -> Reformatter le code en le partitionnant en fonction des fonctionnalité
+
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
@@ -86,5 +90,7 @@
 - Done : Backend -> Implementer les cartes dans la page info user
 
 - Done : Backend -> Supprimer les fichiers export lors qu'il y en a 10 ou plus, pour chaque type
+
+- Done : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...
 
 - Done : SQL -> Trigger isALive et isDefault, update

@@ -1689,6 +1689,196 @@ class User extends CI_Controller
         }
     }
 
+    public function recoverPass()
+    {
+
+        $getData = $this->input->get(null, true);
+
+        $trigger = $this->session->flashdata('success');
+
+        if (isset($trigger)) {
+
+            if ($trigger) {
+
+                $this->LoaderView->load('User/recoverPass/success');
+
+            } else {
+
+                $this->LoaderView->load('User/recoverPass/sendMail');
+
+            }
+
+        } elseif (!empty($getData) && isset($getData['idKey'])) {
+
+            $idKey = $getData['idKey'];
+
+            if (isset($getData['code'])) {
+
+                $code = $getData['code'];
+
+            } else {
+
+                $code = null;
+
+            }
+
+            $this->load->model('VerifyModel');
+
+            $listIdKey = $this->VerifyModel->getListIdKey();
+
+            if (in_array($idKey, $listIdKey)) {
+
+                $configRules = array(
+
+                    array(
+                        'field' => 'code',
+                        'label' => 'code de vérification',
+                        'rules' => 'trim|required|min_length[6]|max_length[6]|alpha_numeric',
+                        'errors' => array( // * On définit les messages d'erreurs
+                            'required' => 'Vous avez oublié %s.',
+                            "min_length" => "Le %s doit faire au moins 5 caractères",
+                            "max_length" => "Le %s doit faire au plus 5 caractères",
+                            'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                            'alpha_numeric' => 'Le %s ne doit contenir que des lettres et des chiffres',
+                        ),
+                    ),
+    
+                    // * Configuration des paramètre du champ password
+                    array(
+                        'field' => 'password',
+                        'label' => 'Mot de passe',
+                        'rules' => 'trim|required|min_length[8]|max_length[255]|callback_ComformPassword',
+                        'errors' => array(
+                            'required' => 'Vous avez oublié %s.',
+                            'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                            "min_length" => "Le %s doit faire au moins 8 caractères",
+                        "   max_length" => "Le %s doit faire au plus 255 caractères",
+                        ),
+                    ),
+    
+                    // * Configuration des paramètre du champ password confirm
+                    array(
+                        'field' => 'passConf',
+                        'label' => 'Confirmation Mot de passe',
+                        'rules' => 'trim|required|matches[password]',
+                        'errors' => array(
+                            'required' => 'Vous avez oublié %s.',
+                            'matches' => 'Les deux Mots de passe ne sont pas identiques',
+                            'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        ),
+                    )
+                );
+    
+                $this->form_validation->set_rules($configRules);
+    
+                if (!$this->form_validation->run()) {
+    
+                    $dataContent = array(
+    
+                        'idKey' => $idKey,
+                        'code' => $code,
+                        'error' => validation_errors()
+    
+                    );
+    
+                    $data = array(
+    
+                        'content' => $dataContent
+    
+                    );
+    
+                    $this->LoaderView->load('User/recoverPass/modif', $data);
+    
+                } else {
+    
+                    $codeByUser = $this->input->post('code');
+                    $newPass = $this->input->post('password');
+
+                    $id = $this->VerifyModel->getIdByIdKey($idKey);
+    
+                    $resRequet = $this->VerifyModel->checkCode($idKey, $codeByUser);
+    
+                    if ($resRequet) {
+
+                        $this->UserModel->updatePassword($id, $newPass);
+
+                        $this->VerifyModel->deleteKey($idKey);
+
+                        $this->session->set_flashdata('success', true);
+
+                        redirect('User/recoverPass');
+    
+                    } else {
+    
+                        $dataContent = array(
+    
+                            'idKey' => $idKey,
+                            'code' => $code,
+                            'error' => 'Le code de vérification est incorrect veuillez redemander un code'
+    
+                        );
+    
+                        $data = array(
+    
+                            'content' => $dataContent
+    
+                        );
+    
+                        $this->LoaderView->load('User/recoverPass/modif', $data);
+    
+                    }
+                }
+
+            } else {
+
+                show_404();
+
+            }
+
+        } else {
+
+            $this->form_validation->set_rules(
+                'email',
+                'email',
+                'trim|required|valid_email',
+                array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'valid_email' => 'L\'%s n\'est pas valide',
+                ),
+            );
+
+            if (!$this->form_validation->run()) {
+
+                $dataContent = array(
+
+                    'error' => validation_errors()
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent
+
+                );
+
+                $this->LoaderView->load('User/recoverPass/request', $data);
+
+            } else {
+
+                $this->load->model('VerifyModel');
+
+                $this->VerifyModel->sendRecoverPass($this->input->post('email'));
+
+                $this->session->set_flashdata('success', false);
+
+                redirect('User/recoverPass');
+
+            }
+        }
+    }
+
+
     // --------------------------------------------------------------------
 
     // * Casual function
