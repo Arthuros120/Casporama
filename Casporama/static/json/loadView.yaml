@@ -260,7 +260,7 @@ User/verify/sendVerify :
 User/verify :
 
     views :
-        head : "templates/blank"
+        head : "user/verify/head"
         header : "templates/blank"
         content : "user/verify/content"
         footer : "templates/blank"

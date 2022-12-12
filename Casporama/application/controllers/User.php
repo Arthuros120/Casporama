@@ -1573,9 +1573,16 @@ class User extends CI_Controller
 
                 if (!$this->form_validation->run()) {
 
+                    $formAttributes = array(
+                        'name' => "verifyForm",
+                        'class' => "input_verify_form",
+                        'autocomplete' => "off"
+                    );
+
                     $dataContent = array(
 
                         'idKey' => $idKey,
+                        'formAttributes' => $formAttributes,
                         'error' => validation_errors()
 
                     );
