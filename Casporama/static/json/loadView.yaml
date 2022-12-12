@@ -270,19 +270,19 @@ User/verify:
 
 Information/rgpd:
   views:
-    head: "templates/blank"
-    header: "templates/blank"
+    head: "templates/head"
+    header: "templates/header"
     content: "test/information/inforgpd"
-    footer: "templates/blank"
+    footer: "templates/footer"
 
   baseView: "templates/base"
 
 Information/cgv:
   views:
-    head: "templates/blank"
-    header: "templates/blank"
+    head: "templates/head"
+    header: "templates/header"
     content: "test/information/cgv"
-    footer: "templates/blank"
+    footer: "templates/footer"
 
   baseView: "templates/base"
 
