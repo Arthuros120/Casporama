@@ -191,9 +191,5 @@ class Test extends CI_Controller
         $this->LoaderView->load('Test/map', $data);
     }
 
-    public function inforgpd()
-    {
-        $this->LoaderView->load("Test/information/inforgpd");
-    }
 
 }
