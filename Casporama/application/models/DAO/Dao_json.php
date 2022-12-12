@@ -1,14 +1,14 @@
 <?php
 
-require_once APPPATH . 'interfaces/DAO.php';
+require_once APPPATH . 'interfaces/DaoInterface.php';
 
-class DAO_JSON extends CI_Model implements DAO {
+class Dao_json extends CI_Model implements DaoInterface {
 
     public function __construct()
     {
-        $files = glob( "./DAO/export/json/" ."*" );
+        $files = glob( "./DaoFile/export/json/" ."*" );
         if ($files && count($files) >= 6) {
-            array_map('unlink', glob("./DAO/export/json/*.json"));
+            array_map('unlink', glob("./DaoFile/export/json/*.json"));
         }
     }
 
@@ -33,12 +33,14 @@ class DAO_JSON extends CI_Model implements DAO {
         }
         
         $time = date("Y-m-d-h:i:s",time());
-        $fp = fopen("./DAO/export/json/$time"."_"."$id.json","w");
+        $path = "./DaoFile/export/json/$time"."_"."$id.json";
+        $fp = fopen($path,"w");
         $result = $query->result_array();
         $msg = json_encode($result);
         fwrite($fp,$msg);
         
         fclose($fp);
+        return $path;
     }
     
     function addData($file, $table) {

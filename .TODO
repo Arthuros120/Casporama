@@ -91,4 +91,6 @@
 
 - Done : Backend -> Supprimer les fichiers export lors qu'il y en a 10 ou plus, pour chaque type
 
+- Done : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...
+
 - Done : SQL -> Trigger isALive et isDefault, update

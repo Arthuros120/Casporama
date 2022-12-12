@@ -1,4 +1,0 @@
-2022-12-08-13:59:10 : DataBase Error : 1305 PROCEDURE orer.getAll does not exist 
-2022-12-08-13:59:12 : DataBase Error : 1305 PROCEDURE orer.getAll does not exist 
-2022-12-08-13:59:13 : DataBase Error : 1305 PROCEDURE orer.getAll does not exist 
-2022-12-08-13:59:15 : DataBase Error : 1305 PROCEDURE orer.getAll does not exist 

@@ -1,14 +1,14 @@
 <?php
 
-require_once APPPATH . 'interfaces/DAO.php';
+require_once APPPATH . 'interfaces/DaoInterface.php';
 
-class DAO_XML extends CI_Model implements DAO {
+class Dao_xml extends CI_Model implements DaoInterface {
 
     public function __construct()
     {
-        $files = glob( "./DAO/export/xml/" ."*" );
+        $files = glob( "./DaoFile/export/xml/" ."*" );
         if ($files && count($files) >= 6) {
-            array_map('unlink', glob("./DAO/export/xml/*.xml"));
+            array_map('unlink', glob("./DaoFile/export/xml/*.xml"));
         }
     }
 
@@ -48,9 +48,11 @@ class DAO_XML extends CI_Model implements DAO {
         $msg = $_xml->asXML();
         
         $time = date("Y-m-d-H:i:s",time());
-        $fp = fopen("./DAO/export/xml/$time"."_"."$id.xml","w");
+        $path = "./DaoFile/export/xml/$time"."_"."$id.xml";
+        $fp = fopen($path,"w");
         fwrite($fp,$msg);
         fclose($fp);
+        return $path;
     }
     
     function addData($file, $table) {
