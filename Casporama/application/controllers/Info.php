@@ -1,5 +1,5 @@
 <?php
-
+defined('BASEPATH') || exit('No direct script access allowed');
 class Info extends CI_Controller
 {
 
@@ -12,8 +12,7 @@ class Info extends CI_Controller
 
     public function index()
     {
-        $this->output->enable_profiler(true);
-        $this->LoaderView->load("Test/information/inforgpd");
+        $this->LoaderView->load("Information/rgpd");
     }
 
 
