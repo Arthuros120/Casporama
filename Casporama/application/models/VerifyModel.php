@@ -13,6 +13,28 @@ require_once APPPATH . 'models/entity/UserEntity.php';
 class VerifyModel extends CI_Model
 {
 
+    public function getListIdKey() : array
+    {
+        $resArray = array();
+
+        $query = $this->db->query("Call verifKey.allIdKey()");
+
+        $listIdKey = $query->result();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        foreach ($listIdKey as $value) {
+
+            array_push($resArray, $value->id);
+
+        }
+
+        return $resArray;
+
+    }
+
     public function sendVerifyCode(UserEntity $user)
     {
 
@@ -26,11 +48,76 @@ class VerifyModel extends CI_Model
 
         $this->db->query($queryMsg, array($idKey, $key, $dateNow, $dateExpiration, $user->getId()));
 
-        var_dump($idKey);
-        var_dump($key);
-        var_dump($dateExpiration);
-        var_dump($dateNow);
-        var_dump($user->getId());
+        $this->load->model('EmailModel');
+
+        $fromEmail = array(
+
+            'email' => 'no_reply@casporama.live',
+            'name' => 'Casporama - No Reply'
+
+        );
+
+        $this->EmailModel->sendEmail(
+
+            $fromEmail,
+            $user->getCoordonnees()->getEmail(),
+            'Casporama - Vérification de votre adresse mail',
+            'email/verifMail',
+            array(
+
+                'user' => $user,
+                'idKey' => $idKey,
+                'key' => $key,
+                'dateExpiration' => $dateExpiration
+
+            )
+        );
+
+    }
+
+    public function checkCode(string $idKey, string $code) : ?int
+    {
+
+        $query = $this->db->query("Call verifKey.checkCode('" . $idKey . "', '" . $code . "')");
+
+        $keyGroup = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        if (isset($keyGroup->idUser)) {
+
+            if (!$this->verifDateExpiration($keyGroup->dateExpiration)) {
+
+                $this->deleteKey($idKey);
+
+                return -1;
+
+            }
+
+            $this->deleteKey($idKey);
+
+            return $keyGroup->idUser;
+
+        } else {
+
+            return null;
+
+        }
+    }
+
+    public function deleteKey(string $idKey)
+    {
+
+        $this->db->query("Call verifKey.deleteKey('" . $idKey . "')");
+
+    }
+
+    public function verifDateExpiration(string $dateExpiration) : bool
+    {
+
+        return date('Y-m-d H:i:s') < date($dateExpiration);
 
     }
 

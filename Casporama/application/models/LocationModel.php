@@ -655,6 +655,39 @@ class LocationModel extends CI_Model
 
     }
 
+    public function sameAddresseModif(int $userId, LocationEntity $newAddresse, int $oldId) : bool
+    {
+
+        if (!isset($newAddresse) || $newAddresse->getStringAdresse() == null|| $newAddresse->getCity() == null) {
+
+            return true;
+
+        }
+
+        $addresse = $newAddresse->getStringAdresse();
+        $city = $newAddresse->getCity();
+
+
+        $query = $this->db->query(
+            "call user.sameAddresseModif('" . $userId . "', '" . $addresse . "', '" . $city . "')"
+        );
+
+        $result = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        if ($result->total == 0 || ($result->total == 1 && $result->id == $oldId)) {
+
+            return false;
+
+        }
+
+        return true;
+
+    }
+
     public function countAddressByUserId(int $id) : int
     {
 

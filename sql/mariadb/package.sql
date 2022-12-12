@@ -117,6 +117,7 @@ CREATE OR REPLACE PACKAGE user AS
         dateCreation date
         );
     procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
+    procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
     procedure countAliveAddressByUserId(searchUserId int);
     procedure getAllUser();
     procedure getAllLocation();
@@ -125,6 +126,7 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getIsALiveById( idSearch VARCHAR(255));
     procedure getDateLastUpdateById( idSearch VARCHAR(255));
     procedure userIsDead(searchId int, newDateLastUpdate date);
+    procedure setUserVerified(searchId int, newDate datetime);
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -416,6 +418,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
         select count(*) as total from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
     end;
 
+    procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255)) as
+    begin
+        select count(*) as total, id from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
+    end;
+
     procedure countAliveAddressByUserId(searchUserId int) as
     begin
         select count(*) as total from location where id = searchUserId and isALive=true;
@@ -439,6 +446,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
     procedure userIsDead(searchId int, newDateLastUpdate date) as
     begin
         update user set dateLastUpdate=newDateLastUpdate, isALive = false where id = searchId;
+    end;
+
+    procedure setUserVerified(idSearch int, newDate datetime) as
+    begin
+        update user set isVerified = true, dateLastUpdate = newDate where id = idSearch;
     end;
 end;
 
@@ -683,6 +695,10 @@ CREATE OR REPLACE PACKAGE verifKey AS
     procedure verifyId(id varchar(54));
     procedure verifyKey(newKey varchar(6));
     procedure createKey(newId varchar(54), newKey varchar(6), newDateCreation datetime, newDateExpiration datetime, newIdUser int);
+    procedure allIdKey();
+    procedure deleteKey(searchId varchar(54));
+
+    procedure checkCode(newId varchar(54), newKey varchar(6));
 
 END;
 
@@ -698,10 +714,25 @@ CREATE OR REPLACE PACKAGE BODY verifKey AS
         select keyValue from verifKey where keyValue = newKey;
     end;
 
-    procedure createKey(newId varchar(54), newKey varchar(6), newDateCreation datetime, newDateExpiration datetime, newIdUser int) as
+    procedure createKey(newId varchar(64), newKey varchar(6), newDateCreation datetime, newDateExpiration datetime, newIdUser int) as
     begin
         delete from verifKey where idUser = newIdUser;
         insert into verifKey(id, keyValue, dateCreation, dateExpiration, idUser) values (newId, newKey, newDateCreation, newDateExpiration, newIdUser);
+    end;
+
+    procedure allIdKey() as
+    begin
+        select id from verifKey;
+    end;
+
+    procedure deleteKey(searchId varchar(64)) as
+    begin
+        delete from verifKey where id = searchId;
+    end;
+
+    procedure checkCode(newId varchar(64), newKey varchar(6)) as
+    begin
+        select idUser, dateExpiration from verifKey where id = newId and keyValue = newKey;
     end;
 END;
 
@@ -716,3 +747,5 @@ Call product.getProductBySportType(1, 'Vetement');
 /*call user.countAliveAddressByUserId(2);*/
 
 desc user;
+
+call user.sameAddresseModif(2, '22;Rue des bergeronnettes', 'Nantes');

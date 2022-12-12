@@ -252,10 +252,20 @@ User/verify/sendVerify :
 
     views :
         head:  "user/verify/sendVerify/head"
-        scirpt: "templates/blank"
+        script: "templates/blank"
         content : "user/verify/sendVerify/content"
 
     baseView : "user/verify/global/base"
+
+User/verify :
+
+    views :
+        head : "user/verify/head"
+        header : "templates/blank"
+        content : "user/verify/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
 
 #---------------------------------Test View---------------------------------#
 

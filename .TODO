@@ -17,13 +17,9 @@
 
 - TODO : Backend -> Revoir tout les demande d'affichage des pages d'erreur et savoir si c'est les pages d'erreur adapté
 
-- TODO : SQL -> Trigger isALive et isDefault, update
-
 - TODO : Backend -> Bien assigné les autocomplete a tous les input
 
 - TODO : Backend -> Créer un cache des demande d'api récurente
-
-- TODO : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...
 
 - TODO : Backend -> Gerer l'archivage des logs
 
@@ -39,10 +35,9 @@
 
 - Todo : Backend -> Ajouter la possibilité de recuperer sont compte mort
 
-- Todo : Backend -> Ajouter la possibilité de recuperer sont mot de passe
-
 - Todo : Backend -> Faire filtre pour DAO
 
+- Todo : Backend -> Faire en sorte que les valeur donné dans un formulaire soit gardé en cas d'erreur
 
 ## En cours
 
@@ -51,6 +46,8 @@
 - Do : Sysadmin/Backend -> crée un dédoublement du site et de la base de donnée sur le serveur distant
 
 - Do : Backend/Frotend -> Progress bar sur la loading page (pour le fun)
+
+- Do : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...
 
 ## Fait
 
@@ -89,3 +86,5 @@
 - Done : Backend -> Implementer les cartes dans la page info user
 
 - Done : Backend -> Supprimer les fichiers export lors qu'il y en a 10 ou plus, pour chaque type
+
+- Done : SQL -> Trigger isALive et isDefault, update

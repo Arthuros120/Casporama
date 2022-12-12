@@ -844,7 +844,7 @@ class UserModel extends CI_Model
             $data['password'] = $identifyValue['password'];
             $data['salt'] = $identifyValue['salt'];
 
-            $data['dateLastUpdate'] = date('Y-m-d h:i:s', time());
+            $data['dateLastUpdate'] = date('Y-m-d H:i:s');
 
             $requeteSql = "Call user.createUser(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -863,6 +863,13 @@ class UserModel extends CI_Model
 
             $this->db->query($requeteSql, $dataRequete);
         }
+    }
+
+    public function setUserVerified(int $id)
+    {
+
+        $this->db->query("Call user.setUserVerified('" . $id ."', '" . date('Y-m-d H:i:s') . "')");
+
     }
 
     public function updateLastName(int $id, string $newLastName)
@@ -971,7 +978,7 @@ class UserModel extends CI_Model
     
     public function deleteUser(int $id)
     {
-        $dateLastUpdate = date('Y-m-d h:i:s', time());
+        $dateLastUpdate = date('Y-m-d H:i:s');
 
         $this->db->query("Call user.userIsDead('" . $id . "', '" . $dateLastUpdate . "')");
 
