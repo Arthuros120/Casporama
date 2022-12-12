@@ -158,7 +158,7 @@ call getStock(1);
 call getStockTotal(1);
 */
 
-#---------- Ajout ----------------
+---------- Ajout ----------------
 
 
 create procedure addUser( newid integer, newlogin varchar(255),  newpass varchar(255),  newsalt VARCHAR(45),  newstatus varchar(20)) as
@@ -206,7 +206,7 @@ create  procedure addCaptchat( captchaTime int,  ipAddress varchar(45),  newWord
 
 -- Call addCaptchat(123, '::1', 'azerty');
 
-#---------- Suppression ----------------
+---------- Suppression ----------------
 
 create procedure delUser( iduser int) as
     BEGIN
@@ -233,7 +233,7 @@ create procedure cleanCaptchat( expiration int) as
 
     end;
 
-#---------- Update ----------------
+---------- Update ----------------
 
 
 create procedure updateQuantite( iduser int,  newquantity int) as
@@ -298,7 +298,7 @@ create procedure updateStatus( iduser int,  newstate varchar(20)) as
         update user set status=newstate where id=iduser;
     end;
 
-#---------- Arthur ----------------
+---------- Arthur ----------------
 
 create procedure getLocationById(idloc integer)
     Begin

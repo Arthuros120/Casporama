@@ -277,6 +277,36 @@ User/recoverPass/request:
 
     baseView : "templates/base"
 
+User/recoverPass/modif:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "user/recoverPass/modif/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+User/recoverPass/success:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "user/recoverPass/success/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+User/recoverPass/sendMail:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "user/recoverPass/sendMail/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
 #---------------------------------Test View---------------------------------#
 
 Test/map :

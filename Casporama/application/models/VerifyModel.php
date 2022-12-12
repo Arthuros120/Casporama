@@ -187,6 +187,27 @@ class VerifyModel extends CI_Model
         return $id;
     }
 
+    public function getIdByIdKey(string $idKey): ?int
+    {
+
+        $query = $this->db->query("Call verifKey.getIdByIdKey('" . $idKey . "')");
+
+        $keyGroup = $query->row();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        if (isset($keyGroup->idUser)) {
+
+            return $keyGroup->idUser;
+
+        } else {
+
+            return null;
+        }
+    }
+
     public function heHaveKey(string $key): bool
     {
 
