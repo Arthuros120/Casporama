@@ -3,7 +3,7 @@ function entierAleatoire(min, max)
  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const loadingTime = entierAleatoire(5000, 10000);
+const loadingTime = entierAleatoire(2000, 5000);
 
 // const bar = new ProgressBar.Line(
 //     progressBar, 

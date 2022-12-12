@@ -307,6 +307,16 @@ User/recoverPass/sendMail:
 
     baseView : "templates/base"
 
+Admin/home:
+
+    views :
+        head : "admin/home/head"
+        header : "templates/blank"
+        content : "admin/home/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
 #---------------------------------Test View---------------------------------#
 
 Test/map :
