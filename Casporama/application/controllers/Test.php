@@ -49,6 +49,13 @@ class Test extends CI_Controller
 
     }
 
+    public function date()
+    {
+
+        var_dump(date('Y-m-d H:i:s') < date('Y-m-d H:i:s', strtotime('+6 hours')));
+
+    }
+
     public function progress()
     {
 

@@ -350,9 +350,9 @@ class User extends CI_Controller
 
             // * On stocke les erreurs dans une variable
 
-            $error_array = explode("\n",validation_errors());
+            $errorArray = explode("\n", validation_errors());
 
-            $dataContent['error'] = array_slice($error_array,0,-1);
+            $dataContent['error'] = array_slice($errorArray, 0, -1);
 
             // * On etiquette les données
             $data = array(
@@ -456,9 +456,9 @@ class User extends CI_Controller
 
                 // * On stocke les erreurs dans une variable
 
-                $error_array = explode("\n",validation_errors());
+                $errorArray = explode("\n", validation_errors());
 
-                $dataContent['error'] = array_slice($error_array,0,-1);
+                $dataContent['error'] = array_slice($errorArray, 0, -1);
 
                 // * On etiquette les données
                 $data = array(
@@ -477,9 +477,13 @@ class User extends CI_Controller
 
                 $this->UserModel->registerUser($dataUser);
 
-                if ($this->UserModel->heHaveUserByLogin($dataUser['login'])) {
+                $user = $this->UserModel->getUserByLogin($dataUser['login']);
 
-                    redirect("User/login");
+                if ($user != null) {
+
+                    $this->session->set_flashdata('id', $user->getId());
+
+                    redirect("User/sendVerify");
 
                 }
 
@@ -1028,7 +1032,13 @@ class User extends CI_Controller
             
                                                 $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
 
-                                                if (!$this->LocationModel->sameAddresse($user->getId(), $newAdresse)) {
+                                                if (
+                                                    !$this->LocationModel->sameAddresseModif(
+                                                        $user->getId(),
+                                                        $newAdresse,
+                                                        $address->getId()
+                                                        )
+                                                    ) {
 
                                                     $this->LocationModel->updateAddress(
                                                         $newAdresse,
@@ -1484,7 +1494,7 @@ class User extends CI_Controller
 
             );
 
-            $dayRemaining = explode(",",$dayRemaining);
+            $dayRemaining = explode(",", $dayRemaining);
 
             $dataContent = array(
 
@@ -1511,11 +1521,11 @@ class User extends CI_Controller
 
     public function verify()
     {
-
         $id = $this->session->flashdata('id');
+        $trigger = $this->session->flashdata('trigger');
         $getData = $this->input->get(null, true);
 
-        if (isset($id)) {
+        if (isset($id) && empty($getData) && !isset($trigger)) {
 
             $this->session->set_flashdata('id', $id);
 
@@ -1535,11 +1545,98 @@ class User extends CI_Controller
 
             $this->LoaderView->load('User/verify/errNotVerif', $data);
 
-        } elseif (!empty($getData) && isset($getData['id'])) {
+        } elseif ((!empty($getData) && isset($getData['idKey'])) || isset($trigger)) {
 
-            var_dump($getData);
+            $this->session->set_flashdata('trigger', true);
 
-            echo "verifykey";
+            $this->load->model('VerifyModel');
+
+            $idKey = $getData['idKey'];
+
+            $listIdKey = $this->VerifyModel->getListIdKey();
+
+            if (in_array($idKey, $listIdKey)) {
+
+                $this->form_validation->set_rules(
+                    'code',
+                    'code de vérification',
+                    'trim|required|min_length[6]|max_length[6]|alpha_numeric',
+                    array( // * On définit les messages d'erreurs
+                        'required' => 'Vous avez oublié %s.',
+                        "min_length" => "Le %s doit faire au moins 5 caractères",
+                        "max_length" => "Le %s doit faire au plus 5 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'alpha_numeric' => 'Le %s ne doit contenir que des lettres et des chiffres',
+                    ),
+                );
+
+                if (!$this->form_validation->run()) {
+
+                    $dataContent = array(
+
+                        'idKey' => $idKey,
+                        'error' => validation_errors()
+
+                    );
+
+                    $data = array(
+
+                        'content' => $dataContent
+
+                    );
+
+                    $this->LoaderView->load('User/verify', $data);
+
+                } else {
+
+                    $code = $this->input->post('code');
+
+                    $resRequet = $this->VerifyModel->checkCode($idKey, $code);
+
+                    if ($resRequet != null) {
+
+                        if ($resRequet != -1) {
+
+                            $this->UserModel->setUserVerified($resRequet);
+
+                            redirect('User/login');
+
+                        } else {
+
+                            show_error(
+                                "Le code de vérification à expiré, reconnecté vous pour recevoir un nouveau code",
+                                500,
+                                "Erreur de vérification du code"
+                            );
+
+                        }
+
+                    } else {
+
+                        $dataContent = array(
+
+                            'idKey' => $idKey,
+                            'error' => "Le code de vérification n'est pas le bon"
+
+                        );
+
+                        $data = array(
+
+                            'content' => $dataContent
+
+                        );
+
+                        $this->LoaderView->load('User/verify', $data);
+
+                    }
+
+                }
+
+            } else {
+
+                show_404();
+
+            }
 
         } else {
 
@@ -1584,6 +1681,111 @@ class User extends CI_Controller
 
         }
     }
+
+    public function recoverPass()
+    {
+
+        $getData = $this->input->get(null, true);
+
+        if (!empty($getData) && isset($getData['idKey'])) {
+
+            $idKey = $getData['idKey'];
+
+            if (isset($getData['code'])) {
+
+                $code = $getData['code'];
+
+            } else {
+
+                $code = null;
+
+            }
+
+            $configRules = array(
+
+                array(
+                    'field' => 'code',
+                    'label' => 'code de vérification',
+                    'rules' => 'trim|required|min_length[6]|max_length[6]|alpha_numeric',
+                    'errors' => array( // * On définit les messages d'erreurs
+                        'required' => 'Vous avez oublié %s.',
+                        "min_length" => "Le %s doit faire au moins 5 caractères",
+                        "max_length" => "Le %s doit faire au plus 5 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'alpha_numeric' => 'Le %s ne doit contenir que des lettres et des chiffres',
+                    ),
+                ),
+
+                // * Configuration des paramètre du champ password
+                array(
+                    'field' => 'password',
+                    'label' => 'Mot de passe',
+                    'rules' => 'trim|required|min_length[8]|max_length[255]|callback_ComformPassword',
+                    'errors' => array(
+                        'required' => 'Vous avez oublié %s.',
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        "min_length" => "Le %s doit faire au moins 8 caractères",
+                    "   max_length" => "Le %s doit faire au plus 255 caractères",
+                    ),
+                ),
+
+                // * Configuration des paramètre du champ password confirm
+                array(
+                    'field' => 'passConf',
+                    'label' => 'Confirmation Mot de passe',
+                    'rules' => 'trim|required|matches[password]',
+                    'errors' => array(
+                        'required' => 'Vous avez oublié %s.',
+                        'matches' => 'Les deux Mots de passe ne sont pas identiques',
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    ),
+                )
+            );
+
+            $this->form_validation->set_rules($configRules);
+            
+
+        } else {
+
+            $this->form_validation->set_rules(
+                'email',
+                'email',
+                'trim|required|valid_email',
+                array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'valid_email' => 'L\'%s n\'est pas valide',
+                ),
+            );
+
+            if (!$this->form_validation->run()) {
+
+                $dataContent = array(
+
+                    'error' => validation_errors()
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent
+
+                );
+
+                $this->LoaderView->load('User/recoverPass/request', $data);
+
+            } else {
+
+                $this->load->model('VerifyModel');
+
+                $this->VerifyModel->sendRecoverPass($this->input->post('email'));
+
+                redirect('User/login');
+
+            }
+        }
+    }
+
 
     // --------------------------------------------------------------------
 

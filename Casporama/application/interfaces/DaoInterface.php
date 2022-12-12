@@ -5,7 +5,8 @@ interface DaoInterface {
     function addData($file, $table);
 }
 
-function errorFile($err, $table) {
+function errorFile($err, $table)
+{
 
     $files = glob( "./DaoFile/error/" ."*" );
     if ($files && count($files) >= 6) {
@@ -23,9 +24,7 @@ function errorFile($err, $table) {
     } else {
         $msg = $err;
     }
-    fwrite($errorFile,$time." : ".$msg."\n");
+    fwrite($errorFile, $time." : ".$msg."\n");
     fclose($errorFile);
 
 }
-
-?>
