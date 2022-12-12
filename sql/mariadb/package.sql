@@ -270,6 +270,7 @@ CREATE OR REPLACE PACKAGE BODY user AS
         delete from user where id = iduser;
         delete from information where id = iduser;
         delete from location where id = iduser;
+        delete from verifKey where idUser = delUser.iduser;
     end;
 
     procedure setCookieId( newCookieId varchar(45),  iduser int) as

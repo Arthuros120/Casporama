@@ -1,15 +1,15 @@
 <?php
 
-require_once APPPATH . 'interfaces/DAO.php';
+require_once APPPATH . 'interfaces/DaoInterface.php';
 
 
-class DAO_YAML extends CI_Model implements DAO {
+class Dao_yaml extends CI_Model implements DaoInterface {
 
     public function __construct()
     {
-        $files = glob( "./DAO/export/yaml/" ."*" );
+        $files = glob( "./DaoFile/export/yaml/" ."*" );
         if ($files && count($files) >= 6) {
-            array_map('unlink', glob("./DAO/export/yaml/*.yaml"));
+            array_map('unlink', glob("./DaoFile/export/yaml/*.yaml"));
         }
     }
 
@@ -33,7 +33,8 @@ class DAO_YAML extends CI_Model implements DAO {
         }
         
         $time = date("Y-m-d-h:i:s",time());
-        $fp = fopen("./DAO/export/yaml/$time"."_"."$id.yaml","w");
+        $path = "./DaoFile/export/yaml/$time"."_"."$id.yaml";
+        $fp = fopen($path,"w");
         $result = $query->result_array();
         $results = [];
         $val = 0;
@@ -48,6 +49,7 @@ class DAO_YAML extends CI_Model implements DAO {
         fwrite($fp,$msg);
         
         fclose($fp);
+        return $path;
     }
     
     function addData($file, $table) {

@@ -1,12 +1,12 @@
 <?php
 
-require_once APPPATH . 'interfaces/DAO.php';
+require_once APPPATH . 'interfaces/DaoInterface.php';
 
-class DAO_CSV extends CI_Model implements DAO{
+class Dao_csv extends CI_Model implements DaoInterface {
 
     public function __construct()
     {
-        $folders = glob( "./DAO/export/csv/" ."*" );
+        $folders = glob( "./DaoFile/export/csv/" ."*" );
         foreach ($folders as $folder) {
             $files = glob( "$folder/" ."*" );
             if ($files && count($files) >= 6) {
@@ -36,7 +36,8 @@ class DAO_CSV extends CI_Model implements DAO{
         }
         
         $time = date("Y-m-d-h:i:s",time());
-        $fp = fopen("./DAO/export/csv/$table/$time"."_"."$id.csv","w");
+        $path = "./DaoFile/export/csv/$table/$time"."_"."$id.csv";
+        $fp = fopen($path,"w");
         $result = $query->result_array();
 
         $header = [];
@@ -54,6 +55,7 @@ class DAO_CSV extends CI_Model implements DAO{
         }
         
         fclose($fp);
+        return $path;
     }
     
     function addData($file, $table) {

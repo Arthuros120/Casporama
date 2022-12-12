@@ -23,8 +23,6 @@
 
 - TODO : Backend -> Créer un cache des demande d'api récurente
 
-- TODO : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...
-
 - TODO : Backend -> Gerer l'archivage des logs
 
 - TODO : Sys -> Vérifié le php.ini pour la prod et enlever les erreurs
@@ -89,3 +87,5 @@
 - Done : Backend -> Implementer les cartes dans la page info user
 
 - Done : Backend -> Supprimer les fichiers export lors qu'il y en a 10 ou plus, pour chaque type
+
+- Done : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...
