@@ -7,38 +7,11 @@ function suivant(enCours, suivant, precedent, limite) {
         document.verifyForm[suivant].focus();
     }
 
-    if (enCours.value.length == 0) {       
+    if (enCours.value.length == 0) {
         document.verifyForm[precedent].focus();
     }
 }
 
-function hover(elem) {
-    let rd = Math.floor(Math.random()*4)
-    if (rd == 0) {
-        elem.classList.add('green_hover')
-        elem.classList.remove('blue_hover')
-        elem.classList.remove('yellow_hover')
-        elem.classList.remove('red_hover')
-    }
-    if (rd == 1) {
-        elem.classList.add('blue_hover')
-        elem.classList.remove('green_hover')
-        elem.classList.remove('yellow_hover')
-        elem.classList.remove('red_hover')
-    }
-    if (rd == 2) {
-        elem.classList.add('yellow_hover')
-        elem.classList.remove('green_hover')
-        elem.classList.remove('blue_hover')
-        elem.classList.remove('red_hover')
-    }
-    if (rd == 3) {
-        elem.classList.add('red_hover')
-        elem.classList.remove('green_hover')
-        elem.classList.remove('blue_hover')
-        elem.classList.remove('yellow_hover')
-    }
-}
 </script>
 
 <div class="input_verify_content">
@@ -57,7 +30,7 @@ function hover(elem) {
             </div>
             <div class="submit_content">
                 <input class="input_verify_submit" onmouseenter="hover(this)" type="submit" name="submit" value="Valider" />
-            </div>            
+            </div>
         <?php echo form_close(); ?>
     </div>
 </div>
