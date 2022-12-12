@@ -14,6 +14,7 @@
         <p> Il vous reste <?= $dayRemaining[0] ?> jours <?= $dayRemaining[1] ?> heures et <?= $dayRemaining[2] ?> minutes pour renouveler votre compte. </p>
         <p> Si vous ne renouvelez pas votre compte, il sera supprimé définitivement. </p>
         <p> Pour renouveler votre compte, contacter un administrateur. </p>
+        <h3>Vous allez être automatique redirigé vers la page d'accueil dans <span id='time'>30 secondes</span></h3>
     </div>
 
 </div>
