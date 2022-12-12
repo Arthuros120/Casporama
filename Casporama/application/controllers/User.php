@@ -1682,6 +1682,111 @@ class User extends CI_Controller
         }
     }
 
+    public function recoverPass()
+    {
+
+        $getData = $this->input->get(null, true);
+
+        if (!empty($getData) && isset($getData['idKey'])) {
+
+            $idKey = $getData['idKey'];
+
+            if (isset($getData['code'])) {
+
+                $code = $getData['code'];
+
+            } else {
+
+                $code = null;
+
+            }
+
+            $configRules = array(
+
+                array(
+                    'field' => 'code',
+                    'label' => 'code de vérification',
+                    'rules' => 'trim|required|min_length[6]|max_length[6]|alpha_numeric',
+                    'errors' => array( // * On définit les messages d'erreurs
+                        'required' => 'Vous avez oublié %s.',
+                        "min_length" => "Le %s doit faire au moins 5 caractères",
+                        "max_length" => "Le %s doit faire au plus 5 caractères",
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        'alpha_numeric' => 'Le %s ne doit contenir que des lettres et des chiffres',
+                    ),
+                ),
+
+                // * Configuration des paramètre du champ password
+                array(
+                    'field' => 'password',
+                    'label' => 'Mot de passe',
+                    'rules' => 'trim|required|min_length[8]|max_length[255]|callback_ComformPassword',
+                    'errors' => array(
+                        'required' => 'Vous avez oublié %s.',
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                        "min_length" => "Le %s doit faire au moins 8 caractères",
+                    "   max_length" => "Le %s doit faire au plus 255 caractères",
+                    ),
+                ),
+
+                // * Configuration des paramètre du champ password confirm
+                array(
+                    'field' => 'passConf',
+                    'label' => 'Confirmation Mot de passe',
+                    'rules' => 'trim|required|matches[password]',
+                    'errors' => array(
+                        'required' => 'Vous avez oublié %s.',
+                        'matches' => 'Les deux Mots de passe ne sont pas identiques',
+                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    ),
+                )
+            );
+
+            $this->form_validation->set_rules($configRules);
+            
+
+        } else {
+
+            $this->form_validation->set_rules(
+                'email',
+                'email',
+                'trim|required|valid_email',
+                array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'valid_email' => 'L\'%s n\'est pas valide',
+                ),
+            );
+
+            if (!$this->form_validation->run()) {
+
+                $dataContent = array(
+
+                    'error' => validation_errors()
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent
+
+                );
+
+                $this->LoaderView->load('User/recoverPass/request', $data);
+
+            } else {
+
+                $this->load->model('VerifyModel');
+
+                $this->VerifyModel->sendRecoverPass($this->input->post('email'));
+
+                redirect('User/login');
+
+            }
+        }
+    }
+
+
     // --------------------------------------------------------------------
 
     // * Casual function

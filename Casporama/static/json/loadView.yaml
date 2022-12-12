@@ -267,6 +267,16 @@ User/verify :
 
     baseView : "templates/base"
 
+User/recoverPass/request:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "user/recoverPass/request/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
 #---------------------------------Test View---------------------------------#
 
 Test/map :

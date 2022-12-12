@@ -39,6 +39,10 @@
 
 - Todo : Backend -> Faire en sorte que les valeur donné dans un formulaire soit gardé en cas d'erreur
 
+- Todo : Backend -> Bug dans la modification de l'adresse
+
+- Todo : Backend -> Reformatter le code en le partitionnant en fonction des fonctionnalité
+
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
