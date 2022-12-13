@@ -52,7 +52,7 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getUserLocationById(iduser int);
     procedure loginMail( mail VARCHAR(255));
     -- Permet d'ajouter un user
-    procedure addUser( newid integer, newlogin varchar(255),  newpass varchar(255),  newsalt VARCHAR(45),  newstatus varchar(20));
+    procedure addUser( newid integer, newlogin varchar(255),  newpass varchar(255),  newsalt VARCHAR(45), newcookie varchar(45), newstatus varchar(20), newverif tinyint(1), newalive tinyint(1), newdate datetime);
     -- Permet d'ajouter les coordonnées d'un user par son ID
     procedure addInformation( newid int,  newfirstname varchar(255),  newname varchar(255),  newmail varchar(255),  newmobile int,  newfix int);
     -- Permet d'ajouter un user et ses coordonnées
@@ -246,9 +246,9 @@ CREATE OR REPLACE PACKAGE BODY user AS
         select password from user where id in (select id from information where mail = information.mail);
     end;
 
-    procedure addUser( newid integer, newlogin varchar(255),  newpass varchar(255),  newsalt VARCHAR(45),  newstatus varchar(20)) as
+    procedure addUser( newid integer, newlogin varchar(255),  newpass varchar(255),  newsalt VARCHAR(45), newcookie varchar(45), newstatus varchar(20), newverif tinyint(1), newalive tinyint(1), newdate datetime) as
     BEGIN
-        insert into user(id, login,password,salt,status) value (newid, newlogin,newpass,newsalt, newstatus);
+        insert into user(id, login,password,salt,cookieId,status,isVerified,isALive,dateLastUpdate) value (newid, newlogin,newpass,newsalt, newcookie, newstatus, newverif, newalive,newdate);
     end;
 
     procedure addInformation( newid int,  newprenom varchar(255),  newnom varchar(255),  newmail varchar(255),  newmobile int,  newfixe int) as

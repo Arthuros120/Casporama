@@ -6,14 +6,14 @@ class Dao_json extends CI_Model implements DaoInterface {
 
     public function __construct()
     {
-        $files = glob( "./DaoFile/export/json/" ."*" );
+        $files = glob( "./upload/DaoFile/export/json/" ."*" );
         if ($files && count($files) >= 6) {
-            array_map('unlink', glob("./DaoFile/export/json/*.json"));
+            array_map('unlink', glob("./upload/DaoFile/export/json/*.json"));
         }
     }
 
 
-    function getData($id,$table,$filter = null) {
+    function getData($id,$table,$filter) {
         try {
             $this->db->db_debug = false;
             if (in_array($table,['user','location','information'])) {
@@ -24,19 +24,36 @@ class Dao_json extends CI_Model implements DaoInterface {
             $this->db->db_debug = true;
 
             if ($query == false) {
-                errorFile($this->db->error(), $table);
-                return;
+                $err = errorFile($this->db->error(), $table);
+                return $err;
             }
         } catch (Error $err) {
-            errorFile($err, $table);
-            return;
+            $err = errorFile($err, $table);
+            return $err;
         }
         
         $time = date("Y-m-d-h:i:s",time());
-        $path = "./DaoFile/export/json/$time"."_"."$id.json";
+        $path = "./upload/DaoFile/export/json/$time"."_$table"."_$id.json";
         $fp = fopen($path,"w");
-        $result = $query->result_array();
-        $msg = json_encode($result);
+        $results = $query->result_array();
+
+        $tab = [];
+
+        if ($filter != null) {
+            foreach ($results as $result) {
+                $test = [];
+                foreach ($result as $key => $value) {
+                    if (in_array($key,$filter)) {
+                        $test[$key] = $value;
+                    }
+                }
+                array_push($tab,$test);
+            }
+        } else {
+            $tab = $results;
+        }
+
+        $msg = json_encode($tab,JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
         fwrite($fp,$msg);
         
         fclose($fp);
@@ -48,12 +65,22 @@ class Dao_json extends CI_Model implements DaoInterface {
         $json = file_get_contents($file);
         $json_data = json_decode($json,true);
 
-        foreach ($json_data as $value) {
-            $size = count($value);
-            if ($size != count($this->db->query("desc $table")->result_array())) {
-                errorFile("Nombre de colonne insuffisant", $table);
-                return;
+        foreach ($json_data as $value) { 
+            $header = $this->db->query("desc $table")->result_array();
+            if (count($value) != count($header)) {
+                $err = errorFile("Nombre de colonne insuffisant", $table);
+                return $err;
             }
+
+            $cpt = 0;
+            foreach ($value as $key => $test) {
+                if ($key != $header[$cpt]["Field"]) {
+                    $err = errorFile("Nom de colonne invalide : (".$key.") à la place de : (".$header[$cpt]["Field"].")", $table);
+                    return $err;
+                }
+                $cpt++;
+            }
+
             try {
                 $this->db->db_debug = false;
                 if (in_array($table,['user','location','information'])) {
@@ -86,17 +113,15 @@ class Dao_json extends CI_Model implements DaoInterface {
                 $this->db->db_debug = true;
                 
                 if ($err == false) {
-                    errorFile($this->db->error(), $table);
-                    return;
+                    $err = errorFile($this->db->error(), $table);
+                    return $err;
                 }
 
             } catch (Error $err) {
-                errorFile($err, $table);
-                return;
+                $err = errorFile($err, $table);
+                return $err;
             }
         }
-
-        unlink($file);
 
     }
 }

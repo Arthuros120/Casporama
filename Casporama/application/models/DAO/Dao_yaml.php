@@ -7,9 +7,9 @@ class Dao_yaml extends CI_Model implements DaoInterface {
 
     public function __construct()
     {
-        $files = glob( "./DaoFile/export/yaml/" ."*" );
+        $files = glob( "./upload/DaoFile/export/yaml/" ."*" );
         if ($files && count($files) >= 6) {
-            array_map('unlink', glob("./DaoFile/export/yaml/*.yaml"));
+            array_map('unlink', glob("./upload/DaoFile/export/yaml/*.yaml"));
         }
     }
 
@@ -24,28 +24,46 @@ class Dao_yaml extends CI_Model implements DaoInterface {
             $this->db->db_debug = true;
 
             if ($query == false) {
-                errorFile($this->db->error(), $table);
-                return;
+                $err = errorFile($this->db->error(), $table);
+                return $err;
             }
         } catch (Error $err) {
-            errorFile($err, $table);
-            return;
+            $err = errorFile($err, $table);
+            return $err;
         }
         
         $time = date("Y-m-d-h:i:s",time());
-        $path = "./DaoFile/export/yaml/$time"."_"."$id.yaml";
+        $path = "./upload/DaoFile/export/yaml/$time"."_$table"."_$id.yaml";
         $fp = fopen($path,"w");
-        $result = $query->result_array();
-        $results = [];
+        $results = $query->result_array();
+
+        $tab = [];
+
+        if ($filter != null) {
+            foreach ($results as $result) {
+                $test = [];
+                foreach ($result as $key => $value) {
+                    if (in_array($key,$filter)) {
+                        $test[$key] = $value;
+                    }
+                }
+                array_push($tab,$test);
+            }
+        } else {
+            $tab = $results;
+        }
+
+        $yaml = [];
         $val = 0;
-        foreach ($result as $i) {
+        foreach ($tab as $i) {
             $test = [];
             $test[$table.$val] = $i;
-            array_push($results,$test);
+            array_push($yaml,$test);
             $val++;
         }
         
-        $msg = yaml_emit($results);
+        
+        $msg = yaml_emit($yaml);
         fwrite($fp,$msg);
         
         fclose($fp);
@@ -58,11 +76,21 @@ class Dao_yaml extends CI_Model implements DaoInterface {
 
         foreach ($yamls as $yaml) {
             foreach ($yaml as $value) {
-                $size = count($value);
-                if ($size != count($this->db->query("desc $table")->result_array())) {
-                    errorFile("Nombre de colonne insuffisant", $table);
-                    return;
+                $header = $this->db->query("desc $table")->result_array();
+                if (count($value) != count($header)) {
+                    $err = errorFile("Nombre de colonne insuffisant", $table);
+                    return $err;
                 }
+
+                $cpt = 0;
+                foreach ($value as $key => $test) {
+                    if ($key != $header[$cpt]["Field"]) {
+                        $err = errorFile("Nom de colonne invalide : (".$key.") à la place de : (".$header[$cpt]["Field"].")", $table);
+                        return $err;
+                    }
+                    $cpt++;
+                }
+
                 try {
                     $this->db->db_debug = false;
                     if (in_array($table,['user','location','information'])) {
@@ -97,17 +125,16 @@ class Dao_yaml extends CI_Model implements DaoInterface {
 
                     
                     if ($err == false) {
-                        errorFile($this->db->error(), $table);
-                        return;
+                        $err = errorFile($this->db->error(), $table);
+                        return $err;
                     }
 
                 } catch (Error $err) {
-                    errorFile($err, $table);
-                    return;
+                    $err = errorFile($err, $table);
+                    return $err;
                 }
             }
         }
-        unlink($file);
     }
 }
 

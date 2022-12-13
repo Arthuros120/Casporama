@@ -34,7 +34,6 @@ Home/index:
     header: "templates/blank"
     content: "home/home"
     footer: "templates/blank"
-
   baseView: "templates/base"
 
 Shop/view:
@@ -315,7 +314,8 @@ Admin/home:
         content : "admin/home/content"
         footer : "templates/blank"
 
-  baseView: "templates/base"
+    baseView: "templates/base"
+    
 # Info View #
 
 Information/rgpd:
