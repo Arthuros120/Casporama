@@ -270,7 +270,7 @@ User/verify :
 User/recoverPass/request:
 
     views :
-        head : "templates/blank"
+        head : "user/recoverPass/request/head"
         header : "templates/blank"
         content : "user/recoverPass/request/content"
         footer : "templates/blank"
@@ -280,7 +280,7 @@ User/recoverPass/request:
 User/recoverPass/modif:
 
     views :
-        head : "templates/blank"
+        head : "user/recoverPass/modif/head"
         header : "templates/blank"
         content : "user/recoverPass/modif/content"
         footer : "templates/blank"
@@ -290,7 +290,7 @@ User/recoverPass/modif:
 User/recoverPass/success:
 
     views :
-        head : "templates/blank"
+        head : "user/recoverPass/success/head"
         header : "templates/blank"
         content : "user/recoverPass/success/content"
         footer : "templates/blank"
@@ -300,7 +300,7 @@ User/recoverPass/success:
 User/recoverPass/sendMail:
 
     views :
-        head : "templates/blank"
+        head : "user/recoverPass/sendMail/head"
         header : "templates/blank"
         content : "user/recoverPass/sendMail/content"
         footer : "templates/blank"
