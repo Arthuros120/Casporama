@@ -1558,18 +1558,82 @@ class User extends CI_Controller
 
             if (in_array($idKey, $listIdKey)) {
 
-                $this->form_validation->set_rules(
-                    'code',
-                    'code de vérification',
-                    'trim|required|min_length[6]|max_length[6]|alpha_numeric',
-                    array( // * On définit les messages d'erreurs
-                        'required' => 'Vous avez oublié %s.',
-                        "min_length" => "Le %s doit faire au moins 5 caractères",
-                        "max_length" => "Le %s doit faire au plus 5 caractères",
-                        'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
-                        'alpha_numeric' => 'Le %s ne doit contenir que des lettres et des chiffres',
+                $configRules = array(
+
+                    array(
+                        'field' => 'code1',
+                        'label' => 'Code',
+                        'rules' => 'trim|required|min_length[1]|max_length[1]',
+                        'errors' => array( // * On définit les messages d'erreurs
+                            'required' => 'Vous avez oublié de remplire toute les cases.',
+                            "min_length" => "Chaque case doit faire au moins 1 caractère",
+                            "max_length" => "Chaque case doit faire au plus 1 caractère",
+                            'trim' => 'Les cases ne doivent pas contenir d\'espace au début ou à la fin',
+                        ),
+                    ),
+
+                    array(
+                        'field' => 'code2',
+                        'label' => 'Code',
+                        'rules' => 'trim|required|min_length[1]|max_length[1]',
+                        'errors' => array( // * On définit les messages d'erreurs
+                            'required' => 'Vous avez oublié de remplire toute les cases.',
+                            "min_length" => "Chaque case doit faire au moins 1 caractère",
+                            "max_length" => "Chaque case doit faire au plus 1 caractère",
+                            'trim' => 'Les cases ne doivent pas contenir d\'espace au début ou à la fin',
+                        ),
+                    ),
+
+                    array(
+                        'field' => 'code3',
+                        'label' => 'Code',
+                        'rules' => 'trim|required|min_length[1]|max_length[1]',
+                        'errors' => array( // * On définit les messages d'erreurs
+                            'required' => 'Vous avez oublié de remplire toute les cases.',
+                            "min_length" => "Chaque case doit faire au moins 1 caractère",
+                            "max_length" => "Chaque case doit faire au plus 1 caractère",
+                            'trim' => 'Les cases ne doivent pas contenir d\'espace au début ou à la fin',
+                        ),
+                    ),
+
+                    array(
+                        'field' => 'code4',
+                        'label' => 'Code',
+                        'rules' => 'trim|required|min_length[1]|max_length[1]',
+                        'errors' => array( // * On définit les messages d'erreurs
+                            'required' => 'Vous avez oublié de remplire toute les cases.',
+                            "min_length" => "Chaque case doit faire au moins 1 caractère",
+                            "max_length" => "Chaque case doit faire au plus 1 caractère",
+                            'trim' => 'Les cases ne doivent pas contenir d\'espace au début ou à la fin',
+                        ),
+                    ),
+
+                    array(
+                        'field' => 'code5',
+                        'label' => 'Code',
+                        'rules' => 'trim|required|min_length[1]|max_length[1]',
+                        'errors' => array( // * On définit les messages d'erreurs
+                            'required' => 'Vous avez oublié de remplire toute les cases.',
+                            "min_length" => "Chaque case doit faire au moins 1 caractère",
+                            "max_length" => "Chaque case doit faire au plus 1 caractère",
+                            'trim' => 'Les cases ne doivent pas contenir d\'espace au début ou à la fin',
+                        ),
+                    ),
+
+                    array(
+                        'field' => 'code6',
+                        'label' => 'Code',
+                        'rules' => 'trim|required|min_length[1]|max_length[1]',
+                        'errors' => array( // * On définit les messages d'erreurs
+                            'required' => 'Vous avez oublié de remplire toute les cases.',
+                            "min_length" => "Chaque case doit faire au moins 1 caractère",
+                            "max_length" => "Chaque case doit faire au plus 1 caractère",
+                            'trim' => 'Les cases ne doivent pas contenir d\'espace au début ou à la fin',
+                        ),
                     ),
                 );
+
+                $this->form_validation->set_rules($configRules);
 
                 if (!$this->form_validation->run()) {
 
@@ -1578,26 +1642,31 @@ class User extends CI_Controller
                         'class' => "input_verify_form",
                         'autocomplete' => "off"
                     );
-
+    
                     $dataContent = array(
-
+    
                         'idKey' => $idKey,
                         'formAttributes' => $formAttributes,
                         'error' => validation_errors()
-
+    
                     );
-
+    
                     $data = array(
-
+    
                         'content' => $dataContent
-
+    
                     );
 
                     $this->LoaderView->load('User/verify', $data);
 
                 } else {
 
-                    $code = $this->input->post('code');
+                    $code = $this->input->post('code1') .
+                    $this->input->post('code2') .
+                    $this->input->post('code3') .
+                    $this->input->post('code4') .
+                    $this->input->post('code5') .
+                    $this->input->post('code6');
 
                     $resRequet = $this->VerifyModel->checkCode($idKey, $code);
 
@@ -1607,7 +1676,7 @@ class User extends CI_Controller
 
                             $this->UserModel->setUserVerified($resRequet);
 
-                            redirect('User/login');
+                            $this->LoaderView->load('User/verify/success');
 
                         } else {
 
@@ -1621,11 +1690,18 @@ class User extends CI_Controller
 
                     } else {
 
+                        $formAttributes = array(
+                            'name' => "verifyForm",
+                            'class' => "input_verify_form",
+                            'autocomplete' => "off"
+                        );
+        
                         $dataContent = array(
-
+        
                             'idKey' => $idKey,
+                            'formAttributes' => $formAttributes,
                             'error' => "Le code de vérification n'est pas le bon"
-
+        
                         );
 
                         $data = array(

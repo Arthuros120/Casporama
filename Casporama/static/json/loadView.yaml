@@ -257,6 +257,15 @@ User/verify/sendVerify:
 
     baseView: "user/verify/global/base"
 
+User/verify/success:
+
+    views:
+        head: "user/verify/success/head"
+        script: "user/verify/errNotVerif/script"
+        content: "user/verify/success/content"
+
+    baseView: "user/verify/global/base"
+
 User/verify:
 
     views :

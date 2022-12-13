@@ -2,7 +2,8 @@
 
 <div class="request_password_content">
     <div class="request_password_backward">
-        <a href="<?php base_url() ?>/User/login"><img src="<?php base_url() ?>/static/image/icon/arrow.svg"></a>
+        <a href="<?php base_url() ?>/User/login">
+        <img alt="fleche arriere" src="<?php base_url() ?>/static/image/icon/arrow.svg"></a>
     </div>
     <div class="request_password_title">
         <h1><span class="keyword_title">O</span><span class="keyword_title">o</span><span class="keyword_title">p</span><span class="keyword_title">s</span>, mot de passe oublié</h1>
@@ -20,8 +21,5 @@
         <img src="<?= base_url() ?>static/image/icon/error_white.svg" alt="error_white" >
     </div>
 </div>
-
-
-//TODO: Adresse email qui n' pas de compte == erreur PHP
 
 <!-- user/recoverPass/request/content -->
