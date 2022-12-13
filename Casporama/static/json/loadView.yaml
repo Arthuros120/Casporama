@@ -315,7 +315,8 @@ Admin/home:
         content : "admin/home/content"
         footer : "templates/blank"
 
-  baseView: "templates/base"
+    baseView: "templates/base"
+
 # Info View #
 
 Information/rgpd:
