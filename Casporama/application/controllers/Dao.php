@@ -33,9 +33,10 @@ class Dao extends CI_Controller
 
     }
 
-    public function import() {
+    public function import()
+    {
 
-        $user = $this->UserModel->adminOnly();
+        $this->UserModel->adminOnly();
 
         $config['upload_path'] = './DaoFile/import/';
         $config['allowed_types'] = 'json|xml|csv|yaml';
@@ -66,9 +67,10 @@ class Dao extends CI_Controller
 
         unlink("./DaoFile/import/$file");
         
-    } 
+    }
 
-    public function export() {
+    public function export()
+    {
 
         $user = $this->UserModel->adminOnly();
 
@@ -80,7 +82,7 @@ class Dao extends CI_Controller
 
         if ($this->UserModel->isConnected()) {
 
-            $id = $this->UserModel->getUserBySession()->getId();
+            $id = $user->getId();
 
             if ($ext == 'csv') {
                 $file = $this->Dao_csv->getData($id,$table);

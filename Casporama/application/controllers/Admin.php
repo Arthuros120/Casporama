@@ -7,6 +7,8 @@ class Admin extends CI_Controller
     public function index()
     {
 
+        $this->UserModel->adminOnly();
+
         redirect('admin/home');
 
     }
@@ -14,21 +16,18 @@ class Admin extends CI_Controller
     public function home()
     {
 
-        $user = $this->UserModel->adminOnly();
+        $this->UserModel->adminOnly();
 
-        $dataContent = array(
+        $this->LoaderView->load('Admin/home');
 
-            'user' => $user,
+    }
 
-        );
+    public function Product()
+    {
 
-        $data = array(
+        $this->UserModel->adminOnly();
 
-            'content' => $dataContent,
-
-        );
-
-        $this->LoaderView->load('Admin/home', $data);
+        $this->LoaderView->load('Admin/Product');
 
     }
 }
