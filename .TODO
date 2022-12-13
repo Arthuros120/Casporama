@@ -35,7 +35,7 @@
 
 - Todo : Backend -> Ajouter la possibilité de recuperer sont compte mort
 
-- Todo : Backend -> Faire filtre pour DAO
+- Todo : Backend -> Faire filtre pour DAO (10 premier, choisir colonnes, Administrateur ou client)
 
 - Todo : Backend -> Faire en sorte que les valeur donné dans un formulaire soit gardé en cas d'erreur
 

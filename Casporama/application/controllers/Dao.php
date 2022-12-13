@@ -84,12 +84,13 @@ class Dao extends CI_Controller
             } else if ($ext == 'yaml') {
                 $file = $this->Dao_yaml->getData($id,$table);
             }
+
             force_download($file, null);
 
         } else {
 
             errorFile("User not connected",'import');
-            
+
         }
 
     }
