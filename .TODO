@@ -41,6 +41,8 @@
 
 - Todo : Backend -> Reformatter le code en le partitionnant en fonction des fonctionnalité
 
+- Todo : Backend -> Faire en sorte que tout les télécharment ce mette dans DAOfile
+
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
