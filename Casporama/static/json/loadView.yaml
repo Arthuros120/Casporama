@@ -29,14 +29,6 @@
 
 Home/index:
 
-<<<<<<< HEAD
-  views:
-    head: "home/head"
-    header: "templates/blank"
-    content: "home/home"
-    footer: "templates/blank"
-  baseView: "templates/base"
-=======
     views:
         head: "home/head"
         header: "templates/blank"
@@ -44,7 +36,6 @@ Home/index:
         footer: "templates/blank"
 
     baseView: "templates/base"
->>>>>>> refs/remotes/origin/main
 
 Shop/view:
 
@@ -325,10 +316,6 @@ Admin/home:
         footer : "templates/blank"
 
     baseView: "templates/base"
-<<<<<<< HEAD
-    
-# Info View #
-=======
 
 Admin/Product:
 
@@ -341,7 +328,6 @@ Admin/Product:
     baseView: "templates/base"
 
 ##---------------------------------Info View ---------------------------------#
->>>>>>> refs/remotes/origin/main
 
 Information/rgpd:
     views:
