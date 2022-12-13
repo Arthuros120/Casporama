@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: var(--main-font);  
+}
+
+
+.request_password_content {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 5vh;
+}
+
+.request_password_title {
+    font-size: 2.5vw;
+}
+
+.keyword_title:nth-child(1) {
+    color: #399B39;
+}
+.keyword_title:nth-child(2) {
+    color: #3284E4;
+}
+.keyword_title:nth-child(3) {
+    color: #E0C323;
+}
+.keyword_title:nth-child(4) {
+    color: #E94138;
+}
+
+.request_password {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 1vh;
+}
+
+.request_password > h3 {
+    font-weight: 300; 
+}
+
+.request_password > form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    gap: 2vh;
+}
+
+.request_password > form > input {
+    padding: 2% 2%;
+
+    border-radius: 0%;
+    border: 1px solid black;
+
+    background-color: white;
+}
+
+.request_password > form > input:nth-child(1) {
+    width: 80%;
+}
+
+.request_password > form > input:nth-child(2) {
+    width: 20%;
+
+    color: #399B39;
+    border: 2px solid #399B39;
+    cursor: pointer;
+
+    transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+}
+
+.request_password > form > input:nth-child(2):hover {
+    background-color: #399B39;
+    color: white;
+}
+
+.request_password_error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    background-color: red;
+    color: white;
+
+    padding: 1% 0%;
+    border-radius: 12px;
+    gap: 2vh;
+}
+
+.request_password_error > h3 {
+    font-size: 0.8vw;
+}
+
+.request_password_error > img {
+    width: 10%;
+    height: auto;
+}
+
+input:focus {
+    outline: none;
+}
+
+.request_password_backward {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+
+    transform: translate(5%,-160%);
+}
+
+.request_password_backward > a > img {
+    transform: rotate(180deg);
+}
