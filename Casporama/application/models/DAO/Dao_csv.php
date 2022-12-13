@@ -6,7 +6,7 @@ class Dao_csv extends CI_Model implements DaoInterface {
 
     public function __construct()
     {
-        $folders = glob( "./DaoFile/export/csv/" ."*" );
+        $folders = glob( "./upload/DaoFile/export/csv/" ."*" );
         foreach ($folders as $folder) {
             $files = glob( "$folder/" ."*" );
             if ($files && count($files) >= 6) {
@@ -16,7 +16,7 @@ class Dao_csv extends CI_Model implements DaoInterface {
     }
 
 
-    function getData($id,$table,$filter = null) {
+    function getData($id,$table,$filter) {
         try {
             $this->db->db_debug = false;
             if (in_array($table,['user','location','information'])) {
@@ -27,33 +27,47 @@ class Dao_csv extends CI_Model implements DaoInterface {
             $this->db->db_debug = true;
 
             if ($query == false) {
-                errorFile($this->db->error(), $table);
-                return;
+                $err = errorFile($this->db->error(), $table);
+                return $err;
             }
         } catch (Error $err) {
-            errorFile($err, $table);
-            return;
+            $err = errorFile($err, $table);
+            return $err;
         }
         
         $time = date("Y-m-d-h:i:s",time());
-        $path = "./DaoFile/export/csv/$table/$time"."_"."$id.csv";
+        $path = "./upload/DaoFile/export/csv/$table/$time"."_$table"."_$id.csv";
         $fp = fopen($path,"w");
-        $result = $query->result_array();
+        $results = $query->result_array();
 
         $header = [];
 
-        foreach ($result[0] as $key => $value) {
-
-            array_push($header,$key);
-
+        foreach ($results[0] as $key => $value) {
+            if ($filter != null) {
+                if (in_array($key,$filter)) {
+                    array_push($header,$key);
+                }
+            } else {
+                array_push($header,$key);
+            }
         }
 
         fputcsv($fp,$header);
 
-        foreach ($result as $value) {
-            fputcsv($fp,$value);
+        $values = [];
+        foreach ($results as $result) {
+            foreach ($result as $key => $value) {
+                if ($filter != null) {
+                    if (in_array($key,$filter)) {
+                        $values[$key] = $value;
+                    }
+                } else {
+                    $values[$key] = $value;
+                }
+            }
+            fputcsv($fp,$values);
         }
-        
+
         fclose($fp);
         return $path;
     }
@@ -72,6 +86,9 @@ class Dao_csv extends CI_Model implements DaoInterface {
                         $dataRequete = [];
                         for ($i = 0; $i < $size; $i++) {
                             $query .= "?,";
+                            if ($row[$i] == "") {
+                                $row[$i] = null;
+                            }
                             array_push($dataRequete,$row[$i]);
                         }
                         $query = substr($query,0,-1);
@@ -96,25 +113,32 @@ class Dao_csv extends CI_Model implements DaoInterface {
                     $this->db->db_debug = true;
 
                     if ($err == false) {
-                        errorFile($this->db->error(), $table);
-                        return;
+                        $err = errorFile($this->db->error(), $table);
+                        return $err;
                     }
 
                 } catch (Error $err) {
-                    errorFile($err, $table);
-                    return;
+                    $err = errorFile($err, $table);
+                    return $err;
                 }
             } else {
                 $size = count($row);
-                if ($size != count($this->db->query("desc $table")->result_array())) {
-                    errorFile("Nombre de colonne insuffisant", $table);
-                    return;
+                $header = $this->db->query("desc $table")->result_array();
+                if ($size != count($header)) {
+                    $err = errorFile("Nombre de colonne insuffisant", $table);
+                    return $err;
+                } else {
+                    for ($i = 0; $i < count($row); $i++ ) {
+                        if ($row[$i] != $header[$i]["Field"]) {
+                            $err = errorFile("Nom de colonne invalide : (".$row[$i].") à la place de : (".$header[$i]["Field"].")", $table);
+                            return $err;
+                        }
+                    }
                 }
                 $first = false;
             }
         }
         fclose($fp);
-        unlink($file);
 
     }
 }

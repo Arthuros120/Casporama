@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<user>
+  <user0>
+    <id>1</id>
+    <login>root</login>
+    <password>$2y$10$MCDgDzmwpaP.JVNIU5zZluM2fgms.ev5i2cOVK5EmEwbcQhamHMYy</password>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user0>
+  <user1>
+    <id>2</id>
+    <login>arthur</login>
+    <password>$2y$10$2A4swofgoN/cg8bZYMk9fe6rvys6To1fIDJQiMBeGuusRPYsvPaIK</password>
+    <dateLastUpdate>2022-12-07 08:13:15</dateLastUpdate>
+  </user1>
+  <user2>
+    <id>3</id>
+    <login>maximef</login>
+    <password>$2y$10$0hr30fUMXc3JvBdBPg2c7O0usKf4Kz5szidUmVpAqNdzK1fvKfjmC</password>
+    <dateLastUpdate>2022-12-05 14:59:37</dateLastUpdate>
+  </user2>
+  <user3>
+    <id>4</id>
+    <login>maximes</login>
+    <password>$2y$10$CpJ8tVdCdgY7c0npGR6NzeV6wAVQSdXfCWl8OlMgbShPv.Wdh8X2W</password>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user3>
+  <user4>
+    <id>5</id>
+    <login>titouan</login>
+    <password>$2y$10$sInu14PLYWwRQ0Mmo/31EuPoF6gy1zmJueU6F9Pmc8Ops42gDDG..</password>
+    <dateLastUpdate>2022-12-07 01:23:07</dateLastUpdate>
+  </user4>
+  <user5>
+    <id>6</id>
+    <login>michel</login>
+    <password>$2y$10$Po1OOq1FZmxVV9v4mMFWwOR4ZbDtKQaZGFZ/ttEJhwSMfjfjU.yj.</password>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user5>
+  <user6>
+    <id>7</id>
+    <login>michelle</login>
+    <password>$2y$10$bGRZi8h7Yvef/iQ0GcWBwed38pAA6iK0Ss6US/bpVVI0OkNjyvdIK</password>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user6>
+  <user7>
+    <id>548</id>
+    <login>megatest</login>
+    <password>ronpish</password>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user7>
+  <user8>
+    <id>34567</id>
+    <login>domohacker</login>
+    <password>oelerap</password>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user8>
+  <user9>
+    <id>345678</id>
+    <login>hackertahlesfous</login>
+    <password>mdptahlesfousoe</password>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user9>
+  <user10>
+    <id>645678</id>
+    <login>wow</login>
+    <password>mdplong</password>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user10>
+  <user11>
+    <id>39832434</id>
+    <login>titoubgverifmail</login>
+    <password>$2y$10$HLk4GEjAO224be3SP4deAu.95sUhKpeuh.G0DNY2SNlxpkAz/5xN.</password>
+    <dateLastUpdate>2022-12-12 10:01:06</dateLastUpdate>
+  </user11>
+  <user12>
+    <id>449109511</id>
+    <login>arthur123</login>
+    <password>$2y$10$.YaOWIL2ru47x6J0nQIAUOmR868AmRKps6ytJXyxglCRPwn9WeK1O</password>
+    <dateLastUpdate>2022-12-08 20:52:58</dateLastUpdate>
+  </user12>
+  <user13>
+    <id>688034740</id>
+    <login>michelle123</login>
+    <password>$2y$10$MuJk8rcpx0kYa1RKtSgix.Mm0mv0x2ELeQ.KaBKCo61LnNYPFoWtC</password>
+    <dateLastUpdate>2022-12-08 20:58:32</dateLastUpdate>
+  </user13>
+  <user14>
+    <id>798494396</id>
+    <login>titouanbgadmin</login>
+    <password>$2y$10$ZxFSOK.cRux0PP.bMiTDW.gh3eqTqBStPpI.jOFc1Yr6/ilm7CkEy</password>
+    <dateLastUpdate>2022-12-07 01:17:41</dateLastUpdate>
+  </user14>
+  <user15>
+    <id>992823782</id>
+    <login>robert123</login>
+    <password>$2y$10$OGqcz0nvsKII10EhCDJA2.aZjVe9hB6HfmyjL5BjCihIsOoInWacK</password>
+    <dateLastUpdate>2022-12-08 08:49:53</dateLastUpdate>
+  </user15>
+</user>

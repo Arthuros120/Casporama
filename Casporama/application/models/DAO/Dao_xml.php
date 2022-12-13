@@ -6,9 +6,9 @@ class Dao_xml extends CI_Model implements DaoInterface {
 
     public function __construct()
     {
-        $files = glob( "./DaoFile/export/xml/" ."*" );
+        $files = glob( "./upload/DaoFile/export/xml/" ."*" );
         if ($files && count($files) >= 6) {
-            array_map('unlink', glob("./DaoFile/export/xml/*.xml"));
+            array_map('unlink', glob("./upload/DaoFile/export/xml/*.xml"));
         }
     }
 
@@ -24,31 +24,60 @@ class Dao_xml extends CI_Model implements DaoInterface {
             $this->db->db_debug = true;
 
             if ($query == false) {
-                errorFile($this->db->error(), $table);
-                return;
+                $err = errorFile($this->db->error(), $table);
+                return $err;
             }
         } catch (Error $err) {
-            errorFile($err, $table);
-            return;
+            $err = errorFile($err, $table);
+            return $err;
         }
-        
-        $_xml = new SimpleXMLElement("<$table"."s/>");
 
-        $result = $query->result_array();
+        $_xml = new DomDocument('1.0','utf-8');
+        $_xml->preserveWhiteSpace = false;
+        $_xml->formatOutput = true;
+
+        $root = $_xml->createElement($table);
+        $root = $_xml->appendChild($root);
+        $results = $query->result_array();  
+        
+        $tab = [];
+
+        if ($filter != null) {
+            foreach ($results as $result) {
+                $test = [];
+                foreach ($result as $key => $value) {
+                    if (in_array($key,$filter)) {
+                        $test[$key] = $value;
+                    }
+                }
+                array_push($tab,$test);
+            }
+        } else {
+            $tab = $results;
+        }
          
         $cpt = 0;
-        foreach ($result as $value) { 
-            $test = $_xml->addChild($table.$cpt);
+        foreach ($tab as $values) { 
+            $occ = $_xml->createElement($table.$cpt);
+            $occ = $root->appendChild($occ);
             $cpt++;
-            foreach ($value as $i => $y) {
-                $test->addChild($i,$y);
+            foreach ($values as $i => $y) {
+                
+                $child = $_xml->createElement($i);
+                $child = $occ->appendChild($child);
+                if ($y != null) {
+                    $value = $_xml->createTextNode($y);
+                    $value = $child->appendChild($value);
+                }
+                
             }
         }
 
-        $msg = $_xml->asXML();
+        
+        $msg = $_xml->saveXML();
         
         $time = date("Y-m-d-H:i:s",time());
-        $path = "./DaoFile/export/xml/$time"."_"."$id.xml";
+        $path = "./upload/DaoFile/export/xml/$time"."_$table"."_$id.xml";
         $fp = fopen($path,"w");
         fwrite($fp,$msg);
         fclose($fp);
@@ -60,11 +89,22 @@ class Dao_xml extends CI_Model implements DaoInterface {
         $xmldata = simplexml_load_file($file);
 
         foreach ($xmldata->children() as $value) {
-            $size = count($value);
-            if ($size != count($this->db->query("desc $table")->result_array())) {
-                errorFile("Nombre de colonne insuffisant", $table);
-                return;
+
+            $header = $this->db->query("desc $table")->result_array();
+            if (count($value) != count($header)) {
+                $err = errorFile("Nombre de colonne insuffisant", $table);
+                return $err;
             }
+
+            $cpt = 0;
+            foreach ($value as $key => $test) {
+                if ($key != $header[$cpt]["Field"]) {
+                    $err = errorFile("Nom de colonne invalide : (".$key.") à la place de : (".$header[$cpt]["Field"].")", $table);
+                    return $err;
+                }
+                $cpt++;
+            }
+
             try {
                 $this->db->db_debug = false;
                 if (in_array($table,['user','location','information'])) {
@@ -73,6 +113,9 @@ class Dao_xml extends CI_Model implements DaoInterface {
                     $dataRequete = [];
                     foreach ($value->children() as $i) {
                         $query .= "?,";
+                        if ( !(array)$i ) {
+                            $i = null;
+                        }
                         array_push($dataRequete,$i);
                     }
                     $query = substr($query,0,-1);
@@ -86,6 +129,9 @@ class Dao_xml extends CI_Model implements DaoInterface {
                     $dataRequete = [];
                     foreach ($value->children() as $i) {
                         $query .= "?,";
+                        if ( !(array)$i ) {
+                            $i = null;
+                        }
                         array_push($dataRequete,$i);
                     }
                     $query = substr($query,0,-1);
@@ -98,18 +144,15 @@ class Dao_xml extends CI_Model implements DaoInterface {
                 $this->db->db_debug = true;
                 
                 if ($err == false) {
-                    errorFile($this->db->error(), $table);
-                    return;
+                    $err = errorFile($this->db->error(), $table);
+                    return $err;
                 }
 
             } catch (Error $err) {
-                errorFile($err, $table);
-                return;
+                $err = errorFile($err, $table);
+                return $err;
             }
         }
-
-        unlink($file);
-
     }
 }
 

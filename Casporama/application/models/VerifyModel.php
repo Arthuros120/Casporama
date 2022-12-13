@@ -18,6 +18,17 @@ class VerifyModel extends CI_Model
 
         $this->load->model('UserModel');
 
+        if (!$this->UserModel->heHaveUserByEmail($email)) {
+
+            show_error(
+                "Cette adresse mail n'est pas enregistrée sur Casporama",
+                500,
+                "Erreur 500 - Compte introuvable"
+            );
+
+            die();
+        }
+
         $id = $this->UserModel->getUserByEmail($email)->getId();
 
         $user = $this->UserModel->getUserById($id);

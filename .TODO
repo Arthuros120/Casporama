@@ -35,13 +35,13 @@
 
 - Todo : Backend -> Ajouter la possibilité de recuperer sont compte mort
 
-- Todo : Backend -> Faire filtre pour DAO
-
 - Todo : Backend -> Faire en sorte que les valeur donné dans un formulaire soit gardé en cas d'erreur
 
 - Todo : Backend -> Bug dans la modification de l'adresse
 
 - Todo : Backend -> Reformatter le code en le partitionnant en fonction des fonctionnalité
+
+- Todo : Backend -> Faire en sorte que tout les télécharment ce mette dans DAOfile
 
 ## En cours
 
@@ -94,3 +94,5 @@
 - Done : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc... {cm:2022-12-12}
 
 - Done : SQL -> Trigger isALive et isDefault, update {cm:2022-12-12}
+
+- Done : Backend -> Faire filtre pour DAO (choisir colonnes)

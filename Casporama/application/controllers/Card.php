@@ -12,21 +12,21 @@ class Card extends CI_Controller
 
     public function __construct()
     {
-
         parent::__construct();
         $this->load->model('CardModel');
     }
 
-    // public function index()
-    // {
+    public function index() {
 
-    //     redirect('user/home');
+        $this->load->view('user/card/homeContent');
 
-    // }
+    }    
 
 
     public function add() {
         
+        $this->load->view('user/card/homeContent');
+
     }
 
 }

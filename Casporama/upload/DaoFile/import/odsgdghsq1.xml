@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<user>
+  <user0>
+    <id>34567</id>
+    <login>domohacker</login>
+    <password>oelerap</password>
+    <salt>456</salt>
+    <cookieId/>
+    <status>Administrateur</status>
+    <isVerified>1</isVerified>
+    <isALive>1</isALive>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user0>
+</user>
