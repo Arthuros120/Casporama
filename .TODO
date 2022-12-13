@@ -53,44 +53,44 @@
 
 - Do : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...
 
-## Fait
+## Fait {cm:2022-12-12}
 
-- Done : Frontend -> Rendre plus styler la page login
+- Done : Frontend -> Rendre plus styler la page login {cm:2022-12-12}
 
-- Done : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les packages mariadb
+- Done : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les packages mariadb {cm:2022-12-12}
 
-- Done : Backend/Frontend -> Avoir avec le dev frontend pour mettre required dans le html du register
-  - Après discussion avec le dev frontend, il a dit que c'était pas nécessaire de mettre required dans le html car il y a déjà un check côté backend. Donc on laisse comme ça pour le moment.
+- Done : Backend/Frontend -> Avoir avec le dev frontend pour mettre required dans le html du register {cm:2022-12-12}
+  - Après discussion avec le dev frontend, il a dit que c'était pas nécessaire de mettre required dans le html car il y a déjà un check côté backend. Donc on laisse comme ça pour le moment. {cm:2022-12-12}
 
-- Done : SysAdmin -> Passez a mariaDb
-  - Le projet est maintenant en mariaDb
+- Done : SysAdmin -> Passez a mariaDb {cm:2022-12-12}
+  - Le projet est maintenant en mariaDb {cm:2022-12-12}
   
-- Done : Backend/Frontend -> reparer la page login
-  - La page login est maintenant fonctionnelle
+- Done : Backend/Frontend -> reparer la page login {cm:2022-12-12}
+  - La page login est maintenant fonctionnelle {cm:2022-12-12}
 
-- Done : Backend -> Mettre tout les login en lowercase aussi bien en login que register
-  - J'ai fait en sorte que tout les login soit en lowercase pour éviter les doublons de login avec des majuscules et des minuscules (ex: toto et Toto)
+- Done : Backend -> Mettre tout les login en lowercase aussi bien en login que register {cm:2022-12-12}
+  - J'ai fait en sorte que tout les login soit en lowercase pour éviter les doublons de login avec des majuscules et des minuscules (ex: toto et Toto) {cm:2022-12-12}
 
-- Done : Frontend -> Discuter avec le dev frontend pour créer une page erreur Generique
+- Done : Frontend -> Discuter avec le dev frontend pour créer une page erreur Generique {cm:2022-12-12}
 
-- Done : Frontend -> Bien rendre cliquable les case de la page d'accueil
+- Done : Frontend -> Bien rendre cliquable les case de la page d'accueil {cm:2022-12-12}
 
-- Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
+- Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion {cm:2022-12-12}
 
-- Done : Backend -> Supprimer référence de productEntity car présent dans catalog dans la bd
+- Done : Backend -> Supprimer référence de productEntity car présent dans catalog dans la bd {cm:2022-12-12}
 
-- Done : Frontend -> Bien rendre cliquable les case de la page d'accueil
+- Done : Frontend -> Bien rendre cliquable les case de la page d'accueil {cm:2022-12-12}
 
-- Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion
+- Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion {cm:2022-12-12}
 
-- Done : Backend -> Dans info user, ajouter une icone en fonction du role
+- Done : Backend -> Dans info user, ajouter une icone en fonction du role {cm:2022-12-12}
 
-- Done : SQL -> Ajouter la longitude et la latitude dans la table location
+- Done : SQL -> Ajouter la longitude et la latitude dans la table location {cm:2022-12-12}
 
-- Done : Backend -> Implementer les cartes dans la page info user
+- Done : Backend -> Implementer les cartes dans la page info user {cm:2022-12-12}
 
-- Done : Backend -> Supprimer les fichiers export lors qu'il y en a 10 ou plus, pour chaque type
+- Done : Backend -> Supprimer les fichiers export lors qu'il y en a 10 ou plus, pour chaque type {cm:2022-12-12}
 
-- Done : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...
+- Done : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc... {cm:2022-12-12}
 
-- Done : SQL -> Trigger isALive et isDefault, update
+- Done : SQL -> Trigger isALive et isDefault, update {cm:2022-12-12}

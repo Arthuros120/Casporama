@@ -27,10 +27,15 @@ class Dao extends CI_Controller
 
     public function index()
     {
+        $user = $this->UserModel->adminOnly();
+
         $this->load->view('test/testDAO');
+
     }
 
     public function import() {
+
+        $user = $this->UserModel->adminOnly();
 
         $config['upload_path'] = './DaoFile/import/';
         $config['allowed_types'] = 'json|xml|csv|yaml';
@@ -64,6 +69,8 @@ class Dao extends CI_Controller
     } 
 
     public function export() {
+
+        $user = $this->UserModel->adminOnly();
 
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
