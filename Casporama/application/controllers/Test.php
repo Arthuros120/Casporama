@@ -8,6 +8,7 @@
     * a terme elle ne sera pas accessible par l'utilisateur
 
 */
+
 class Test extends CI_Controller
 {
 
@@ -125,7 +126,7 @@ class Test extends CI_Controller
         $dataMap = [];
 
         foreach ($listAddrr as $value) {
-            
+
             $linkGouvApi = "https://api-adresse.data.gouv.fr/search/?q=";
 
             $addresse = $value->getAdresse();
@@ -165,7 +166,7 @@ class Test extends CI_Controller
 
             if ($objRemember != null) {
 
-                $dataMap[$value->getId()] = array (
+                $dataMap[$value->getId()] = array(
 
                     "lat" => $objRemember->geometry->coordinates[1],
                     "lng" => $objRemember->geometry->coordinates[0]
@@ -175,7 +176,7 @@ class Test extends CI_Controller
             } else {
 
                 $dataMap[$value->getId()] = null;
-            
+
             }
         }
 
@@ -189,5 +190,6 @@ class Test extends CI_Controller
 
         $this->LoaderView->load('Test/map', $data);
     }
+
 
 }

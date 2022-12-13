@@ -983,4 +983,30 @@ class UserModel extends CI_Model
         $this->db->query("Call user.userIsDead('" . $id . "', '" . $dateLastUpdate . "')");
 
     }
+
+    public function adminOnly() : UserEntity
+    {
+
+        // * On rend la connexion peréne pour toutes les pages
+        $this->UserModel->durabilityConnection();
+
+        if (!$this->UserModel->isConnected()) {
+
+            redirect('user/login');
+
+        }
+
+        $id = $this->UserModel->getUserBySession()->getId();
+
+        $user = $this->UserModel->getUserById($id);
+
+        if ($user->getStatus() != "Administrateur") {
+
+            show_404();
+
+        }
+
+        return $user;
+
+    }
 }

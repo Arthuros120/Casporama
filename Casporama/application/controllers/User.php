@@ -537,7 +537,8 @@ class User extends CI_Controller
 
             // * Si le sport ou la catégorie n'est pas disponible, on affiche une erreur 404.
 
-            $this->load->view('errors/html/error_404');
+            show_404();
+
         } else {
 
             if ($this->UserModel->isConnected()) {
