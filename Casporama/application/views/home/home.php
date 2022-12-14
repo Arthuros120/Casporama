@@ -1,5 +1,26 @@
 <!-- home/home -->
 
+<script>
+    document.body.onload=function() {
+        let nb_img = 3;
+        let pos = 0;
+
+        const container = document.getElementById("container")
+        const left = document.getElementById("left")
+        const right = document.getElementById("right")
+
+        container.style.width = 100 + "vw"
+        container.style.height = 68 + "vh"
+
+        for (let i=1; i<=nb_img; i++) {
+            div = document.createElement('div');
+            div.className="picture";
+            div.style.backgroundImage="url(<?= base_url() ?>static/image/casporama_home_"+i+".png)";
+            container.appendChild(div);
+        }
+    }
+</script>
+
 
 <div class="home">
     <nav class="home_nav">
@@ -11,10 +32,10 @@
             <a><h2>Se connecter</h2></a>
         </div>
     </nav>
-    <div class="home_picture">
-        <img src="<?= base_url() ?>static/image/football_casporma_home.png">
-        <img class="home_picture_arrow_left" src="<?= base_url() ?>static/image/icon/arrow.svg">
-        <img class="home_picture_arrow_right" src="<?= base_url() ?>static/image/icon/arrow.svg">
+    <div class="home_picture" id="carrousel">
+        <div id="container"></div>
+        <img id="left" class="home_picture_arrow_left" src="<?= base_url() ?>static/image/icon/arrow.svg">
+        <img id="right" class="home_picture_arrow_right" src="<?= base_url() ?>static/image/icon/arrow.svg">
     </div>
     <div class="home_cat">
         <div class="home_foot">
@@ -62,95 +83,6 @@
 </div>
 
 
-<!-- <div class="home">
-    <ul class="grid">
-        
-        <li class="card foot">
-            <div class="incard">
-                <a class="link1" href="/Shop/home/Football">
-                    <div class="image">
-                        <img 
-                        class="home_img" 
-                        src="<?php echo base_url() ?>static/image/home_foot.png" 
-                        alt="image de foot">
-                    </div>
-                </a>
-                <div class="bg_title"></div>
-                <div class="home_title">
-                    <h3>Football</h3>
-                </div>
-                <a class="link2" href="/Shop/home/Football"></a>
-            </div>
-        </li>
 
-        <li class="card bad">
-            <div class="incard">
-                <a class="link1" href="/Shop/home/Badminton">
-                    <div class="image">
-                        <img
-                        class="home_img"
-                        src="<?php echo base_url() ?>static/image/home_bad.png"
-                        alt="Image d'ilustration de badminton">
-                    </div>
-                </a>
-                <div class="bg_title"></div>
-                <div class="home_title">
-                    <h3>Badminton</h3>
-                </div>
-                <a class="link2" href="/Shop/home/Badminton"></a>
-            </div>
-        </li>
-
-        <li class="card volley">
-            <div class="incard">
-                <a class="link1" href="/Shop/home/Volleyball">
-                    <div class="image">
-                        <img
-                        class="home_img"
-                        src="<?php echo base_url() ?>static/image/home_volley.png"
-                        alt="Image d'ilustration de volley">
-                    </div>
-                </a>
-                <div class="bg_title"></div>
-                <div class="home_title">
-                    <h3>Volleyball</h3>
-                </div>
-                <a class="link2" href="/Shop/home/Volleyball"></a>
-            </div>
-        </li>
-
-        <li class="card mma">
-            <div class="incard">
-                <a class="link1" href="/Shop/home/Art_martiaux">
-                    <div class="image">
-                        <img
-                        class="home_img"
-                        src="<?php echo base_url() ?>static/image/home_mma.png"
-                        alt="Image d'ilustration d'art martiaux">
-                    </div>
-                </a>
-                <div class="bg_title"></div>
-                <div class="home_title">
-                    <h3>Arts-Martiaux</h3>
-                </div>
-                <a class="link2" href="/Shop/home/Art_martiaux"></a>
-            </div>
-        </li>
-        <div class="logo_container">
-            <a href="<?= base_url() ?>User/login">
-                <img 
-                src="<?php echo base_url() ?>static/image/round_logo.png" 
-                class="round_logo" 
-                alt='logo casporama'>
-            </a>
-        </div>
-        <div class="home_login">  
-            <a href="<?= base_url() ?>User/login">
-                <h2>Se Connecter</h2>
-            </a>
-        </div>
-    </ul>
-    
-</div> -->
 
 <!-- home/home -->
