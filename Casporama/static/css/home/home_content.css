@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
+    min-width: 100vw;
     min-height: 100vh;
 }
 
@@ -55,6 +55,10 @@
 
 .home_nav_right > a > h2 {
     font-size: 0.8vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .home_nav_right > a:nth-child(1) {
@@ -72,19 +76,13 @@
 .home_picture {
     display: flex;
     height: 68vh;
-    position: relative; 
+    width: 100vw; 
 }
 
-#container {
+.home_banner {
     width: 100vw;
-    height: 100%;
-}
-
-.picture {
-    width: 100%;
-    height: 68vh;
-    display: inline-block;
-    margin: 0;
+    height: auto;
+    object-fit: cover;
 }
 
 .home_picture_arrow_right, .home_picture_arrow_left {
@@ -150,11 +148,11 @@
 }
 
 .home_cat > div:nth-child(2) {
-    background-color: var(--blue2);
+    background-color: var(--yellow2);
 }
 
 .home_cat > div:nth-child(3) {
-    background-color: var(--yellow2);
+    background-color: var(--blue2);
 }
 
 .home_cat > div:nth-child(4) {
@@ -188,165 +186,38 @@
 }
 
 
-
-/* .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1%;
-    margin: 2vh 2vw;
-    width: 100%;
-    align-items: center;
-    padding-left: 0.5%;
+#carousel {
+    width: 100vw;
+    height: 70vh;
+    position: relative;
+    overflow: hidden;
 }
 
-.card {
-    list-style-type: none;
-    width: 47vw;
-    height: 47vh;
+#container {
+    width: 100vw;
+    height: 70vh;
 }
 
-.incard {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-}
-    
-
-.link1 {
-    width: 100%;
-    height: 100%;
-}
-
-.image {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.link2 {
+button {
     position: absolute;
-    transform: translateX(50%),translateY(50%);
-    padding: 1% 5%;
+    top: 45%;
+    background-color: none;
+    border: none;
+    cursor: pointer;
 }
 
-.home_img {
-    width: 35%;
-    height: auto;
+#gauche {
+    left: 0;
 }
 
-.foot {
-    background-color: var(--green2);
+#droite {
+    right: 100%;
 }
 
-.volley {
-    background-color: var(--yellow2);
+.photo {
+    width: 100vw;
+    height: 70vh;
+    margin: 0;
+    display: inline-block;
+    background-size: cover;
 }
-
-.bad {
-    background-color: var(--blue2);
-}
-
-.mma {
-    background-color: var(--red2);
-}
-
-.bg_title {
-    position: absolute;
-    transform: translateX(50%), translateY(50%);
-    padding: 1% 5%;
-    background: rgba(255, 255, 255, 0.26);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(8.3px);
-    -webkit-backdrop-filter: blur(8.3px);
-    border: 1px solid rgba(255, 255, 255, 0.32);
-}
-
-.home_title {
-    position: absolute;
-    transform: translateX(50%), translateY(50%);
-}
-
-.home_title > h3 {
-    font-family: var(--main-font);
-    font-weight: 600;
-    font-size: 1vw;
-}
-
-.logo_container {
-    position: absolute;
-    transform: translateX(425%);
-    width: 10%;
-    height: auto;
-}
-
-.round_logo {
-    width: 100%;
-    height: auto;
-}
-
-.home_login {
-    display: none;
-}
-
-@media only screen and (max-width: 600px) {
-    
-    .grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr; 
-        height: auto;
-        margin: 0vh 0vw;
-        padding-left: 0%;
-        gap: 0.5%;
-    }
-
-    .card {
-        width: 100vw;
-        height: 100%;
-    }
-
-    .home_img {
-        width: 45%;
-        height: auto;
-    }
-
-    .bg_title {
-        padding: 4% 15%;
-    }
-
-    .home_title > h3 {
-        font-size: 3vw;
-    }
-
-    .link2 {
-        display: none;
-    }
-
-    .round_logo {
-        display: none;
-        
-    }
-
-    .home_login {
-        display: flex;
-        background-color: var(--grey2);
-    }
-
-    .home_login > a {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .home_login > a > h2 {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-} */
