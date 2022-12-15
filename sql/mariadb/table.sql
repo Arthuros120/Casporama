@@ -65,6 +65,8 @@ create table if not exists product (
     price float not null,
     description text not null,
     image VARCHAR(255),
+    isALive bool not null,
+    dateLastUpdate datetime not null,
     PRIMARY KEY(idproduct),
     FOREIGN KEY(nusport) REFERENCES sport(nusport),
     constraint type_not_valid
@@ -80,6 +82,8 @@ CREATE TABLE IF NOT EXISTS catalog (
     color varchar(20),
     size varchar(3),
     quantity integer not null default 0,
+    isALive bool not null,
+    dateLastUpdate datetime not null,
     PRIMARY KEY(id),
     foreign key(nuproduct) references product(idproduct)
 );
@@ -92,6 +96,8 @@ create table if not exists `order` (
     iduser int not null,
     idlocation int not null,
     state varchar(15) not null,
+    isALive bool not null,
+    dateLastUpdate datetime not null,
     primary key(idorder),
     foreign key(idlocation) references location(idlocation),
     foreign key(iduser) references user(id),
