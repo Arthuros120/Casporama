@@ -34,7 +34,7 @@ INSERT INTO sport (nusport,name)
  (3,'Badminton'),
  (4,'Arts-martiaux');
 
-insert into product (idproduct, type, nusport, brand, name, gender, price, description, image)
+insert into product (idproduct, type, nusport, brand, name, gender, price, description, image, isALive, dateLastUpdate)
 values
     (   1,
         'Vêtement',
@@ -45,7 +45,9 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-        '/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png'
+        '/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png',
+        true,
+        '2022-11-21 20:05:37'
      ),
     (
         2,
@@ -57,7 +59,9 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-         '/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png'
+         '/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png',
+        true,
+        '2022-11-21 20:05:37'
          ),
     (
         3,
@@ -69,7 +73,9 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-         '/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg'
+         '/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg',
+        true,
+        '2022-11-21 20:05:37'
          ),
     (
         4,
@@ -81,18 +87,21 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-        '/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png'
+        '/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png',
+        true,
+        '2022-11-21 20:05:37'
          );
 
 
-insert into catalog (id, nuproduct, reference, color, size, quantity)
+insert into catalog (id, nuproduct, reference, color, size, quantity, isALive, dateLastUpdate)
 values
-    (1,1,4064,'Rouge','XS',2),
-    (2,2,7064,'Bleu','38',1),
-    (3,3,6064,null,null,5),
-    (4,1,5064,'Vert','XS',2),
-    (5,4,5065,'Bleu','L',1);
+    (1,1,4064,'Rouge','XS',2, true, '2022-11-21 20:05:37'),
+    (2,2,7064,'Bleu','35',1, true, '2022-11-21 20:05:37'),
+    (3,3,6064,null,null, 5, true, '2022-11-21 20:05:37'),
+    (4,1,5064,'Vert','XS',2, true, '2022-11-21 20:05:37'),
+    (5,4,5065,'Bleu','L',1, true, '2022-11-21 20:05:37');
 
-insert into `order` (idorder,dateorder, idproduct, quantity, iduser,idlocation , state)
+
+insert into `order` (idorder,dateorder, idproduct, quantity, iduser,idlocation , state, isALive, dateLastUpdate)
 values
-    (1,'2022-10-10', '1', 1 ,6,1,'En preparation');
+    (1,'2022-10-10', '1', 1 ,6,1,'En preparation', true, '2022-11-21 20:05:37');

@@ -485,9 +485,15 @@ CREATE OR REPLACE PACKAGE product AS
     -- Permet de supprimer un product
     procedure delProduct( nuproduct int);
     procedure getAll();
+    procedure getAllAsAlive();
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
+    procedure getAllAsAlive() as
+    Begin
+        select * from product where isAlive = true;
+    End;
+
     procedure getAll() as
     Begin
         select * from product;
@@ -529,7 +535,7 @@ CREATE OR REPLACE PACKAGE BODY product AS
 
     procedure getProductBySportType( sport integer,  type varchar(15)) as
     BEGIN
-        select * from product where nusport = sport and type = product.type;
+        select * from product where nusport = sport and type = product.type and isALive = true;
     end;
 
     procedure getProductById( id integer) as
@@ -623,11 +629,11 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure delVariante( idvariante int);
     -- Permet de mettre à jour la quantité d'une variante donnée
     procedure updateQuantity( idvariante int,  newquantity int);
-    procedure getAll();
+    procedure getAllAsAlive();
 END;
 
 CREATE OR REPLACE PACKAGE BODY catalog AS
-    procedure getAll() as
+    procedure getAllAsAlive() as
     Begin
         select * from catalog;
     End;
