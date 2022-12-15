@@ -1,0 +1,44 @@
+---
+- information0:
+    id: "2"
+    firstname: Arthur
+    name: Hamelin
+    mail: arthur.hamelin@etu.univ-nantes.fr
+    mobile: "0600000000"
+    fix: "0200000000"
+- information1:
+    id: "3"
+    firstname: Maxime
+    name: Franco
+    mail: maxime.franco@etu.univ-nantes.fr
+    mobile: "1922422810"
+    fix: "1569137253"
+- information2:
+    id: "4"
+    firstname: Maxime
+    name: Santos
+    mail: maxime.santos@etu.univ-nantes.fr
+    mobile: "1844196596"
+    fix: "1994286298"
+- information3:
+    id: "5"
+    firstname: Titouan
+    name: Gautier
+    mail: titouan.gautier@etu.univ-nantes.fr
+    mobile: "1790525843"
+    fix: "1889548291"
+- information4:
+    id: "6"
+    firstname: Michelle
+    name: Dupont
+    mail: dupont@test.com
+    mobile: "0602030405"
+    fix: "0402030405"
+- information5:
+    id: "7"
+    firstname: Jackie
+    name: Michelle
+    mail: jackiemichelle@test.com
+    mobile: "0602030404"
+    fix: "0402030405"
+...

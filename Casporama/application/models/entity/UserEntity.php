@@ -3,6 +3,8 @@
 // * Importe les entités nécessaires
 require_once APPPATH . 'models/entity/InformationEntity.php';
 require_once APPPATH . 'models/entity/LocationEntity.php';
+require_once APPPATH . 'models/entity/CartEntity.php';
+
 
 /*
 
@@ -26,6 +28,8 @@ class UserEntity
 
     private array $localisation;
     private InformationEntity $coordonnees;
+
+    private array $cart;
 
     /*
     
@@ -298,6 +302,38 @@ class UserEntity
         $cookieCheck = uniqid(mt_rand(), true);
 
         return (string) $cookieCheck;
+
+    }
+
+    /*
+    
+        * Function getCart
+    
+        @return CartEntity
+    
+        * Cette fonction renvoie le panier de l'entité
+    
+    */
+    public function getCart() : array
+    {
+
+        return $this->cart;
+
+    }
+
+    /*
+    
+        * Function setCart
+    
+        @param CartEntity
+    
+        * Cette fonction modifie le panier de l'entité
+    
+    */
+    public function setCart(CartEntity $cart)
+    {
+
+        array_push($this->cart,$cart);
 
     }
 }

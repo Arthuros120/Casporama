@@ -743,6 +743,27 @@ CREATE OR REPLACE PACKAGE BODY verifKey AS
     end;
 END;
 
+create or replace package cart as
+    procedure getCart();
+    procedure addCart(newid int, newiduser int, newidcard int, newidvariant int, newquantity int, newdate datetime, newdatexp datetime);
+    procedure verifyId(id int);
+End;
+
+create or replace package body cart as
+    procedure getCart() as
+    begin
+        select * from cart;
+    end;
+    procedure addCart(newid int, newiduser int, newidcard int, newidvariant int, newquantity int, newdate datetime, newdatexp datetime) as
+    begin
+        insert into cart(id,iduser,idcard,idvariant,quantity,date,dateExp) values(newid,newiduser,newidcard,newidvariant,newquantity,newdate,newdatexp);
+    end;
+    procedure verifyId(newid int) as
+    begin
+        select idcard from cart where newid = id;
+    end;
+end;
+
 /*
 use Casporama;
 call `order`.getCommandeClient(6);

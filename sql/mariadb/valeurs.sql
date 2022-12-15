@@ -88,7 +88,7 @@ values
 insert into catalog (id, nuproduct, reference, color, size, quantity)
 values
     (1,1,4064,'Rouge','XS',2),
-    (2,2,7064,'Bleu','35',1),
+    (2,2,7064,'Bleu','38',1),
     (3,3,6064,null,null,5),
     (4,1,5064,'Vert','XS',2),
     (5,4,5065,'Bleu','L',1);

@@ -120,11 +120,11 @@ Create table if not exists verifKey (
     PRIMARY KEY (id)
 );
 
-create table if not exists card (
+create table if not exists cart (
     id int not null unique,
     iduser int not null,
     idcard int not null,
-    idproduct int not null,
+    idvariant int not null,
     quantity int not null,
     date datetime not null,
     dateExp datetime not null,
@@ -132,5 +132,5 @@ create table if not exists card (
     constraint fk_card_user
         foreign key (iduser) references user(id),
     constraint fk_card_product
-        foreign key (idproduct) references product(idproduct)
+        foreign key (idvariant) references catalog(id)
 );

@@ -346,8 +346,6 @@ class ProductEntity
 
         foreach ($stock as &$i) {
 
-            //var_dump($i);
-
             $newStockEntity = new StockEntity();
 
             $newStockEntity->setId((int) $i->id);
