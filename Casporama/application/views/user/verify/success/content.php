@@ -1,11 +1,17 @@
 <!-- user/verify/success/content -->
 
-<h1> Bravo ! </h1>
+<div class="verify_account_content">
+    <div class="verify_title">
+        <div class="verify_title_main">
+            <h1> Votre compte a bien été vérifié !</h1>
+        </div> 
+        <p>Vous pouvez maintenant vous connecter !</p>
+    </div>
 
-<p> Votre compte a bien été vérifié ! </p>
-
-<p> Vous pouvez maintenant vous connecter ! </p>
-
-// TODO: dire a titouan de finir cette page
+    <div class="verify_content">
+        <p style="color:lightgrey">Vous allez être redirigé dans <span id="time" >10</span> secondes</p>
+    </div>
+    
+</div>
 
 <!-- user/verify/success/content -->
