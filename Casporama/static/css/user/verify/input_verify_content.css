@@ -50,14 +50,18 @@
     
 }
 
-.input_verify:nth-child(1) {
+.input_verify:nth-child(2) {
     border: 3px solid #399B39;;
 }
 
-.input_verify:nth-child(2) {
+.input_verify:nth-child(3) {
     border: 3px solid #3284E4;;
 }
-.input_verify:nth-child(3) {
+.input_verify:nth-child(1) {
+    border: 3px solid black;;
+}
+
+.input_verify:nth-child(6) {
     border: 3px solid black;;
 }
 .input_verify:nth-child(4) {
