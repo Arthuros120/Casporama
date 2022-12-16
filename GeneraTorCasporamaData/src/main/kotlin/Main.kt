@@ -10,12 +10,6 @@ fun main(args: Array<String>) {
 
     val productGenerator = ProductGenerator()
 
-    val listProduct = productGenerator.generate(1, 1, 50)
-
-    val file = File("src/main/resources/Output/", "test.json").outputStream()
-
-    Json.encodeToStream<List<Product>>(listProduct, file)
-
-    file.close()
+    val listFootballVetement = productGenerator.generate(1, 1, 50)
 
 }
