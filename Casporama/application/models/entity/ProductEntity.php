@@ -39,11 +39,10 @@ class ProductEntity
         * Cette fonction retourne l'id de l'entité
     
     */
-    public function getId() : int
+    public function getId(): int
     {
 
         return $this->id;
-
     }
 
     /*
@@ -59,7 +58,6 @@ class ProductEntity
     {
 
         $this->id = $id;
-
     }
 
     /*
@@ -71,11 +69,10 @@ class ProductEntity
         * Cette fonction retourne le type de l'entité
     
     */
-    public function getType() : string
+    public function getType(): string
     {
 
         return $this->type;
-
     }
 
     /*
@@ -91,7 +88,6 @@ class ProductEntity
     {
 
         $this->type = $type;
-
     }
 
     /*
@@ -103,11 +99,26 @@ class ProductEntity
         * Cette fonction retourne le sport de l'entité
     
     */
-    public function getSport() : string
+    public function getSport(): string
     {
 
         return $this->sport;
+    }
 
+    public function getSportName() : string
+    {
+        switch ($this->sport) {
+            case 1:
+                return 'Football';
+            case 2:
+                return 'Volleyball';
+            case 3:
+                return 'Badminton';
+            case 4:
+                return 'Arts-martiaux';
+            default:
+                return 'Sport inconnu';
+        }
     }
 
     /*
@@ -123,7 +134,6 @@ class ProductEntity
     {
 
         $this->sport = $sport;
-
     }
 
     /*
@@ -135,11 +145,10 @@ class ProductEntity
         * Cette fonction retourne la marque de l'entité
     
     */
-    public function getBrand() : string
+    public function getBrand(): string
     {
 
         return $this->brand;
-
     }
 
     /*
@@ -155,7 +164,6 @@ class ProductEntity
     {
 
         $this->brand = $brand;
-
     }
 
     /*
@@ -167,11 +175,10 @@ class ProductEntity
         * Cette fonction retourne le nom de l'entité
     
     */
-    public function getName() : string
+    public function getName(): string
     {
 
         return $this->name;
-
     }
 
     /*
@@ -187,7 +194,6 @@ class ProductEntity
     {
 
         $this->name = $name;
-
     }
 
     /*
@@ -199,11 +205,10 @@ class ProductEntity
         * Cette fonction retourne le genre de l'entité
     
     */
-    public function getGenre() : string
+    public function getGenre(): string
     {
 
         return $this->genre;
-
     }
 
     /*
@@ -219,7 +224,6 @@ class ProductEntity
     {
 
         $this->genre = $genre;
-
     }
 
     /*
@@ -231,11 +235,10 @@ class ProductEntity
         * Cette fonction retourne le prix de l'entité
     
     */
-    public function getPrice() : float
+    public function getPrice(): float
     {
 
         return $this->price;
-
     }
 
     /*
@@ -251,7 +254,6 @@ class ProductEntity
     {
 
         $this->price = $price;
-
     }
 
     /*
@@ -263,11 +265,25 @@ class ProductEntity
         * Cette fonction retourne la description de l'entité
     
     */
-    public function getDescription() : string
+    public function getDescription(): string
     {
 
         return $this->description;
+    }
 
+    /*
+    
+        * Function getTinyDescription
+    
+        @return string
+    
+        * Cette fonction retourne la description de l'entité en version réduite
+    
+    */
+    public function getTinyDescription(int $size): string
+    {
+
+        return $this->raccourcirChaine($this->description, $size);
     }
 
     /*
@@ -283,7 +299,6 @@ class ProductEntity
     {
 
         $this->description = $description;
-
     }
 
     /*
@@ -295,7 +310,7 @@ class ProductEntity
         * Cette fonction retourne les images de l'entité
     
     */
-    public function getImages() : array
+    public function getImages(): array
     {
 
         return $this->image;
@@ -308,7 +323,7 @@ class ProductEntity
         * Cette fonction sélectione l'image principale
     
     */
-    public function getCover() : string
+    public function getCover(): string
     {
 
         return base_url($this->image[0]);
@@ -327,7 +342,6 @@ class ProductEntity
     {
 
         $this->image = explode(";", $image);
-
     }
 
 
@@ -357,11 +371,9 @@ class ProductEntity
             $newStockEntity->setQuantity((int) $i->quantity);
 
             array_push($res, $newStockEntity);
-
         }
 
         $this->stock = $res;
-
     }
 
     /*
@@ -372,9 +384,31 @@ class ProductEntity
     
     */
 
-    public function getStock() : array {
+    public function getStock(): array
+    {
 
         return $this->stock;
+    }
 
+    /**
+     * La fonction raccourcirChaine() permet de réduire une chaine trop longue
+     * passée en paramètre.
+     *
+     * Si la troncature a lieu dans un mot, la fonction tronque à l'espace suivant.
+     *
+     * @param : string $chaine le texte trop long à tronquer
+     * @param : integer $tailleMax la taille maximale de la chaine tronquée
+     * @return : string
+     */
+    private function raccourcirChaine($chaine, $tailleMax)
+    {
+        // Variable locale
+        $positionDernierEspace = 0;
+        if (strlen($chaine) >= $tailleMax) {
+            $chaine = substr($chaine, 0, $tailleMax);
+            $positionDernierEspace = strrpos($chaine, ' ');
+            $chaine = substr($chaine, 0, $positionDernierEspace) . '...';
+        }
+        return $chaine;
     }
 }
