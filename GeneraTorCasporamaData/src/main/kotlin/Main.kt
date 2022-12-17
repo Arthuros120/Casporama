@@ -1,15 +1,7 @@
-import Product.Product
-import Product.ProductGenerator
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToStream
-import java.io.File
-
-@OptIn(ExperimentalSerializationApi::class)
 fun main(args: Array<String>) {
+    println("Hello World!")
 
-    val productGenerator = ProductGenerator()
-
-    val listFootballVetement = productGenerator.generate(1, 1, 50)
-
+    // Try adding program arguments via Run/Debug configuration.
+    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
+    println("Program arguments: ${args.joinToString()}")
 }

@@ -127,6 +127,7 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getDateLastUpdateById( idSearch VARCHAR(255));
     procedure userIsDead(searchId int, newDateLastUpdate date);
     procedure setUserVerified(searchId int, newDate datetime);
+    procedure changeStatus(searchId int, newStatus varchar(255));
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -453,6 +454,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
     begin
         update user set isVerified = true, dateLastUpdate = newDate where id = idSearch;
     end;
+
+    procedure changeStatus(searchId int , newStatus varchar(255)) as
+    begin
+        update user set status = newStatus where id = searchId;
+    end;
 end;
 
 
@@ -476,7 +482,7 @@ CREATE OR REPLACE PACKAGE product AS
     -- Permet d'avoir un product par son ID
     procedure getProductById( id integer);
     -- Permet d'ajouter un product à la BD
-    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage varchar(255), newIsALive boolean, newDate datetime);    -- Permet de mettre à jour le prix d'un product
+    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage varchar(255));    -- Permet de mettre à jour le prix d'un product
     procedure updatePrice( nuproduct int,  newprice int);
     -- Permet de mettre à jour la description d'un product
     procedure updateDescription( nuproduct int,  newdesc varchar(255));
@@ -543,9 +549,9 @@ CREATE OR REPLACE PACKAGE BODY product AS
         select * from product where idproduct = id;
     end;
 
-    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage varchar(255), newIsALive boolean, newDate datetime) as
+    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage varchar(255)) as
     BEGIN
-        insert into product(idproduct, type, nusport, brand, name, gender, price, description, image, isALive, dateLastUpdate) value (newid, newtype,newnusport,newmarque,newnom,newgenre,newprix,newdesc,newimage, newIsALive, newDate);
+        insert into product(idproduct, type, nusport, brand, name, gender, price, description, image) value (newid, newtype,newnusport,newmarque,newnom,newgenre,newprix,newdesc,newimage);
     end;
 
     procedure delProduct( nuproduct int) as

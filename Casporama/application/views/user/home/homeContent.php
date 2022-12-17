@@ -25,8 +25,13 @@
                 <img class="user_img" src="<?= base_url() . "static/image/icon/delivery.svg" ?>" alt="delivery" />
             </a>
             <?php if ($user -> getStatus() == "Client") { ?>
-                <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('User/newCaspor') ?>">
+                <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('Caspor/home') ?>">
                     <h3>Devenir un Caspor</h3>
+                    <img class="user_img" src="<?= base_url() . "static/image/icon/castor/castor_outline.png" ?>" alt="castor" />
+            <?php } ?>
+            <?php if ($user -> getStatus() == "Caspor") { ?>
+                <a class="user_btn" onmouseenter="hover(this)" href="<?= base_url('Caspor/home') ?>">
+                    <h3>Mon Caspor</h3>
                     <img class="user_img" src="<?= base_url() . "static/image/icon/castor/castor_outline.png" ?>" alt="castor" />
             <?php } ?>
             <?php if ($user -> getStatus() == "Administrateur") { ?>

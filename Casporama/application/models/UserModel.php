@@ -1009,4 +1009,8 @@ class UserModel extends CI_Model
         return $user;
 
     }
+
+    public function changeStatus(int $id, string $newStatus) {
+        $this->db->query("Call user.changeStatus('" . $id . "', '" . $newStatus . "')");
+    }
 }
