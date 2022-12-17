@@ -630,6 +630,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     -- Permet de mettre à jour la quantité d'une variante donnée
     procedure updateQuantity( idvariante int,  newquantity int);
     procedure getAllAsAlive();
+    procedure getCatalogByVariant(newidvariant int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY catalog AS
@@ -661,7 +662,10 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     BEGIN
         update catalog set quantity=newquantity where id = iduser;
     end;
-
+    procedure getCatalogByVariant(newidvariant int) as
+    begin
+        select * from catalog where id = newidvariant;
+    end;
 END;
 
 
@@ -751,8 +755,9 @@ END;
 
 create or replace package cart as
     procedure getCart();
-    procedure addCart(newid int, newiduser int, newidcard int, newidvariant int, newquantity int, newdate datetime, newdatexp datetime);
+    procedure addCart(newid int, newiduser int, newidcart int, newidvariant int, newquantity int, newdate datetime, newdatexp datetime);
     procedure verifyId(id int);
+    procedure getCartById(newid int);
 End;
 
 create or replace package body cart as
@@ -760,9 +765,13 @@ create or replace package body cart as
     begin
         select * from cart;
     end;
-    procedure addCart(newid int, newiduser int, newidcard int, newidvariant int, newquantity int, newdate datetime, newdatexp datetime) as
+    procedure getCartById(newid int) as
     begin
-        insert into cart(id,iduser,idcard,idvariant,quantity,date,dateExp) values(newid,newiduser,newidcard,newidvariant,newquantity,newdate,newdatexp);
+        select * from cart where newid = iduser;
+    end;
+    procedure addCart(newid int, newiduser int, newidcart int, newidvariant int, newquantity int, newdate datetime, newdatexp datetime) as
+    begin
+        insert into cart(id,iduser,idcart,idvariant,quantity,date,dateExp) values(newid,newiduser,newidcart,newidvariant,newquantity,newdate,newdatexp);
     end;
     procedure verifyId(newid int) as
     begin

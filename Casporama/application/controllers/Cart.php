@@ -24,10 +24,14 @@ class Cart extends CI_Controller
         $this->UserModel->durabilityConnection();
 
         if ($this->UserModel->isConnected()) {
-            
-            $this->load->view('user/card/homeContent');
 
-            // redirect("./Cart");
+            $user = $this->UserModel->getUserBySession();
+
+            $carts = $this->CartModel->getCart($user);
+
+            $data['carts'] = $carts;
+            
+            $this->load->view('cart/homeContent',$data);
 
         } else {
 

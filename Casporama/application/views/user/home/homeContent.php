@@ -16,7 +16,7 @@
                 <h3>Consulter mes informations</h3>
                 <img class="user_img" src="<?= base_url() . "static/image/icon/info.svg" ?>" alt="info" />
             </a>
-            <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('User/card'); ?>">
+            <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('Cart'); ?>">
                 <h3>Mon panier</h3>
                 <img class="user_img" src="<?= base_url() . "static/image/icon/bag_outline.svg" ?>" alt="bag_outline" />
             </a>

@@ -105,3 +105,7 @@ values
 insert into `order` (idorder,dateorder, idproduct, quantity, iduser,idlocation , state, isALive, dateLastUpdate)
 values
     (1,'2022-10-10', '1', 1 ,6,1,'En preparation', true, '2022-11-21 20:05:37');
+
+insert into cart (id,iduser,idcart,idvariant,quantity,date,dateExp)
+values
+    (1,2,1,1,1,'2022-11-21 20:05:37','2022-11-21 22:10:15');

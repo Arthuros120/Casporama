@@ -1,6 +1,9 @@
 <?php
 
 // * On importe les classes nécessaires
+
+use function PHPUnit\Framework\isEmpty;
+
 require_once APPPATH . 'models/entity/ProductEntity.php';
 
 /*
@@ -61,4 +64,46 @@ class CartModel extends CI_Model {
         return false;
     }
     
+    public function getCart(UserEntity $user) : ?array {
+
+        $query = $this->db->query("call cart.getCartById('" . $user->getId() . "')");
+
+        $carts = $query->result_array();
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        
+
+        if (count($carts) == 0) {
+            return null;
+        }
+
+        foreach ($carts as $cart) {
+
+            $query = $this->db->query("call catalog.getCatalogByVariant('" . $cart["idvariant"] . "')");
+            $catalog = $query->result_array();
+
+
+            // * On attend un résultat
+            $query->next_result();
+            $query->free_result();
+
+            $product = $this->ProductModel->findById($catalog[0]["nuproduct"]);
+            
+            $newcart = new CartEntity;
+            $newcart->setId($cart["id"]);
+            $newcart->setIduser($cart["iduser"]);
+            $newcart->setIdcart($cart["idcart"]);
+            $newcart->setProduct($product);
+            $newcart->setQuantity($cart["quantity"]);
+
+            $user->setCart($newcart);
+        } 
+        
+        return $user->getCart();
+
+    }
+
 }

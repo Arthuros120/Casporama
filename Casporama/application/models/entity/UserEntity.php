@@ -333,6 +333,10 @@ class UserEntity
     public function setCart(CartEntity $cart)
     {
 
+        if (!isset($this->cart)) {
+            $this->cart = array();
+        }
+
         array_push($this->cart,$cart);
 
     }
