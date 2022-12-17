@@ -1,0 +1,98 @@
+
+# Todo list
+
+## A faire
+
+- Todo : Backend/Frontend -> Revoir tout les message d'erreur ! et les pages aussi !
+
+- Todo : Frontend -> Ajouter alt a la fin
+
+- Todo : Backend -> Changer les message d'erreur page 404
+
+- Todo : SQL -> Créer un trigger sur la création user
+
+- TODO : SQL -> Faire Coupon de réduction
+
+- TODO : Backend/SQL -> Créer la fonction mots de passe oublié
+
+- TODO : Backend -> Revoir tout les demande d'affichage des pages d'erreur et savoir si c'est les pages d'erreur adapté
+
+- TODO : Backend -> Bien assigné les autocomplete a tous les input
+
+- TODO : Backend -> Créer un cache des demande d'api récurente
+
+- TODO : Backend -> Gerer l'archivage des logs
+
+- TODO : Sys -> Vérifié le php.ini pour la prod et enlever les erreurs
+
+- TODO : Backend -> Faire en sorte que la db ce nettoie toute seul ou suite a une demande de l'admin
+
+- Todo : Frontend -> Erreur au niveau des inputs (required ect...)
+
+- TODO : Backend/Frontend ? -> Back Arrow dans Modif et Add bug
+
+- Todo : Backend -> Gerer les addresse par défault
+
+- Todo : Backend -> Ajouter la possibilité de recuperer sont compte mort
+
+- Todo : Backend -> Faire en sorte que les valeur donné dans un formulaire soit gardé en cas d'erreur
+
+- Todo : Backend -> Bug dans la modification de l'adresse
+
+- Todo : Backend -> Reformatter le code en le partitionnant en fonction des fonctionnalité
+
+- Todo : Backend -> Faire en sorte que tout les télécharment ce mette dans DAOfile
+
+## En cours
+
+- Do : Backend -> Créer les pages différente page en fonction des status
+
+- Do : Sysadmin/Backend -> crée un dédoublement du site et de la base de donnée sur le serveur distant
+
+- Do : Backend/Frotend -> Progress bar sur la loading page (pour le fun)
+
+- Do : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...
+
+## Fait {cm:2022-12-12}
+
+- Done : Frontend -> Rendre plus styler la page login {cm:2022-12-12}
+
+- Done : Backend -> Migrer les model qui utilise les procedure mysql en model qui utilise les packages mariadb {cm:2022-12-12}
+
+- Done : Backend/Frontend -> Avoir avec le dev frontend pour mettre required dans le html du register {cm:2022-12-12}
+  - Après discussion avec le dev frontend, il a dit que c'était pas nécessaire de mettre required dans le html car il y a déjà un check côté backend. Donc on laisse comme ça pour le moment. {cm:2022-12-12}
+
+- Done : SysAdmin -> Passez a mariaDb {cm:2022-12-12}
+  - Le projet est maintenant en mariaDb {cm:2022-12-12}
+  
+- Done : Backend/Frontend -> reparer la page login {cm:2022-12-12}
+  - La page login est maintenant fonctionnelle {cm:2022-12-12}
+
+- Done : Backend -> Mettre tout les login en lowercase aussi bien en login que register {cm:2022-12-12}
+  - J'ai fait en sorte que tout les login soit en lowercase pour éviter les doublons de login avec des majuscules et des minuscules (ex: toto et Toto) {cm:2022-12-12}
+
+- Done : Frontend -> Discuter avec le dev frontend pour créer une page erreur Generique {cm:2022-12-12}
+
+- Done : Frontend -> Bien rendre cliquable les case de la page d'accueil {cm:2022-12-12}
+
+- Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion {cm:2022-12-12}
+
+- Done : Backend -> Supprimer référence de productEntity car présent dans catalog dans la bd {cm:2022-12-12}
+
+- Done : Frontend -> Bien rendre cliquable les case de la page d'accueil {cm:2022-12-12}
+
+- Done : Frontend -> Faire en sorte que quand on clique sur l'image de la page d'accueil on soit rediriger vers la page de connexion {cm:2022-12-12}
+
+- Done : Backend -> Dans info user, ajouter une icone en fonction du role {cm:2022-12-12}
+
+- Done : SQL -> Ajouter la longitude et la latitude dans la table location {cm:2022-12-12}
+
+- Done : Backend -> Implementer les cartes dans la page info user {cm:2022-12-12}
+
+- Done : Backend -> Supprimer les fichiers export lors qu'il y en a 10 ou plus, pour chaque type {cm:2022-12-12}
+
+- Done : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc... {cm:2022-12-12}
+
+- Done : SQL -> Trigger isALive et isDefault, update {cm:2022-12-12}
+
+- Done : Backend -> Faire filtre pour DAO (choisir colonnes)

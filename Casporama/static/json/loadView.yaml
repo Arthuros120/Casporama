@@ -1,0 +1,424 @@
+#---------------------------------Casporma View---------------------------------#
+
+#################################################
+#***********************************************#
+#*                                             *#
+#*            --------------------             *#
+#*           | Schéma a appliqué  |            *#
+#*            --------------------             *#
+#*                                             *#
+#* Lien de la vue chargé:                      *#
+#*                                             *#
+#*  Views :                                    *#
+#*       etiquetteVue1 : "lienVue1"            *#
+#*       etiquetteVue2 : "lienVue2"            *# 
+#*       etiquetteVue3 : "lienVue3"            *# 
+#*       etiquetteVue4 : "lienVue4"            *#
+#*                                             *#
+#*  BaseView: "lienDuTemplate"                 *#
+#*                                             *#
+#***********************************************#
+#################################################
+
+# ! Nota bene:
+# * -Les argument doivent êtres avoir la même orthographe entre les lien des controller et les lien des vues
+
+---
+
+#---------------------------------Casporma View---------------------------------#
+
+Home/index:
+
+    views:
+        head: "home/head"
+        header: "templates/blank"
+        content: "home/home"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Shop/view:
+
+    views:
+        head: "shop/view/head"
+        header: "shop/global/header"
+        content: "shop/global/viewContent"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Shop/product:
+
+    views:
+        head: "shop/product/head"
+        header: "shop/global/header"
+        content: "shop/product/productContent"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+User/login/error:
+
+    views:
+        head: "user/login/error/head"
+        header: "templates/blank"
+        content: "user/login/loginContent"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+User/login/success:
+
+    views:
+        head: "user/login/success/successHead"
+        script: "user/login/success/successScript"
+        content: "user/login/success/successContent"
+
+    baseView: "user/login/success/successTemplate"
+
+User/register/error:
+
+    views:
+        head: "user/register/error/head"
+        header: "templates/blank"
+        content: "user/register/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+User/registerUserIdentity:
+
+    views:
+        head: "user/registerUserIdentity/head"
+        header: "templates/blank"
+        content: "user/registerUserIdentity/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+User/dead:
+
+    views:
+        head: "user/dead/head"
+        header: "templates/blank"
+        content: "user/dead/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+User/home:
+
+    views:
+        head: "user/home/head"
+        header: "templates/blank"
+        content: "user/home/homeContent"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+User/home/info:
+
+    views:
+        head: "user/home/info/head"
+        content: "user/home/info/content"
+        script: "user/home/info/script"
+
+    baseView: "user/home/info/base"
+
+User/home/modifLastName:
+
+    views:
+        head: "user/home/info/head"
+        modaleHead: "user/home/info/modale/global/head"
+        modaleContent: "user/home/info/modale/modifLastName/content"
+        content: "user/home/info/content"
+        script: "user/home/info/script"
+        modaleScript: "user/home/info/modale/modifLastName/script"
+
+    baseView: "user/home/info/modale/global/base"
+
+User/home/modifFirstName:
+
+    views:
+        head: "user/home/info/head"
+        modaleHead: "user/home/info/modale/global/head"
+        modaleContent: "user/home/info/modale/modifFirstName/content"
+        content: "user/home/info/content"
+        script: "user/home/info/script"
+        modaleScript: "user/home/info/modale/modifFirstName/script"
+
+    baseView: "user/home/info/modale/global/base"
+
+User/home/modifEmail:
+
+    views:
+        head: "user/home/info/head"
+        modaleHead: "user/home/info/modale/global/head"
+        modaleContent: "user/home/info/modale/modifEmail/content"
+        content: "user/home/info/content"
+        script: "user/home/info/script"
+        modaleScript: "user/home/info/modale/modifEmail/script"
+
+    baseView: "user/home/info/modale/global/base"
+
+User/home/modifPass:
+
+    views:
+        head: "user/home/info/head"
+        modaleHead: "user/home/info/modale/global/head"
+        modaleContent: "user/home/info/modale/modifPass/content"
+        content: "user/home/info/content"
+        script: "user/home/info/script"
+        modaleScript: "user/home/info/modale/modifPass/script"
+
+    baseView: "user/home/info/modale/global/base"
+
+User/home/modifMobile:
+
+    views:
+        head: "user/home/info/head"
+        modaleHead: "user/home/info/modale/global/head"
+        modaleContent: "user/home/info/modale/modifMobile/content"
+        content: "user/home/info/content"
+        script: "user/home/info/script"
+        modaleScript: "user/home/info/modale/modifMobile/script"
+
+    baseView: "user/home/info/modale/global/base"
+
+User/home/modifFixe:
+
+    views:
+        head: "user/home/info/head"
+        modaleHead: "user/home/info/modale/global/head"
+        modaleContent: "user/home/info/modale/modifFixe/content"
+        content: "user/home/info/content"
+        script: "user/home/info/script"
+        modaleScript: "user/home/info/modale/modifFixe/script"
+
+    baseView: "user/home/info/modale/global/base"
+
+User/home/addAddress:
+
+    views:
+        head: "user/home/addAddress/head"
+        content: "user/home/addAddress/content"
+        script: "user/home/addAddress/script"
+
+    baseView: "user/home/info/base"
+
+User/home/modifAddress:
+
+    views:
+        head: "user/home/modifAddress/head"
+        content: "user/home/modifAddress/content"
+        script: "user/home/modifAddress/script"
+
+    baseView: "user/home/info/base"
+
+User/home/supprAddress:
+
+    views:
+        head: "user/home/info/head"
+        modaleHead: "user/home/info/modale/global/head"
+        modaleContent: "user/home/info/modale/supprAddress/content"
+        content: "user/home/info/content"
+        script: "user/home/info/script"
+        modaleScript: "user/home/info/modale/supprAddress/script"
+
+    baseView: "user/home/info/modale/global/base"
+
+User/home/supprUser:
+
+    views:
+        head: "user/home/info/head"
+        modaleHead: "user/home/info/modale/global/head"
+        modaleContent: "user/home/info/modale/supprUser/content"
+        content: "user/home/info/content"
+        script: "user/home/info/script"
+        modaleScript: "user/home/info/modale/supprUser/script"
+
+    baseView: "user/home/info/modale/global/base"
+
+User/verify/errNotVerif:
+
+    views:
+        head: "user/verify/errNotVerif/head"
+        script: "user/verify/errNotVerif/script"
+        content: "user/verify/errNotVerif/content"
+
+    baseView: "user/verify/global/base"
+
+User/verify/sendVerify:
+
+    views:
+        head: "user/verify/sendVerify/head"
+        script: "templates/blank"
+        content: "user/verify/sendVerify/content"
+
+    baseView: "user/verify/global/base"
+
+User/verify/success:
+
+    views:
+        head: "user/verify/success/head"
+        script: "user/verify/errNotVerif/script"
+        content: "user/verify/success/content"
+
+    baseView: "user/verify/global/base"
+
+User/verify:
+
+    views :
+        head : "user/verify/head"
+        header : "templates/blank"
+        content : "user/verify/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+User/recoverPass/request:
+
+    views :
+        head : "user/recoverPass/request/head"
+        header : "templates/blank"
+        content : "user/recoverPass/request/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+User/recoverPass/modif:
+
+    views :
+        head : "user/recoverPass/modif/head"
+        header : "templates/blank"
+        content : "user/recoverPass/modif/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+User/recoverPass/success:
+
+    views :
+        head : "user/recoverPass/success/head"
+        header : "templates/blank"
+        content : "user/recoverPass/success/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+User/recoverPass/sendMail:
+
+    views :
+        head : "user/recoverPass/sendMail/head"
+        header : "templates/blank"
+        content : "user/recoverPass/sendMail/content"
+        footer : "templates/blank"
+
+    baseView : "templates/base"
+
+Admin/home:
+
+    views :
+        head : "admin/home/head"
+        header : "templates/blank"
+        content : "admin/home/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/Product:
+
+    views :
+        head : "admin/product/head"
+        header : "templates/blank"
+        content : "admin/product/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
+##---------------------------------Info View ---------------------------------#
+
+Information/rgpd:
+    views:
+        head: "templates/head"
+        header: "templates/header"
+        content: "test/information/inforgpd"
+        footer: "templates/footer"
+
+    baseView: "templates/base"
+
+Information/cgv:
+    views:
+        head: "templates/head"
+        header: "templates/header"
+        content: "test/information/cgv"
+        footer: "templates/footer"
+
+    baseView: "templates/base"
+
+
+
+#---------------------------------Test View---------------------------------#
+
+Test/map:
+
+    views:
+        head: "templates/blank"
+        header: "templates/blank"
+        content: "test/testMap"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+
+Test/modale:
+
+    views:
+        head: "templates/blank"
+        header: "templates/blank"
+        content: "test/testModale"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Test/progress:
+
+    views:
+        head: "templates/blank"
+        header: "templates/blank"
+        content: "test/testProgress"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+#---------------------------------Caspor View---------------------------------#
+
+Caspor/myCaspor:
+
+    views:
+        head: "templates/blank"
+        header: "templates/blank"
+        content: "caspor/myCaspor/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Caspor/becomeCaspor:
+
+    views:
+        head: "caspor/becomeCaspor/head"
+        header: "templates/blank"
+        content: "caspor/becomeCaspor/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Caspor/deleteCaspor:
+
+    views:
+        head: "caspor/deleteCaspor/head"
+        header: "templates/blank"
+        content: "caspor/deleteCaspor/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
