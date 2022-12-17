@@ -127,6 +127,7 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getDateLastUpdateById( idSearch VARCHAR(255));
     procedure userIsDead(searchId int, newDateLastUpdate date);
     procedure setUserVerified(searchId int, newDate datetime);
+    procedure changeStatus(searchId int, newStatus varchar(255));
 END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
@@ -452,6 +453,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
     procedure setUserVerified(idSearch int, newDate datetime) as
     begin
         update user set isVerified = true, dateLastUpdate = newDate where id = idSearch;
+    end;
+
+    procedure changeStatus(searchId int , newStatus varchar(255)) as
+    begin
+        update user set status = newStatus where id = searchId;
     end;
 end;
 

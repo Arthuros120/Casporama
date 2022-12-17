@@ -390,3 +390,35 @@ Test/progress:
         footer: "templates/blank"
 
     baseView: "templates/base"
+
+#---------------------------------Caspor View---------------------------------#
+
+Caspor/myCaspor:
+
+    views:
+        head: "templates/blank"
+        header: "templates/blank"
+        content: "caspor/myCaspor/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Caspor/becomeCaspor:
+
+    views:
+        head: "caspor/becomeCaspor/head"
+        header: "templates/blank"
+        content: "caspor/becomeCaspor/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Caspor/deleteCaspor:
+
+    views:
+        head: "caspor/deleteCaspor/head"
+        header: "templates/blank"
+        content: "caspor/deleteCaspor/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"

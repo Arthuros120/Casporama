@@ -37,54 +37,6 @@
                     </div>
                 </a>
             </div>
-            <div class="product_card">
-                <a class="product_link" href="<?= base_url('shop/product/'.$product->getId()) ?>">
-                    <div class="img">
-                        <img src="<?=$product->getCover()?>" alt="">
-                    </div>
-                    <div class="desc">
-                        <h2><?= $product->getName() ?></h2>
-                        <p><?= $product->getBrand() ?></p>
-                        <p><?= $product->getPrice() ?>€</p>
-                    </div>
-                </a>
-            </div>
-            <div class="product_card">
-                <a class="product_link" href="<?= base_url('shop/product/'.$product->getId()) ?>">
-                    <div class="img">
-                        <img src="<?=$product->getCover()?>" alt="">
-                    </div>
-                    <div class="desc">
-                        <h2><?= $product->getName() ?></h2>
-                        <p><?= $product->getBrand() ?></p>
-                        <p><?= $product->getPrice() ?>€</p>
-                    </div>
-                </a>
-            </div>
-            <div class="product_card">
-                <a class="product_link" href="<?= base_url('shop/product/'.$product->getId()) ?>">
-                    <div class="img">
-                        <img src="<?=$product->getCover()?>" alt="">
-                    </div>
-                    <div class="desc">
-                        <h2><?= $product->getName() ?></h2>
-                        <p><?= $product->getBrand() ?></p>
-                        <p><?= $product->getPrice() ?>€</p>
-                    </div>
-                </a>
-            </div>
-            <div class="product_card">
-                <a class="product_link" href="<?= base_url('shop/product/'.$product->getId()) ?>">
-                    <div class="img">
-                        <img src="<?=$product->getCover()?>" alt="">
-                    </div>
-                    <div class="desc">
-                        <h2><?= $product->getName() ?></h2>
-                        <p><?= $product->getBrand() ?></p>
-                        <p><?= $product->getPrice() ?>€</p>
-                    </div>
-                </a>
-            </div>
             <?php } ?>
         </div>
     </div>
