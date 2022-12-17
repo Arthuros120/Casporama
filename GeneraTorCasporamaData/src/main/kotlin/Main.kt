@@ -12,4 +12,8 @@ fun main(args: Array<String>) {
 
     val listFootballVetement = productGenerator.generate(1, 1, 50)
 
+    for (product in listFootballVetement) {
+        println(product)
+    }
+
 }

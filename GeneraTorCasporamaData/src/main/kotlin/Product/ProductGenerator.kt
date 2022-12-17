@@ -43,7 +43,7 @@ class ProductGenerator {
             val gender = generateGender()
             val price = generatePrice()
             val description = generateDescription()
-            val image = generateImage(nameSport, nameType)
+            val image = generateImage(nameSport, nameType, name.second)
 
             listProduct.add(
                 Product(
@@ -51,7 +51,7 @@ class ProductGenerator {
                     nameType,
                     sport,
                     brand,
-                    name,
+                    name.first,
                     gender,
                     price,
                     description,
@@ -66,7 +66,7 @@ class ProductGenerator {
         val date = java.time.LocalDate.now().toString()
         val time = java.time.LocalTime.now().toString().split(".")[0]
 
-        val file = File("src/main/resources/Output/", "User_${date}_${time}.json").outputStream()
+        val file = File("src/main/resources/Output/", "Product_${date}_${time}.json").outputStream()
 
         Json.encodeToStream<List<Product>>(listProduct, file)
 
@@ -108,9 +108,9 @@ class ProductGenerator {
 
     private fun generateBrand(nameSport: String): String = recoverWords("src/main/resources/$nameSport/brand.txt").random()
 
-    private fun generateName(nameSport: String, nameType: String): String {
+    private fun generateName(nameSport: String, nameType: String): Pair<String, String> {
 
-        val prefix = recoverWords("src/main/resources/$nameSport/$nameType/prefix.txt").random()
+        val prefix = getForlderName(nameSport, nameType).random()
         val suffix = recoverWords("src/main/resources/$nameSport/$nameType/suffix.txt").random()
 
         val res = "$prefix de $suffix".firstLetterToUpperCase()
@@ -122,7 +122,8 @@ class ProductGenerator {
         }
 
         listName.add(res)
-        return res
+
+        return Pair(res, prefix)
     }
 
     private fun generateGender(): String = listOf("Homme", "Femme", "Mixte").random()
@@ -167,11 +168,11 @@ class ProductGenerator {
 
     }
 
-    private fun generateImage(nameSport: String, nameType: String): String {
+    private fun generateImage(nameSport: String, nameType: String, nameSubClass : String): String {
 
-        val listImages = recoverImages(nameSport, nameType)
+        val listImages = recoverImages(nameSport, nameType, nameSubClass)
 
-        val defaultPath = "/upload/image/$nameSport/$nameType/"
+        val defaultPath = "/upload/image/$nameSport/$nameType/$nameSubClass/"
 
         val listUsedImages = mutableListOf<String>()
 
@@ -181,9 +182,13 @@ class ProductGenerator {
 
         for (i in 0..(3..5).random()) {
 
-            while (listUsedImages.contains(image)) {
+            var count = 0
+
+            while (listUsedImages.contains(image) && count < 100) {
 
                 image = listImages.random()
+
+                count++
 
             }
 
@@ -203,11 +208,11 @@ class ProductGenerator {
 
     }
 
-    fun recoverImages(nameSport: String, typeSport: String): List<String> {
+    fun recoverImages(nameSport: String, typeSport: String, nameSubClass : String): List<String> {
 
         val listImages = mutableListOf<String>()
 
-        Files.walk(Paths.get("../Casporama/upload/image/$nameSport/$typeSport")).filter { Files.isRegularFile(it) }.forEach { listImages.add(
+        Files.walk(Paths.get("../Casporama/upload/image/$nameSport/$typeSport/$nameSubClass")).filter { Files.isRegularFile(it) }.forEach { listImages.add(
             it.toString()
         ) }
 
@@ -222,6 +227,43 @@ class ProductGenerator {
     }
 
     private fun recoverWords(path: String): List<String> = File(path).readText().split(",").map { it.trim() }
+
+    public fun getForlderName(nameSport: String, typeSport: String) : List<String> {
+
+        val listFolder = mutableListOf<String>()
+        val delIndex = mutableListOf<Int>()
+
+        Files.walk(Paths.get("../Casporama/upload/image/$nameSport/$typeSport")).filter { Files.isDirectory(it) }.forEach { listFolder.add(
+            it.toString().split("/").last()
+        ) }
+
+        listFolder.remove(typeSport)
+
+        for (i in 0 until listFolder.size) {
+
+            var count = 0
+
+            Files.walk(Paths.get("../Casporama/upload/image/$nameSport/$typeSport/${listFolder[i]}")).filter { Files.isRegularFile(it) }.forEach {
+                count++
+            }
+
+            if (count < 3) {
+
+                delIndex.add(i)
+
+            }
+
+        }
+
+        for (i in delIndex) {
+
+            listFolder.removeAt(i)
+
+        }
+
+        return listFolder.toList()
+
+    }
 }
 
 private fun String.firstLetterToUpperCase(): String = this.replaceFirstChar { it.uppercase() }
