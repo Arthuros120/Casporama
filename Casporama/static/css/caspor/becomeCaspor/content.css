@@ -1,0 +1,162 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    font-family: var(--main-font);
+}
+
+.become_caspor_content {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.become_caspor_header {
+    width: 90%;
+    height: 10%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    gap: 2vh;
+}
+
+.become_caspor_header_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+.become_caspor_header_img > a > img {
+    width: 60%;
+    height: auto;
+
+    padding-top: 0.5vh;
+
+    transform: rotate(180deg);
+}
+
+.become_caspor_header_img > img {
+    width: 80%;
+    height: auto;
+}
+
+.become_caspor_title {
+    width: 100%;
+    height: 15%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.become_caspor_title > h1 {
+    font-size: 4vw;
+}
+
+.become_caspor_title > h1 > span:nth-child(1) {
+    color: #399B39;
+}
+.become_caspor_title > h1 > span:nth-child(2) {
+    color: #3284E4;
+}
+.become_caspor_title > h1 > span:nth-child(3) {
+    color: #E0C323;
+}
+.become_caspor_title > h1 > span:nth-child(4) {
+    color: #E94138;
+}
+
+.become_caspor_grid {
+    width: 90%;
+    height: 40%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+
+    column-gap: 2vh;
+}
+
+.become_caspor_card {
+    background-color: var(--grey1);
+    margin: 10% 15%;
+
+    padding: 2vh;
+    border-radius: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    gap: 2vh;
+}
+
+.become_caspor_card > h3 {
+    text-align: center;
+    font-size: 1.3vw;
+}
+
+.become_caspor_card > img {
+    width: 40%;
+    height: auto;
+}
+
+.become_caspor_banner {
+    width: 100%;
+    height: 10%;
+
+    background-color: var(--grey2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.become_caspor_banner > h2 {
+    font-size: 1.5vw;
+    font-weight: 300;
+}
+
+.become_caspor_get {
+    width: 100%;
+    height: 25%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.become_caspor_get > a {
+    background-color:#399B39;
+    color: white; 
+    border: 3px solid #399B39;
+
+    transition: background-color 250ms ease, color 250ms ease;
+
+    padding: 1.5% 8%;
+    text-decoration: none;
+    border-radius: 24px;
+    
+}
+
+.become_caspor_get > a:hover {
+    
+    background-color:white;
+    color: #399B39;
+    
+}
+
+.become_caspor_get > a  > h3{
+    font-size: 2vw;   
+    
+}
