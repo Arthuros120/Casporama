@@ -624,7 +624,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     -- Permet d'avoir le nombre total en stock d'un product
     procedure getStockTotal( id integer);
     -- Permet d'ajouter au Catalogue un nouveau product ou variante d'un product, la variante étant par exemple un même t-shirt mais de différente couleur ou taille
-    procedure addCatalog( newid int, newreference int , newproduit int,  newcouleur varchar(20),  newtaille varchar(3),  newquantite int);
+    procedure addCatalog( newid int,  newproduit int, newreference long , newcouleur varchar(20),  newtaille varchar(3),  newquantite int, newIsALive bool, newDate datetime);
     -- Permet de supprimer une variante
     procedure delVariante( idvariante int);
     -- Permet de mettre à jour la quantité d'une variante donnée
@@ -647,9 +647,9 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
         select sum(quantity) as total from catalog where nuproduct = id;
     end;
 
-    procedure addCatalog( newid int, newreference int , newproduit int,  newcouleur varchar(20),  newtaille varchar(3),  newquantite int) as
+    procedure addCatalog( newid int,  newproduit int, newreference long , newcouleur varchar(20),  newtaille varchar(3),  newquantite int, newIsALive bool, newDate datetime) as
     BEGIN
-        insert into catalog(id, reference, nuproduct, color, size,quantity) value (newid, newreference,newproduit,newcouleur,newtaille,newquantite);
+        insert into catalog(id, nuproduct, reference, color, size,quantity, isALive, dateLastUpdate) value (newid, newproduit, newreference, newcouleur,newtaille,newquantite, newIsALive, newDate);
     end;
 
     procedure delVariante( idvariante int) as

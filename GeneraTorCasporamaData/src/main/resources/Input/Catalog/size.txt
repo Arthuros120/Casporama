@@ -1,0 +1,1 @@
+1:XXS,XS,S,M,L,XL,XXL;2:30,45;3:S,M,L

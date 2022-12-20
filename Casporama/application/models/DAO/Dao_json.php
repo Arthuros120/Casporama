@@ -125,6 +125,3 @@ class Dao_json extends CI_Model implements DaoInterface {
 
     }
 }
-
-?>
-

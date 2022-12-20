@@ -78,7 +78,7 @@ create table if not exists product (
 CREATE TABLE IF NOT EXISTS catalog (
     id INTEGER NOT NULL,
     nuproduct integer not null,
-    reference integer not null,
+    reference long not null,
     color varchar(20),
     size varchar(3),
     quantity integer not null default 0,

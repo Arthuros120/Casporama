@@ -1,7 +1,5 @@
 package Product
 
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToStream
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -11,10 +9,10 @@ class ProductGenerator {
     private val listId = mutableListOf<Int>()
     private val listName = mutableListOf<String>()
 
-    fun generate(sport : Int, type : Int, Nbr : Int = 1) : List<Product> {
+    fun generate(sport: Int, type: Int, date: String, time: String, nbr: Int = 1) : List<Product> {
 
-        if (Nbr < 1) throw Exception("Nbr must be greater than 0")
-        if (Nbr > 200) throw Exception("Nbr must be less than 100")
+        if (nbr < 1) throw Exception("Nbr must be greater than 0")
+        if (nbr > 200) throw Exception("Nbr must be less than 100")
 
         val nameSport = when (sport) {
             1 -> "Football"
@@ -35,9 +33,9 @@ class ProductGenerator {
 
         val range = generateRange(sport, type)
 
-        for (i in 1..Nbr) {
+        for (i in 1..nbr) {
 
-            val id = this.generateId(range.first, range.second)
+            val id = generateId(range.first, range.second)
             val brand = generateBrand(nameSport)
             val name = generateName(nameSport, nameType)
             val gender = generateGender()
@@ -57,20 +55,11 @@ class ProductGenerator {
                     description,
                     image,
                     1,
-                    "2020-12-01"
+                    "$date $time"
                 )
             )
 
         }
-
-        val date = java.time.LocalDate.now().toString()
-        val time = java.time.LocalTime.now().toString().split(".")[0]
-
-        val file = File("src/main/resources/Output/", "Product_${date}_${time}.json").outputStream()
-
-        Json.encodeToStream<List<Product>>(listProduct, file)
-
-        file.close()
 
         return listProduct.toList()
 
@@ -106,12 +95,12 @@ class ProductGenerator {
         return id
     }
 
-    private fun generateBrand(nameSport: String): String = recoverWords("src/main/resources/$nameSport/brand.txt").random()
+    private fun generateBrand(nameSport: String): String = recoverWords("src/main/resources/Input/Product/$nameSport/brand.txt").random()
 
     private fun generateName(nameSport: String, nameType: String): Pair<String, String> {
 
         val prefix = getForlderName(nameSport, nameType).random()
-        val suffix = recoverWords("src/main/resources/$nameSport/$nameType/suffix.txt").random()
+        val suffix = recoverWords("src/main/resources/Input/Product/$nameSport/$nameType/suffix.txt").random()
 
         val res = "$prefix de $suffix".firstLetterToUpperCase()
 
@@ -146,7 +135,7 @@ class ProductGenerator {
         max : Int = 100
     ): String {
 
-        val words = recoverWords("src/main/resources/description.txt").map { it.lowercase().trim() }
+        val words = recoverWords("src/main/resources/Input/Product/description.txt").map { it.lowercase().trim() }
 
         var description = ""
 
@@ -208,7 +197,7 @@ class ProductGenerator {
 
     }
 
-    fun recoverImages(nameSport: String, typeSport: String, nameSubClass : String): List<String> {
+    private fun recoverImages(nameSport: String, typeSport: String, nameSubClass : String): List<String> {
 
         val listImages = mutableListOf<String>()
 
@@ -228,7 +217,7 @@ class ProductGenerator {
 
     private fun recoverWords(path: String): List<String> = File(path).readText().split(",").map { it.trim() }
 
-    public fun getForlderName(nameSport: String, typeSport: String) : List<String> {
+    private fun getForlderName(nameSport: String, typeSport: String) : List<String> {
 
         val listFolder = mutableListOf<String>()
         val delIndex = mutableListOf<Int>()
