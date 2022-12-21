@@ -12,12 +12,12 @@ values
 
 insert into information (id, firstname, name, mail, mobile, fix)
 values
-    (2,'Arthur','Hamelin','arthur.hamelin@etu.univ-nantes.fr','0600000000','0200000000'),
-    (3,'Maxime','Franco', 'maxime.franco@etu.univ-nantes.fr', '1922422810', '1569137253'),
-    (4,'Maxime','Santos', 'maxime.santos@etu.univ-nantes.fr', '1844196596', '1994286298'),
-    (5, 'Titouan', 'Gautier', 'titouan.gautier@etu.univ-nantes.fr', '1790525843', '1889548291'),
-    (6,'Michelle','Dupont','dupont@test.com','0602030405','0402030405'),
-    (7,'Jackie','Michelle','jackiemichelle@test.com','0602030404','0402030405');
+    (2,'Arthur','Hamelin','arthur.hamelin@etu.univ-nantes.fr','1922422810','1569137250'),
+    (3,'Maxime','Franco', 'maxime.franco@etu.univ-nantes.fr', '1922422811', '1569137251'),
+    (4,'Maxime','Santos', 'maxime.santos@etu.univ-nantes.fr', '1922422812', '1569137252'),
+    (5, 'Titouan', 'Gautier', 'titouan.gautier@etu.univ-nantes.fr', '1922422813', '1569137253'),
+    (6,'Michelle','Dupont','dupont@test.com','1922422814','1569137254'),
+    (7,'Jackie','Michelle','jackiemichelle@test.com','1922422815','1569137255');
 
 insert into location (idlocation, id, name, location, codepostal, city, department, country, latitude, longitude, isDefault, isALive, dateLastUpdate)
 values

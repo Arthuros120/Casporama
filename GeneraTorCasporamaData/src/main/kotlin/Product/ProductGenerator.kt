@@ -103,7 +103,7 @@ class ProductGenerator {
         val prefix = getForlderName(nameSport, nameType).random()
         val suffix = recoverWords("src/main/resources/Input/Product/$nameSport/$nameType/suffix.txt").random()
 
-        val res = "$prefix de $suffix".firstLetterToUpperCase()
+        val res = "$prefix $suffix".firstLetterToUpperCase()
 
         while (listName.contains(res)) {
 
@@ -170,7 +170,7 @@ class ProductGenerator {
 
         listUsedImages.add(image)
 
-        for (i in 0..(3..5).random()) {
+        for (i in 0..(2..5).random()) {
 
             var count = 0
 
@@ -206,9 +206,24 @@ class ProductGenerator {
             it.toString()
         ) }
 
+        val listIndexRemove = mutableListOf<Int>()
+
         for (i in 0 until listImages.size) {
 
-            listImages[i] = listImages[i].split("/").last()
+            if (listImages[i].contains("html")) {
+
+                listIndexRemove.add(i)
+
+            } else {
+
+                listImages[i] = listImages[i].split("/").last()
+
+            }
+        }
+
+        for (i in listIndexRemove) {
+
+            listImages.removeAt(i)
 
         }
 

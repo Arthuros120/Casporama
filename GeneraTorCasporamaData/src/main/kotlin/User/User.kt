@@ -1,5 +1,8 @@
 package User
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class User(
 
     val id : Int,
@@ -9,7 +12,7 @@ data class User(
     val cookieId : String,
     val status : String,
     val isVerified : Int,
-    val IsALive : Int,
+    val isALive : Int,
     val dateLastUpdate : String
 
 )

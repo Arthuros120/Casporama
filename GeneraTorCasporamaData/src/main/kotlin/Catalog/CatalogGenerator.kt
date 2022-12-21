@@ -170,11 +170,8 @@ class CatalogGenerator {
 
         for (color in tabColor) {
 
-            if (color.name.length <= 10) {
+            finalTabColor.add(color.name)
 
-                finalTabColor.add(color.name)
-
-            }
         }
 
         return finalTabColor
