@@ -45,7 +45,7 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-        '/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png',
+        'Football/MaillotTest.png;Football/MaillotTest2.png;Football/MaillotTest.png;Football/MaillotTest2.png',
         true,
         '2022-11-21 20:05:37'
      ),
@@ -59,7 +59,7 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-         '/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png;/upload/image/Volleyball/chaussure.png',
+         'Volleyball/chaussure.png;Volleyball/chaussure.png;Volleyball/chaussure.png;Volleyball/chaussure.png',
         true,
         '2022-11-21 20:05:37'
          ),
@@ -73,7 +73,7 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-         '/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg;/upload/image/Badminton/raquette.jpg',
+         'Badminton/raquette.jpg;Badminton/raquette.jpg;Badminton/raquette.jpg;Badminton/raquette.jpg',
         true,
         '2022-11-21 20:05:37'
          ),
@@ -87,7 +87,7 @@ values
         99.99,
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
          eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-        '/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png;/upload/image/Football/MaillotTest2.png;/upload/image/Football/MaillotTest.png',
+        'Football/MaillotTest2.png;Football/MaillotTest.png;Football/MaillotTest2.png;Football/MaillotTest.png',
         true,
         '2022-11-21 20:05:37'
          );

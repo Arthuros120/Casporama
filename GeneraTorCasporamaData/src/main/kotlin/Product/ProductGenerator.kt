@@ -42,6 +42,7 @@ class ProductGenerator {
             val price = generatePrice()
             val description = generateDescription()
             val image = generateImage(nameSport, nameType, name.second)
+            val correctName = name.first.replace("_", " ")
 
             listProduct.add(
                 Product(
@@ -49,7 +50,7 @@ class ProductGenerator {
                     nameType,
                     sport,
                     brand,
-                    name.first,
+                    correctName,
                     gender,
                     price,
                     description,
@@ -161,7 +162,7 @@ class ProductGenerator {
 
         val listImages = recoverImages(nameSport, nameType, nameSubClass)
 
-        val defaultPath = "/upload/image/$nameSport/$nameType/$nameSubClass/"
+        val defaultPath = "$nameSport/$nameType/$nameSubClass/"
 
         val listUsedImages = mutableListOf<String>()
 
@@ -201,7 +202,7 @@ class ProductGenerator {
 
         val listImages = mutableListOf<String>()
 
-        Files.walk(Paths.get("../Casporama/upload/image/$nameSport/$typeSport/$nameSubClass")).filter { Files.isRegularFile(it) }.forEach { listImages.add(
+        Files.walk(Paths.get("../Casporama/upload/images/$nameSport/$typeSport/$nameSubClass")).filter { Files.isRegularFile(it) }.forEach { listImages.add(
             it.toString()
         ) }
 
@@ -222,7 +223,7 @@ class ProductGenerator {
         val listFolder = mutableListOf<String>()
         val delIndex = mutableListOf<Int>()
 
-        Files.walk(Paths.get("../Casporama/upload/image/$nameSport/$typeSport")).filter { Files.isDirectory(it) }.forEach { listFolder.add(
+        Files.walk(Paths.get("../Casporama/upload/images/$nameSport/$typeSport")).filter { Files.isDirectory(it) }.forEach { listFolder.add(
             it.toString().split("/").last()
         ) }
 
@@ -232,7 +233,7 @@ class ProductGenerator {
 
             var count = 0
 
-            Files.walk(Paths.get("../Casporama/upload/image/$nameSport/$typeSport/${listFolder[i]}")).filter { Files.isRegularFile(it) }.forEach {
+            Files.walk(Paths.get("../Casporama/upload/images/$nameSport/$typeSport/${listFolder[i]}")).filter { Files.isRegularFile(it) }.forEach {
                 count++
             }
 

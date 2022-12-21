@@ -64,7 +64,7 @@ create table if not exists product (
     gender VARCHAR(5) NOT NULL,
     price float not null,
     description text not null,
-    image VARCHAR(255),
+    image text not null,
     isALive bool not null,
     dateLastUpdate datetime not null,
     PRIMARY KEY(idproduct),

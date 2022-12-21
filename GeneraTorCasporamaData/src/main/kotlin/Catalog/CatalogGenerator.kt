@@ -13,7 +13,9 @@ class CatalogGenerator {
     private val listReference = mutableListOf<Long>()
     private val tabSize = recoverSize("src/main/resources/Input/Catalog/size.txt")
 
-    fun generate(listProduct : List<Product>, nbrCat : Int, date : String) : List<Catalog> {
+    fun generate(listProduct : List<Product>, nbrCatMax : Int, date : String) : List<Catalog> {
+
+        val nbrCat = (1..nbrCatMax).random()
 
         val listCatalog = mutableListOf<Catalog>()
 

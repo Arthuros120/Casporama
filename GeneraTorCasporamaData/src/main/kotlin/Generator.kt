@@ -5,6 +5,8 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class Generator {
 
@@ -12,13 +14,23 @@ class Generator {
     private val categoryGenerator = CatalogGenerator()
 
     @OptIn(ExperimentalSerializationApi::class)
-    fun generate() {
+    fun generate(nbrProductByType : Int, nbrCatMax : Int = 20) {
 
         val date = java.time.LocalDate.now().toString()
         val time = java.time.LocalTime.now().toString().split(".")[0]
 
-        val listProduct = productGenerator.generate(1, 1, date, time, 50)
-        val listCategory = categoryGenerator.generate(listProduct, 20, "$date $time")
+        val listProduct : MutableList<Product> = mutableListOf()
+
+        for (i in 1..1) {
+
+            for (y in 1..3){
+
+                listProduct.addAll(productGenerator.generate(i, y, date, time, nbrProductByType))
+
+            }
+        }
+
+        val listCategory = categoryGenerator.generate(listProduct, nbrCatMax, "$date $time")
 
         var count = 0
 
@@ -37,10 +49,14 @@ class Generator {
 
         println("Count: $count, listProduct: ${listProduct.size}")
 
-        if (count == listProduct.size) {
+        if (count == listProduct.size ) {
 
-            val fileProduct = File("src/main/resources/Output/", "Product_${date}_${time}.json").outputStream()
-            val fileCategory = File("src/main/resources/Output/", "Catalog_${date}_${time}.json").outputStream()
+            val folderName = "src/main/resources/Output/Data-${date}_${time}/"
+
+            Files.createDirectory(Paths.get(folderName))
+
+            val fileProduct = File(folderName, "Product.json").outputStream()
+            val fileCategory = File(folderName, "Catalog.json").outputStream()
 
             Json.encodeToStream(listProduct, fileProduct)
             Json.encodeToStream(listCategory, fileCategory)

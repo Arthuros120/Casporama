@@ -341,7 +341,15 @@ class ProductEntity
     public function setImage(string $image)
     {
 
-        $this->image = explode(";", $image);
+        $imageTab = explode(";", $image);
+
+        $this->image = array();
+
+        foreach ($imageTab as $i) {
+
+            array_push($this->image, "upload/images/" . $i);
+        }
+        
     }
 
 

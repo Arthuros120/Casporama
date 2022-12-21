@@ -1,6 +1,6 @@
-    nb_img = 3
-    pos = 0
-    timer = 5
+    const nb_img = 4
+    let pos = 0
+    const timer = 5
 
     const baseUrl = window.location.origin
 
@@ -18,16 +18,18 @@
 
     function slider() {
 
-        container = document.getElementById("container")
-        gauche = document.getElementById("left")
-        droite = document.getElementById("right")
+        const container = document.getElementById("container")
+        const gauche = document.getElementById("left")
+        const droite = document.getElementById("right")
         container.style.width = (100*nb_img)+"vw"
 
-        for (i=1; i<=nb_img; i++) {
-            div = document.createElement("div")
+        for (let i = 1; i <= nb_img; i++) {
+
+            const div = document.createElement("div")
             div.className = "photo"
-            div.style.backgroundImage = "url("+baseUrl+"/static/image/casporama_home_"+i+".png)"
+            div.style.backgroundImage = "url("+baseUrl+"/static/image/casporama_home_" + i + ".png)"
             container.appendChild(div)
+            
         }
 
         droite.onclick=function() {
