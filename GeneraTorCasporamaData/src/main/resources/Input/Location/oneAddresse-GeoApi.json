@@ -1,0 +1,23 @@
+[
+  {
+    "datasetid": "244400404_adresses-postales-nantes-metropole",
+    "recordid": "6c8a1a2831fdd35f92caf87cca562acc75e148ca",
+    "fields": {
+      "quartier": "Nantes Sud",
+      "commune": "Nantes",
+      "pole": "Loire, Sevre et Vignoble",
+      "numero": 68,
+      "code_postal": "44200",
+      "gid": "97",
+      "adresse": "68 Route de Clisson",
+      "geo_shape": {
+        "coordinates": [
+          -1.522978538530189,
+          47.191036673267405
+        ],
+        "type": "Point"
+      }
+    },
+    "record_timestamp": "2022-12-20T08:00:18.710+01:00"
+  }
+]

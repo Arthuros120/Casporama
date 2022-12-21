@@ -1,5 +1,8 @@
 package Location
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Location(
 
     val idlocation : Int,

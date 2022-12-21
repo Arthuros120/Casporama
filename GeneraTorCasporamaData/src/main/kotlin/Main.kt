@@ -1,11 +1,14 @@
-import Information.InformationGenerator
-import User.UserGenerator
-import org.mindrot.jbcrypt.BCrypt
+import Location.LocationGenerator
 
 fun main() {
 
-    val generator = Generator()
+    val locationGenerator = LocationGenerator()
+    //locationGenerator.convertGeopApiToAddresse()
 
-    generator.generate(50, 20, 100)
+    //val generator = Generator()
+
+    //generator.generate(50, 20, 100)
+
+
 
 }
