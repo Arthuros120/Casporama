@@ -1,6 +1,8 @@
 import Catalog.CatalogGenerator
 import Information.Information
 import Information.InformationGenerator
+import Location.Location
+import Location.LocationGenerator
 import Product.Product
 import Product.ProductGenerator
 import User.User
@@ -8,6 +10,7 @@ import User.UserGenerator
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
+import mu.KotlinLogging
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -18,28 +21,75 @@ class Generator {
     private val categoryGenerator = CatalogGenerator()
     private val userGenerator = UserGenerator()
     private val informationGenerator = InformationGenerator()
+    private val locationGenerator = LocationGenerator()
+    
+    private val logger = KotlinLogging.logger {}
 
     @OptIn(ExperimentalSerializationApi::class)
-    fun generate(nbrProductByType : Int, nbrCatMax : Int = 20, nbrUser : Int = 100) {
+    fun generate(nbrProductByType: Int, nbrCatMax: Int = 20, nbrUser: Int = 100) {
+
+        logger.info("----------GeneraTorCasporamaData----------")
+        logger.info("")
+        logger.info("Début de la génération des données")
+        logger.info("Le nombre de produits par type est de $nbrProductByType")
+        logger.info("Le nombre de catégories par produit est de $nbrCatMax maximum")
+        logger.info("Le nombre d'utilisateurs est de $nbrUser")
+        logger.info("")
+        logger.info("------------------------------------------")
+        logger.info("")
+
+        logger.info("Initialisation de la date...")
 
         val date = java.time.LocalDate.now().toString()
         val time = java.time.LocalTime.now().toString().split(".")[0]
 
+        logger.info("Date initialisée : $date à $time")
+
+        logger.info("")
+
+        logger.info("Génération des Utilisateur et des Informations...")
+
         val listPairUserInfo = generateFullUsers(nbrUser, "$date $time")
+
+        logger.info("Génération des Utilisateur et des Informations terminée")
 
         val listUser = listPairUserInfo.first
         val listInformation = listPairUserInfo.second
 
-        val listProduct : MutableList<Product> = mutableListOf()
+        logger.info("")
+
+        logger.info("Génération des Locations...")
+
+        val listLocation: MutableList<Location> = mutableListOf()
+
+        for (user in listUser) {
+
+            listLocation.addAll(locationGenerator.generateLocations(user, "$date $time", 6))
+
+        }
+
+        logger.info("Génération des Locations terminée")
+
+        logger.info("")
+
+        logger.info("Génération des Produits...")
+
+        val listProduct: MutableList<Product> = mutableListOf()
 
         for (i in 1..1) {
 
-            for (y in 1..3){
+            for (y in 1..3) {
 
                 listProduct.addAll(productGenerator.generate(i, y, date, time, nbrProductByType))
 
             }
         }
+
+        logger.info("Génération des Produits terminée")
+
+        logger.info("")
+
+        logger.info("Génération des Catégories...")
 
         val listCategory = categoryGenerator.generate(listProduct, nbrCatMax, "$date $time")
 
@@ -58,10 +108,29 @@ class Generator {
             }
         }
 
-        println("NbrUser: ${listUser.size}, NbrInformation: ${listInformation.size}")
-        println("Count: $countProduct, listProduct: ${listProduct.size}")
+        logger.info("Génération des Catégories terminée")
 
-        if (countProduct == listProduct.size && listUser.size == listInformation.size) {
+        logger.info("")
+
+        logger.info("Génération des données terminée")
+
+        logger.info("")
+
+        logger.info("----------Résumé----------")
+
+        logger.info("")
+
+        logger.info("NbrUser: ${listUser.size}, NbrInformation: ${listInformation.size}")
+        logger.info("Count: $countProduct, listProduct: ${listProduct.size}, listLocation: ${listLocation.size}")
+
+        logger.info("")
+
+        if (
+            countProduct == listProduct.size &&
+            listUser.size == listInformation.size
+        ) {
+
+            logger.info("Démarage de l'écriture des données dans les fichiers...")
 
             val folderName = "src/main/resources/Output/Data-${date}_${time}/"
 
@@ -69,11 +138,13 @@ class Generator {
 
             val fileUser = File(folderName, "User.json").outputStream()
             val fileInformation = File(folderName, "Information.json").outputStream()
+            val fileLocation = File(folderName, "Location.json").outputStream()
             val fileProduct = File(folderName, "Product.json").outputStream()
             val fileCategory = File(folderName, "Catalog.json").outputStream()
 
             Json.encodeToStream(listUser, fileUser)
             Json.encodeToStream(listInformation, fileInformation)
+            Json.encodeToStream(listLocation, fileLocation)
             Json.encodeToStream(listProduct, fileProduct)
             Json.encodeToStream(listCategory, fileCategory)
 
@@ -82,13 +153,20 @@ class Generator {
             fileProduct.close()
             fileCategory.close()
 
+            logger.info("Ecriture des données terminée")
+
+            logger.info("")
+
         }
+
+        logger.info("----------Fin----------")
+
     }
 
-    private fun generateFullUsers(nbr : Int, dateLastUpdate: String) : Pair<List<User>, List<Information>> {
+    private fun generateFullUsers(nbr: Int, dateLastUpdate: String): Pair<List<User>, List<Information>> {
 
-        val listUser : MutableList<User> = mutableListOf()
-        val listInformation : MutableList<Information> = mutableListOf()
+        val listUser: MutableList<User> = mutableListOf()
+        val listInformation: MutableList<Information> = mutableListOf()
 
         for (i in 1..nbr) {
 
@@ -102,7 +180,7 @@ class Generator {
 
     }
 
-    private fun generateFullUser(dateLastUpdate : String) : Pair<User, Information> {
+    private fun generateFullUser(dateLastUpdate: String): Pair<User, Information> {
 
         val nameFirstname = informationGenerator.generateNameFirstname()
 
@@ -119,7 +197,7 @@ class Generator {
         val password = userGenerator.generatePassword(name, salt)
         val status = userGenerator.generateStatus()
 
-        val user  = User (
+        val user = User(
 
             id,
             login,
@@ -133,7 +211,7 @@ class Generator {
 
         )
 
-        val information = Information (
+        val information = Information(
 
             id,
             name,
@@ -142,7 +220,7 @@ class Generator {
             mobile,
             fix,
 
-        )
+            )
 
         return Pair(user, information)
     }

@@ -13,7 +13,7 @@ class CatalogGenerator {
     private val listReference = mutableListOf<Long>()
     private val tabSize = recoverSize("src/main/resources/Input/Catalog/size.txt")
 
-    fun generate(listProduct : List<Product>, nbrCatMax : Int, date : String) : List<Catalog> {
+    fun generate(listProduct: List<Product>, nbrCatMax: Int, date: String): List<Catalog> {
 
         val nbrCat = (1..nbrCatMax).random()
 
@@ -29,10 +29,11 @@ class CatalogGenerator {
         return listCatalog.toList()
 
     }
-    fun generateCat(product : Product, nbr : Int, dateTime : String) : List<Catalog> {
+
+    private fun generateCat(product: Product, nbr: Int, dateTime: String): List<Catalog> {
 
         var count = nbr
-        val listCatalog : MutableList<Catalog> = mutableListOf()
+        val listCatalog: MutableList<Catalog> = mutableListOf()
         var tabColor = recoverColors("src/main/resources/Input/Catalog/colors.json")
 
         val typeId = when (product.type) {
@@ -48,9 +49,9 @@ class CatalogGenerator {
 
             var nbrVariante = (0..maxSizeByColor).random()
 
-            if (nbrVariante > count){
+            if (nbrVariante > count) {
 
-               nbrVariante = (0..count).random()
+                nbrVariante = (0..count).random()
 
             }
 
@@ -58,9 +59,9 @@ class CatalogGenerator {
             val color = pairColor.second
             tabColor = pairColor.first
 
-           var tabSizeEffect = tabSize[typeId - 1]
+            var tabSizeEffect = tabSize[typeId - 1]
 
-            for (i in 0..nbrVariante){
+            for (i in 0..nbrVariante) {
 
                 if (tabSizeEffect.isEmpty()) {
 
@@ -74,19 +75,21 @@ class CatalogGenerator {
                 val size = pairSize.second
                 tabSizeEffect = pairSize.first
 
-                listCatalog.add(Catalog(
+                listCatalog.add(
+                    Catalog(
 
-                    id,
-                    product.idproduct,
-                    generateReference(),
-                    color,
-                    size,
-                    generateQuantity(0, 100),
-                    1,
-                    dateTime
+                        id,
+                        product.idproduct,
+                        generateReference(),
+                        color,
+                        size,
+                        generateQuantity(0, 100),
+                        1,
+                        dateTime
 
 
-                ))
+                    )
+                )
 
                 count--
 
@@ -97,7 +100,7 @@ class CatalogGenerator {
 
     }
 
-    fun generateRange(id: Int): Pair<Int, Int> {
+    private fun generateRange(id: Int): Pair<Int, Int> {
 
         return Pair(id * 100, id * 100 + 100)
 
@@ -121,7 +124,7 @@ class CatalogGenerator {
         return id
     }
 
-    fun generateReference(): Long {
+    private fun generateReference(): Long {
 
         val min = (10.0.pow(12.0)).toLong()
         val max = (9 * (10.0.pow(12.0))).toLong()
@@ -139,7 +142,7 @@ class CatalogGenerator {
 
     }
 
-    fun generateColors(tabColor : MutableList<String>): Pair<MutableList<String>, String> {
+    private fun generateColors(tabColor: MutableList<String>): Pair<MutableList<String>, String> {
 
         val color = tabColor.random()
 
@@ -149,7 +152,7 @@ class CatalogGenerator {
 
     }
 
-    fun generateSize(list : List<String>) : Pair<List<String>, String> {
+    private fun generateSize(list: List<String>): Pair<List<String>, String> {
 
         val size = list.random()
 
@@ -160,7 +163,7 @@ class CatalogGenerator {
 
     }
 
-    fun generateQuantity(min : Int, max : Int) = (min..max).random()
+    private fun generateQuantity(min: Int, max: Int) = (min..max).random()
 
     @OptIn(ExperimentalSerializationApi::class)
     fun recoverColors(path: String): MutableList<String> {
@@ -178,9 +181,9 @@ class CatalogGenerator {
 
     }
 
-    fun recoverSize(path : String) : List<List<String>> {
+    private fun recoverSize(path: String): List<List<String>> {
 
-        val typeList : MutableList<List<String>> = mutableListOf( listOfNotNull(""), listOfNotNull(""), listOfNotNull(""))
+        val typeList: MutableList<List<String>> = mutableListOf(listOfNotNull(""), listOfNotNull(""), listOfNotNull(""))
 
         val sizeType = File(path).readText().split(";").map { it.trim() }
 
@@ -206,7 +209,7 @@ class CatalogGenerator {
 
             }
 
-            typeList[typeId-1] = valeurs
+            typeList[typeId - 1] = valeurs
 
         }
 

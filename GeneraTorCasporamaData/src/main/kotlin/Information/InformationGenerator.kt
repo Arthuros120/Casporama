@@ -1,6 +1,5 @@
 package Information
 
-import Catalog.Color
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
@@ -12,7 +11,7 @@ class InformationGenerator {
     private val listPhone = mutableListOf<String>()
     private val listFix = mutableListOf<String>()
 
-    fun generateNameFirstname() : Pair<String, String> {
+    fun generateNameFirstname(): Pair<String, String> {
 
         val name = listNameFirstname.first.random()
         val firstname = listNameFirstname.second.random()
@@ -24,9 +23,9 @@ class InformationGenerator {
 
     }
 
-    fun generateMail(name : String, firstname : String) : String  = "$name.$firstname@fictive.trash"
+    fun generateMail(name: String, firstname: String): String = "$name.$firstname@fictive.trash"
 
-    fun generateMobile() : String {
+    fun generateMobile(): String {
 
         val mobile = randomPhone("06")
 
@@ -44,7 +43,7 @@ class InformationGenerator {
 
     }
 
-    fun generateFix() : String {
+    fun generateFix(): String {
 
         val fix = randomPhone("02")
 
@@ -63,7 +62,7 @@ class InformationGenerator {
     }
 
     @OptIn(ExperimentalSerializationApi::class)
-    private fun recoverNameAndFirstname() : Pair<MutableList<String>, MutableList<String>> {
+    private fun recoverNameAndFirstname(): Pair<MutableList<String>, MutableList<String>> {
 
         val tabNames = Json.decodeFromStream<MutableList<String>>(
             File(
@@ -80,7 +79,7 @@ class InformationGenerator {
         return Pair(tabNames, tabFirstName)
     }
 
-    fun randomPhone(depart : String) : String {
+    private fun randomPhone(depart: String): String {
 
         val phone = StringBuilder()
 

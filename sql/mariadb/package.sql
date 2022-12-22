@@ -52,13 +52,14 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getUserLocationById(iduser int);
     procedure loginMail( mail VARCHAR(255));
     -- Permet d'ajouter un user
-    procedure addUser( newid integer, newlogin varchar(255),  newpass varchar(255),  newsalt VARCHAR(45), newcookie varchar(45), newstatus varchar(20), newverif tinyint(1), newalive tinyint(1), newdate datetime);
+    procedure addUser( newid integer, newlogin varchar(255),  newpass varchar(255),  newsalt VARCHAR(45), newcookie varchar(45), newstatus varchar(20), newverif boolean, newalive boolean, newdate datetime);
     -- Permet d'ajouter les coordonnées d'un user par son ID
     procedure addInformation( newid int,  newfirstname varchar(255),  newname varchar(255),  newmail varchar(255),  newmobile int,  newfix int);
     -- Permet d'ajouter un user et ses coordonnées
     procedure createUser( newId integer,  newLogin varchar(255),  newPass varchar(255),  newSalt varchar(45),  newfirstname varchar(255),  newname varchar(255),  newEmail varchar(255),  newMobile int,  newFix int, dateLastUpdate date);
     -- Permet d'ajouter une location à un user
-    procedure addLocation( newidlocation int,  newid int, newname varchar(255), newlocation varchar(255),  newcode int,  newcity varchar(255),  newdep varchar(255),  newcountry varchar(255));
+    procedure addLocation( newidlocation int,  newid int, newname varchar(255), newlocation varchar(255),  newcode int,  newcity varchar(255),  newdep varchar(255),  newcountry varchar(255), newlat double,  newlng double, newisDefault
+    boolean, newisALive boolean, newDate datetime);
     -- Permet de supprimer un user, ses coordonnées et sa location
     procedure delUser( iduser int);
     -- Permet d'ajouter un cookie à un user
@@ -262,9 +263,10 @@ CREATE OR REPLACE PACKAGE BODY user AS
         insert into information(id, firstname, name, mail, mobile, fix) value (newId, newPrenom, newNom, newEmail, newMobile, newFixe);
     end;
 
-    procedure addLocation( newidadresse int,  newid int,  newname varchar(255), newadresse varchar(255),  newcode int,  newville varchar(255),  newdep varchar(255),  newpays varchar(255)) as
+    procedure addLocation( newidlocation int,  newid int, newname varchar(255), newlocation varchar(255),  newcode int,  newcity varchar(255),  newdep varchar(255),  newcountry varchar(255), newlat double,  newlng double, newisDefault
+    boolean, newisALive boolean, newDate datetime) as
     BEGIN
-        insert into location(idlocation,id,name,location,codepostal,city,department,country) value (newidadresse,newid,newname,newadresse,newcode,newville,newdep,newpays);
+        insert into location(idlocation,id,name,location,codepostal,city,department,country,latitude,longitude,isDefault,isALive,dateLastUpdate) value (newidlocation,newid,newname,newlocation,newcode,newcity,newdep,newcountry,newlat,newlng,newisDefault,newisALive,newDate);
     end;
 
     procedure delUser( iduser int) as

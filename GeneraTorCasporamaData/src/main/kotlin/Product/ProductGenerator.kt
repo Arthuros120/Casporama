@@ -9,7 +9,7 @@ class ProductGenerator {
     private val listId = mutableListOf<Int>()
     private val listName = mutableListOf<String>()
 
-    fun generate(sport: Int, type: Int, date: String, time: String, nbr: Int = 1) : List<Product> {
+    fun generate(sport: Int, type: Int, date: String, time: String, nbr: Int = 1): List<Product> {
 
         if (nbr < 1) throw Exception("Nbr must be greater than 0")
         if (nbr > 200) throw Exception("Nbr must be less than 100")
@@ -71,7 +71,7 @@ class ProductGenerator {
         val rangeSport = sport * 1000
         val rangeType = type * 100
 
-        val minRange = rangeSport + rangeType  - 100
+        val minRange = rangeSport + rangeType - 100
         val maxRange = rangeSport + rangeType * 3
 
         return Pair(minRange, maxRange)
@@ -96,7 +96,8 @@ class ProductGenerator {
         return id
     }
 
-    private fun generateBrand(nameSport: String): String = recoverWords("src/main/resources/Input/Product/$nameSport/brand.txt").random()
+    private fun generateBrand(nameSport: String): String =
+        recoverWords("src/main/resources/Input/Product/$nameSport/brand.txt").random()
 
     private fun generateName(nameSport: String, nameType: String): Pair<String, String> {
 
@@ -124,7 +125,7 @@ class ProductGenerator {
     ): Double {
 
 
-        val entier = (min.toInt()..max.toInt()).random()
+        val entier = (min..max).random()
         val decimal = (0..99).random()
 
         return "$entier.$decimal".toDouble()
@@ -132,8 +133,8 @@ class ProductGenerator {
     }
 
     private fun generateDescription(
-        min : Int = 15,
-        max : Int = 100
+        min: Int = 15,
+        max: Int = 100
     ): String {
 
         val words = recoverWords("src/main/resources/Input/Product/description.txt").map { it.lowercase().trim() }
@@ -158,7 +159,7 @@ class ProductGenerator {
 
     }
 
-    private fun generateImage(nameSport: String, nameType: String, nameSubClass : String): String {
+    private fun generateImage(nameSport: String, nameType: String, nameSubClass: String): String {
 
         val listImages = recoverImages(nameSport, nameType, nameSubClass)
 
@@ -198,13 +199,16 @@ class ProductGenerator {
 
     }
 
-    private fun recoverImages(nameSport: String, typeSport: String, nameSubClass : String): List<String> {
+    private fun recoverImages(nameSport: String, typeSport: String, nameSubClass: String): List<String> {
 
         val listImages = mutableListOf<String>()
 
-        Files.walk(Paths.get("../Casporama/upload/images/$nameSport/$typeSport/$nameSubClass")).filter { Files.isRegularFile(it) }.forEach { listImages.add(
-            it.toString()
-        ) }
+        Files.walk(Paths.get("../Casporama/upload/images/$nameSport/$typeSport/$nameSubClass"))
+            .filter { Files.isRegularFile(it) }.forEach {
+                listImages.add(
+                    it.toString()
+                )
+            }
 
         val listIndexRemove = mutableListOf<Int>()
 
@@ -233,14 +237,17 @@ class ProductGenerator {
 
     private fun recoverWords(path: String): List<String> = File(path).readText().split(",").map { it.trim() }
 
-    private fun getForlderName(nameSport: String, typeSport: String) : List<String> {
+    private fun getForlderName(nameSport: String, typeSport: String): List<String> {
 
         val listFolder = mutableListOf<String>()
         val delIndex = mutableListOf<Int>()
 
-        Files.walk(Paths.get("../Casporama/upload/images/$nameSport/$typeSport")).filter { Files.isDirectory(it) }.forEach { listFolder.add(
-            it.toString().split("/").last()
-        ) }
+        Files.walk(Paths.get("../Casporama/upload/images/$nameSport/$typeSport")).filter { Files.isDirectory(it) }
+            .forEach {
+                listFolder.add(
+                    it.toString().split("/").last()
+                )
+            }
 
         listFolder.remove(typeSport)
 
@@ -248,9 +255,10 @@ class ProductGenerator {
 
             var count = 0
 
-            Files.walk(Paths.get("../Casporama/upload/images/$nameSport/$typeSport/${listFolder[i]}")).filter { Files.isRegularFile(it) }.forEach {
-                count++
-            }
+            Files.walk(Paths.get("../Casporama/upload/images/$nameSport/$typeSport/${listFolder[i]}"))
+                .filter { Files.isRegularFile(it) }.forEach {
+                    count++
+                }
 
             if (count < 3) {
 

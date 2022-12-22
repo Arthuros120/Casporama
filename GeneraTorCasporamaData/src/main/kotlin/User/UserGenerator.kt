@@ -10,7 +10,7 @@ class UserGenerator {
     private val listId = mutableListOf<Int>()
     private val listSalt = mutableListOf<String>()
 
-    fun generateStatus() : String {
+    fun generateStatus(): String {
 
         val chance = Random.nextInt(0, 100)
 
@@ -25,12 +25,13 @@ class UserGenerator {
         }
 
     }
+
     fun generateLogin(
         name: String,
         firstname: String
     ): String = "$name$firstname"
 
-    fun generatePassword(name : String, salt : String): String = BCrypt.hashpw("${name}123$${salt}", BCrypt.gensalt())
+    fun generatePassword(name: String, salt: String): String = BCrypt.hashpw("${name}123$${salt}", BCrypt.gensalt())
 
     fun generateSalt(): String {
 
@@ -43,7 +44,7 @@ class UserGenerator {
         } else {
 
             listSalt.add(salt)
-            
+
         }
 
         return salt
