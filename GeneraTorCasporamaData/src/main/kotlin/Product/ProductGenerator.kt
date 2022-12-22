@@ -14,20 +14,9 @@ class ProductGenerator {
         if (nbr < 1) throw Exception("Nbr must be greater than 0")
         if (nbr > 200) throw Exception("Nbr must be less than 100")
 
-        val nameSport = when (sport) {
-            1 -> "Football"
-            2 -> "Volleyball"
-            3 -> "Badminton"
-            4 -> "Arts-martiaux"
-            else -> throw Exception("Sport must be between 1 and 4")
-        }
+        val nameSport = donneNameSport(sport)
 
-        val nameType = when (type) {
-            1 -> "Vêtement"
-            2 -> "Chaussure"
-            3 -> "Equipement"
-            else -> throw Exception("Type must be between 1 and 3")
-        }
+        val nameType = donneNameType(type)
 
         val listProduct = mutableListOf<Product>()
 
@@ -63,6 +52,29 @@ class ProductGenerator {
         }
 
         return listProduct.toList()
+
+    }
+
+    public fun donneNameSport(id: Int) : String {
+
+        return when (id) {
+            1 -> "Football"
+            2 -> "Volleyball"
+            3 -> "Badminton"
+            4 -> "Arts-martiaux"
+            else -> throw Exception("Sport must be between 1 and 4")
+        }
+
+    }
+
+    public fun donneNameType(id: Int) : String {
+
+        return when (id) {
+            1 -> "Vêtement"
+            2 -> "Chaussure"
+            3 -> "Equipement"
+            else -> throw Exception("Type must be between 1 and 3")
+        }
 
     }
 
@@ -280,4 +292,3 @@ class ProductGenerator {
 }
 
 private fun String.firstLetterToUpperCase(): String = this.replaceFirstChar { it.uppercase() }
-

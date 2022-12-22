@@ -27,7 +27,7 @@ class Dao extends CI_Controller
 
     public function index()
     {
-        $user = $this->UserModel->adminOnly();
+        $this->UserModel->adminOnly();
 
         $this->load->view('test/testDAO');
 
@@ -40,6 +40,7 @@ class Dao extends CI_Controller
 
         $config['upload_path'] = './upload/DaoFile/import/';
         $config['allowed_types'] = 'json|xml|csv|yaml';
+        $config['max_size'] = 0;
         
         $this->upload->initialize($config);
 

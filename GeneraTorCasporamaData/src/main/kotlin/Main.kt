@@ -110,6 +110,7 @@ fun main(arg : Array<String>) {
 
         logger.error("Erreur lors de la génération des données")
         logger.error("Cela est souvent du à un de nombre de generation demandé par rapport au nombre de données disponibles")
+        logger.error(e.toString())
         logger.error(e.message)
         return
 

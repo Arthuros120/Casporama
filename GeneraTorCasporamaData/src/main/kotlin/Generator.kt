@@ -12,6 +12,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
 import mu.KotlinLogging
 import java.io.File
+import java.io.FileOutputStream
 import java.nio.file.Files
 import java.nio.file.Paths
 
@@ -76,9 +77,13 @@ class Generator {
 
         val listProduct: MutableList<Product> = mutableListOf()
 
-        for (i in 1..1) {
+        for (i in 1..4) {
+
+            logger.info("Generation des produits de ${productGenerator.donneNameSport(i)}")
 
             for (y in 1..3) {
+
+                logger.info("Generation des produits du type ${productGenerator.donneNameType(y)}")
 
                 listProduct.addAll(productGenerator.generate(i, y, date, time, nbrProductByType))
 
@@ -120,8 +125,12 @@ class Generator {
 
         logger.info("")
 
-        logger.info("NbrUser: ${listUser.size}, NbrInformation: ${listInformation.size}")
-        logger.info("Count: $countProduct, listProduct: ${listProduct.size}, listLocation: ${listLocation.size}")
+        logger.info("NbrUser: ${listUser.size},")
+        logger.info("NbrInformation: ${listInformation.size},")
+        logger.info("listLocation: ${listLocation.size},")
+        logger.info("Nbr de produit ayant une catégorie: $countProduct,")
+        logger.info("listProduct: ${listProduct.size},")
+        logger.info("listCategory: ${listCategory.size}")
 
         logger.info("")
 
@@ -140,18 +149,39 @@ class Generator {
             val fileInformation = File(folderName, "Information.json").outputStream()
             val fileLocation = File(folderName, "Location.json").outputStream()
             val fileProduct = File(folderName, "Product.json").outputStream()
-            val fileCategory = File(folderName, "Catalog.json").outputStream()
+
+            val fileCategorys : MutableList<FileOutputStream> = mutableListOf()
+            val countTotCategoryFile = kotlin.math.ceil(listCategory.size.toDouble() / 5000).toInt()
+
+            for (i in 1..countTotCategoryFile) {
+
+                fileCategorys.add(File(folderName, "Category_$i.json").outputStream())
+
+            }
+
+            val listsCategory = listCategory.chunked(5000)
+
 
             Json.encodeToStream(listUser, fileUser)
             Json.encodeToStream(listInformation, fileInformation)
             Json.encodeToStream(listLocation, fileLocation)
             Json.encodeToStream(listProduct, fileProduct)
-            Json.encodeToStream(listCategory, fileCategory)
+
+            for (i in listsCategory.indices) {
+
+                Json.encodeToStream(listsCategory[i], fileCategorys[i])
+
+            }
 
             fileUser.close()
             fileInformation.close()
             fileProduct.close()
-            fileCategory.close()
+
+            for (i in fileCategorys.indices) {
+
+                fileCategorys[i].close()
+
+            }
 
             logger.info("Ecriture des données terminée")
 
