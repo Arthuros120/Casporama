@@ -51,7 +51,7 @@
             </a>
         </div>
         <div class="home_mma">
-            <a href="<?= base_url()?>Shop/home/Art_martiaux">
+            <a href="<?= base_url()?>Shop/home/Arts-martiaux">
             <div class="home_cat_img">
                 <img src="<?= base_url() ?>static/image/home_mma.png" >
             </div>
