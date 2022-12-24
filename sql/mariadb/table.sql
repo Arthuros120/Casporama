@@ -64,7 +64,7 @@ create table if not exists product (
     gender VARCHAR(5) NOT NULL,
     price float not null,
     description text not null,
-    image VARCHAR(255),
+    image text not null,
     isALive bool not null,
     dateLastUpdate datetime not null,
     PRIMARY KEY(idproduct),
@@ -78,7 +78,7 @@ create table if not exists product (
 CREATE TABLE IF NOT EXISTS catalog (
     id INTEGER NOT NULL,
     nuproduct integer not null,
-    reference integer not null,
+    reference long not null,
     color varchar(20),
     size varchar(3),
     quantity integer not null default 0,

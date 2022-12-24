@@ -62,7 +62,7 @@ class Shop extends CI_Controller
         $this->UserModel->durabilityConnection();
 
         // * On vérifie que le sport passé en paramètre est bien un sport disponible.
-        if (in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux"))) {
+        if (in_array($sport, array("Football", "Volleyball", "Badminton", "Arts-martiaux"))) {
 
             // * On selectionne l'icon de la fonction user en fonction de la connection de l'utilisateur
             $dataHeader['userIcon'] = $this->UtilView->chooseUserIcon();
@@ -123,7 +123,7 @@ class Shop extends CI_Controller
 
         // * On vérifie que le sport et la catégorie passé en paramètre sont bien un sport et une catégorie disponible.
         if (
-            in_array($sport, array("Football", "Volleyball", "Badminton", "Art_martiaux"))
+            in_array($sport, array("Football", "Volleyball", "Badminton", "Arts-martiaux"))
             && in_array($catProduct, array("Equipement", "Chaussure", "Vetement"))) {
 
             // * On recupére tout les produit du sport et de la catégorie passé en paramètre

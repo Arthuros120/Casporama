@@ -99,7 +99,31 @@ class Caspor extends CI_Controller{
             $status = $user->getStatus();
 
             if ($status == "Caspor") {
-                $this->LoaderView->load("Caspor/myCaspor");
+
+                $dateLastUpdate = $this->UserModel->getDateLastUpdateById($id);
+                $dateLastUpdate = explode("-",$dateLastUpdate);
+                $dateLastUpdate[2] = explode(" ",$dateLastUpdate[2])[0];
+
+                $dateSince = $this->dateSince($user);
+
+                $nextPayment = $this->nextPayment($user);
+
+                $data = array(
+
+                    'user' => $user,
+                    'dateLastUpdate' => $dateLastUpdate,
+                    'dateSince' => $dateSince,
+                    'nextPayment' => $nextPayment
+
+                );
+
+                $dataArray = array(
+
+                    'content' => $data
+
+                );
+
+                $this->LoaderView->load("Caspor/myCaspor",$dataArray);
             } else {
 
                 if ($status == "Client") {
@@ -163,6 +187,52 @@ class Caspor extends CI_Controller{
             redirect('User/login');
         }
 
+    }
+
+    public function dateSince($user) {
+
+        $id = $user->getId();
+        $dateLastUpdate = $this->UserModel->getDateLastUpdateById($id);
+
+        $dateStart = new DateTime($dateLastUpdate);
+        $dateCurrent = new DateTime(date('y-m-d h:i:sa'));
+
+        $interval = $dateStart->diff($dateCurrent);
+        $interval = $interval->format("%y ans %m mois et %d jours");
+
+        return $interval;
+    }
+
+    public function nextPayment($user) {
+        $id = $user->getId();
+        $dateLastUpdate = $this->UserModel->getDateLastUpdateById($id);
+        $dayStart = explode("-",$dateLastUpdate)[2];
+        $dayStart = explode(" ",$dayStart)[0];
+
+        if ($dayStart >= date('d')) {
+
+            $currentDate = date('m-Y',strtotime('+1 month'));
+
+            $currentDate = explode("-",$currentDate);
+
+            $currentmonth = $currentDate[0];
+            $currentYear = $currentDate[1];
+
+            $nextPayment = $dayStart . "/" . $currentmonth . "/" . $currentYear;
+
+            return $nextPayment;
+            
+        } else {
+
+            $currentDate = date('m') . "/" . date('Y');
+
+            $nextPayment = $dayStart . "/" . $currentDate;
+    
+            return $nextPayment;
+
+        }
+
+       
     }
 
 }

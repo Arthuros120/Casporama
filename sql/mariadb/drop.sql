@@ -145,3 +145,9 @@ drop package if exists sport;
 drop package if exists user;
 
 drop package if exists product;
+
+delete from catalog where id > 5;
+delete from product where idproduct > 5;
+delete from information where id > 20;
+delete from location where id > 20;
+delete from user where id > 20;
