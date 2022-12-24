@@ -1,0 +1,37 @@
+INFO - 2022-11-28 10:14:40 --> Config Class Initialized
+INFO - 2022-11-28 10:14:40 --> Hooks Class Initialized
+DEBUG - 2022-11-28 10:14:40 --> UTF-8 Support Enabled
+INFO - 2022-11-28 10:14:40 --> Utf8 Class Initialized
+INFO - 2022-11-28 10:14:40 --> URI Class Initialized
+DEBUG - 2022-11-28 10:14:40 --> No URI present. Default controller set.
+INFO - 2022-11-28 10:14:40 --> Router Class Initialized
+INFO - 2022-11-28 10:14:40 --> Output Class Initialized
+INFO - 2022-11-28 10:14:40 --> Security Class Initialized
+DEBUG - 2022-11-28 10:14:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-11-28 10:14:40 --> Input Class Initialized
+INFO - 2022-11-28 10:14:40 --> Language Class Initialized
+INFO - 2022-11-28 10:14:40 --> Loader Class Initialized
+INFO - 2022-11-28 10:14:40 --> Helper loaded: url_helper
+INFO - 2022-11-28 10:14:40 --> Helper loaded: form_helper
+INFO - 2022-11-28 10:14:40 --> Helper loaded: cookie_helper
+INFO - 2022-11-28 10:14:40 --> Helper loaded: file_helper
+INFO - 2022-11-28 10:14:40 --> Helper loaded: html_helper
+INFO - 2022-11-28 10:14:40 --> Database Driver Class Initialized
+INFO - 2022-11-28 10:14:40 --> Session: Class initialized using 'files' driver.
+INFO - 2022-11-28 10:14:40 --> Form Validation Class Initialized
+DEBUG - 2022-11-28 10:14:40 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2022-11-28 10:14:40 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2022-11-28 10:14:40 --> Encryption Class Initialized
+INFO - 2022-11-28 10:14:40 --> Email Class Initialized
+INFO - 2022-11-28 10:14:40 --> Upload Class Initialized
+INFO - 2022-11-28 10:14:40 --> Model "UserModel" initialized
+INFO - 2022-11-28 10:14:40 --> Model "UtilView" initialized
+INFO - 2022-11-28 10:14:40 --> Model "LoaderView" initialized
+INFO - 2022-11-28 10:14:40 --> Controller Class Initialized
+INFO - 2022-11-28 10:14:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/home/head.php
+INFO - 2022-11-28 10:14:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/blank.php
+INFO - 2022-11-28 10:14:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/home/home.php
+INFO - 2022-11-28 10:14:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/blank.php
+INFO - 2022-11-28 10:14:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/base.php
+INFO - 2022-11-28 10:14:40 --> Final output sent to browser
+DEBUG - 2022-11-28 10:14:40 --> Total execution time: 0.3041

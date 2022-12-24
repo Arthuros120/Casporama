@@ -14680,3 +14680,562 @@ DEBUG - 2022-12-17 09:31:35 --> Global POST, GET and COOKIE data sanitized
 INFO - 2022-12-17 09:31:35 --> Input Class Initialized
 INFO - 2022-12-17 09:31:35 --> Language Class Initialized
 ERROR - 2022-12-17 09:31:35 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:33 --> Config Class Initialized
+INFO - 2022-12-17 13:39:33 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:33 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:33 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:33 --> URI Class Initialized
+INFO - 2022-12-17 13:39:33 --> Router Class Initialized
+INFO - 2022-12-17 13:39:33 --> Output Class Initialized
+INFO - 2022-12-17 13:39:33 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:33 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:33 --> Input Class Initialized
+INFO - 2022-12-17 13:39:33 --> Language Class Initialized
+INFO - 2022-12-17 13:39:33 --> Loader Class Initialized
+INFO - 2022-12-17 13:39:33 --> Helper loaded: url_helper
+INFO - 2022-12-17 13:39:33 --> Helper loaded: form_helper
+INFO - 2022-12-17 13:39:33 --> Helper loaded: cookie_helper
+INFO - 2022-12-17 13:39:33 --> Helper loaded: file_helper
+INFO - 2022-12-17 13:39:33 --> Helper loaded: html_helper
+INFO - 2022-12-17 13:39:33 --> Helper loaded: date_helper
+INFO - 2022-12-17 13:39:33 --> Database Driver Class Initialized
+INFO - 2022-12-17 13:39:33 --> Session: Class initialized using 'files' driver.
+INFO - 2022-12-17 13:39:33 --> Form Validation Class Initialized
+DEBUG - 2022-12-17 13:39:33 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2022-12-17 13:39:33 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2022-12-17 13:39:33 --> Encryption Class Initialized
+INFO - 2022-12-17 13:39:33 --> Upload Class Initialized
+INFO - 2022-12-17 13:39:33 --> Model "UserModel" initialized
+INFO - 2022-12-17 13:39:33 --> Model "UtilView" initialized
+INFO - 2022-12-17 13:39:33 --> Model "LoaderView" initialized
+INFO - 2022-12-17 13:39:33 --> Controller Class Initialized
+INFO - 2022-12-17 13:39:33 --> Model "LocationModel" initialized
+INFO - 2022-12-17 13:39:33 --> Model "InformationModel" initialized
+INFO - 2022-12-17 13:39:33 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/admin/home/head.php
+INFO - 2022-12-17 13:39:33 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/blank.php
+INFO - 2022-12-17 13:39:33 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/admin/home/content.php
+INFO - 2022-12-17 13:39:33 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/blank.php
+INFO - 2022-12-17 13:39:33 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/base.php
+INFO - 2022-12-17 13:39:33 --> Final output sent to browser
+DEBUG - 2022-12-17 13:39:33 --> Total execution time: 0.2163
+INFO - 2022-12-17 13:39:36 --> Config Class Initialized
+INFO - 2022-12-17 13:39:36 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:36 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:36 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:36 --> URI Class Initialized
+DEBUG - 2022-12-17 13:39:36 --> No URI present. Default controller set.
+INFO - 2022-12-17 13:39:36 --> Router Class Initialized
+INFO - 2022-12-17 13:39:36 --> Output Class Initialized
+INFO - 2022-12-17 13:39:36 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:36 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:36 --> Input Class Initialized
+INFO - 2022-12-17 13:39:36 --> Language Class Initialized
+INFO - 2022-12-17 13:39:36 --> Loader Class Initialized
+INFO - 2022-12-17 13:39:36 --> Helper loaded: url_helper
+INFO - 2022-12-17 13:39:36 --> Helper loaded: form_helper
+INFO - 2022-12-17 13:39:36 --> Helper loaded: cookie_helper
+INFO - 2022-12-17 13:39:36 --> Helper loaded: file_helper
+INFO - 2022-12-17 13:39:36 --> Helper loaded: html_helper
+INFO - 2022-12-17 13:39:36 --> Helper loaded: date_helper
+INFO - 2022-12-17 13:39:36 --> Database Driver Class Initialized
+INFO - 2022-12-17 13:39:36 --> Session: Class initialized using 'files' driver.
+INFO - 2022-12-17 13:39:36 --> Form Validation Class Initialized
+DEBUG - 2022-12-17 13:39:36 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2022-12-17 13:39:36 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2022-12-17 13:39:36 --> Encryption Class Initialized
+INFO - 2022-12-17 13:39:36 --> Upload Class Initialized
+INFO - 2022-12-17 13:39:36 --> Model "UserModel" initialized
+INFO - 2022-12-17 13:39:36 --> Model "UtilView" initialized
+INFO - 2022-12-17 13:39:36 --> Model "LoaderView" initialized
+INFO - 2022-12-17 13:39:36 --> Controller Class Initialized
+INFO - 2022-12-17 13:39:36 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/home/head.php
+INFO - 2022-12-17 13:39:36 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/blank.php
+INFO - 2022-12-17 13:39:36 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/home/home.php
+INFO - 2022-12-17 13:39:36 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/blank.php
+INFO - 2022-12-17 13:39:36 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/base.php
+INFO - 2022-12-17 13:39:36 --> Final output sent to browser
+DEBUG - 2022-12-17 13:39:36 --> Total execution time: 0.1264
+INFO - 2022-12-17 13:39:38 --> Config Class Initialized
+INFO - 2022-12-17 13:39:38 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:38 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:38 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:38 --> URI Class Initialized
+INFO - 2022-12-17 13:39:38 --> Router Class Initialized
+INFO - 2022-12-17 13:39:38 --> Output Class Initialized
+INFO - 2022-12-17 13:39:38 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:38 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:38 --> Input Class Initialized
+INFO - 2022-12-17 13:39:38 --> Language Class Initialized
+INFO - 2022-12-17 13:39:38 --> Loader Class Initialized
+INFO - 2022-12-17 13:39:38 --> Helper loaded: url_helper
+INFO - 2022-12-17 13:39:38 --> Helper loaded: form_helper
+INFO - 2022-12-17 13:39:38 --> Helper loaded: cookie_helper
+INFO - 2022-12-17 13:39:38 --> Helper loaded: file_helper
+INFO - 2022-12-17 13:39:38 --> Helper loaded: html_helper
+INFO - 2022-12-17 13:39:38 --> Helper loaded: date_helper
+INFO - 2022-12-17 13:39:38 --> Database Driver Class Initialized
+INFO - 2022-12-17 13:39:38 --> Session: Class initialized using 'files' driver.
+INFO - 2022-12-17 13:39:38 --> Form Validation Class Initialized
+DEBUG - 2022-12-17 13:39:38 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2022-12-17 13:39:38 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2022-12-17 13:39:38 --> Encryption Class Initialized
+INFO - 2022-12-17 13:39:38 --> Upload Class Initialized
+INFO - 2022-12-17 13:39:38 --> Model "UserModel" initialized
+INFO - 2022-12-17 13:39:38 --> Model "UtilView" initialized
+INFO - 2022-12-17 13:39:38 --> Model "LoaderView" initialized
+INFO - 2022-12-17 13:39:38 --> Controller Class Initialized
+INFO - 2022-12-17 13:39:38 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/head.php
+INFO - 2022-12-17 13:39:38 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/header.php
+INFO - 2022-12-17 13:39:38 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/content.php
+INFO - 2022-12-17 13:39:38 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/footer.php
+INFO - 2022-12-17 13:39:38 --> Model "ProductModel" initialized
+INFO - 2022-12-17 13:39:38 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/home/head.php
+INFO - 2022-12-17 13:39:38 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/Football/homeHead.php
+INFO - 2022-12-17 13:39:38 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/global/header.php
+INFO - 2022-12-17 13:39:38 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/Football/homeContent.php
+INFO - 2022-12-17 13:39:38 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/blank.php
+INFO - 2022-12-17 13:39:38 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/global/homeTemplate.php
+INFO - 2022-12-17 13:39:38 --> Final output sent to browser
+DEBUG - 2022-12-17 13:39:38 --> Total execution time: 0.1277
+INFO - 2022-12-17 13:39:39 --> Config Class Initialized
+INFO - 2022-12-17 13:39:39 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:39 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:39 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:39 --> URI Class Initialized
+INFO - 2022-12-17 13:39:39 --> Router Class Initialized
+INFO - 2022-12-17 13:39:39 --> Output Class Initialized
+INFO - 2022-12-17 13:39:39 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:39 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:39 --> Input Class Initialized
+INFO - 2022-12-17 13:39:39 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:39 --> 404 Page Not Found: Static/css
+INFO - 2022-12-17 13:39:39 --> Config Class Initialized
+INFO - 2022-12-17 13:39:39 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:39 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:39 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:39 --> URI Class Initialized
+INFO - 2022-12-17 13:39:39 --> Router Class Initialized
+INFO - 2022-12-17 13:39:39 --> Output Class Initialized
+INFO - 2022-12-17 13:39:39 --> Security Class Initialized
+INFO - 2022-12-17 13:39:39 --> Config Class Initialized
+DEBUG - 2022-12-17 13:39:39 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:39 --> Input Class Initialized
+INFO - 2022-12-17 13:39:39 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:39 --> Language Class Initialized
+DEBUG - 2022-12-17 13:39:39 --> UTF-8 Support Enabled
+ERROR - 2022-12-17 13:39:39 --> 404 Page Not Found: Static/fonts
+INFO - 2022-12-17 13:39:39 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:39 --> URI Class Initialized
+INFO - 2022-12-17 13:39:39 --> Router Class Initialized
+INFO - 2022-12-17 13:39:39 --> Output Class Initialized
+INFO - 2022-12-17 13:39:39 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:39 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:39 --> Input Class Initialized
+INFO - 2022-12-17 13:39:39 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:39 --> 404 Page Not Found: Static/fonts
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> Loader Class Initialized
+INFO - 2022-12-17 13:39:40 --> Helper loaded: url_helper
+INFO - 2022-12-17 13:39:40 --> Helper loaded: form_helper
+INFO - 2022-12-17 13:39:40 --> Helper loaded: cookie_helper
+INFO - 2022-12-17 13:39:40 --> Helper loaded: file_helper
+INFO - 2022-12-17 13:39:40 --> Helper loaded: html_helper
+INFO - 2022-12-17 13:39:40 --> Helper loaded: date_helper
+INFO - 2022-12-17 13:39:40 --> Database Driver Class Initialized
+INFO - 2022-12-17 13:39:40 --> Session: Class initialized using 'files' driver.
+INFO - 2022-12-17 13:39:40 --> Form Validation Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2022-12-17 13:39:40 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2022-12-17 13:39:40 --> Encryption Class Initialized
+INFO - 2022-12-17 13:39:40 --> Upload Class Initialized
+INFO - 2022-12-17 13:39:40 --> Model "UserModel" initialized
+INFO - 2022-12-17 13:39:40 --> Model "UtilView" initialized
+INFO - 2022-12-17 13:39:40 --> Model "LoaderView" initialized
+INFO - 2022-12-17 13:39:40 --> Controller Class Initialized
+INFO - 2022-12-17 13:39:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/head.php
+INFO - 2022-12-17 13:39:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/header.php
+INFO - 2022-12-17 13:39:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/content.php
+INFO - 2022-12-17 13:39:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/footer.php
+INFO - 2022-12-17 13:39:40 --> Model "ProductModel" initialized
+INFO - 2022-12-17 13:39:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/view/head.php
+INFO - 2022-12-17 13:39:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/global/header.php
+INFO - 2022-12-17 13:39:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/global/viewContent.php
+INFO - 2022-12-17 13:39:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/blank.php
+INFO - 2022-12-17 13:39:40 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/base.php
+INFO - 2022-12-17 13:39:40 --> Final output sent to browser
+DEBUG - 2022-12-17 13:39:40 --> Total execution time: 0.2170
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Config Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+DEBUG - 2022-12-17 13:39:40 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:40 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:40 --> URI Class Initialized
+INFO - 2022-12-17 13:39:40 --> Router Class Initialized
+INFO - 2022-12-17 13:39:40 --> Output Class Initialized
+INFO - 2022-12-17 13:39:40 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:40 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:40 --> Input Class Initialized
+INFO - 2022-12-17 13:39:40 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:40 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:43 --> Config Class Initialized
+INFO - 2022-12-17 13:39:43 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:43 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:43 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:43 --> URI Class Initialized
+INFO - 2022-12-17 13:39:43 --> Router Class Initialized
+INFO - 2022-12-17 13:39:43 --> Output Class Initialized
+INFO - 2022-12-17 13:39:43 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:43 --> Input Class Initialized
+INFO - 2022-12-17 13:39:43 --> Language Class Initialized
+INFO - 2022-12-17 13:39:43 --> Loader Class Initialized
+INFO - 2022-12-17 13:39:43 --> Helper loaded: url_helper
+INFO - 2022-12-17 13:39:43 --> Helper loaded: form_helper
+INFO - 2022-12-17 13:39:43 --> Helper loaded: cookie_helper
+INFO - 2022-12-17 13:39:43 --> Helper loaded: file_helper
+INFO - 2022-12-17 13:39:43 --> Helper loaded: html_helper
+INFO - 2022-12-17 13:39:43 --> Helper loaded: date_helper
+INFO - 2022-12-17 13:39:43 --> Database Driver Class Initialized
+INFO - 2022-12-17 13:39:43 --> Session: Class initialized using 'files' driver.
+INFO - 2022-12-17 13:39:43 --> Form Validation Class Initialized
+DEBUG - 2022-12-17 13:39:43 --> Encryption: Auto-configured driver 'openssl'.
+INFO - 2022-12-17 13:39:43 --> Encryption: OpenSSL initialized with method AES-128-CBC.
+INFO - 2022-12-17 13:39:43 --> Encryption Class Initialized
+INFO - 2022-12-17 13:39:43 --> Upload Class Initialized
+INFO - 2022-12-17 13:39:43 --> Model "UserModel" initialized
+INFO - 2022-12-17 13:39:43 --> Model "UtilView" initialized
+INFO - 2022-12-17 13:39:43 --> Model "LoaderView" initialized
+INFO - 2022-12-17 13:39:43 --> Controller Class Initialized
+INFO - 2022-12-17 13:39:43 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/head.php
+INFO - 2022-12-17 13:39:43 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/header.php
+INFO - 2022-12-17 13:39:43 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/content.php
+INFO - 2022-12-17 13:39:43 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/footer.php
+INFO - 2022-12-17 13:39:43 --> Model "ProductModel" initialized
+INFO - 2022-12-17 13:39:43 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/product/head.php
+INFO - 2022-12-17 13:39:43 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/global/header.php
+INFO - 2022-12-17 13:39:43 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/shop/product/productContent.php
+INFO - 2022-12-17 13:39:43 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/blank.php
+INFO - 2022-12-17 13:39:43 --> File loaded: /home/mrmaxpomme/Domo/equipe1-1/Casporama/application/views/templates/base.php
+INFO - 2022-12-17 13:39:43 --> Final output sent to browser
+DEBUG - 2022-12-17 13:39:43 --> Total execution time: 0.2203
+INFO - 2022-12-17 13:39:43 --> Config Class Initialized
+INFO - 2022-12-17 13:39:43 --> Config Class Initialized
+INFO - 2022-12-17 13:39:43 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:43 --> Config Class Initialized
+INFO - 2022-12-17 13:39:43 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:43 --> Hooks Class Initialized
+DEBUG - 2022-12-17 13:39:43 --> UTF-8 Support Enabled
+DEBUG - 2022-12-17 13:39:43 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:43 --> Utf8 Class Initialized
+DEBUG - 2022-12-17 13:39:43 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:43 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:43 --> Utf8 Class Initialized
+INFO - 2022-12-17 13:39:43 --> URI Class Initialized
+INFO - 2022-12-17 13:39:43 --> URI Class Initialized
+INFO - 2022-12-17 13:39:43 --> URI Class Initialized
+INFO - 2022-12-17 13:39:43 --> Router Class Initialized
+INFO - 2022-12-17 13:39:43 --> Config Class Initialized
+INFO - 2022-12-17 13:39:43 --> Router Class Initialized
+INFO - 2022-12-17 13:39:43 --> Router Class Initialized
+INFO - 2022-12-17 13:39:43 --> Output Class Initialized
+INFO - 2022-12-17 13:39:43 --> Hooks Class Initialized
+INFO - 2022-12-17 13:39:43 --> Output Class Initialized
+INFO - 2022-12-17 13:39:43 --> Output Class Initialized
+DEBUG - 2022-12-17 13:39:43 --> UTF-8 Support Enabled
+INFO - 2022-12-17 13:39:43 --> Security Class Initialized
+INFO - 2022-12-17 13:39:43 --> Security Class Initialized
+INFO - 2022-12-17 13:39:43 --> Security Class Initialized
+INFO - 2022-12-17 13:39:43 --> Utf8 Class Initialized
+DEBUG - 2022-12-17 13:39:43 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2022-12-17 13:39:43 --> Global POST, GET and COOKIE data sanitized
+DEBUG - 2022-12-17 13:39:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:43 --> URI Class Initialized
+INFO - 2022-12-17 13:39:43 --> Input Class Initialized
+INFO - 2022-12-17 13:39:43 --> Input Class Initialized
+INFO - 2022-12-17 13:39:43 --> Language Class Initialized
+INFO - 2022-12-17 13:39:43 --> Language Class Initialized
+INFO - 2022-12-17 13:39:43 --> Input Class Initialized
+INFO - 2022-12-17 13:39:43 --> Router Class Initialized
+ERROR - 2022-12-17 13:39:43 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:43 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:43 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:43 --> Output Class Initialized
+ERROR - 2022-12-17 13:39:43 --> 404 Page Not Found: Upload/image
+INFO - 2022-12-17 13:39:43 --> Security Class Initialized
+DEBUG - 2022-12-17 13:39:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2022-12-17 13:39:43 --> Input Class Initialized
+INFO - 2022-12-17 13:39:43 --> Language Class Initialized
+ERROR - 2022-12-17 13:39:43 --> 404 Page Not Found: Upload/image
