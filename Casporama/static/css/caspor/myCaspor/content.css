@@ -1,0 +1,112 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    font-family: var(--main-font);
+}
+
+.mycaspor_content {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mycaspor_title {
+    width: 90%;
+    height: 10%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+
+    gap: 2vh;
+}
+
+.mycaspor_title > a > img {
+    width: 60%;
+    height: auto;
+
+    transform: rotate(180deg);
+}
+
+.mycaspor_title > img {
+    width: 10%;
+    height: auto;
+}
+
+.mycaspor_body {
+    width: 100%;
+    height: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mycaspor_body > h1 {
+
+    font-size: 5vw;
+
+}
+
+.mycaspor_body > h3 {
+    font-weight: 300;
+}
+
+
+.mycaspor_body > h1 > span:nth-child(1) {
+    color: #399B39;
+}
+.mycaspor_body > h1 > span:nth-child(2) {
+    color: #3284E4;
+}
+.mycaspor_body > h1 > span:nth-child(3) {
+    color: #E0C323;
+}
+.mycaspor_body > h1 > span:nth-child(4) {
+    color: #E94138;
+}
+
+.mycaspor_info {
+    width: 90%;
+    height: 30%;
+    background-color: var(--grey2);
+    border-radius: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    gap: 5vh;
+}
+
+.mycaspor_info > h2 > span {
+    font-weight: 300;
+}
+
+.mycaspor_leave {
+
+    width: 100%;
+    height: 20%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.mycaspor_leave > a {
+    text-decoration: none;
+    color: white;
+    background-color: red;
+
+    padding: 1% 2%;
+    border-radius: 12px;
+}

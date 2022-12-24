@@ -27,6 +27,7 @@ class UserEntity
     private array $localisation;
     private InformationEntity $coordonnees;
 
+
     /*
     
         * Function getId
@@ -300,4 +301,5 @@ class UserEntity
         return (string) $cookieCheck;
 
     }
+
 }
