@@ -4,7 +4,7 @@
 
     * CartEntity
 
-    * Cette classe représente une entité de la table card
+    * Cette classe représente une entité de la table cart
 
 */
 class CartEntity {
@@ -13,6 +13,7 @@ class CartEntity {
     private int $iduser;
     private int $idcart;
     private ProductEntity $product;
+    private StockEntity $variant;
     private int $quantity;
 
 
@@ -46,6 +47,14 @@ class CartEntity {
 
     public function setProduct(ProductEntity $product) {
         $this->product = $product;
+    }
+
+    public function getvariant() : StockEntity {
+        return $this->variant;
+    }
+
+    public function setvariant(StockEntity $variant) {
+        $this->variant = $variant;
     }
 
     public function getQuantity() : int {

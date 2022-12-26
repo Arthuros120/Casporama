@@ -314,10 +314,14 @@ class UserEntity
         * Cette fonction renvoie le panier de l'entité
     
     */
-    public function getCart() : array
+    public function getCart() : ?array
     {
 
-        return $this->cart;
+        if (isset($this->cart)) {
+            return $this->cart;
+        }
+
+        return null;
 
     }
 
@@ -330,13 +334,13 @@ class UserEntity
         * Cette fonction modifie le panier de l'entité
     
     */
-    public function setCart(CartEntity $cart)
+    public function setCart(array $cart)
     {
 
         if (!isset($this->cart)) {
             $this->cart = array();
         }
-
+        
         array_push($this->cart,$cart);
 
     }

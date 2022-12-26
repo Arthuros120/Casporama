@@ -19,6 +19,12 @@ class Cart extends CI_Controller
 
     public function index()
     {
+        $dataValue = array();
+        $cart = $this->CartModel->getCart();
+
+        if ($cart != null) {
+            array_push($dataValue,$cart);
+        }
 
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
@@ -27,11 +33,49 @@ class Cart extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $carts = $this->CartModel->getCart($user);
+            $carts = $this->CartModel->getCartDB($user);
 
-            $data['carts'] = $carts;
+            foreach ($carts as $value) {
+                array_push($dataValue,$value);
+            }
             
-            $this->load->view('cart/homeContent',$data);
+        } 
+
+        $data['carts'] = $dataValue;
+        
+        $this->load->view('cart/homeContent',$data);
+    }
+
+    public function add()
+    {
+
+        $color = substr($this->input->post("color"), 0, -1);
+        $size = $this->input->post("size");
+        $idproduct = intval($this->input->post("idproduct"));
+        
+    
+        $idvariant = $this->CartModel->getVariant($idproduct,$color,$size);
+
+        $this->CartModel->addProductCart($idproduct,$idvariant);
+
+        redirect('/Cart');
+        
+    }
+
+    public function saveCart()
+    {
+
+        // * On rend la connexion peréne pour toutes les pages
+        $this->UserModel->durabilityConnection();
+    
+
+        if ($this->UserModel->isConnected()) {
+
+            $user = $this->UserModel->getUserBySession();
+            
+            $this->CartModel->addProductCartDB($user);
+
+            redirect("./Cart");
 
         } else {
 
@@ -39,40 +83,7 @@ class Cart extends CI_Controller
         }
     }
 
-    public function add($quantity = 1)
-    {
-
-        // * On rend la connexion peréne pour toutes les pages
-        $this->UserModel->durabilityConnection();
-
-        if ($this->UserModel->isConnected()) {
-
-            $user = $this->UserModel->getUserBySession();
-
-            $color = substr($this->input->post("color"), 0, -1);
-            $size = $this->input->post("size");
-            $idproduct = intval($this->input->post("idproduct"));
-
-            $product = $this->ProductModel->findById($idproduct);
-
-            foreach ($product->getStock() as $stock) {
-                if ($stock->getColor() == $color && $stock->getSize() == $size) {
-                    $idvariant = $stock->getId();
-                }
-            }
-
-            if ($user->getCart() == null) {
-                $user->setCart();
-            }
-
-
-            $this->CartModel->addProductCart($user->getId(),$user->getCart()[-1]->getId(),$idvariant,$quantity);
-
-            // redirect("./Cart");
-
-        } else {
-
-            redirect("User/login");
-        }
+    public function modifyQuantity() {
+        var_dump("test");
     }
 }

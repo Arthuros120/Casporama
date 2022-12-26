@@ -217,7 +217,9 @@ class Shop extends CI_Controller
             foreach ($product->getStock() as $value) {
                 $color = $value->getColor();
                 if ($color != null) {
-                    array_push($avalaibleColors, $color);
+                    if (!in_array($color,$avalaibleColors)) {
+                        array_push($avalaibleColors, $color);
+                    }
                 }
             }
 

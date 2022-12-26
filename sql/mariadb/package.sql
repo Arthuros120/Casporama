@@ -766,6 +766,7 @@ create or replace package cart as
     procedure addCart(newid int, newiduser int, newidcart int, newidvariant int, newquantity int, newdate datetime, newdatexp datetime);
     procedure verifyId(id int);
     procedure getCartById(newid int);
+    procedure maxIdCart(newid int);
 End;
 
 create or replace package body cart as
@@ -783,9 +784,14 @@ create or replace package body cart as
     end;
     procedure verifyId(newid int) as
     begin
-        select idcard from cart where newid = id;
+        select idcart from cart where newid = id;
+    end;
+    procedure maxIdCart(newid int) as
+    begin
+        select MAX(idcart) max from cart where iduser=newid;
     end;
 end;
+
 
 /*
 use Casporama;

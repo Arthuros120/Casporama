@@ -382,6 +382,14 @@ class ProductEntity
         $this->stock = $res;
     }
 
+    public function getVariant(int $idvariant) : StockEntity {
+        foreach ($this->stock as $stock) {
+            if ($stock->getId() == $idvariant) {
+                return $stock;
+            }
+        }
+    }
+
     /*
     
         * Function getStock
