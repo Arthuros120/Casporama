@@ -165,11 +165,11 @@ class CartModel extends CI_Model {
         }
     }
 
-    public function addProductCart(int $idproduct, int $idvariant) {
+    public function addProductCart(int $idproduct, int $idvariant, int $quantity = 1) {
 
         $cookieValue = get_cookie('cart');  
 
-        $cookieValue .= "$idproduct"."P"."$idvariant"."C";   
+        $cookieValue .= "$idproduct"."P"."$idvariant"."P"."$quantity"."C";   
 
         // * On crée le cookie
         $cookieSettings = array(
@@ -179,7 +179,7 @@ class CartModel extends CI_Model {
             'secure' => true,
             'httponly' => true
         );
-
+       
         // * On envoie le cookie
         $this->input->set_cookie($cookieSettings);
 
@@ -193,13 +193,8 @@ class CartModel extends CI_Model {
         if ($cookieValue != null) {
             $values = array_slice(explode("C",$cookieValue),0,-1);
             $res = array();
-            $tab = array();
-            
-            $quantities = array_count_values($values);
-            $values = array_unique($values);
 
             foreach ($values as $value) {
-                $quantity = $quantities[$value];
 
                 $div = explode("P",$value);
 
@@ -209,7 +204,7 @@ class CartModel extends CI_Model {
                 $cart->setIdcart(0);
                 $cart->setProduct($product);
                 $cart->setvariant($product->getVariant(intval($div[1])));
-                $cart->setQuantity(intval($quantity));
+                $cart->setQuantity($div[2]);
 
                 array_push($res,$cart);
             }
@@ -217,6 +212,79 @@ class CartModel extends CI_Model {
         }
 
         return null;
+    }
+
+    public function modifyQuantity(array $newQuantity) {
+        
+        $cart = $this->getCart();
+
+        if ($cart != null) {
+            $cookieValue = "";
+            foreach ($cart as $product) {
+                $idvariant = $product->getVariant()->getId();
+                $cookieValue .= $product->getProduct()->getId()."P"."$idvariant"."P".$newQuantity[$idvariant]."C";   
+            } 
+        }
+
+        // * On crée le cookie
+        $cookieSettings = array(
+            'name'   => 'cart',
+            'value'  => $cookieValue,
+            'expire' => 0,
+            'secure' => true,
+            'httponly' => true
+        );
+       
+        // * On envoie le cookie
+        $this->input->set_cookie($cookieSettings);
+
+    }
+
+    public function modifyCartDB(int $newquantity, int $user, int $cart, int $variant) {
+        $this->db->query("call cart.modifyQuantity($newquantity,$user,$cart,$variant)");
+    }
+
+    public function deleteProduct(int $delproduct,int $delvariant) {
+        $cart = $this->getCart();
+
+        if ($cart != null) {
+            $cookieValue = "";
+            foreach ($cart as $product) {
+                $idvariant = $product->getVariant()->getId();
+                $idproduct = $product->getProduct()->getId();
+                if ($idvariant != $delvariant && $idproduct != $delproduct) {
+                    $cookieValue .= $idproduct."P"."$idvariant"."P".$product->getQuantity()."C";
+                }
+            } 
+        }
+
+        // * On crée le cookie
+        $cookieSettings = array(
+            'name'   => 'cart',
+            'value'  => $cookieValue,
+            'expire' => 0,
+            'secure' => true,
+            'httponly' => true
+        );
+       
+        // * On envoie le cookie
+        $this->input->set_cookie($cookieSettings);
+    }
+
+    public function deleteCart(int $idcart, int $iduser) {
+        $this->db->query("call cart.deleteCart($idcart,$iduser)");
+    }
+
+    public function deleteProductDB(int $iduser, int $id) {
+        $this->db->query("call cart.deleteProductDB($iduser,$id)");
+    }
+
+    public function totalCart(array $cart) :float {
+        $res = 0.0;
+        foreach ($cart as $products) {
+            $res += $products->getProduct()->getPrice() * $products->getQuantity();
+        }
+        return $res;
     }
 
 }
