@@ -202,6 +202,42 @@ class Shop extends CI_Controller
             $dataHeader['sport'] = $sport;
             $dataContent['product'] = $product;
 
+            if ($product->getType() == "Vêtement") {
+                $dataContent['taille'] = array("XS","S","M","L","XL","XXL");
+            } else if ($product->getType() == "Chaussure") {
+                $dataContent['taille'] = range(38,48);
+            } else if ($product->getType() == "Equipement") {
+                $dataContent['taille'] = array("Unique");
+            }
+            
+            $get = $this->input->get();
+
+            $avalaibleColors = [];
+
+            foreach ($product->getStock() as $value) {
+                $color = $value->getColor();
+                if ($color != null) {
+                    if (!in_array($color,$avalaibleColors)) {
+                        array_push($avalaibleColors, $color);
+                    }
+                }
+            }
+
+            $dataContent['avalaibleColors'] = $avalaibleColors;
+
+            if (!empty($get) && isset($get['color']) && in_array($get['color'], $avalaibleColors)) {
+
+                $tailledispo = [];
+                foreach ($product->getStock() as $stock) {
+                    if ($stock->getColor() == $get['color']) {
+                        array_push($tailledispo, $stock->getSize());
+                    }
+                }
+
+                $dataContent['avalaibleSize'] = $tailledispo;
+
+            }
+
             // * On fait correspondre les données au bonne vues et on les stock dans une variable.
             $data = array(
                 'head' => $dataHead,

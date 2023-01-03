@@ -1,7 +1,5 @@
 <!-- shop/product/productContent -->
 
-<?php echo form_open('Card/add'); ?>
-
 <div class="productContent">
     <ul class="grid_product">
         <li class="card1">
@@ -31,27 +29,28 @@
                     </div>
                 </div>
                 <div class="bas">
-                    <?php if ($product->getStock()[0]->getColor() != null) : ?>
+                        <?php if (!empty($avalaibleColors)) { ?>
                         <div class="color">
                             <h2>Couleur</h2>
                             <div class="allbox">
-                                <?php foreach ($product->getStock() as $color) : ?>
-                                    <div class="box"><?= $color->getColor() ?></div>
-                                <?php endforeach?>
+                                <?php foreach ($avalaibleColors as $color) : ?>
+                                    <a href="<?= base_url() ."shop/product/" . $product->getId() . "?color=" . $color?>" class="box" a><?=$color?></a>
+                                <?php endforeach ?>
                             </div>
                         </div>
-                    <?php endif;?>
-                    <div class="size">
-                        <h2>Taille</h2>
-                        <div class="allbox">
-                            <div class="box">XS</div>
-                            <div class="box">S</div>
-                            <div class="box">M</div>
-                            <div class="box">L</div>
-                            <div class="box">XL</div>
-                            <div class="box">XXL</div>
+                    <?php } echo form_open('Cart/add');
+                        if (isset($avalaibleSize)) { ?>
+                        <div class="size">
+                            <h2>Taille</h2>
+                            <div class="allbox">
+                                <input type="hidden" name="color" value=<?= $this->input->get()['color']; ?>/>
+                                <input type="hidden" name="idproduct" value=<?= $product->getId() ?>/>
+                                <?php foreach ($taille as $value) : ?>
+                                    <input type="radio" name="size" value=<?= $value ?> class="box" <?php if (!in_array($value,$avalaibleSize)) {  echo "disabled";} ?>><?= $value ?></input>
+                                <?php endforeach; ?>
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
                     <div class="description">
                         <h2>Description</h2>
                         <p><?= $product -> getDescription() ?></p>
@@ -60,8 +59,9 @@
                         <h2><?= $product -> getPrice() ?>€</h2>
                     </div>
                     <div class="form">
-                        <button><h3>AJOUTER AU PANIER</h3></button>
+                        <input type="submit" value="AJOUTER AU PANIER"/>
                     </div>
+                    </form>
                 </div> 
             </div>
         </li>

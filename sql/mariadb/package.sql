@@ -638,6 +638,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     -- Permet de mettre à jour la quantité d'une variante donnée
     procedure updateQuantity( idvariante int,  newquantity int);
     procedure getAllAsAlive();
+    procedure getCatalogByVariant(newidvariant int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY catalog AS
@@ -669,7 +670,10 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     BEGIN
         update catalog set quantity=newquantity where id = iduser;
     end;
-
+    procedure getCatalogByVariant(newidvariant int) as
+    begin
+        select * from catalog where id = newidvariant;
+    end;
 END;
 
 
@@ -756,6 +760,53 @@ CREATE OR REPLACE PACKAGE BODY verifKey AS
         select idUser from verifKey where id = newId;
     end;
 END;
+
+create or replace package cart as
+    procedure getCart();
+    procedure addCart(newid int, newiduser int, newidcart int, newidvariant int, newquantity int, newdate datetime, newdatexp datetime);
+    procedure verifyId(id int);
+    procedure getCartById(newid int);
+    procedure maxIdCart(newid int);
+    procedure modifyQuantity(newquantity int, user int, cart int, variant int);
+    procedure deleteCart(newidcart int, newiduser int);
+    procedure deleteProductDB(newiduser int, newid int);
+End;
+
+create or replace package body cart as
+    procedure getCart() as
+    begin
+        select * from cart;
+    end;
+    procedure getCartById(newid int) as
+    begin
+        select * from cart where newid = iduser;
+    end;
+    procedure addCart(newid int, newiduser int, newidcart int, newidvariant int, newquantity int, newdate datetime, newdatexp datetime) as
+    begin
+        insert into cart(id,iduser,idcart,idvariant,quantity,date,dateExp) values(newid,newiduser,newidcart,newidvariant,newquantity,newdate,newdatexp);
+    end;
+    procedure verifyId(newid int) as
+    begin
+        select idcart from cart where newid = id;
+    end;
+    procedure maxIdCart(newid int) as
+    begin
+        select MAX(idcart) max from cart where iduser=newid;
+    end;
+    procedure modifyQuantity(newquantity int, user int, cart int, variant int) as
+    begin
+        update cart set quantity=newquantity where iduser = user and idcart = cart and idvariant = variant;
+    end;
+    procedure deleteCart(newidcart int, newiduser int) as
+    begin
+        delete from cart where idcart=newidcart and iduser=newiduser;
+    end;
+    procedure deleteProductDB(newiduser int, newid int) as
+    begin
+        delete from cart where iduser = newiduser and newid = id;
+    end;
+end;
+
 
 /*
 use Casporama;

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<user>
+  <user0>
+    <id>1</id>
+    <login>root</login>
+    <password>$2y$10$MCDgDzmwpaP.JVNIU5zZluM2fgms.ev5i2cOVK5EmEwbcQhamHMYy</password>
+    <salt>117503329635307be4a2976.09876691</salt>
+    <cookieId/>
+    <status>Administrateur</status>
+    <isVerified>1</isVerified>
+    <isALive>1</isALive>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user0>
+  <user1>
+    <id>2</id>
+    <login>arthur</login>
+    <password>$2y$10$2A4swofgoN/cg8bZYMk9fe6rvys6To1fIDJQiMBeGuusRPYsvPaIK</password>
+    <salt>561630926353082e643284.05064160</salt>
+    <cookieId/>
+    <status>Administrateur</status>
+    <isVerified>1</isVerified>
+    <isALive>1</isALive>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user1>
+  <user2>
+    <id>3</id>
+    <login>maximef</login>
+    <password>$2y$10$0hr30fUMXc3JvBdBPg2c7O0usKf4Kz5szidUmVpAqNdzK1fvKfjmC</password>
+    <salt>16911063756353084b2bba54.99559659</salt>
+    <cookieId/>
+    <status>Administrateur</status>
+    <isVerified>1</isVerified>
+    <isALive>1</isALive>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user2>
+  <user3>
+    <id>4</id>
+    <login>maximes</login>
+    <password>$2y$10$CpJ8tVdCdgY7c0npGR6NzeV6wAVQSdXfCWl8OlMgbShPv.Wdh8X2W</password>
+    <salt>132452177363530853c62e81.40022211</salt>
+    <cookieId/>
+    <status>Administrateur</status>
+    <isVerified>1</isVerified>
+    <isALive>1</isALive>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user3>
+  <user4>
+    <id>5</id>
+    <login>titouan</login>
+    <password>$2y$10$sInu14PLYWwRQ0Mmo/31EuPoF6gy1zmJueU6F9Pmc8Ops42gDDG..</password>
+    <salt>1184225843635308612f6222.30318460</salt>
+    <cookieId/>
+    <status>Administrateur</status>
+    <isVerified>1</isVerified>
+    <isALive>1</isALive>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user4>
+  <user5>
+    <id>6</id>
+    <login>michel</login>
+    <password>$2y$10$Po1OOq1FZmxVV9v4mMFWwOR4ZbDtKQaZGFZ/ttEJhwSMfjfjU.yj.</password>
+    <salt>1878903195635308709421d5.58691612</salt>
+    <cookieId/>
+    <status>Client</status>
+    <isVerified>1</isVerified>
+    <isALive>1</isALive>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user5>
+  <user6>
+    <id>7</id>
+    <login>michelle</login>
+    <password>$2y$10$bGRZi8h7Yvef/iQ0GcWBwed38pAA6iK0Ss6US/bpVVI0OkNjyvdIK</password>
+    <salt>4849665063530884cfa935.33716248</salt>
+    <cookieId/>
+    <status>Caspor</status>
+    <isVerified>1</isVerified>
+    <isALive>1</isALive>
+    <dateLastUpdate>2022-12-06 14:59:37</dateLastUpdate>
+  </user6>
+</user>

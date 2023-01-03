@@ -368,8 +368,6 @@ class ProductEntity
 
         foreach ($stock as &$i) {
 
-            //var_dump($i);
-
             $newStockEntity = new StockEntity();
 
             $newStockEntity->setId((int) $i->id);
@@ -382,6 +380,14 @@ class ProductEntity
         }
 
         $this->stock = $res;
+    }
+
+    public function getVariant(int $idvariant) : StockEntity {
+        foreach ($this->stock as $stock) {
+            if ($stock->getId() == $idvariant) {
+                return $stock;
+            }
+        }
     }
 
     /*
