@@ -818,6 +818,20 @@ Call product.getProductBySportType(1, 'Vetement');
 
 /*call user.countAliveAddressByUserId(2);*/
 
+create or replace package Orders as
+    procedure getOrderById(newid int);
+
+End;
+
+create or replace package body Orders as
+    procedure getOrderById(newid int) as
+    begin
+        select * from `order` where idorder = newid ;
+    end;
+
+End;
+
+
 desc user;
 
 call user.sameAddresseModif(2, '22;Rue des bergeronnettes', 'Nantes');
