@@ -30,48 +30,19 @@ class Admin extends CI_Controller
 
         $products = $this->ProductModel->getAllAsAlive();
 
-        $title = "Produits filtrés par :";
+        $res = $this->ProductModel->filtred($get, $products);
 
-        //---------------------------------------------
-
-        $res = $this->ProductModel->filterByCategory($title, $products, $get);
-
-        $title = $res['title'];
         $products = $res['products'];
-
-        $res = $this->ProductModel->filterByBrand($title, $products, $get);
-
         $title = $res['title'];
-        $products = $res['products'];
-
-        $res = $this->ProductModel->filterBySport($title, $products, $get);
-
-        $title = $res['title'];
-        $products = $res['products'];
-
-        $res = $this->ProductModel->filterByPrice($title, $products, $get);
-
-        $title = $res['title'];
-        $products = $res['products'];
-
-        echo $title;
-
-        if (!empty($get['search'])) {
-
-            $title = "Recherche de : " . $get['search'];
-            $products = $this->ProductModel->search($get['search']);
-        } elseif (empty($get)) {
-
-            $title = "Tout les produits";
-        }
-
-        //---------------------------------------------
-
+        $productNotFiltredByBrand = $res['productNotFiltredByBrand'];
+        
+        $brands = $this->ProductModel->getAllBrandByProducts($productNotFiltredByBrand);
 
         $dataContent = array(
 
             'title' => $title,
             'products' => $products,
+            'brands' => $brands,
 
         );
 

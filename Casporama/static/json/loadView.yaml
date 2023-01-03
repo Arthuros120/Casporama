@@ -332,9 +332,9 @@ Admin/Product:
         head : "admin/product/head"
         header : "templates/blank"
         content : "admin/product/content"
-        footer : "templates/blank"
+        script : "admin/product/script"
 
-    baseView: "templates/base"
+    baseView: "admin/product/base"
 
 ##---------------------------------Info View ---------------------------------#
 

@@ -494,6 +494,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure delProduct( nuproduct int);
     procedure getAll();
     procedure getAllAsAlive();
+    procedure getAllBrand();
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -576,6 +577,11 @@ CREATE OR REPLACE PACKAGE BODY product AS
     BEGIN
         update product set image=newimage where idproduct=nuproduct;
     end;
+
+    procedure getAllBrand() as
+    Begin
+        select distinct brand from product;
+    End;
 
 END;
 
