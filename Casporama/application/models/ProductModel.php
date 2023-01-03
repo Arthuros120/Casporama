@@ -386,13 +386,16 @@ class ProductModel extends CI_Model
 
             $brand = $get['brand'];
 
-            $listBrand = explode(',', $brand);
+            $listBrandUgly = explode(',', $brand);
+            $listBrand = [];
 
             $title .= " Marques -> ";
 
-            foreach ($listBrand as $category) {
+            foreach ($listBrandUgly as $category) {
 
                 $title .= $category . " - ";
+                array_push($listBrand, $this->formatStr($category));
+
             }
 
             $title = substr($title, 0, -3) . ", ";
@@ -415,6 +418,7 @@ class ProductModel extends CI_Model
                 'title' => $title,
                 'products' => $listProductByBrand
             );
+
         } else {
 
             return array(
@@ -426,20 +430,23 @@ class ProductModel extends CI_Model
         }
     }
 
-    public function filterByCategory($title, $products, $get): array
+    public function filterByCategory(string $title, array $products, array $get): array
     {
 
         if (!empty($get['category'])) {
 
             $category = $get['category'];
 
-            $listCategory = explode(',', $category);
+            $listCategoryUgly = explode(',', $category);
+            $listCategory = [];
 
             $title .= " Catégorie -> ";
 
-            foreach ($listCategory as $category) {
+            foreach ($listCategoryUgly as $category) {
 
                 $title .= $category . " - ";
+                array_push($listCategory, $this->formatStr($category));
+
             }
 
             $title = substr($title, 0, -3) . ", ";
@@ -469,6 +476,106 @@ class ProductModel extends CI_Model
                 'products' => $products
             );
         }
+    }
+
+    public function filterBySport(string $title, array $products, array $get) : array
+    {
+
+        if (!empty($get['sport'])) {
+
+            $sport = $get['sport'];
+
+            $listSportUgly = explode(',', $sport);
+            $listSport = [];
+
+            $title .= " Sport -> ";
+
+            foreach ($listSportUgly as $sport) {
+
+                $title .= $sport . " - ";
+                array_push($listSport, $this->formatStr($sport));
+
+            }
+
+            $title = substr($title, 0, -3) . ", ";
+
+            // * Initialisation du tableau de retour
+            $listProductBySport = array();
+
+            // * On parcours le tableau de produit
+            foreach ($products as &$product) {
+
+                if (in_array($this->formatStr($product->getSportName()), $listSport)) {
+
+                    // * On ajoute l'objet au tableau de retour
+                    array_push($listProductBySport, $product);
+                }
+            }
+
+            // * On retourne le tableau de retour
+            return array(
+                'title' => $title,
+                'products' => $listProductBySport
+            );
+
+        } else {
+
+            return array (
+                'title' => $title,
+                'products' => $products
+            );
+        }
+    }
+
+    public function filterByPrice(string $title, array $products, array $get) : array
+    {
+    
+        if (!empty($get['price'])) {
+
+            $price = $get['price'];
+
+            $listPriceUgly = explode(',', $price);
+            $listPrice = [];
+
+            $title .= " Prix -> ";
+
+            foreach ($listPriceUgly as $price) {
+
+                $title .= $price . " - ";
+                array_push($listPrice, $this->formatStr($price));
+
+            }
+
+            $title = substr($title, 0, -3) . ", ";
+
+            // * Initialisation du tableau de retour
+            $listProductByPrice = array();
+
+            // * On parcours le tableau de produit
+            foreach ($products as &$product) {
+
+                if (in_array($this->formatStr($product->getPrice()), $listPrice)) {
+
+                    // * On ajoute l'objet au tableau de retour
+                    array_push($listProductByPrice, $product);
+                }
+            }
+
+            // * On retourne le tableau de retour
+            return array(
+                'title' => $title,
+                'products' => $listProductByPrice
+            );
+
+        } else {
+
+            return array (
+                'title' => $title,
+                'products' => $products
+            );
+        }
+
+
     }
 
     private function formatStr(string $str): string
