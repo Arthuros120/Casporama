@@ -30,7 +30,30 @@ class Home extends CI_Controller
     public function index()
     {
 
-        $this->LoaderView->load('Home/index');
+        if ($this->UserModel->isConnected()) {
+
+            $id = $this->UserModel->getUserBySession()->getId();
+            $user = $this->UserModel->getUserById($id);
+
+            $data = array(
+
+                'user' => $user
+
+            );
+
+            $dataArray = array(
+
+                'content' => $data
+
+            );
+
+            $this->LoaderView->load('Home/index',$dataArray);
+
+        } else {
+
+            $this->LoaderView->load('Home/index');
+
+        }
 
     }
 }

@@ -7,13 +7,13 @@
                 <li class="second_img">
                     <?php for ($i = 1; $i < count($product->getImages()) - 1; $i++) : ?>
                     <div>
-                        <a onclick="changeImage('<?=$product->getImages()[$i];?>')"><img src="<?= base_url($product -> getImages()[$i]) ?>" alt="Image du produit" ></a>
+                        <a onclick="changeImage('<?=base_url($product->getImages()[$i]);?>')"><img src="<?= base_url($product -> getImages()[$i]) ?>" alt="Image du produit" ></a>
                     </div>
                     <?php endfor?>
                 </li>
                 <li class="main_img">
                     <div>
-                        <img id="photo" alt="Image du produit" src=<?= $product->getCover() ?> >
+                        <img id="photo" alt="Image du produit" src=<?= base_url($product->getImages()[0])?>>
                     </div>
                 </li>
             </ul>
@@ -34,7 +34,7 @@
                             <h2>Couleur</h2>
                             <div class="allbox">
                                 <?php foreach ($avalaibleColors as $color) : ?>
-                                    <a href="<?= base_url() ."shop/product/" . $product->getId() . "?color=" . $color?>" class="box" a><?=$color?></a>
+                                    <a href="<?= base_url() ."shop/product/" . $product->getId() . "?color=" . $color?>" class="box" a><p><?=$color?></p></a>
                                 <?php endforeach ?>
                             </div>
                         </div>
@@ -46,7 +46,11 @@
                                 <input type="hidden" name="color" value=<?= $this->input->get()['color']; ?>/>
                                 <input type="hidden" name="idproduct" value=<?= $product->getId() ?>/>
                                 <?php foreach ($taille as $value) : ?>
-                                    <input type="radio" name="size" value=<?= $value ?> class="box" <?php if (!in_array($value,$avalaibleSize)) {  echo "disabled";} ?>><?= $value ?></input>
+                                    <div class="box">
+                                        <input type="radio" name="size" id="<?=$value?>" value=<?= $value ?> <?php if (!in_array($value,$avalaibleSize)) {  echo "disabled";} ?>></input>
+                                        <label for="<?= $value ?>"><?= $value ?></label>
+                                    </div>
+                                    
                                 <?php endforeach; ?>
                             </div>
                         </div>
@@ -59,7 +63,7 @@
                         <h2><?= $product -> getPrice() ?>€</h2>
                     </div>
                     <div class="form">
-                        <input type="submit" value="AJOUTER AU PANIER"/>
+                        <input type="submit" value="AJOUTER AU PANIER"/><h2>
                     </div>
                     </form>
                 </div> 
