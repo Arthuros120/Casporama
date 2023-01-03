@@ -20,7 +20,7 @@
                 <h3>Mon panier</h3>
                 <img class="user_img" src="<?= base_url() . "static/image/icon/bag_outline.svg" ?>" alt="bag_outline" />
             </a>
-            <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('User/command'); ?>">
+            <a class="user_btn" onmouseenter="hover(this)" href="<?php echo base_url('Order'); ?>">
                 <h3>Mes commandes</h3>
                 <img class="user_img" src="<?= base_url() . "static/image/icon/delivery.svg" ?>" alt="delivery" />
             </a>
