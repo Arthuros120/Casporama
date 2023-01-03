@@ -35,9 +35,9 @@
                         <div class="color">
                             <h2>Couleur</h2>
                             <div class="allbox">
-                                <?php for ($i = 0; $i < count($product->getStock()); $i++) : ?>
-                                <div class="box"><?= $product->getStock()[$i]->getColor() ?></div>
-                                <?php endfor?>
+                                <?php foreach ($product->getStock() as $color) : ?>
+                                    <div class="box"><?= $color->getColor() ?></div>
+                                <?php endforeach?>
                             </div>
                         </div>
                     <?php endif;?>
