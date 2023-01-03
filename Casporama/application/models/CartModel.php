@@ -2,9 +2,9 @@
 
 // * On importe les classes nécessaires
 
-use function PHPUnit\Framework\isEmpty;
-
 require_once APPPATH . 'models/entity/ProductEntity.php';
+require_once APPPATH . 'models/entity/CartEntity.php';
+
 
 /*
 
