@@ -48,10 +48,17 @@ class Cart extends CI_Controller
             $total[$carts[0]->getIdcart()] = $this->CartModel->totalCart($carts);
         }
 
-        $data['carts'] = $dataValue;
-        $data['total'] = $total;
-        
-        $this->load->view('cart/homeContent',$data);
+        $dataContent['carts'] = $dataValue;
+        $dataContent['total'] = $total;
+
+
+        $data = array(
+            'content' => $dataContent
+        );
+
+
+        // * On charges les sous-vues dans la vue principale avec les données affilie.
+        $this->LoaderView->load('Cart/index', $data);
     }
 
     public function add()
@@ -60,13 +67,17 @@ class Cart extends CI_Controller
         $color = substr($this->input->post("color"), 0, -1);
         $size = $this->input->post("size");
         $idproduct = intval($this->input->post("idproduct"));
-        var_dump($idproduct);
+        
+        if ($size != null && $color != null) {
     
-        $idvariant = $this->CartModel->getVariant($idproduct,$color,$size);
+            $idvariant = $this->CartModel->getVariant($idproduct,$color,$size);
 
-        $this->CartModel->addProductCart($idproduct,$idvariant);
+            $this->CartModel->addProductCart($idproduct,$idvariant);
 
-        redirect('Cart');
+            redirect('Cart');
+        } else {
+            redirect('shop/product/'.$idproduct);
+        }
         
     }
 
@@ -121,11 +132,17 @@ class Cart extends CI_Controller
                         $res = $cart;
                     }
                 }
+
+                $dataContent['cart'] = $res;  
+                $data = array(
+                    'content' => $dataContent
+                );
+                
+                $this->LoaderView->load('Cart/modify', $data);
+                
+            } else {
+                redirect("Cart");
             }
-
-            $data['cart'] = $res;            
-
-            $this->load->view('cart/modify/homeContent',$data);            
             
         } else {
 

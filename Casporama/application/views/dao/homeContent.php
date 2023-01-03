@@ -1,15 +1,14 @@
-<!-- test/testDAO -->
+<!-- dao/homeContent -->
 
 <?php echo form_open_multipart('Dao/import'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<title>gg</title>
+	<title>Dao</title>
 </head>
 <body>
 
-<p>test tah les fous</p>
 <label for="file">Upload Your File</label> 
 <input accept=".json,.csv,.xml,.yaml" name="userfile" type="file" /> 
 
@@ -68,4 +67,4 @@
 </body>
 </html>
 
-<!-- test/testDAO -->
+<!-- dao/homeContent -->

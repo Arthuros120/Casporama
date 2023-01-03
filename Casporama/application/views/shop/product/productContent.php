@@ -58,10 +58,12 @@
                     <div class="price">
                         <h2><?= $product -> getPrice() ?>€</h2>
                     </div>
+                    <?php if (isset($avalaibleSize)) { ?>
                     <div class="form">
                         <input type="submit" value="AJOUTER AU PANIER"/>
                     </div>
                     </form>
+                    <?php } ?>
                 </div> 
             </div>
         </li>

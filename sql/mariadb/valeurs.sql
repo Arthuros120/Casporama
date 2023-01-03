@@ -99,12 +99,14 @@ values
     (2,2,7064,'Bleu','35',1, true, '2022-11-21 20:05:37'),
     (3,3,6064,null,null, 5, true, '2022-11-21 20:05:37'),
     (4,1,5064,'Vert','XS',2, true, '2022-11-21 20:05:37'),
-    (5,4,5065,'Bleu','L',1, true, '2022-11-21 20:05:37');
+    (5,4,5065,'Bleu','L',1, true, '2022-11-21 20:05:37'),
+    (6,1,4065,'Rouge','XXL',0, true, '2022-11-21 20:05:37');
 
-
-insert into `order` (idorder,dateorder, idproduct, quantity, iduser,idlocation , state, isALive, dateLastUpdate)
+insert into `order` (id, iduser, idorder, dateorder, idproduct, idvariant, quantity, idlocation , state, isALive, dateLastUpdate)
 values
-    (1,'2022-10-10', '1', 1 ,6,1,'En preparation', true, '2022-11-21 20:05:37');
+    (1,2,1,'2022-10-10', 1, 1,1 ,3,'En preparation', true, '2022-11-21 20:05:37'),
+    (2,2,1,'2022-10-10', 2, 2,1 ,3,'En preparation', true, '2022-11-21 20:05:37'),
+    (3,2,2,'2022-10-10', 1, 4,1 ,3,'En preparation', true, '2022-11-21 20:05:37');
 
 insert into cart (id,iduser,idcart,idvariant,quantity,date,dateExp)
 values
