@@ -1,7 +1,6 @@
 <?php
 
 require_once (APPPATH."libraries/pdf-invoice/src/InvoicePrinter.php");
-use Konekt\PdfInvoice;
 class InvoicePDF extends CI_Controller
 {
     public function __construct()

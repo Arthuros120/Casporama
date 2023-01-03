@@ -1,76 +1,127 @@
 <?php
 
-/*
-
-    * OrderEntity
-
-    * Cette classe représente une entité de la table order
-
-*/
-
-class OrderEntity {
+class OrderEntity
+{
 
     private int $idorder;
-    private DateTime $dateorder;
-    private ProductEntity $product;
-    private LocationEntity $location;
-    private int $quantity;
+    private string $dateorder;
+    private string $idproducts;
+    private string $quantity;
     private int $iduser;
+    private int $idlocation;
     private string $state;
-
-    public function getIdorder() : Int {
+    /**
+     * @return int
+     */
+    public function getIdorder(): int
+    {
         return $this->idorder;
     }
 
-    public function setIdorder(int $idorder) {
+    /**
+     * @param int $idorder
+     */
+    public function setIdorder(int $idorder): void
+    {
         $this->idorder = $idorder;
     }
 
-    public function getIduser() : Int {
-        return $this->iduser;
-    }
-
-    public function setIduser(int $iduser) {
-        $this->iduser = $iduser;
-    }
-
-    public function getDate() : DateTime {
+    /**
+     * @return string
+     */
+    public function getDateorder(): string
+    {
         return $this->dateorder;
     }
 
-    public function setDate(DateTime $dateorder) {
+    /**
+     * @param string $dateorder
+     */
+    public function setDateorder(string $dateorder): void
+    {
         $this->dateorder = $dateorder;
     }
 
-    public function getProduct() : ProductEntity {
-        return $this->product;
+    /**
+     * @return string
+     */
+    public function getIdproducts(): string
+    {
+        return $this->idproducts;
     }
 
-    public function setProduct(ProductEntity $product) {
-        $this->product = $product;
+    /**
+     * @param string $idproducts
+     */
+    public function setIdproducts(string $idproducts): void
+    {
+        $this->idproducts = $idproducts;
     }
 
-    public function getLocation() : LocationEntity {
-        return $this->location;
-    }
-
-    public function setLocation(LocationEntity $location) {
-        $this->location = $location;
-    }
-
-    public function getQuantity() : Int {
+    /**
+     * @return string
+     */
+    public function getQuantity(): string
+    {
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity) {
+    /**
+     * @param string $quantity
+     */
+    public function setQuantity(string $quantity): void
+    {
         $this->quantity = $quantity;
     }
 
-    public function getState() : String {
+    /**
+     * @return int
+     */
+    public function getIduser(): int
+    {
+        return $this->iduser;
+    }
+
+    /**
+     * @param int $iduser
+     */
+    public function setIduser(int $iduser): void
+    {
+        $this->iduser = $iduser;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdlocation(): int
+    {
+        return $this->idlocation;
+    }
+
+    /**
+     * @param int $idlocation
+     */
+    public function setIdlocation(int $idlocation): void
+    {
+        $this->idlocation = $idlocation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getState(): string
+    {
         return $this->state;
     }
 
-    public function setState(String $state) {
+    /**
+     * @param string $state
+     */
+    public function setState(string $state): void
+    {
         $this->state = $state;
     }
+
+
+
 }
