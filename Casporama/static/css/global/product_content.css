@@ -1,6 +1,6 @@
 .productContent {
     width: 100vw;
-    height: 90vh;
+    min-height: 90vh;
 
     background-color: var(--bg);
 
@@ -25,8 +25,8 @@
 }
 
 .main_img {
-    width: 100%;
-    height: 100%;
+    width: 45vw;
+    height: 45vw;
 
     padding: 5% 5% 15% 5%;
 }
@@ -40,13 +40,15 @@
     height: 100%;
     border-radius: 25px;
 
+    padding: 15%;
+
     background-color: var(--color0)
 }
 
 .main_img > div > img {
-    object-fit: cover;
-    width: 80%;
-    height: auto;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -82,12 +84,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    width: 100%;
+    height: 100%;
+    padding: 5%;
 }
 
 .second_img > div > a > img {
-    width: 80%;
-    height: auto;
-    object-fit: cover;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
 }
 
 .card2 {
@@ -99,7 +105,7 @@
     flex-direction: column;
     justify-content: flex-start;
 
-    gap: 11vh;
+    gap: 5vh;
 
     width: 100%;
     height: 100%;
@@ -114,7 +120,7 @@
     display: flex;
     flex-direction: column;
 
-    gap: 4vh;
+    gap: 2vh;
 }
 
 .brand > h2 {
@@ -139,24 +145,93 @@
     font-size: 2em;
 }
 
-.allbox {
+.size > .allbox {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
     flex-direction: row;
-    justify-content: space-between;
+
+    gap: 2vh;
+}
+
+.size > .allbox >.box {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+
+    width: 3vw;
+    height: 3vw;
+    background: none;
+}
+
+.size > .allbox > .box > input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+    appearance: none;
+    border-radius: 0px;
+    cursor: pointer;
+    background: none;
+}
+
+.size > .allbox > .box > label {
+    position: absolute;
+    transform: translateY(-10%);
+    cursor: pointer;
+}
+
+.size > .allbox > .box > input:checked {
+    background-color: var(--color2);
+}
+
+.size > .allbox > .box > input:disabled {
+    background-color: var(--grey1);
+    cursor: default;
+}
+
+.color {
     width: 85%;
     height: 55%;
 
-    padding-left: 0.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    gap: 1vh;
 }
 
-.box {
+.color > h2 {
+    font-weight: 300;
+    font-size: 2em;
+}
+
+.color > .allbox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+
+    gap: 2vh;
+}
+
+.color > .allbox > a {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 10%;
-    height: 100%;
+
+    width: 5vw;
+    padding: 2%;
 
     background-color: var(--color2);
+    border: 2px solid var(--color2);
+
+    transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+}
+
+.color > .allbox > a:hover {
+    color: var(--color2);
+    background-color: white;
 }
 
 
@@ -175,15 +250,23 @@
     display: flex;
     flex-direction: column;
     gap: 1vh;
+    padding-top: 2vh;
 }
 
-.form > button {
+.form > input {
     display: flex;
     justify-content: center;
 
     width: 90%;
     padding: 2%;
 
+    border: none;
+
     border-radius: 25px;
     background-color: var(--color2);
+
+    font-size: 1vw;
+    font-weight: 600;
+
+    cursor: pointer;
 }

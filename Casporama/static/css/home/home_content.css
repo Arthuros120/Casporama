@@ -221,3 +221,25 @@ button {
     display: inline-block;
     background-size: cover;
 }
+
+@media only screen and (max-width: 768px) {
+    #carousel {
+        height: 40vh;
+    }
+
+    #container {
+        height: 40vh;
+    }
+
+    .photo {
+        height: 40vh;
+    }
+
+    .home_cat {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+
+        row-gap: 2vh;
+        height: 45vh;
+    }
+}

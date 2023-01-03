@@ -10,13 +10,23 @@
 
 class OrderEntity {
 
+    private int $id;
     private int $idorder;
-    private DateTime $dateorder;
+    private string $dateorder;
     private ProductEntity $product;
     private LocationEntity $location;
+    private StockEntity $variant;
     private int $quantity;
     private int $iduser;
     private string $state;
+
+    public function getId() : Int {
+        return $this->id;
+    }
+
+    public function setId(int $id) {
+        $this->id = $id;
+    }
 
     public function getIdorder() : Int {
         return $this->idorder;
@@ -34,11 +44,11 @@ class OrderEntity {
         $this->iduser = $iduser;
     }
 
-    public function getDate() : DateTime {
+    public function getDate() : string {
         return $this->dateorder;
     }
 
-    public function setDate(DateTime $dateorder) {
+    public function setDate(string $dateorder) {
         $this->dateorder = $dateorder;
     }
 
@@ -56,6 +66,14 @@ class OrderEntity {
 
     public function setLocation(LocationEntity $location) {
         $this->location = $location;
+    }
+
+    public function getVariant() : StockEntity {
+        return $this->variant;
+    }
+
+    public function setVariant(StockEntity $variant) {
+        $this->variant = $variant;
     }
 
     public function getQuantity() : Int {

@@ -30,6 +30,7 @@ class UserEntity
     private InformationEntity $coordonnees;
 
     private array $cart;
+    private array $order;
 
     /*
     
@@ -309,7 +310,7 @@ class UserEntity
     
         * Function getCart
     
-        @return CartEntity
+        @return array or null
     
         * Cette fonction renvoie le panier de l'entité
     
@@ -329,7 +330,7 @@ class UserEntity
     
         * Function setCart
     
-        @param CartEntity
+        @param array
     
         * Cette fonction modifie le panier de l'entité
     
@@ -342,6 +343,46 @@ class UserEntity
         }
         
         array_push($this->cart,$cart);
+
+    }
+
+    /*
+    
+        * Function getOrder
+    
+        @return array or null
+    
+        * Cette fonction renvoie les commandes de l'entité
+    
+    */
+    public function getOrder() : ?array
+    {
+
+        if (isset($this->order)) {
+            return $this->order;
+        }
+
+        return null;
+
+    }
+
+    /*
+    
+        * Function setOrder
+    
+        @param array
+    
+        * Cette fonction modifie les commandes de l'entité
+    
+    */
+    public function setOrder(array $order)
+    {
+
+        if (!isset($this->order)) {
+            $this->order = array();
+        }
+        
+        array_push($this->order,$order);
 
     }
 }

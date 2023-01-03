@@ -116,8 +116,6 @@ class CartModel extends CI_Model {
             $query = $this->db->query("call catalog.getCatalogByVariant('" . $cart["idvariant"] . "')");
             $catalog = $query->result_array();
 
-
-            // * On attend un résultat
             $query->next_result();
             $query->free_result();
 

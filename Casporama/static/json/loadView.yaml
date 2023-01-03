@@ -422,3 +422,52 @@ Caspor/deleteCaspor:
         footer: "templates/blank"
 
     baseView: "templates/base"
+
+
+#---------------------------------Cart View---------------------------------#
+
+Cart/index:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "cart/index/homeContent"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
+Cart/modify:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "cart/modify/homeContent"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
+
+#---------------------------------Dao View---------------------------------#
+
+Dao/index:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "dao/homeContent"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
+
+#---------------------------------Order View---------------------------------#
+
+Order/index:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "order/homeContent"
+        footer : "templates/blank"
+
+    baseView: "templates/base"

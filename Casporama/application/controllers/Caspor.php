@@ -64,6 +64,8 @@ class Caspor extends CI_Controller{
                 }
 
             }
+        } else {
+            redirect('User/login');
         }
 
     }
@@ -87,6 +89,8 @@ class Caspor extends CI_Controller{
                 }
 
             }
+        } else {
+            redirect('User/login');
         }
     }
 
@@ -133,6 +137,8 @@ class Caspor extends CI_Controller{
                 }
 
             }
+        } else {
+            redirect('User/login');
         }
         
     }

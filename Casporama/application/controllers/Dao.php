@@ -29,7 +29,7 @@ class Dao extends CI_Controller
     {
         $this->UserModel->adminOnly();
 
-        $this->load->view('test/testDAO');
+        $this->LoaderView->load('Dao/index');
 
     }
 
@@ -70,12 +70,14 @@ class Dao extends CI_Controller
         }
 
         if (!isset($err)) {
-            $data['msg'] = 'Succes importation';
+            $dataContent['msg'] = 'Succes importation';
         } else {
-            $data['msg'] = $err;
+            $dataContent['msg'] = $err;
         }
 
-        $this->load->view('test/testDAO', $data);
+        $data = array('content' => $dataContent);
+
+        $this->LoaderView->load('Dao/index',$data);
         
     }
 
@@ -84,17 +86,19 @@ class Dao extends CI_Controller
         $table = $this->input->post("export-Table");
         $ext = $this->input->post("export-Ext");
 
-        $data['table'] = $table;
-        $data['ext'] = $ext;
+        $dataContent['table'] = $table;
+        $dataContent['ext'] = $ext;
         $this->db->reconnect();
         $query =  $this->db->query("desc $table")->result_array();
         $colonnes = [];
         foreach ($query as $colonne) {
             array_push($colonnes,$colonne['Field']);
         }
-        $data['colonnes'] = $colonnes;
+        $dataContent['colonnes'] = $colonnes;
 
-        $this->load->view('test/testDAO', $data);
+        $data = array('content' => $dataContent);
+
+        $this->LoaderView->load('Dao/index',$data);
     }
 
     public function export() {
@@ -132,8 +136,11 @@ class Dao extends CI_Controller
         }
 
         if (isset($err)) {
-            $data['msg'] = $err;
-            $this->load->view('test/testDAO', $data);
+            $dataContent['msg'] = $err;
+
+            $data = array('content' => $dataContent);
+
+            $this->LoaderView->load('Dao/index',$data);
         }
 
     }

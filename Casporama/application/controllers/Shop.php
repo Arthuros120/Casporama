@@ -202,13 +202,15 @@ class Shop extends CI_Controller
             $dataHeader['sport'] = $sport;
             $dataContent['product'] = $product;
 
-            if ($product->getType() == "Vêtement") {
-                $dataContent['taille'] = array("XS","S","M","L","XL","XXL");
-            } else if ($product->getType() == "Chaussure") {
-                $dataContent['taille'] = range(38,48);
-            } else if ($product->getType() == "Equipement") {
-                $dataContent['taille'] = array("Unique");
+            $stocks = $product->getStock();
+
+            $res = [];
+
+            foreach ($stocks as $values) {
+                array_push($res,$values->getSize());
             }
+
+            $dataContent['taille'] = array_unique($res);
             
             $get = $this->input->get();
 
@@ -229,7 +231,7 @@ class Shop extends CI_Controller
 
                 $tailledispo = [];
                 foreach ($product->getStock() as $stock) {
-                    if ($stock->getColor() == $get['color']) {
+                    if ($stock->getColor() == $get['color'] && $stock->getQuantity() != 0) {
                         array_push($tailledispo, $stock->getSize());
                     }
                 }
