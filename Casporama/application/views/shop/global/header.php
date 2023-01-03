@@ -19,7 +19,7 @@
                     <a class="button_link" href="<?= base_url("/Shop/view/" . $sport . "/Equipement") ?>" >Chaussures</a>
                 </li>
                 <li>
-                    <a href="<?= base_url("/Card")?>"> <img class="img1" src="<?php echo base_url() ?>static/image/icon/bag.svg" alt="Icone de panier"/></a>
+                    <a href="<?= base_url("/Cart")?>"> <img class="img1" src="<?php echo base_url() ?>static/image/icon/bag.svg" alt="Icone de panier"/></a>
                 </li>
                 <li>
                     <a href="<?= base_url("/User/login")?>"><img class="img2" src="<?= $userIcon ?>" alt="Icone de compte"/></a>
