@@ -44,6 +44,16 @@ class Admin extends CI_Controller
         $title = $res['title'];
         $products = $res['products'];
 
+        $res = $this->ProductModel->filterBySport($title, $products, $get);
+
+        $title = $res['title'];
+        $products = $res['products'];
+
+        $res = $this->ProductModel->filterByPrice($title, $products, $get);
+
+        $title = $res['title'];
+        $products = $res['products'];
+
         echo $title;
 
         if (!empty($get['search'])) {
