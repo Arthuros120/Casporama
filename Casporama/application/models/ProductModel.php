@@ -379,6 +379,54 @@ class ProductModel extends CI_Model
         return $listProduct;
     }
 
+    public function getAllAsNotAlive(): array
+    {
+
+        // * Initialisation du tableau de retour
+        $listProduct = array();
+
+        // * Requete SQL pour récupérer les produits par le sport et id
+        $queryProduct = $this->db->query("Call product.getAllNotAlive()");
+
+        // * On stocke le résultat de la requete dans un tableau
+        $products = $queryProduct->result();
+
+        // * On passe l'id du sport en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
+        $queryProduct->next_result();
+        $queryProduct->free_result();
+
+        // * On parcours les résultats de la requete
+        foreach ($products as &$product) {
+
+            // * On crée un objet ProductEntity
+            $newProduct = new ProductEntity();
+
+            // * On hydrate l'objet
+            $newProduct->setId($product->idproduct);
+            $newProduct->setType($product->type);
+            $newProduct->setSport($product->nusport);
+            $newProduct->setBrand($product->brand);
+            $newProduct->setName($product->name);
+            $newProduct->setGenre($product->gender);
+            $newProduct->setPrice($product->price);
+            $newProduct->setDescription($product->description);
+            $newProduct->setIsALive($product->isALive);
+
+            // * On ajoute une image de couverture si une image est fournie
+            if ($product->image != null) {
+                $newProduct->setImage($product->image);
+            } else {
+                $newProduct->setImage("");
+            }
+            
+            // * On ajoute l'objet au tableau de retour
+            array_push($listProduct, $newProduct);
+        }
+
+        // * On retourne le tableau de retour
+        return $listProduct;
+    }
+
     public function filterByBrand(string $title, array $products, array $get): array
     {
 
@@ -686,6 +734,8 @@ class ProductModel extends CI_Model
 
         }
 
+        sort($listBrand);
+
         return $listBrand;
 
     }
@@ -704,6 +754,8 @@ class ProductModel extends CI_Model
             }
 
         }
+
+        sort($listBrand);
 
         return $listBrand;
 
@@ -734,5 +786,80 @@ class ProductModel extends CI_Model
         $str = strtolower($str);
 
         return $str;
+    }
+
+
+    public function getSize(ProductEntity $product) {
+        $stocks = $product->getStock();
+
+        $res = [];
+
+        foreach ($stocks as $values) {
+            array_push($res,$values->getSize());
+        }
+
+        $res = array_unique($res);
+
+        if ($product->getType() == "Chaussure") {
+
+            sort($res);
+
+        } else {
+
+            usort($res, array($this ,"sortSizeString"));
+
+        }
+
+        return $res;
+    }
+
+
+    public function sortSizeString($a, $b)
+    {
+
+        $sizes = array(
+        "XXS" => 0,
+        "XS" => 1,
+        "S" => 2,
+        "M" => 3,
+        "L" => 4,
+        "XL" => 5,
+        "XXL" => 6
+        );
+
+        $asize = $sizes[$a];
+        $bsize = $sizes[$b];
+
+        if ($asize == $bsize) {
+            return 0;
+        }
+
+        return ($asize > $bsize) ? 1 : -1;
+    }
+
+    public function avalaibleColor($product) {
+        $avalaibleColors = [];
+
+        foreach ($product->getStock() as $value) {
+            $color = $value->getColor();
+            if ($color != null) {
+                if (!in_array(str_replace(' ', '+', $color),$avalaibleColors)) {
+                    array_push($avalaibleColors, str_replace(' ', '+', $color));
+                }
+            }
+        }
+
+        return $avalaibleColors;
+    }
+
+    public function avalaibleSize($product, $color) {
+        $tailledispo = [];
+        foreach ($product->getStock() as $stock) {
+            if ($stock->getColor() == $color && $stock->getQuantity() != 0) {
+                array_push($tailledispo, $stock->getSize());
+            }
+        }
+
+        return $tailledispo;
     }
 }

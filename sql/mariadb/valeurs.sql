@@ -115,8 +115,6 @@ values
     (2,2,2,1),
     (3,1,4,1);
 
-Call `order`.addOrder(852535021,2,3,'2023-01-04',1,1,1,3,'Non preparer',true,'2023-01-04 10:53:06');
-
 insert into cart (id,iduser,idcart,idvariant,quantity,date,dateExp)
 values
     (1,2,1,1,1,'2022-11-21 20:05:37','2022-11-21 22:10:15'),

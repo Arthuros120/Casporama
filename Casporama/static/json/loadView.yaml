@@ -320,17 +320,17 @@ Admin/home:
 
     views :
         head : "admin/home/head"
-        header : "templates/blank"
+        header : "admin/header"
         content : "admin/home/content"
         footer : "templates/blank"
 
-    baseView: "templates/base"
+    baseView: "admin/base"
 
 Admin/Product:
 
     views :
         head : "admin/product/head"
-        header : "templates/blank"
+        header : "admin/header"
         content : "admin/product/content"
         script : "admin/product/script"
 
@@ -365,6 +365,36 @@ Admin/delete/error:
         script : "admin/delete/global/script"
 
     baseView: "admin/delete/global/base"
+
+Admin/deletes/request:
+
+    views :
+        head : "admin/deletes/request/head"
+        header : "templates/blank"
+        content : "admin/deletes/request/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/deletes/success:
+
+    views :
+        head : "admin/deletes/global/head"
+        header : "templates/blank"
+        content : "admin/deletes/success/content"
+        script : "admin/deletes/global/script"
+
+    baseView: "admin/deletes/global/base"
+
+Admin/deletes/error:
+
+    views :
+        head : "admin/deletes/global/head"
+        header : "templates/blank"
+        content : "admin/deletes/error/content"
+        script : "admin/deletes/global/script"
+
+    baseView: "admin/deletes/global/base"
 
 #---------------------------------Info View ---------------------------------#
 
@@ -459,7 +489,7 @@ Caspor/deleteCaspor:
 Cart/index:
 
     views :
-        head : "templates/blank"
+        head : "cart/index/head"
         header : "templates/blank"
         content : "cart/index/homeContent"
         footer : "templates/blank"
@@ -481,12 +511,12 @@ Cart/modify:
 Dao/index:
 
     views :
-        head : "templates/blank"
-        header : "templates/blank"
-        content : "dao/homeContent"
+        head : "admin/dao/head"
+        header : "admin/header"
+        content : "admin/dao/homeContent"
         footer : "templates/blank"
 
-    baseView: "templates/base"
+    baseView: "admin/base"
 
 
 #---------------------------------Order View---------------------------------#

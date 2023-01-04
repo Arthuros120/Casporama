@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS catalog (
 );
 
 create table if not exists `order` (
-    id int unique not null,
+    id int not null,
     iduser int not null,
     dateorder date not null,
     idlocation int not null,

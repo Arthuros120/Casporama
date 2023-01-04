@@ -5,7 +5,7 @@
     <h3>Commande n° <?= $order[0]->getIdorder() ?></h3>
     <p>Date Commande : <?= $order[0]->getDate() ?></p>
     <p>Adresse : <?= $order[0]->getLocation()->getAdresse()['number'] . " " . $order[0]->getLocation()->getAdresse()['street'] . ", " . $order[0]->getLocation()->getCodePostal() . " " . $order[0]->getLocation()->getCity() . ", " . $order[0]->getLocation()->getCountry() ?></p>
-    <h3>Produits :</h3>
+    <h3>Produit(s) :</h3>
     
     <?php $res=0; foreach ($order as $product) { $total = $product->getProduct()->getPrice()*$product->getQuantity(); $res += $total;  ?>
         <img src=<?= $product->getProduct()->getCover() ?> alt="image" width="250" height="250">

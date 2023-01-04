@@ -26,4 +26,4 @@
     </body>
 </html>
 
-<!-- templates/base -->
+<!-- admin/delete/global/base -->

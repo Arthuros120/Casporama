@@ -195,6 +195,7 @@ class OrderModel extends CI_Model {
                 $this->db->query("Call `order`.addOrder(" . $id . "," . $iduser . "," . $idorder . "," . "'$date'" . "," . $cart->getProduct()->getId() . "," . $cart->getVariant()->getId() . "," . $cart->getQuantity() . "," . $idlocation . "," . "'Non preparer'" . "," . 'true' . "," . "'$dateLastUpdate'" . ")");
             }
         }
+        // decrementer le stock pour les produits commandés.
 
         if ($cart->getIdcart() == 0) {
             delete_cookie('cart');

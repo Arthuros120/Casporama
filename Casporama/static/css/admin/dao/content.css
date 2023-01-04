@@ -1,0 +1,318 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: var(--main-font);
+}
+
+.dao_content {
+   width: 100vw;
+   height: 80vh;
+   margin: 0 2.5vw;
+}
+
+.menu {
+    width: 95%;
+    height: 5vh;
+    background-color: var(--grey2);
+}
+
+.menu > ul {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: 1fr;
+    place-items: center;
+
+    list-style-type: none;
+}
+
+.menu > ul > li {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu > ul > li > a {
+    color: black;
+    text-decoration: none;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu > ul > li:nth-child(5) {
+    background-color: #233E84;
+    color: white;
+}
+
+.menu > ul > li:nth-child(5) > a {
+    color: white;
+}
+
+.dao_import {
+    display: flex;
+    flex-direction: column;
+
+    width: 95%;
+    height: 30vh;
+    background-color: var(--grey2);
+}
+
+.dao_import_title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 10vh;
+
+    padding-left: 5vh;
+}
+
+.dao_import_title > h2 {
+    font-size: 1.5vw;
+}
+
+.dao_import_form {
+    width: 100%;
+    height: 20vh;
+}
+
+.dao_import_form > form {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+.dao_import_form > form > div {
+    width: 33%;
+    height: 100%;
+}
+
+.dao_import_file {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 2vh;
+
+    width: 33%;
+}
+
+.dao_import_file > input {
+    display: none;
+}
+
+.dao_import_file > label {
+    cursor: pointer;
+    padding: 8%;
+
+    width: 40%;
+
+    background-color: #233E84;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dao_import_file > h3 {
+    font-weight: 300;
+    font-size: 1.5vw;
+}
+
+.dao_import_table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.dao_import_table > h3 {
+    font-weight: 300;
+    font-size: 1.5vw;
+}
+
+.dao_import_table > select {
+    padding: 8%;
+
+    width: 40%;
+
+    background-color: #233E84;
+    color: white;
+    border: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dao_import_submit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.dao_import_submit > h3 {
+    font-weight: 300;
+    font-size: 1.5vw;
+}
+
+.dao_import_submit > input {
+    padding: 8%;
+
+    width: 40%;
+
+    background-color: #233E84;
+    color: white;
+    border: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dao_export {
+    width: 95%;
+    height: 40vh;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--grey2);
+}
+
+.dao_export_title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 10vh;
+
+    padding-left: 5vh;
+}
+
+.dao_export_title > h2 {
+    font-size: 1.5vw;
+}
+
+.dao_export_form {
+
+    width: 100%;
+    height: 20vh;
+
+}
+
+.dao_export_form > form {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+
+    width: 100%;
+    height: 100%;
+}
+
+.dao_export_form > form > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    width: 33%;
+    height: 100%;
+    gap: 2vh;
+
+}
+
+.dao_export_form > form > div > h3 {
+    font-weight: 300;
+    font-size: 1.5vw;
+}
+
+.input {
+    padding: 8%;
+
+    width: 40%;
+
+    background-color: #233E84;
+    color: white;
+    border: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.dao_export_next {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.dao_export_next > form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    width: 100%;
+    height: 100%;
+}
+
+.export_collumns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 1vh;
+
+    width: 8%;
+}
+
+.export_collumns > input {
+    padding: 0% 5%;
+
+    width: 100%;
+    height: 100%;
+}
+
+.dao_export_next_submit > input {
+    padding: 10%;
+
+    background-color: #233E84;
+    color: white;
+    border: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    cursor: pointer;
+}

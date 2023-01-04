@@ -19,11 +19,14 @@ class Cart extends CI_Controller
 
     public function index()
     {
-        $dataValue = array();
         $cart = $this->CartModel->getCart();
 
+        $dataContent['total'] = 0;
+
         if ($cart != null) {
-            array_push($dataValue,$cart);
+            $dataContent['total'] = $this->CartModel->totalCart($cart);
+            $dataContent['mainCart'] = $cart;
+            $dataContent['quantity'] = $this->CartModel->getQuantityByCart(array($cart));
         }
 
         // * On rend la connexion peréne pour toutes les pages
@@ -36,21 +39,14 @@ class Cart extends CI_Controller
             $carts = $this->CartModel->getCartDB($user);
 
             if ($carts != null) {
-                foreach ($carts as $value) {
-                    array_push($dataValue,$value);
+                $dataContent['savedCart'] = $carts;
+                foreach ($carts as $cart) {
+                    $totals[$cart[0]->getIdcart()] = $this->CartModel->totalCart($cart);
                 }
-            }
-            
+                $dataContent['totals'] = $totals;
+            } 
         } 
-        $total = [];
-
-        foreach ($dataValue as $carts) {
-            $total[$carts[0]->getIdcart()] = $this->CartModel->totalCart($carts);
-        }
-
-        $dataContent['carts'] = $dataValue;
-        $dataContent['total'] = $total;
-
+        
 
         $data = array(
             'content' => $dataContent
@@ -65,6 +61,7 @@ class Cart extends CI_Controller
     {
 
         $color = substr($this->input->post("color"), 0, -1);
+        $color = str_replace('+', ' ', $color);
         $size = $this->input->post("size");
         $idproduct = intval($this->input->post("idproduct"));
         
@@ -124,16 +121,16 @@ class Cart extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $carts = $this->CartModel->getCartDB($user);
+            $carts = $this->CartModel->getCartDBById($user->getId(),$idcart);
 
             if ($carts != null) {
-                foreach ($carts as $cart) {
-                    if ($cart[0]->getIdcart() == $idcart) {
-                        $res = $cart;
-                    }
-                }
 
-                $dataContent['cart'] = $res;  
+                $dataContent['quantity'] = $this->CartModel->getQuantityByCart(array($carts));
+
+                $totals[$carts[0]->getIdcart()] = $this->CartModel->totalCart($carts);
+                $dataContent['totals'] = $totals;
+
+                $dataContent['cart'] = $carts;  
                 $data = array(
                     'content' => $dataContent
                 );

@@ -21,6 +21,7 @@ class Dao extends CI_Controller
         $this->load->model('DAO/Dao_json');
         $this->load->model('DAO/Dao_xml');
         $this->load->model('DAO/Dao_yaml');
+        $this->load->model('DAO/DaoModel');
         $this->load->helper('download');
 
     }
@@ -88,13 +89,8 @@ class Dao extends CI_Controller
 
         $dataContent['table'] = $table;
         $dataContent['ext'] = $ext;
-        $this->db->reconnect();
-        $query =  $this->db->query("desc $table")->result_array();
-        $colonnes = [];
-        foreach ($query as $colonne) {
-            array_push($colonnes,$colonne['Field']);
-        }
-        $dataContent['colonnes'] = $colonnes;
+
+        $dataContent['colonnes'] = $this->DaoModel->colonnes($table);
 
         $data = array('content' => $dataContent);
 
