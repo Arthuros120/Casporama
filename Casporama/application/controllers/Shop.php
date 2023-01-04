@@ -202,41 +202,19 @@ class Shop extends CI_Controller
             $dataHeader['sport'] = $sport;
             $dataContent['product'] = $product;
 
-            $stocks = $product->getStock();
-
-            $res = [];
-
-            foreach ($stocks as $values) {
-                array_push($res,$values->getSize());
-            }
-
-            $dataContent['taille'] = array_unique($res);
+            $dataContent['taille'] = $this->ProductModel->getSize($product);
             
             $get = $this->input->get();
 
-            $avalaibleColors = [];
-
-            foreach ($product->getStock() as $value) {
-                $color = $value->getColor();
-                if ($color != null) {
-                    if (!in_array($color,$avalaibleColors)) {
-                        array_push($avalaibleColors, $color);
-                    }
-                }
-            }
+            $avalaibleColors = $this->ProductModel->avalaibleColor($product);
 
             $dataContent['avalaibleColors'] = $avalaibleColors;
 
             if (!empty($get) && isset($get['color']) && in_array($get['color'], $avalaibleColors)) {
 
-                $tailledispo = [];
-                foreach ($product->getStock() as $stock) {
-                    if ($stock->getColor() == $get['color'] && $stock->getQuantity() != 0) {
-                        array_push($tailledispo, $stock->getSize());
-                    }
-                }
+                
 
-                $dataContent['avalaibleSize'] = $tailledispo;
+                $dataContent['avalaibleSize'] = $this->ProductModel->avalaibleSize($product,$get['color']);
 
             }
 
