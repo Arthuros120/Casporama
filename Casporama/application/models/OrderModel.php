@@ -23,10 +23,10 @@ class OrderModel extends CI_Model {
 
     public function findOrderById($idorder,$iduser): ?OrderEntity
     {
+        $queryOrder = $this->db->query("Call `order`.getOrderUserById(" . $idorder . "," . $iduser . ")");
+        $rows = $queryOrder->result_array();
 
-        $queryOrder = $this->db->query("Call Orders.getOrderUserById(" . $idorder . "," . $iduser . ")");
-        $rows = $queryOrder->array_result();
-
+        $queryOrder->next_result();
         $queryOrder->free_result();
 
         $newOrder = null;

@@ -11,6 +11,8 @@ class StockEntity
     private int $id;
     private int $reference;
 
+    private int $nuproduct;
+
     private string $color;
     private string $size;
 
@@ -79,6 +81,21 @@ class StockEntity
 
         $this->reference = $reference;
 
+    }
+    /**
+     * @return int
+     */
+    public function getNuproduct(): int
+    {
+        return $this->nuproduct;
+    }
+
+    /**
+     * @param int $nuproduct
+     */
+    public function setNuproduct(int $nuproduct): void
+    {
+        $this->nuproduct = $nuproduct;
     }
 
     /*

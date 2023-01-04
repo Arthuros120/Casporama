@@ -374,22 +374,25 @@ class ProductEntity
 
             $newStockEntity->setId((int) $i->id);
             $newStockEntity->setReference((int) $i->reference);
+            $newStockEntity->setNuproduct((int)$i->nuproduct );
             $newStockEntity->setColor((string) $i->color);
             $newStockEntity->setSize((string) $i->size);
             $newStockEntity->setQuantity((int) $i->quantity);
 
-            array_push($res, $newStockEntity);
+            $res[] = $newStockEntity;
         }
 
         $this->stock = $res;
     }
 
-    public function getVariant(int $idvariant) : StockEntity {
+    public function getVariant(int $idvariant) : ?StockEntity
+    {
         foreach ($this->stock as $stock) {
             if ($stock->getId() == $idvariant) {
                 return $stock;
             }
         }
+        return null;
     }
 
     /*
