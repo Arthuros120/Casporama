@@ -65,7 +65,8 @@
 
         <h3>Recherche</h3>
 
-        <input class="searchFilter filter" id="searchFilter" type="text" name="search" placeholder="Recherche"></input>
+        <input class="searchFilter filter" id="searchFilter" type="search" name="search" placeholder="Recherche">
+        </input>
 
         <input class="filter" type="button" id="supprSearchFilter" name="supprSearchFilter" value="Supprimer le filtre">
 
@@ -214,8 +215,6 @@
         <td>
 
             <a href="<?= site_url('Admin/StockProduct/' . $product->getId()) ?>">Stock</a>
-
-            <a href="<?= site_url('Admin/EditProduct/' . $product->getId()) ?>">Modifier</a>
 
             <a href="<?= site_url('Admin/ReviveProduct/' . $product->getId()) ?>">Resuciter</a>
 
