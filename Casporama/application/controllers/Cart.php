@@ -26,6 +26,7 @@ class Cart extends CI_Controller
         if ($cart != null) {
             $dataContent['total'] = $this->CartModel->totalCart($cart);
             $dataContent['mainCart'] = $cart;
+            $dataContent['quantity'] = $this->CartModel->getQuantityByCart(array($cart));
         }
 
         // * On rend la connexion peréne pour toutes les pages
@@ -38,7 +39,6 @@ class Cart extends CI_Controller
             $carts = $this->CartModel->getCartDB($user);
 
             if ($carts != null) {
-                $dataContent['quantity'] = $this->CartModel->getQuantityByCart($carts);
                 $dataContent['savedCart'] = $carts;
                 foreach ($carts as $cart) {
                     $totals[$cart[0]->getIdcart()] = $this->CartModel->totalCart($cart);

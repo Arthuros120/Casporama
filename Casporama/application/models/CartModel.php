@@ -328,7 +328,6 @@ class CartModel extends CI_Model {
                 $quantity[$product->getVariant()->getId()] = array_combine(range(1,$product->getVariant()->getQuantity()),range(1,$product->getVariant()->getQuantity()));
             }
         }
-
         return $quantity;
     }
 
