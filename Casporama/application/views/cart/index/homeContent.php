@@ -25,7 +25,7 @@
                         foreach ($mainCart as $product) {
                         ?>
                         <div class="product_content">
-                            <div class="product_img">
+                            <div class="product_img" style="background-color:<?= $colors[$product->getProduct()->getSportName()] ?>">
                                 <img src=<?= $product->getProduct()->getCover() ?> alt="product_image">
                             </div>  
                             <div class="product_desc">
@@ -48,55 +48,51 @@
                         </div>
                     <?php } } ?>
                 </div>
-            </form>
 
-            <div class="cart_left_title">
-                <h1>Panier Enregistrés</h1>
-            </div>
-            
-            <hr>
 
-            <?php echo form_open('Cart/modifyQuantity'); ?>
-
-                <div class="product">
-
-                    <div>Article</div>
-                    <div>Quantité</div>
-                    <div>Prix</div>
-                    <div>Sous-Total</div>
-
-                    <?php if (isset($savedCart)) {
+            <?php if (isset($savedCart)) {
                         foreach ($savedCart as $cart) {
-                        foreach($cart as $product ) {
-                        ?>
-                        <div class="product_content">
-                            <div class="product_img">
-                                <img src=<?= $product->getProduct()->getCover() ?> alt="product_image">
-                            </div>  
-                            <div class="product_desc">
-                                <p><?= $product->getProduct()->getName() ?></p>
-                                <p><?= $product->getProduct()->getBrand() ?></p>
-                                <p>Taille : <?= $product->getVariant()->getSize() ?></p>
-                            </div> 
-                        </div>
-                        <div class="product_quantity">
-                            <p><?= $product->getQuantity() ?></p>
-                        </div>
-                        <div class="product_price">
-                            <p><?= $product->getProduct()->getPrice() ?> €</p>
-                        </div>
-                        <div class="product_total">
-                            <p><?= $product->getProduct()->getPrice()*$product->getQuantity() ?> €</p>
-                        </div>
-                    <?php } ?>
-                    <p><?= $totals[$cart[0]->getIdcart()] ?> €</p>
-                    <a href="/Cart/deleteCart?idcart=<?= $cart[0]->getIdcart() ?>">Supprimer</a>
-                    <a href="/Cart/modifyCart?idcart=<?= $cart[0]->getIdcart() ?>">Modifier</a>
-                    <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>">Payer</a> 
-                    <?php } } ?>
-                </div>
-            </form>
+            ?>
+            <div class="cart_left_title">
+                <h1>Panier Enregistrés <?= $cart[0]->getIdCart() ?></h1>
             </div>
+            <hr>
+            <div class="product">
+
+                <div>Article</div>
+                <div>Quantité</div>
+                <div>Prix</div>
+                <div>Sous-Total</div>
+
+                <?php foreach($cart as $product ) {  ?> 
+                    <div class="product_content">
+                        <div class="product_img" style="background-color:<?= $colors[$product->getProduct()->getSportName()] ?>">
+                            <img src=<?= $product->getProduct()->getCover() ?> alt="product_image">
+                        </div>  
+                        <div class="product_desc">
+                            <p><?= $product->getProduct()->getName() ?></p>
+                            <p><?= $product->getProduct()->getBrand() ?></p>
+                            <p>Taille : <?= $product->getVariant()->getSize() ?></p>
+                        </div> 
+                    </div>
+                    <div class="product_quantity">
+                        <p><?= $product->getQuantity() ?></p>
+                    </div>
+                    <div class="product_price">
+                        <p><?= $product->getProduct()->getPrice() ?> €</p>
+                    </div>
+                    <div class="product_total">
+                        <p><?= $product->getProduct()->getPrice()*$product->getQuantity() ?> €</p>
+                    </div>
+                <?php } } ?>
+            </div>
+            <p>Total : <?= $totals[$cart[0]->getIdcart()] ?> €</p>
+                <a href="/Cart/deleteCart?idcart=<?= $cart[0]->getIdcart() ?>">Supprimer</a>
+                <a href="/Cart/modifyCart?idcart=<?= $cart[0]->getIdcart() ?>">Modifier</a>
+                <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>">Payer</a> 
+            <?php } ?>
+        </form>
+        </div>
 
         <div class="cart_right">
             <div class="cart_recap">
