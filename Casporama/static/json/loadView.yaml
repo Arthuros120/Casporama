@@ -336,7 +336,67 @@ Admin/Product:
 
     baseView: "admin/product/base"
 
-##---------------------------------Info View ---------------------------------#
+Admin/delete/request:
+
+    views :
+        head : "admin/delete/request/head"
+        header : "templates/blank"
+        content : "admin/delete/request/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/delete/success:
+
+    views :
+        head : "admin/delete/global/head"
+        header : "templates/blank"
+        content : "admin/delete/success/content"
+        script : "admin/delete/global/script"
+
+    baseView: "admin/delete/global/base"
+
+Admin/delete/error:
+
+    views :
+        head : "admin/delete/global/head"
+        header : "templates/blank"
+        content : "admin/delete/error/content"
+        script : "admin/delete/global/script"
+
+    baseView: "admin/delete/global/base"
+
+Admin/deletes/request:
+
+    views :
+        head : "admin/deletes/request/head"
+        header : "templates/blank"
+        content : "admin/deletes/request/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/deletes/success:
+
+    views :
+        head : "admin/deletes/global/head"
+        header : "templates/blank"
+        content : "admin/deletes/success/content"
+        script : "admin/deletes/global/script"
+
+    baseView: "admin/deletes/global/base"
+
+Admin/deletes/error:
+
+    views :
+        head : "admin/deletes/global/head"
+        header : "templates/blank"
+        content : "admin/deletes/error/content"
+        script : "admin/deletes/global/script"
+
+    baseView: "admin/deletes/global/base"
+
+#---------------------------------Info View ---------------------------------#
 
 Information/rgpd:
     views:
@@ -446,7 +506,6 @@ Cart/modify:
 
     baseView: "templates/base"
 
-
 #---------------------------------Dao View---------------------------------#
 
 Dao/index:
@@ -468,6 +527,16 @@ Order/index:
         head : "templates/blank"
         header : "templates/blank"
         content : "order/homeContent"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+    
+Order/chooseLocation:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "order/chooseLocation/homeContent"
         footer : "templates/blank"
 
     baseView: "templates/base"

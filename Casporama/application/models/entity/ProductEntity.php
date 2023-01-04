@@ -30,6 +30,8 @@ class ProductEntity
 
     private array $stock;
 
+    private bool $isALive;
+
     /*
     
         * Function getId
@@ -402,6 +404,37 @@ class ProductEntity
     {
 
         return $this->stock;
+    }
+
+    /*
+    
+        * Function setIsALive
+    
+        @param bool $isALive
+    
+        * Cette fonction set le statut de l'entité
+    
+    */
+    public function setIsALive(bool $isALive)
+    {
+
+        $this->isALive = $isALive;
+
+    }
+
+    /*
+    
+        * Function getIsALive
+    
+        @return bool
+    
+        * Cette fonction retourne le statut de l'entité
+    */
+    public function getIsALive(): bool
+    {
+
+        return $this->isALive;
+
     }
 
     /**

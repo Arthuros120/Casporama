@@ -263,6 +263,7 @@ class ProductModel extends CI_Model
             $newProduct->setGenre($product->gender);
             $newProduct->setPrice($product->price);
             $newProduct->setDescription($product->description);
+            $newProduct->setIsALive($product->isALive);
 
             // * On ajoute une image de couverture si une image est fournie
             if ($product->image != null) {
@@ -361,6 +362,55 @@ class ProductModel extends CI_Model
             $newProduct->setGenre($product->gender);
             $newProduct->setPrice($product->price);
             $newProduct->setDescription($product->description);
+            $newProduct->setIsALive($product->isALive);
+
+            // * On ajoute une image de couverture si une image est fournie
+            if ($product->image != null) {
+                $newProduct->setImage($product->image);
+            } else {
+                $newProduct->setImage("");
+            }
+            
+            // * On ajoute l'objet au tableau de retour
+            array_push($listProduct, $newProduct);
+        }
+
+        // * On retourne le tableau de retour
+        return $listProduct;
+    }
+
+    public function getAllAsNotAlive(): array
+    {
+
+        // * Initialisation du tableau de retour
+        $listProduct = array();
+
+        // * Requete SQL pour récupérer les produits par le sport et id
+        $queryProduct = $this->db->query("Call product.getAllNotAlive()");
+
+        // * On stocke le résultat de la requete dans un tableau
+        $products = $queryProduct->result();
+
+        // * On passe l'id du sport en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
+        $queryProduct->next_result();
+        $queryProduct->free_result();
+
+        // * On parcours les résultats de la requete
+        foreach ($products as &$product) {
+
+            // * On crée un objet ProductEntity
+            $newProduct = new ProductEntity();
+
+            // * On hydrate l'objet
+            $newProduct->setId($product->idproduct);
+            $newProduct->setType($product->type);
+            $newProduct->setSport($product->nusport);
+            $newProduct->setBrand($product->brand);
+            $newProduct->setName($product->name);
+            $newProduct->setGenre($product->gender);
+            $newProduct->setPrice($product->price);
+            $newProduct->setDescription($product->description);
+            $newProduct->setIsALive($product->isALive);
 
             // * On ajoute une image de couverture si une image est fournie
             if ($product->image != null) {
@@ -684,6 +734,8 @@ class ProductModel extends CI_Model
 
         }
 
+        sort($listBrand);
+
         return $listBrand;
 
     }
@@ -703,7 +755,19 @@ class ProductModel extends CI_Model
 
         }
 
+        sort($listBrand);
+
         return $listBrand;
+
+    }
+
+    public function delete(int $id)
+    {
+
+        $query = $this->db->query("Call product.delProduct($id)");
+
+        $query->next_result();
+        $query->free_result();
 
     }
 

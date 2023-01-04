@@ -494,6 +494,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure delProduct( nuproduct int);
     procedure getAll();
     procedure getAllAsAlive();
+    procedure getAllNotAlive();
     procedure getAllBrand();
 END;
 
@@ -501,6 +502,11 @@ CREATE OR REPLACE PACKAGE BODY product AS
     procedure getAllAsAlive() as
     Begin
         select * from product where isAlive = true;
+    End;
+
+    procedure getAllNotAlive() as
+    Begin
+        select * from product where isAlive = false;
     End;
 
     procedure getAll() as
@@ -557,10 +563,10 @@ CREATE OR REPLACE PACKAGE BODY product AS
         insert into product(idproduct, type, nusport, brand, name, gender, price, description, image, isALive, dateLastUpdate) value (newid, newtype,newnusport,newmarque,newnom,newgenre,newprix,newdesc,newimage, newIsALive, newDate);
     end;
 
-    procedure delProduct( nuproduct int) as
+    procedure delProduct( newnuproduct int) as
     BEGIN
-        delete from product where idproduct = nuproduct;
-        delete from catalog where catalog.nuproduct = nuproduct;
+        update product set isAlive = false, dateLastUpdate = NOW() where idproduct = newnuproduct;
+        update catalog set isAlive = false, dateLastUpdate = NOW() where nuproduct = newnuproduct;
     end;
 
     procedure updatePrice( nuproduct int,  newprice int) as
@@ -597,6 +603,8 @@ CREATE OR REPLACE PACKAGE `order` AS
     -- Permet de mettre à jour l'adresse d'une commande
     procedure updateLocationOrder( nuorder int, newlocation varchar(15));
     procedure getAll();
+    procedure verifyId(newid int);
+    procedure maxIdOrder(newid int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY `order` AS
@@ -616,7 +624,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
 
     procedure addOrder(newid int, newiduser int, newidorder int, newdateorder datetime, newidproduct int, newidvariant int, newquantity int, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime) as
     BEGIN
-        insert into `order`(id, iduser, idorder, dateorder, idproduct, idvariant, quantity, idlocation, state, isALive, dateLastUpdate) value (newid,newiduser,newidorder,newdateorder,newidproduct,newidvariant,newquantity,newidlocation,newstate,newisalive,newdatelsateupdate);
+        insert into `order`(id, iduser, idorder, dateorder, idproduct, idvariant, quantity, idlocation, state, isALive, dateLastUpdate ) value (newid,newiduser,newidorder,newdateorder,newidproduct,newidvariant,newquantity,newidlocation,newstate,newisalive,newdatelsateupdate);
     end;
 
     procedure updateState( nuorder int, newstate varchar(15)) as
@@ -629,8 +637,16 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
         update `order` set idlocation=newlocation where idorder = nuorder;
     end;
 
-END;
+    procedure verifyId(newid int) as
+    begin
+        select idorder from `order` where newid = id;
+    end;
 
+    procedure maxIdOrder(newid int) as
+    begin
+        select MAX(idorder) max from `order` where iduser=newid;
+    end;
+END;
 
 CREATE OR REPLACE PACKAGE catalog AS
     -- Permet d'avoir le stock d'un product par son ID, donc toute les variantes existantes
@@ -776,6 +792,7 @@ create or replace package cart as
     procedure modifyQuantity(newquantity int, user int, cart int, variant int);
     procedure deleteCart(newidcart int, newiduser int);
     procedure deleteProductDB(newiduser int, newid int);
+    procedure getCartIdcart(newiduser int ,newidcart int);
 End;
 
 create or replace package body cart as
@@ -811,7 +828,12 @@ create or replace package body cart as
     begin
         delete from cart where iduser = newiduser and newid = id;
     end;
+    procedure getCartIdcart(newiduser int ,newidcart int) as
+    begin
+        select * from cart where newidcart = idcart and newiduser = iduser;
+    end;
 end;
+
 
 
 /*
