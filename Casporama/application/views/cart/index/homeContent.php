@@ -87,6 +87,7 @@
                         <div class="product_total">
                             <p><?= $product->getProduct()->getPrice()*$product->getQuantity() ?> €</p>
                         </div>
+                    <p><?= $totals[$cart[0]->getIdcart()] ?> €</p>
                     <a href="/Cart/deleteCart?idcart=<?= $cart[0]->getIdcart() ?>">Supprimer</a>
                     <a href="/Cart/modifyCart?idcart=<?= $cart[0]->getIdcart() ?>">Modifier</a>
                     <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>">Payer</a> 

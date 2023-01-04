@@ -40,6 +40,10 @@ class Cart extends CI_Controller
             if ($carts != null) {
                 $dataContent['quantity'] = $this->CartModel->getQuantityByCart($carts);
                 $dataContent['savedCart'] = $carts;
+                foreach ($carts as $cart) {
+                    $totals[$cart[0]->getIdcart()] = $this->CartModel->totalCart($cart);
+                }
+                $dataContent['totals'] = $totals;
             } 
         } 
         
@@ -122,6 +126,9 @@ class Cart extends CI_Controller
             if ($carts != null) {
 
                 $dataContent['quantity'] = $this->CartModel->getQuantityByCart(array($carts));
+
+                $totals[$carts[0]->getIdcart()] = $this->CartModel->totalCart($carts);
+                $dataContent['totals'] = $totals;
 
                 $dataContent['cart'] = $carts;  
                 $data = array(

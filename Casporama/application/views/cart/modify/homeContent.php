@@ -19,6 +19,7 @@
         <a href="/Cart/deleteProductDB?idcart=<?=$cart[0]->getIdcart()?>&id=<?= $product->getId() ?>">Supprimer</a>
         <br>
         <?php } ?>
+        <p><?= $totals[$cart[0]->getIdcart()] ?> €</p>
         <input type="hidden" name="iduser" value=<?= $cart[0]->getIduser() ?> />
         <input type="hidden" name="idcart" value=<?= $cart[0]->getIdcart() ?> />
         <input type="submit" value="Confirmer"/> 
