@@ -48,15 +48,16 @@
                         </div>
                     <?php } } ?>
                 </div>
-            </form>
 
+
+            <?php if (isset($savedCart)) {
+                        foreach ($savedCart as $cart) {
+            ?>
             <div class="cart_left_title">
                 <h1>Panier Enregistrés</h1>
             </div>
             
             <hr>
-
-            <?php echo form_open('Cart/modifyQuantity'); ?>
 
                 <div class="product">
 
@@ -65,10 +66,8 @@
                     <div>Prix</div>
                     <div>Sous-Total</div>
 
-                    <?php if (isset($savedCart)) {
-                        foreach ($savedCart as $cart) {
-                        foreach($cart as $product ) {
-                        ?>
+                    <?php foreach($cart as $product ) { ?> 
+
                         <div class="product_content">
                             <div class="product_img">
                                 <img src=<?= $product->getProduct()->getCover() ?> alt="product_image">
@@ -88,14 +87,13 @@
                         <div class="product_total">
                             <p><?= $product->getProduct()->getPrice()*$product->getQuantity() ?> €</p>
                         </div>
-                    <?php } ?>
                     <a href="/Cart/deleteCart?idcart=<?= $cart[0]->getIdcart() ?>">Supprimer</a>
                     <a href="/Cart/modifyCart?idcart=<?= $cart[0]->getIdcart() ?>">Modifier</a>
                     <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>">Payer</a> 
-                    <?php } } ?>
                 </div>
+                <?php } } } ?>
             </form>
-            </div>
+        </div>
 
         <div class="cart_right">
             <div class="cart_recap">
