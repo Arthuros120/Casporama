@@ -117,16 +117,13 @@ class Cart extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $carts = $this->CartModel->getCartDB($user);
+            $carts = $this->CartModel->getCartDBById($user->getId(),$idcart);
 
             if ($carts != null) {
-                foreach ($carts as $cart) {
-                    if ($cart[0]->getIdcart() == $idcart) {
-                        $res = $cart;
-                    }
-                }
 
-                $dataContent['cart'] = $res;  
+                $dataContent['quantity'] = $this->CartModel->getQuantityByCart(array($carts));
+
+                $dataContent['cart'] = $carts;  
                 $data = array(
                     'content' => $dataContent
                 );

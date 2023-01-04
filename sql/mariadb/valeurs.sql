@@ -108,8 +108,6 @@ values
     (2,2,1,'2022-10-10', 2, 2,1 ,3,'En preparation', true, '2022-11-21 20:05:37'),
     (3,2,2,'2022-10-10', 1, 4,1 ,3,'En preparation', true, '2022-11-21 20:05:37');
 
-Call `order`.addOrder(712021219,2,3,'2023-01-04',1,1,1,4,'Non preparer',true,'2023-01-04 11:19:09');
-
 insert into cart (id,iduser,idcart,idvariant,quantity,date,dateExp)
 values
     (1,2,1,1,1,'2022-11-21 20:05:37','2022-11-21 22:10:15'),
