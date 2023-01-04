@@ -35,7 +35,7 @@
                             </div> 
                         </div>
                         <div class="product_quantity">
-                            
+                            <?php echo form_dropdown($product->getVariant()->getId(),$quantity[$product->getVariant()->getId()],$product->getQuantity()); ?>
                             <a href="/Cart/deleteProduct?idproduit=<?= $product->getProduct()->getId()?>&idvariant=<?= $product->getVariant()->getId()?>">Supprimer</a>
                             <input type="submit" value="Modifier"/> 
 
