@@ -32,16 +32,27 @@ class Admin extends CI_Controller
 
         $res = $this->ProductModel->filtred($get, $products);
 
-        $products = $res['products'];
+        $productsAlive = $res['products'];
         $title = $res['title'];
         $productNotFiltredByBrand = $res['productNotFiltredByBrand'];
-        
-        $brands = $this->ProductModel->getAllBrandByProducts($productNotFiltredByBrand);
+
+        $products = $this->ProductModel->getAllAsNotAlive();
+
+        $res = $this->ProductModel->filtred($get, $products);
+
+        $productsNotAlive = $res['products'];
+
+        $allProduct = array_merge($productsAlive, $productsNotAlive);
+
+        $brands = $this->ProductModel->getAllBrandByProducts($allProduct);
+
+        $brand = sort($brands);
 
         $dataContent = array(
 
             'title' => $title,
-            'products' => $products,
+            'productsAlive' => $productsAlive,
+            'productsNotAlive' => $productsNotAlive,
             'brands' => $brands,
 
         );

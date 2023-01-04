@@ -47,3 +47,53 @@ for (let input of allProductInput) {
     });
 
 };
+
+let allProductNotAliveInput = document.getElementsByClassName("selectProductNotAlive");
+
+let selectAllNotAliveInput = document.getElementById("selectAllNotAlive");
+
+let selectAllNotAlive = false;
+
+selectAllNotAliveInput.addEventListener("click", function () {
+
+    for (let input of allProductNotAliveInput) {
+
+        input.checked = selectAllNotAliveInput.checked;
+
+    }
+
+    selectAllNotAlive = selectAllNotAliveInput.checked;
+
+}
+
+);
+
+for (let input of allProductNotAliveInput) {
+
+    input.addEventListener("click", function () {
+
+        if (input.checked) {
+
+            selectAllNotAlive = true;
+
+        } else {
+
+            selectAllNotAlive = false;
+
+        }
+
+        for (let input of allProductNotAliveInput) {
+
+            if (!input.checked) {
+
+                selectAllNotAlive = false;
+
+            }
+
+        }
+
+        selectAllNotAliveInput.checked = selectAllNotAlive;
+
+    });
+
+}
