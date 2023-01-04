@@ -263,6 +263,7 @@ class ProductModel extends CI_Model
             $newProduct->setGenre($product->gender);
             $newProduct->setPrice($product->price);
             $newProduct->setDescription($product->description);
+            $newProduct->setIsALive($product->isALive);
 
             // * On ajoute une image de couverture si une image est fournie
             if ($product->image != null) {
@@ -361,6 +362,7 @@ class ProductModel extends CI_Model
             $newProduct->setGenre($product->gender);
             $newProduct->setPrice($product->price);
             $newProduct->setDescription($product->description);
+            $newProduct->setIsALive($product->isALive);
 
             // * On ajoute une image de couverture si une image est fournie
             if ($product->image != null) {
@@ -368,9 +370,7 @@ class ProductModel extends CI_Model
             } else {
                 $newProduct->setImage("");
             }
-
-            //$newProduct->set_Stock($this->getStock($product->idproduit));
-
+            
             // * On ajoute l'objet au tableau de retour
             array_push($listProduct, $newProduct);
         }
@@ -530,31 +530,22 @@ class ProductModel extends CI_Model
     public function filterByPrice(string $title, array $products, array $get) : array
     {
     
-        if (!empty($get['price'])) {
+        if (!empty($get['price']) && stristr($get['price'], '-')) {
 
             $price = $get['price'];
 
-            $listPriceUgly = explode(',', $price);
-            $listPrice = [];
+            $listPrice = explode('-', $price);
 
-            $title .= " Prix -> ";
-
-            foreach ($listPriceUgly as $price) {
-
-                $title .= $price . " - ";
-                array_push($listPrice, $this->formatStr($price));
-
-            }
-
-            $title = substr($title, 0, -3) . ", ";
+            $title .= " Prix -> " . $listPrice[0] . "€ - " . $listPrice[1] . "€, ";
 
             // * Initialisation du tableau de retour
             $listProductByPrice = array();
 
             // * On parcours le tableau de produit
+
             foreach ($products as &$product) {
 
-                if (in_array($this->formatStr($product->getPrice()), $listPrice)) {
+                if ($product->getPrice() >= $listPrice[0] && $product->getPrice() <= $listPrice[1]) {
 
                     // * On ajoute l'objet au tableau de retour
                     array_push($listProductByPrice, $product);
@@ -562,6 +553,7 @@ class ProductModel extends CI_Model
             }
 
             // * On retourne le tableau de retour
+
             return array(
                 'title' => $title,
                 'products' => $listProductByPrice
@@ -569,12 +561,161 @@ class ProductModel extends CI_Model
 
         } else {
 
-            return array (
+            return array(
                 'title' => $title,
                 'products' => $products
             );
+
+
+        }
+    }
+
+    public function search(string $title, array $products, string $search) : array
+    {
+
+        $title .= " Recherche -> " . $search . ", ";
+
+        // * Initialisation du tableau de retour
+        $listProductBySearch = array();
+
+        $search = $this->formatStr($search);
+
+        $search = explode(' ', $search);
+        $countSearch = count($search);
+
+        // * On parcours le tableau de produit
+        foreach ($products as &$product) {
+
+            $count = 0;
+
+            foreach ($search as $word) {
+
+                if (
+                    stristr($this->formatStr($product->getName()), $word) ||
+                    stristr($this->formatStr($product->getBrand()), $word)
+                    ) {
+
+                    $count++;
+
+                }
+            }
+
+            if ($countSearch == $count) {
+
+                // * On ajoute l'objet au tableau de retour
+                array_push($listProductBySearch, $product);
+            }
+
         }
 
+        // * On retourne le tableau de retour
+        return array(
+            'title' => $title,
+            'products' => $listProductBySearch
+        );
+    }
+
+    public function filtred(array $get, array $products) : array
+    {
+
+        if (empty($get)) {
+
+            return array(
+                'title' => "Tous les produits",
+                'products' => $products,
+                'productNotFiltredByBrand' => $products
+            );
+        }
+
+        $title = "Produits filtrés par :";
+
+        $res = $this->filterByCategory($title, $products, $get);
+
+        $title = $res['title'];
+        $products = $res['products'];
+
+        $res = $this->filterBySport($title, $products, $get);
+
+        $title = $res['title'];
+        $products = $res['products'];
+
+        $res = $this->filterByPrice($title, $products, $get);
+
+        $title = $res['title'];
+        $products = $res['products'];
+
+        if (!empty($get['search'])) {
+
+            $res = $this->search($title, $products, $get['search']);
+            $title = $res['title'];
+            $products = $res['products'];
+
+            
+        }
+
+        $productNotFiltredByBrand = $products;
+
+        $res = $this->filterByBrand($title, $products, $get);
+
+        $title = $res['title'];
+        $products = $res['products'];
+
+        return array(
+            'title' => $title,
+            'products' => $products,
+            'productNotFiltredByBrand' => $productNotFiltredByBrand
+        );
+
+    }
+
+    public function getAllBrand() : array
+    {
+
+        $queryBrand = $this->db->query("Call product.getAllBrand()");
+
+        $res = $queryBrand->result();
+
+        $queryBrand->next_result();
+        $queryBrand->free_result();
+
+        $listBrand = array();
+
+        foreach ($res as $brand) {
+
+            array_push($listBrand, $brand->brand);
+
+        }
+
+        return $listBrand;
+
+    }
+
+    public function getAllBrandByProducts(array $products) : array
+    {
+
+        $listBrand = array();
+
+        foreach ($products as $product) {
+
+            if (!in_array($product->getBrand(), $listBrand)) {
+
+                array_push($listBrand, $product->getBrand());
+
+            }
+
+        }
+
+        return $listBrand;
+
+    }
+
+    public function delete(int $id)
+    {
+
+        $query = $this->db->query("Call product.delProduct($id)");
+
+        $query->next_result();
+        $query->free_result();
 
     }
 

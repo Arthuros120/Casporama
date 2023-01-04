@@ -332,11 +332,41 @@ Admin/Product:
         head : "admin/product/head"
         header : "templates/blank"
         content : "admin/product/content"
+        script : "admin/product/script"
+
+    baseView: "admin/product/base"
+
+Admin/delete/request:
+
+    views :
+        head : "admin/delete/request/head"
+        header : "templates/blank"
+        content : "admin/delete/request/content"
         footer : "templates/blank"
 
     baseView: "templates/base"
 
-##---------------------------------Info View ---------------------------------#
+Admin/delete/success:
+
+    views :
+        head : "admin/delete/global/head"
+        header : "templates/blank"
+        content : "admin/delete/success/content"
+        script : "admin/delete/global/script"
+
+    baseView: "admin/delete/global/base"
+
+Admin/delete/error:
+
+    views :
+        head : "admin/delete/global/head"
+        header : "templates/blank"
+        content : "admin/delete/error/content"
+        script : "admin/delete/global/script"
+
+    baseView: "admin/delete/global/base"
+
+#---------------------------------Info View ---------------------------------#
 
 Information/rgpd:
     views:
