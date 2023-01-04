@@ -14,8 +14,7 @@
         <p>Reférence : <?= $product->getVariant()->getReference() ?></p>
         <p><?= $product->getVariant()->getColor() ?></p>
         <p><?= $product->getVariant()->getSize() ?></p>
-        <p>Quantité : <?php $quantity = array_combine(range(1,$product->getVariant()->getQuantity()),range(1,$product->getVariant()->getQuantity()));
-            echo form_dropdown($product->getVariant()->getId(),$quantity,$product->getQuantity()); ?> 
+        <p>Quantité : <?php echo form_dropdown($product->getVariant()->getId(),$quantity[$product->getVariant()->getId()],$product->getQuantity()); ?> 
         </p>
         <a href="/Cart/deleteProductDB?idcart=<?=$cart[0]->getIdcart()?>&id=<?= $product->getId() ?>">Supprimer</a>
         <br>

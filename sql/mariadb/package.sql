@@ -624,7 +624,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
 
     procedure addOrder(newid int, newiduser int, newidorder int, newdateorder datetime, newidproduct int, newidvariant int, newquantity int, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime) as
     BEGIN
-        insert into `order`(id, iduser, idorder, dateorder, idproduct, idvariant, quantity, idlocation, state, isALive, dateLastUpdate ) value (newid,newiduser,newidorder,newdateorder,newidproduct,newidvariant,newquantity,newidlocation,newstate,newisalive,newdatelsateupdate);
+        insert into `order`(id, iduser, idorder, dateorder, idproduct, idvariant, quantity, idlocation , state, isALive, dateLastUpdate) value (newid,newiduser,newidorder,newdateorder,newidproduct,newidvariant,newquantity,newidlocation,newstate,newisalive,newdatelastupdate);
     end;
 
     procedure updateState( nuorder int, newstate varchar(15)) as

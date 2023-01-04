@@ -34,7 +34,7 @@
                             <h2>Couleur</h2>
                             <div class="allbox">
                                 <?php foreach ($avalaibleColors as $color) : ?>
-                                    <a href="<?= base_url() ."shop/product/" . $product->getId() . "?color=" . $color?>" class="box" a><p><?=$color?></p></a>
+                                    <a href="<?= base_url() ."shop/product/" . $product->getId() . "?color=" . $color ?>" class="box" a><p><?= str_replace('+', ' ', $color)?></p></a>
                                 <?php endforeach ?>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                         <div class="size">
                             <h2>Taille</h2>
                             <div class="allbox">
-                                <input type="hidden" name="color" value=<?= $this->input->get()['color']; ?>/>
+                                <input type="hidden" name="color" value=<?= $choosenColor ; ?>/>
                                 <input type="hidden" name="idproduct" value=<?= $product->getId() ?>/>
                                 <?php foreach ($taille as $value) : ?>
                                     <div class="box">

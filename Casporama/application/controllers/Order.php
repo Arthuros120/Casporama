@@ -60,6 +60,13 @@ class Order extends CI_Controller
 
             $idcart = $this->input->get('idcart');
 
+            if ($idcart == 0) {
+                $cart = $this->CartModel->getCart();
+                if ($cart == null) {
+                    redirect('Cart');
+                }
+            }
+
             $user = $this->UserModel->getUserBySession();
 
             $locations = $this->LocationModel->getLocationsByUserId($user->getId(),true);
