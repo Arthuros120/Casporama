@@ -263,6 +263,7 @@ class ProductModel extends CI_Model
             $newProduct->setGenre($product->gender);
             $newProduct->setPrice($product->price);
             $newProduct->setDescription($product->description);
+            $newProduct->setIsALive($product->isALive);
 
             // * On ajoute une image de couverture si une image est fournie
             if ($product->image != null) {
@@ -361,6 +362,7 @@ class ProductModel extends CI_Model
             $newProduct->setGenre($product->gender);
             $newProduct->setPrice($product->price);
             $newProduct->setDescription($product->description);
+            $newProduct->setIsALive($product->isALive);
 
             // * On ajoute une image de couverture si une image est fournie
             if ($product->image != null) {
@@ -704,6 +706,16 @@ class ProductModel extends CI_Model
         }
 
         return $listBrand;
+
+    }
+
+    public function delete(int $id)
+    {
+
+        $query = $this->db->query("Call product.delProduct($id)");
+
+        $query->next_result();
+        $query->free_result();
 
     }
 

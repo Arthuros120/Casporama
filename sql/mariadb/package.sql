@@ -557,10 +557,10 @@ CREATE OR REPLACE PACKAGE BODY product AS
         insert into product(idproduct, type, nusport, brand, name, gender, price, description, image, isALive, dateLastUpdate) value (newid, newtype,newnusport,newmarque,newnom,newgenre,newprix,newdesc,newimage, newIsALive, newDate);
     end;
 
-    procedure delProduct( nuproduct int) as
+    procedure delProduct( newnuproduct int) as
     BEGIN
-        delete from product where idproduct = nuproduct;
-        delete from catalog where catalog.nuproduct = nuproduct;
+        update product set isAlive = false, dateLastUpdate = NOW() where idproduct = newnuproduct;
+        update catalog set isAlive = false, dateLastUpdate = NOW() where nuproduct = newnuproduct;
     end;
 
     procedure updatePrice( nuproduct int,  newprice int) as
