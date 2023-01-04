@@ -1,4 +1,4 @@
-<!-- admin/delete/global/base -->
+<!-- admin/deletes/global/base -->
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -26,4 +26,4 @@
     </body>
 </html>
 
-<!-- admin/delete/global/base -->
+<!-- admin/deletes/global/base -->

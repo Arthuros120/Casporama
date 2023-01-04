@@ -20,7 +20,7 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/home');
     }
 
-    public function Product()
+    public function product()
     {
         $this->UserModel->adminOnly();
 
@@ -42,11 +42,9 @@ class Admin extends CI_Controller
 
         $productsNotAlive = $res['products'];
 
-        $allProduct = array_merge($productsAlive, $productsNotAlive);
+        $allProduct = array_merge($productNotFiltredByBrand, $productsNotAlive);
 
         $brands = $this->ProductModel->getAllBrandByProducts($allProduct);
-
-        $brand = sort($brands);
 
         $dataContent = array(
 
@@ -66,7 +64,7 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/Product', $data);
     }
 
-    public function DeleteProduct(int $id = -1)
+    public function deleteProduct(int $id = -1)
     {
         $this->UserModel->adminOnly();
 
@@ -154,4 +152,100 @@ class Admin extends CI_Controller
         }
     }
 
+
+    public function deleteProducts()
+    {
+        $this->UserModel->adminOnly();
+
+        if (empty($this->input->post())) {
+
+            redirect('Admin/Product');
+
+        }
+
+        $this->load->model('ProductModel');
+
+        $products = $this->ProductModel->getAllAsAlive();
+
+        $productsToDelete = array();
+
+        foreach ($products as $product) {
+
+            if ($this->input->post('product' . $product->getId()) == 'on') {
+
+                $productsToDelete[] = $product;
+
+            }
+        }
+
+        $listProducts = "";
+
+        foreach ($productsToDelete as $product) {
+
+            $listProducts .= $product->getId() . ";";
+
+        }
+
+        $dataContent = array(
+
+            'products' => $productsToDelete,
+            'listProducts' => $listProducts
+
+        );
+
+        $data = array(
+
+            'content' => $dataContent
+
+        );
+
+        $this->LoaderView->load('Admin/deletes/request', $data);
+    }
+
+    public function deleteProductsComf()
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        $submitbutton = $this->input->post('switch');
+
+        if ($submitbutton == 'on') {
+
+            $listProducts = $this->input->post('products');
+
+            var_dump($listProducts);
+
+            $listProducts = explode(';', $listProducts);
+
+            foreach ($listProducts as $id) {
+
+                if ($id != '') {
+
+                    $this->ProductModel->delete($id);
+
+                }
+            }
+
+            $dataContent = array(
+
+                'products' => $listProducts
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/deletes/success', $data);
+
+        } else {
+    
+            $this->LoaderView->load('Admin/deletes/error');
+    
+        }
+    }
 }

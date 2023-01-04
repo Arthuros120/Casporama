@@ -734,6 +734,8 @@ class ProductModel extends CI_Model
 
         }
 
+        sort($listBrand);
+
         return $listBrand;
 
     }
@@ -752,6 +754,8 @@ class ProductModel extends CI_Model
             }
 
         }
+
+        sort($listBrand);
 
         return $listBrand;
 

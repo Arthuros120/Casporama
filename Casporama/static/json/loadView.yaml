@@ -366,6 +366,36 @@ Admin/delete/error:
 
     baseView: "admin/delete/global/base"
 
+Admin/deletes/request:
+
+    views :
+        head : "admin/deletes/request/head"
+        header : "templates/blank"
+        content : "admin/deletes/request/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/deletes/success:
+
+    views :
+        head : "admin/deletes/global/head"
+        header : "templates/blank"
+        content : "admin/deletes/success/content"
+        script : "admin/deletes/global/script"
+
+    baseView: "admin/deletes/global/base"
+
+Admin/deletes/error:
+
+    views :
+        head : "admin/deletes/global/head"
+        header : "templates/blank"
+        content : "admin/deletes/error/content"
+        script : "admin/deletes/global/script"
+
+    baseView: "admin/deletes/global/base"
+
 #---------------------------------Info View ---------------------------------#
 
 Information/rgpd:
