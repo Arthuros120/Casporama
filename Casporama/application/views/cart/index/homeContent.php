@@ -35,7 +35,7 @@
                             </div> 
                         </div>
                         <div class="product_quantity">
-                            <?php echo form_dropdown($product->getVariant()->getId(),$quantity,$product->getQuantity()); ?>
+                            
                             <a href="/Cart/deleteProduct?idproduit=<?= $product->getProduct()->getId()?>&idvariant=<?= $product->getVariant()->getId()?>">Supprimer</a>
                             <input type="submit" value="Modifier"/> 
 
@@ -54,7 +54,7 @@
                         foreach ($savedCart as $cart) {
             ?>
             <div class="cart_left_title">
-                <h1>Panier Enregistrés</h1>
+                <h1>Panier Enregistrés <?= $cart[0]->getIdCart() ?></h1>
             </div>
             
             <hr>
@@ -87,7 +87,7 @@
                         <div class="product_total">
                             <p><?= $product->getProduct()->getPrice()*$product->getQuantity() ?> €</p>
                         </div>
-                    <p><?= $totals[$cart[0]->getIdcart()] ?> €</p>
+                    <p>Total : <?= $totals[$cart[0]->getIdcart()] ?> €</p>
                     <a href="/Cart/deleteCart?idcart=<?= $cart[0]->getIdcart() ?>">Supprimer</a>
                     <a href="/Cart/modifyCart?idcart=<?= $cart[0]->getIdcart() ?>">Modifier</a>
                     <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>">Payer</a> 
