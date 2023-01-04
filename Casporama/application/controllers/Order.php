@@ -16,6 +16,7 @@ class Order extends CI_Controller
         $this->load->model('OrderModel');
         $this->load->model('ProductModel');
         $this->load->model('LocationModel');
+        $this->load->model('CartModel');
     }
 
     public function index() {
@@ -47,10 +48,64 @@ class Order extends CI_Controller
 
             redirect('User/login');
 
-        }
+        }     
+    }
 
+    public function chooseLocation() {
+
+        // * On rend la connexion peréne pour toutes les pages
+        $this->UserModel->durabilityConnection();
+
+        if ($this->UserModel->isConnected()) {
+
+            $idcart = $this->input->get('idcart');
+
+            $user = $this->UserModel->getUserBySession();
+
+            $locations = $this->LocationModel->getLocationsByUserId($user->getId(),true);
+
+            $dataContent['locations'] = $locations;
+
+            $dataContent['idcart'] = $idcart;
+
+            $data = array(
+                'content' => $dataContent
+            );
+
+    
+            $this->LoaderView->load('Order/chooseLocation',$data);
+            
+            
+        } else {
+
+            redirect('User/login');
+
+        } 
         
+    }
 
+    public function addOrder() {
+
+        $this->UserModel->durabilityConnection();
+
+        if ($this->UserModel->isConnected()) {
+
+            $idcart = $this->input->get('idcart');
+            $idlocation = $this->input->get('idlocation');
+
+            $user = $this->UserModel->getUserBySession();
+
+            $this->OrderModel->addOrder($idcart,$user,$idlocation);
+
+
+            redirect("Order");
+            
+            
+        } else {
+
+            redirect('User/login');
+
+        } 
 
     }
 

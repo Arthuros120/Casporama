@@ -285,4 +285,39 @@ class CartModel extends CI_Model {
         return $res;
     }
 
+    public function getCartDBbyID(int $iduser,int $idcart) {
+
+        $query = $this->db->query("call cart.getCartIdcart($iduser,$idcart)");
+
+        $carts = $query->result_array();
+
+        $query->next_result();
+        $query->free_result();
+
+        $res = array();
+        foreach ($carts as $cart) {
+
+            $query = $this->db->query("call catalog.getCatalogByVariant('" . $cart["idvariant"] . "')");
+            $catalog = $query->result_array();
+
+            $query->next_result();
+            $query->free_result();
+
+            $product = $this->ProductModel->findById($catalog[0]["nuproduct"]);
+            
+            $newcart = new CartEntity;
+            $newcart->setId($cart["id"]);
+            $newcart->setIduser($cart["iduser"]);
+            $newcart->setIdcart($cart["idcart"]);
+            $newcart->setProduct($product);
+            $newcart->setvariant($product->getVariant($cart["idvariant"]));
+            $newcart->setQuantity($cart["quantity"]);
+
+            array_push($res,$newcart);
+        }
+
+        return $res;
+
+    }
+
 }

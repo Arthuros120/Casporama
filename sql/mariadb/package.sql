@@ -591,6 +591,8 @@ CREATE OR REPLACE PACKAGE `order` AS
     -- Permet de mettre à jour l'adresse d'une commande
     procedure updateLocationOrder( nuorder int, newlocation varchar(15));
     procedure getAll();
+    procedure verifyId(newid int);
+    procedure maxIdOrder(newid int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY `order` AS
@@ -610,7 +612,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
 
     procedure addOrder(newid int, newiduser int, newidorder int, newdateorder datetime, newidproduct int, newidvariant int, newquantity int, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime) as
     BEGIN
-        insert into `order`(id, iduser, idorder, dateorder, idproduct, idvariant, quantity, idlocation, state, isALive, dateLastUpdate) value (newid,newiduser,newidorder,newdateorder,newidproduct,newidvariant,newquantity,newidlocation,newstate,newisalive,newdatelsateupdate);
+        insert into `order`(id, iduser, idorder, dateorder, idproduct, idvariant, quantity, idlocation, state, isALive, dateLastUpdate ) value (newid,newiduser,newidorder,newdateorder,newidproduct,newidvariant,newquantity,newidlocation,newstate,newisalive,newdatelsateupdate);
     end;
 
     procedure updateState( nuorder int, newstate varchar(15)) as
@@ -623,8 +625,16 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
         update `order` set idlocation=newlocation where idorder = nuorder;
     end;
 
-END;
+    procedure verifyId(newid int) as
+    begin
+        select idorder from `order` where newid = id;
+    end;
 
+    procedure maxIdOrder(newid int) as
+    begin
+        select MAX(idorder) max from `order` where iduser=newid;
+    end;
+END;
 
 CREATE OR REPLACE PACKAGE catalog AS
     -- Permet d'avoir le stock d'un product par son ID, donc toute les variantes existantes
@@ -770,6 +780,7 @@ create or replace package cart as
     procedure modifyQuantity(newquantity int, user int, cart int, variant int);
     procedure deleteCart(newidcart int, newiduser int);
     procedure deleteProductDB(newiduser int, newid int);
+    procedure getCartIdcart(newiduser int ,newidcart int);
 End;
 
 create or replace package body cart as
@@ -805,7 +816,12 @@ create or replace package body cart as
     begin
         delete from cart where iduser = newiduser and newid = id;
     end;
+    procedure getCartIdcart(newiduser int ,newidcart int) as
+    begin
+        select * from cart where newidcart = idcart and newiduser = iduser;
+    end;
 end;
+
 
 
 /*

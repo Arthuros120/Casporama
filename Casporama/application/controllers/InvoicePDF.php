@@ -25,28 +25,30 @@ class InvoicePDF extends CI_Controller
 
         $this->UserModel->durabilityConnection();
 
-        /** @var OrderEntity $order
+        $user = $this->UserModel->getUserBySession();
+        /** @var array $order
          * @var UserEntity $user
          * @var InformationEntity $billinginfo
          * @var LocationEntity $locationinfo
          */
-        $order = $this->OrderModel->findOrderById($idOrder);
+        $orders = $this->OrderModel->findOrderById($idOrder, $user->getId());
         $user  =  $this->UserModel->getUserById($order->getIduser());
         $billinginfo = $this->InformationModel->getInformationByUserId($user->getId());
         $locationinfo = $this->LocationModel->getLocationByUserId($user->getId(),$order->getIdlocation());
-        $productsid = explode(',',$order->getIdProducts());
-        $quantities = explode(',',$order->getQuantity());
 
         $products = array();
-        foreach ($productsid as $productid) {
-            $products[] = $this->ProductModel->findById($productid);
+        $quantities = array();
+
+        foreach ($orders as $order) {
+            $products[] = $order->getProduct();
+            $quantities[] = $order->getQuantity();
         }
 
         $invoice->setLogo("static/image/casporama.png");
         $invoice->setColor("#000000");
         $invoice->setType("Facture d'achat");
         $invoice->setReference($order->getIdorder());
-        $invoice->setDate("     ".$order->getDateorder());
+        $invoice->setDate("     ".$order->getDate());
         $invoice->setFrom(array("Casporama","Casporama","Iut Nontes","44444") );
         //var_dump( $locationinfo->getCodePostal() . $locationinfo->getCity() );
         $invoice->setTo(array( ($billinginfo->getPrenom() ." ". $billinginfo->getNom()), (($billinginfo->getPrenom() ." " .$billinginfo->getNom())),

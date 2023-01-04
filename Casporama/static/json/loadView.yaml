@@ -446,7 +446,6 @@ Cart/modify:
 
     baseView: "templates/base"
 
-
 #---------------------------------Dao View---------------------------------#
 
 Dao/index:
@@ -468,6 +467,16 @@ Order/index:
         head : "templates/blank"
         header : "templates/blank"
         content : "order/homeContent"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+    
+Order/chooseLocation:
+
+    views :
+        head : "templates/blank"
+        header : "templates/blank"
+        content : "order/chooseLocation/homeContent"
         footer : "templates/blank"
 
     baseView: "templates/base"

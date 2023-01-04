@@ -40,7 +40,7 @@
     <?php } ?>
     <br>
     <p>Total : <?= $total[$cart[0]->getIdcart()] ?></p>
-    <button>Payer</button> 
+    <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>">Payer</a> 
     <br>
     <?php } } else { ?>
 
