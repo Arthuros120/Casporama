@@ -494,6 +494,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure delProduct( nuproduct int);
     procedure getAll();
     procedure getAllAsAlive();
+    procedure getAllNotAlive();
     procedure getAllBrand();
 END;
 
@@ -501,6 +502,11 @@ CREATE OR REPLACE PACKAGE BODY product AS
     procedure getAllAsAlive() as
     Begin
         select * from product where isAlive = true;
+    End;
+
+    procedure getAllNotAlive() as
+    Begin
+        select * from product where isAlive = false;
     End;
 
     procedure getAll() as
