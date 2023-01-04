@@ -659,6 +659,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure delVariante( idvariante int);
     -- Permet de mettre à jour la quantité d'une variante donnée
     procedure updateQuantity( idvariante int,  newquantity int);
+    procedure updateALive(idvariante int, newstate bool);
     procedure getAll();
     procedure getCatalogByVariant(newidvariant int);
 END;
@@ -695,6 +696,10 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     procedure getCatalogByVariant(newidvariant int) as
     begin
         select * from catalog where id = newidvariant;
+    end;
+    procedure updateALive(idvariante int, newstate bool) as
+    begin
+        update catalog set isALive=newstate where id = idvariant;
     end;
 END;
 
