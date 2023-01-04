@@ -827,4 +827,80 @@ class ProductModel extends CI_Model
 
         return $str;
     }
+
+
+    public function getSize(ProductEntity $product) {
+        $stocks = $product->getStock();
+
+        $res = [];
+
+        foreach ($stocks as $values) {
+            array_push($res,$values->getSize());
+        }
+
+        $res = array_unique($res);
+
+        if ($product->getType() == "Chaussure") {
+
+            sort($res);
+
+        } else {
+
+            usort($res, array($this ,"sortSizeString"));
+
+        }
+
+        return $res;
+    }
+
+
+    public function sortSizeString($a, $b)
+    {
+
+        $sizes = array(
+        "XXS" => 0,
+        "XS" => 1,
+        "S" => 2,
+        "M" => 3,
+        "L" => 4,
+        "XL" => 5,
+        "XXL" => 6
+        );
+
+        $asize = $sizes[$a];
+        $bsize = $sizes[$b];
+
+        if ($asize == $bsize) {
+            return 0;
+        }
+
+        return ($asize > $bsize) ? 1 : -1;
+    }
+
+    public function avalaibleColor($product) {
+        $avalaibleColors = [];
+
+        foreach ($product->getStock() as $value) {
+            $color = $value->getColor();
+            if ($color != null) {
+                if (!in_array(str_replace(' ', '+', $color),$avalaibleColors)) {
+                    array_push($avalaibleColors, str_replace(' ', '+', $color));
+                }
+            }
+        }
+
+        return $avalaibleColors;
+    }
+
+    public function avalaibleSize($product, $color) {
+        $tailledispo = [];
+        foreach ($product->getStock() as $stock) {
+            if ($stock->getColor() == $color && $stock->getQuantity() != 0) {
+                array_push($tailledispo, $stock->getSize());
+            }
+        }
+
+        return $tailledispo;
+    }
+    
 }

@@ -320,4 +320,15 @@ class CartModel extends CI_Model {
 
     }
 
+    public function getQuantityByCart(array $carts) :array {
+
+        $quantity = [];
+        foreach ($carts as $cart) {
+            foreach ($cart as $product) {
+                $quantity[$product->getVariant()->getId()] = array_combine(range(1,$product->getVariant()->getQuantity()),range(1,$product->getVariant()->getQuantity()));
+            }
+        }
+        return $quantity;
+    }
+
 }

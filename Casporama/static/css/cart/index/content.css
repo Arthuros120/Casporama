@@ -1,0 +1,155 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: var(--main-font);
+}
+
+.cart_content {
+    width: 100vw;
+    min-height: 100vh;
+
+}
+
+.cart_header {
+    width: 100%;
+    height: 10vh;
+
+    padding-left: 5vh;
+
+    display: flex;
+    align-items: center;
+}
+
+.cart_grid {
+    width: 100vw;
+    min-height:90vh ;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 1fr;
+
+}
+
+.cart_left {
+    width: 100%;
+    height: 100%;
+}
+
+.cart_left_title {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    padding-left: 5vh;    
+}
+
+.cart_left > hr {
+    border: 1px solid black;
+}
+
+.product {
+    display: grid;
+    grid-template-columns: 50% 16.5% 16.5% 16.5%;
+    grid-template-rows: 5vh 20vh;
+    width: 100%;
+
+    place-items: center;
+}
+
+
+.product_content {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    padding: 0 2%;
+    gap: 3vh;
+}
+
+.product_img {
+    width: 30vh;
+    height: 15vh;
+
+    border-radius: 12px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.product_img > img {
+    width: 80%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+.product_desc {
+    background-color: var(--grey1);
+    border-radius: 12px;
+
+    width: 40vh;
+
+    height: 15vh;
+
+    padding: 4% 8%;
+}
+
+.product_quantity {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.product_price {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.product_total {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.cart_right {
+    width: 100%;
+    height: 100%;
+
+    margin-top: 10vh;
+    
+    display: flex;
+    justify-content: center;
+
+}
+
+.cart_recap {
+    width: 80%;
+    height: 60%;
+
+    padding: 2%;
+    border-radius: 12px;
+    background-color: var(--grey2);
+}
+

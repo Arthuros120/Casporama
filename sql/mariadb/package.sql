@@ -597,7 +597,9 @@ CREATE OR REPLACE PACKAGE `order` AS
     -- Permet d'avoir les commandes d'un client
     procedure getOrderUser( iduser int);
     -- Permet d'ajouter une commande à un client
-    procedure addOrder(newid int, newiduser int, newidorder int, newdateorder datetime, newidproduct int, newidvariant int, newquantity int, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime);
+    procedure addOrder(newid int, newiduser int, newdateorder datetime, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime);
+    -- Permet d'ajouter un produit a une commande
+    procedure addProductToOrder(newidorder int, newidproduct int , newidvariant int, newquantity int);
     -- Permet de mettre à jour l'état d'une commande
     procedure updateState( nuorder int, newstate varchar(15));
     -- Permet de mettre à jour l'adresse d'une commande
@@ -614,18 +616,31 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
     End;
     procedure getOrderUserById( nuorder int, newiduser int) as
     Begin
-        select * from `order` where idorder = nuorder and iduser = newiduser;
+        select  o.id, iduser, dateorder, idlocation, state, isALive, dateLastUpdate, op.idproduct, idvariant, quantity
+            from `order` o, order_products op
+                where o.id = nuorder
+                    and o.iduser = newiduser
+                    and op.idorder = o.id;
     end;
 
     procedure getOrderUser( newiduser int) as
     Begin
-        select * from `order` where iduser = newiduser;
+        select  o.id, iduser, dateorder, idlocation, state, isALive, dateLastUpdate , op.idproduct, idvariant, quantity
+        from `order` o, order_products op
+        where o.iduser = newiduser
+          and op.idorder = o.id;
     end;
 
-    procedure addOrder(newid int, newiduser int, newidorder int, newdateorder datetime, newidproduct int, newidvariant int, newquantity int, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime) as
+    procedure addOrder(newid int, newiduser int, newdateorder datetime, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime) as
     BEGIN
-        insert into `order`(id, iduser, idorder, dateorder, idproduct, idvariant, quantity, idlocation, state, isALive, dateLastUpdate ) value (newid,newiduser,newidorder,newdateorder,newidproduct,newidvariant,newquantity,newidlocation,newstate,newisalive,newdatelsateupdate);
+        insert into `order`(id, iduser, dateorder, idlocation, state, isALive, dateLastUpdate ) value (newid,newiduser,newdateorder,newidlocation,newstate,newisalive,newdatelsateupdate);
     end;
+
+    procedure addProductToOrder(newidorder int, newidproduct int , newidvariant int, newquantity int) as
+    BEGIN
+        insert into order_products(idorder, idproduct, idvariant, quantity) value (newidorder,newidproduct,newidvariant,newquantity);
+    end;
+
 
     procedure updateState( nuorder int, newstate varchar(15)) as
     BEGIN
@@ -659,6 +674,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure delVariante( idvariante int);
     -- Permet de mettre à jour la quantité d'une variante donnée
     procedure updateQuantity( idvariante int,  newquantity int);
+    procedure updateALive(idvariante int, newstate bool);
     procedure getAll();
     procedure getCatalogByVariant(newidvariant int);
 END;
@@ -695,6 +711,10 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     procedure getCatalogByVariant(newidvariant int) as
     begin
         select * from catalog where id = newidvariant;
+    end;
+    procedure updateALive(idvariante int, newstate bool) as
+    begin
+        update catalog set isALive=newstate where id = idvariant;
     end;
 END;
 
@@ -846,19 +866,7 @@ Call product.getProductBySportType(1, 'Vetement');
 
 /*call user.countAliveAddressByUserId(2);*/
 
-create or replace package Orders as
-    procedure getOrderById(newid int);
-
-End;
-
-create or replace package body Orders as
-    procedure getOrderById(newid int) as
-    begin
-        select * from `order` where idorder = newid ;
-    end;
-
-End;
-
+call order.getOrderUserById(1,2);
 
 desc user;
 

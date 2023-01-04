@@ -1,11 +1,19 @@
 <!-- admin/home/content -->
 
-<h1>Panneaux d'administration</h1>
+<div class="admin_content">
+    <div class="menu">
+        <ul>
+            <li><a href="<?php echo site_url('Admin/Product')  ?>">Gerer les Produit</a></li>
+            <li><a href="<?php echo site_url('Admin/User') ?>">Gerer les utilisateurs</a></li>
+            <li><a href="<?php echo site_url('Admin/Order') ?>">Gerer les commandes</a></li>
+            <li><a href="<?php echo site_url('Admin/Stock') ?>">Gerer le stock</a></li>
+            <li><a href="<?php echo site_url('Dao') ?>">Import / Export les données</a></li>
+        </ul>
+    </div>
+    <div class="admin_func">
+        
+    </div>
+</div>
 
-<a href="<?php echo site_url('Admin/Product')  ?>">Gerer les Produit</a>
-<a href="<?php echo site_url('Admin/User') ?>">Gerer les utilisateurs</a>
-<a href="<?php echo site_url('Admin/Order') ?>">Gerer les commandes</a>
-<a href="<?php echo site_url('Admin/Stock') ?>">Gerer le stock</a>
-<a href="<?php echo site_url('Dao') ?>">Import / Export les données</a>
 
 <!-- admin/home/content -->
