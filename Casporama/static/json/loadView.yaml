@@ -330,7 +330,7 @@ Admin/Product:
 
     views :
         head : "admin/product/head"
-        header : "templates/blank"
+        header : "admin/header"
         content : "admin/product/content"
         script : "admin/product/script"
 
