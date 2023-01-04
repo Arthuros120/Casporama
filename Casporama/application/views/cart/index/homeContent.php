@@ -21,10 +21,8 @@
                     <div>Prix</div>
                     <div>Sous-Total</div>
 
-                    <?php if ($carts != null) {
-                        foreach ($carts as $cart) {
-                        if ($cart[0]->getIdcart() == 0) { 
-                        foreach($cart as $product ) {
+                    <?php if (isset($mainCart)) {
+                        foreach ($mainCart as $product) {
                         ?>
                         <div class="product_content">
                             <div class="product_img">
@@ -37,12 +35,9 @@
                             </div> 
                         </div>
                         <div class="product_quantity">
-                            <?php if ($product->getIdcart() != 0) {echo $product->getQuantity();} else {
-                            $quantity = array_combine(range(1,$product->getVariant()->getQuantity()),range(1,$product->getVariant()->getQuantity()));
-                            echo form_dropdown($product->getVariant()->getId(),$quantity,$product->getQuantity()); ?>
+                            <?php echo form_dropdown($product->getVariant()->getId(),$quantity,$product->getQuantity()); ?>
                             <a href="/Cart/deleteProduct?idproduit=<?= $product->getProduct()->getId()?>&idvariant=<?= $product->getVariant()->getId()?>">Supprimer</a>
                             <input type="submit" value="Modifier"/> 
-                            <?php } ?> 
 
                         </div>
                         <div class="product_price">
@@ -51,7 +46,7 @@
                         <div class="product_total">
                             <p><?= $product->getProduct()->getPrice()*$product->getQuantity() ?> €</p>
                         </div>
-                    <?php } } } }?>
+                    <?php } } ?>
                 </div>
             </form>
 
@@ -70,9 +65,8 @@
                     <div>Prix</div>
                     <div>Sous-Total</div>
 
-                    <?php if ($carts != null) {
-                        foreach ($carts as $cart) {
-                        if ($cart[0]->getIdcart() != 0) { 
+                    <?php if (isset($savedCart)) {
+                        foreach ($savedCart as $cart) {
                         foreach($cart as $product ) {
                         ?>
                         <div class="product_content">
@@ -86,13 +80,7 @@
                             </div> 
                         </div>
                         <div class="product_quantity">
-                            <?php if ($product->getIdcart() != 0) {echo $product->getQuantity();} else {
-                            $quantity = array_combine(range(1,$product->getVariant()->getQuantity()),range(1,$product->getVariant()->getQuantity()));
-                            echo form_dropdown($product->getVariant()->getId(),$quantity,$product->getQuantity()); ?>
-                            <a href="/Cart/deleteProduct?idproduit=<?= $product->getProduct()->getId()?>&idvariant=<?= $product->getVariant()->getId()?>">Supprimer</a>
-                            <input type="submit" value="Modifier"/> 
-                            <?php } ?> 
-
+                            <p><?= $product->getQuantity() ?></p>
                         </div>
                         <div class="product_price">
                             <p><?= $product->getProduct()->getPrice() ?> €</p>
@@ -100,7 +88,11 @@
                         <div class="product_total">
                             <p><?= $product->getProduct()->getPrice()*$product->getQuantity() ?> €</p>
                         </div>
-                    <?php } } } }?>
+                    <?php } ?>
+                    <a href="/Cart/deleteCart?idcart=<?= $cart[0]->getIdcart() ?>">Supprimer</a>
+                    <a href="/Cart/modifyCart?idcart=<?= $cart[0]->getIdcart() ?>">Modifier</a>
+                    <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>">Payer</a> 
+                    <?php } } ?>
                 </div>
             </form>
             </div>
@@ -112,10 +104,11 @@
                 </div>
                 <hr>
                 <div class="cart_recap_desc">
-                    <p>Sous-total : <?= $total[$carts[0][0]->getIdcart()] ?></p>
+                    <p>Sous-total : <?= $total ?></p>
                 </div>
                 <div class="cart_recap_total">
-
+                <a href="/Cart/saveCart">Enregistrer</a>
+                <a href="/Order/chooseLocation?idcart=0">Payer</a> 
                 </div>
             </div>
         </div>

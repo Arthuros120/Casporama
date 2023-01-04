@@ -843,8 +843,8 @@ class ProductModel extends CI_Model
         foreach ($product->getStock() as $value) {
             $color = $value->getColor();
             if ($color != null) {
-                if (!in_array($color,$avalaibleColors)) {
-                    array_push($avalaibleColors, $color);
+                if (!in_array(str_replace(' ', '+', $color),$avalaibleColors)) {
+                    array_push($avalaibleColors, str_replace(' ', '+', $color));
                 }
             }
         }

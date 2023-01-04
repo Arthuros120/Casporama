@@ -210,12 +210,12 @@ class Shop extends CI_Controller
 
             $dataContent['avalaibleColors'] = $avalaibleColors;
 
-            if (!empty($get) && isset($get['color']) && in_array($get['color'], $avalaibleColors)) {
 
-                
+            if (!empty($get) && isset($get['color']) && in_array(str_replace(' ', '+', $get['color']), $avalaibleColors)) {
 
                 $dataContent['avalaibleSize'] = $this->ProductModel->avalaibleSize($product,$get['color']);
 
+                $dataContent['choosenColor'] = str_replace(' ', '+', $get['color']);
             }
 
             // * On fait correspondre les données au bonne vues et on les stock dans une variable.
