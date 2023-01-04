@@ -3,6 +3,8 @@
 // * On importe les classes nécessaires
 
 require_once APPPATH . 'models/entity/OrderEntity.php';
+require_once APPPATH . 'models/entity/ProductEntity.php';
+require_once APPPATH . 'models/entity/StockEntity.php';
 
 /*
 
@@ -13,7 +15,13 @@ require_once APPPATH . 'models/entity/OrderEntity.php';
 */
 class OrderModel extends CI_Model {
 
-    public function findOrderById($idorder,$iduser): ?array
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model("ProductModel");
+    }
+
+    public function findOrderById($idorder,$iduser): ?OrderEntity
     {
 
         $queryOrder = $this->db->query("Call Orders.getOrderUserById(" . $idorder . "," . $iduser . ")");
@@ -21,41 +29,34 @@ class OrderModel extends CI_Model {
 
         $queryOrder->free_result();
 
-        $res = null;
+        $newOrder = null;
         if ($rows != null ) {
-            $res = array();
+            $order = $rows[0];
+            $newOrder = new OrderEntity;
 
-            foreach ($rows as $order) {           
+            $newOrder->setId($order['id']);
+            $newOrder->setDate($order['dateorder']);
 
-                $newOrder = new OrderEntity;
-                
-                $newOrder->setId($order['id']);
-                $newOrder->setIdorder($order['idorder']);
-                $newOrder->setDate($order['dateorder']);
+            $location = $this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']);
+            $newOrder->setLocation($location);
+            $newOrder->setState($order['state']);
 
+            $newOrder->setIduser($order['iduser']);
+
+
+            foreach ($rows as $order) {
+                /**
+                 * @var ProductEntity $product
+                 */
                 $product = $this->ProductModel->findById($order['idproduct']);
-                $newOrder->setProduct($product);
-
-                $location = $this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']);
-                $newOrder->setLocation($location);
-
-                foreach ($product->getStock() as $variant) {
-                    if ($variant->getId() == $order['idvariant']) {
-                        $newOrder->setVariant($variant);
-                    }
-                }
-
-                $newOrder->setQuantity($order['quantity']);
-                $newOrder->setState($order['state']);
-
-                $newOrder->setIduser($order['iduser']);
-
-                array_push($res,$newOrder);
+                $newOrder->addProducts($product);
+                $newOrder->addVariants($product->getVariant($order['idvariant']));
+                $newOrder->addQuantities($order['idvariant'], $order['quantity']);
             }
 
         }
         
-        return $res;
+        return $newOrder;
 
     }
 
