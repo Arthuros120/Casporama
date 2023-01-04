@@ -11,12 +11,11 @@
 class OrderEntity {
 
     private int $id;
-    private int $idorder;
     private string $dateorder;
-    private ProductEntity $product;
+    private array $products;// Array Des produits de la commande.
+    private array $variants; // Array des variantes des produits commander.
     private LocationEntity $location;
-    private StockEntity $variant;
-    private int $quantity;
+    private array $quantities; // Array des quantite commander.
     private int $iduser;
     private string $state;
 
@@ -26,14 +25,6 @@ class OrderEntity {
 
     public function setId(int $id) {
         $this->id = $id;
-    }
-
-    public function getIdorder() : Int {
-        return $this->idorder;
-    }
-
-    public function setIdorder(int $idorder) {
-        $this->idorder = $idorder;
     }
 
     public function getIduser() : Int {
@@ -52,13 +43,6 @@ class OrderEntity {
         $this->dateorder = $dateorder;
     }
 
-    public function getProduct() : ProductEntity {
-        return $this->product;
-    }
-
-    public function setProduct(ProductEntity $product) {
-        $this->product = $product;
-    }
 
     public function getLocation() : LocationEntity {
         return $this->location;
@@ -68,21 +52,6 @@ class OrderEntity {
         $this->location = $location;
     }
 
-    public function getVariant() : StockEntity {
-        return $this->variant;
-    }
-
-    public function setVariant(StockEntity $variant) {
-        $this->variant = $variant;
-    }
-
-    public function getQuantity() : Int {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity) {
-        $this->quantity = $quantity;
-    }
 
     public function getState() : String {
         return $this->state;
@@ -90,5 +59,54 @@ class OrderEntity {
 
     public function setState(String $state) {
         $this->state = $state;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProducts(): array
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param ProductEntity $product
+     */
+    public function addProducts(ProductEntity $product): void
+    {
+        $this->products[] = $product;
+    }
+
+    /**
+     * @return array
+     */
+    public function getVariants(): array
+    {
+        return $this->variants;
+    }
+
+    /**
+     * @param StockEntity $variant
+     */
+    public function addVariants(StockEntity $variant): void
+    {
+        $this->variants[] = $variant;
+    }
+
+    /**
+     * @return array
+     */
+    public function getQuantities(): array
+    {
+        return $this->quantities;
+    }
+
+    /**
+     * @param int $idvariant
+     * @param int $quantity
+     */
+    public function addQuantities(int $idvariant, int $quantity): void
+    {
+        $this->quantities[$idvariant] = $quantity;
     }
 }

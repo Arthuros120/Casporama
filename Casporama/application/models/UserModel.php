@@ -600,7 +600,6 @@ class UserModel extends CI_Model
 
                 // * On récupère l'utilisateur en fonction de son id
                 $query = $this->db->query("Call user.getUserById('" . $cookieUserId . "')");
-
                 // * On récupère le cookieId
                 $cookieUserIdDb = $query->row()->id;
                 $cookieCookieIdDb = $query->row()->cookieId;
