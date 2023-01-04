@@ -320,11 +320,11 @@ Admin/home:
 
     views :
         head : "admin/home/head"
-        header : "templates/blank"
+        header : "admin/header"
         content : "admin/home/content"
         footer : "templates/blank"
 
-    baseView: "templates/base"
+    baseView: "admin/base"
 
 Admin/Product:
 
@@ -429,7 +429,7 @@ Caspor/deleteCaspor:
 Cart/index:
 
     views :
-        head : "templates/blank"
+        head : "cart/index/head"
         header : "templates/blank"
         content : "cart/index/homeContent"
         footer : "templates/blank"
@@ -452,12 +452,12 @@ Cart/modify:
 Dao/index:
 
     views :
-        head : "templates/blank"
-        header : "templates/blank"
-        content : "dao/homeContent"
+        head : "admin/dao/head"
+        header : "admin/header"
+        content : "admin/dao/homeContent"
         footer : "templates/blank"
 
-    baseView: "templates/base"
+    baseView: "admin/base"
 
 
 #---------------------------------Order View---------------------------------#
