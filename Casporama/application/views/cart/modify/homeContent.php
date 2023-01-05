@@ -39,10 +39,12 @@
         <?php } ?>
     </div>
 
-    <p><?= $totals[$cart[0]->getIdcart()] ?> €</p>
-    <input type="hidden" name="iduser" value=<?= $cart[0]->getIduser() ?> />
-    <input type="hidden" name="idcart" value=<?= $cart[0]->getIdcart() ?> />
-    <input type="submit" value="Confirmer"/> 
+    <div class="modify_cart_btn">
+        <h3>Total :<?= $totals[$cart[0]->getIdcart()] ?> €</h3>
+        <input type="hidden" name="iduser" value=<?= $cart[0]->getIduser() ?> />
+        <input type="hidden" name="idcart" value=<?= $cart[0]->getIdcart() ?> />
+        <input type="submit" value="Confirmer"/> 
+    </div>
 
 </div>
 
