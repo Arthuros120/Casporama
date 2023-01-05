@@ -69,35 +69,146 @@ class Admin extends CI_Controller
 
         $this->UserModel->adminOnly();
 
+        $this->load->library('upload');
+
         $this->load->model('ProductModel');
 
-        $config['upload_path']          = './upload/images/import/';
-        $config['allowed_types']        = 'jpg|png|jpeg|svg';
-        $config['max_size']             = 10000;
-        $config['max_width']            = 800;
-        $config['max_height']           = 800;
-        $config['min_width']            = 100;
-        $config['min_height']           = 100;
-        $config['max_filename']         = 255;
+        $configFile['upload_path']          = 'upload/images/import/';
+        $configFile['allowed_types']        = 'jpg|png|jpeg|svg';
+        $configFile['max_size']             = 0;
+        $configFile['max_width']            = 0;
+        $configFile['max_height']           = 0;
+        $configFile['min_width']            = 0;
+        $configFile['min_height']           = 0;
+        $configFile['max_filename']         = 0;
+        $configFile['encrypt_name']         = true;
+        $configFile['remove_spaces']        = true;
+        $configFile['overwrite']            = false;
+        $configFile['detect_mime']          = true;
+        $configFile['mod_mime_fix']         = false;
+        $configFile['file_ext_tolower']     = true;
+        $configFile['create_thumb']         = false;
+        $configFile['maintain_ratio']       = true;
 
-        $this->load->library('upload', $config);
+        $imageFile = array();
+        $errorFile = array();
 
-        $dataContent = array(
+        $configRules = array(
 
-            'types' => $this->ProductModel->getAllCategory(),
-            'sports' => $this->ProductModel->getAllSport(),
-            'brands' => $this->ProductModel->getAllBrand(),
+            array(
+
+                'field' => 'name',
+                'label' => 'Nom du produit',
+                'rules' => 'required|max_length[255]',
+
+            ),
+
+            array(
+
+                'field' => 'description',
+                'label' => 'Description du produit',
+                'rules' => 'required|max_length[255]',
+
+            ),
+
+            array(
+
+                'field' => 'price',
+                'label' => 'Prix du produit',
+                'rules' => 'required|numeric',
+
+            ),
+
+            array(
+
+                'field' => 'sport',
+                'label' => 'Sport du produit',
+                'rules' => 'required',
+
+            ),
+
+            array(
+
+                'field' => 'type',
+                'label' => 'Type du produit',
+                'rules' => 'required',
+
+            ),
+
+            array(
+
+                'field' => 'brand',
+                'label' => 'Marque du produit',
+                'rules' => 'required|max_length[255]',
+
+            ),
 
         );
 
-        $data = array(
+        $this->form_validation->set_rules($configRules);
 
-            'content' => $dataContent
+        if (!$this->form_validation->run()) {
 
-        );
+            $dataContent = array(
 
-        $this->LoaderView->load('Admin/addProduct', $data);
+                'types' => $this->ProductModel->getAllCategory(),
+                'sports' => $this->ProductModel->getAllSport(),
+                'brands' => $this->ProductModel->getAllBrand(),
+    
+            );
+    
+            $data = array(
+    
+                'content' => $dataContent
+    
+            );
+    
+            $this->LoaderView->load('Admin/addProduct', $data);
 
+        } else {
+
+            $this->upload->initialize($configFile);
+
+            $imageCover = $this->upload->do_upload('imageCover');
+
+            if ($imageCover) {
+
+                $imageFile[] = $this->upload->data()['file_name'];
+
+            } else {
+
+                $errorFile[] = array(
+
+                    'id' => 0,
+                    'error' => $this->upload->display_errors()
+
+                );
+
+            }
+
+            for ($i = 1; $i <= 4; $i++) {
+
+                $this->upload->initialize($configFile);
+
+                $image = $this->upload->do_upload('image' . $i);
+
+                if ($image) {
+
+                    $imageFile[] = $this->upload->data()['file_name'];
+
+                } else {
+
+                    $errorFile[] = array(
+
+                        'id' => $i,
+                        'error' => $this->upload->display_errors()
+
+                    );
+
+                }
+
+            }
+        }
     }
 
     public function editProduct(int $id = -1)

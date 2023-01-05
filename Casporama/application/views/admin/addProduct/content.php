@@ -4,23 +4,26 @@
 
 <?php echo form_open_multipart('admin/addProduct'); ?>
 
+<h2> Informations du produit </h2>
+
 <h3> Nom du produit </h3>
 <input type="text" name="name" placeholder="Nom du produits">
 
 <h3> Description du produit </h3>
 <textarea name="description" placeholder="Description du produit"></textarea>
 
+<h3> Prix du produit </h3>
+<input type="number" name="price" step="any" placeholder="Prix du produit">
+
 <h3> Genre du produit </h3>
 <select name="genre" id="genre">
 
+    <option value="default" default></option>
     <option value="Homme"> Homme </option>
     <option value="Femme"> Femme </option>
     <option value="Mixte"> Mixte </option>
 
 </select>
-
-<h3> Prix du produit </h3>
-<input type="number" name="price" placeholder="Prix du produit">
 
 <h3> Sport du produit </h3>
 <select name="sport" id="sport">
@@ -51,8 +54,26 @@
 <h3> Marque du produit </h3>
 <input type="text" name="brand" list="listBrand" placeholder="Marque du produit">
 
-<h3> Image du produit </h3>
-<input type="file" name="imagesCover" accept="image/">
+<h2> Images du produit </h2>
+
+<p> Vous pouvez ajouter jusqu'à 5 images pour votre produit </p>
+<p> Les images doivent être au format .jpg, .jpeg, .png ou .gif </p>
+<p> Les images doivent faire au minimum 100x100px et au maximum 800x800px </p>
+<p> Les images doivent faire moins de 10Mo </p>
+<p> Les images doivent avoir un nom de moins de 255 caractères </p>
+<p> L'image de couverture n'est pas obligatoire mais rudement conseiller</p>
+
+<h3> Image de couverture du produit </h3>
+<input type="file" name="imageCover" accept="image/">
+
+<h3> Image annexe des produits </h3>
+
+<?php for ($i = 1; $i < 5; $i++) { ?>
+
+    <h4> Image <?= $i ?> </h4>
+    <input type="file" name="image<?= $i ?>" accept="image/">
+
+<?php } ?>
 
 
 <input type="submit" value="Ajouter le produit">
