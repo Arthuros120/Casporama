@@ -625,10 +625,9 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
 
     procedure getOrderUser( newiduser int) as
     Begin
-        select  o.id, iduser, dateorder, idlocation, state, isALive, dateLastUpdate , op.idproduct, idvariant, quantity
-        from `order` o, order_products op
-        where o.iduser = newiduser
-          and op.idorder = o.id;
+        select  o.id
+        from `order` o
+        where o.iduser = newiduser;
     end;
 
     procedure addOrder(newid int, newiduser int, newdateorder datetime, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime) as
