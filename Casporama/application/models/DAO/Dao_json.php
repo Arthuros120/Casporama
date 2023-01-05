@@ -66,6 +66,10 @@ class Dao_json extends CI_Model implements DaoInterface {
         $json_data = json_decode($json,true);
 
         foreach ($json_data as $value) { 
+            if (!is_array($value)) {
+                $err = errorFile("Format invalide", $table);
+                return $err;
+            }
             $header = $this->db->query("desc $table")->result_array();
             if (count($value) != count($header)) {
                 $err = errorFile("Nombre de colonne insuffisant", $table);

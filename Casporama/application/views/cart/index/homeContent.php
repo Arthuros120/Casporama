@@ -46,7 +46,9 @@
                             <p><?= $product->getProduct()->getPrice() * $product->getQuantity() ?> €</p>
                         </div>
                 <?php }
-                } ?>
+                } else { ?>
+                    <p>Le panier est vide</p>
+                <?php } ?>
             </div>
 
             <?php if (isset($savedCart)) {

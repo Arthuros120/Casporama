@@ -194,8 +194,9 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    height: 47%;
     width: 100%;
+
+    padding-top: 20vh;
 }
 
 .cart_recap_btn > a {
@@ -283,4 +284,6 @@
 
     text-align-last: center;
 }
+
+
 

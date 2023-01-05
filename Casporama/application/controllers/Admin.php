@@ -82,11 +82,11 @@ class Admin extends CI_Controller
 
         $configFile['upload_path']          = 'upload/images/import/';
         $configFile['allowed_types']        = 'jpg|png|jpeg|svg';
-        $configFile['max_size']             = 0;
-        $configFile['max_width']            = 0;
-        $configFile['max_height']           = 0;
-        $configFile['min_width']            = 0;
-        $configFile['min_height']           = 0;
+        $configFile['max_size']             = 100000;
+        $configFile['max_width']            = 1000;
+        $configFile['max_height']           = 1000;
+        $configFile['min_width']            = 200;
+        $configFile['min_height']           = 200;
         $configFile['max_filename']         = 0;
         $configFile['encrypt_name']         = true;
         $configFile['remove_spaces']        = true;
@@ -106,53 +106,88 @@ class Admin extends CI_Controller
 
                 'field' => 'name',
                 'label' => 'Nom du produit',
-                'rules' => 'required|max_length[255]',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|callback_checkNameProduct',
+                'errors' => array(
 
+                    'required' => 'Le champ %s est requis.',
+                    'min_length' => 'Le champ %s doit contenir au moins 3 caractères.',
+                    'max_length' => 'Le champ %s doit contenir au maximum 255 caractères.',
+                    'checkNameProduct' => 'Le champ %s existe déjà.'
+
+                )
             ),
 
             array(
 
                 'field' => 'description',
                 'label' => 'Description du produit',
-                'rules' => 'required|max_length[255]',
+                'rules' => 'trim|required|min_length[3]',
+                'errors' => array(
 
+                    'required' => 'Le champ %s est requis.',
+                    'min_length' => 'Le champ %s doit contenir au moins 3 caractères.'
+
+                )
             ),
 
             array(
 
                 'field' => 'price',
                 'label' => 'Prix du produit',
-                'rules' => 'required|numeric',
+                'rules' => 'trim|required|numeric',
+                'errors' => array(
 
+                    'required' => 'Le champ %s est requis.',
+                    'numeric' => 'Le champ %s doit être un nombre.'
+
+                )
             ),
 
             array(
 
                 'field' => 'sport',
                 'label' => 'Sport du produit',
-                'rules' => 'required',
+                'rules' => 'required|numeric|callback_checkSport',
+                'errors' => array(
 
+                    'required' => 'Le champ %s est requis.',
+                    'numeric' => 'Le champ %s doit être un nombre.',
+                    'checkSport' => 'Le champ %s n\'existe pas.'
+
+                )
             ),
 
             array(
 
                 'field' => 'type',
                 'label' => 'Type du produit',
-                'rules' => 'required',
+                'rules' => 'required|callback_checkType',
+                'errors' => array(
 
+                    'required' => 'Le champ %s est requis.',
+                    'checkType' => 'Le champ %s n\'existe pas.'
+
+                )
             ),
 
             array(
 
                 'field' => 'brand',
                 'label' => 'Marque du produit',
-                'rules' => 'required|max_length[255]',
+                'rules' => 'trim|required|min_length[3]|max_length[255]',
+                'errors' => array(
 
+                    'required' => 'Le champ %s est requis.',
+                    'min_length' => 'Le champ %s doit contenir au moins 3 caractères.',
+                    'max_length' => 'Le champ %s doit contenir au maximum 255 caractères.'
+
+                )
             ),
-
         );
 
         $this->form_validation->set_rules($configRules);
+
+        $post = $this->input->post();
 
         if (!$this->form_validation->run()) {
 
@@ -161,7 +196,9 @@ class Admin extends CI_Controller
                 'types' => $this->ProductModel->getAllCategory(),
                 'sports' => $this->ProductModel->getAllSport(),
                 'brands' => $this->ProductModel->getAllBrand(),
-    
+                'post' => $post,
+                'error' => validation_errors()
+
             );
     
             $data = array(
@@ -180,14 +217,14 @@ class Admin extends CI_Controller
 
             if ($imageCover) {
 
-                $imageFile[] = $this->upload->data()['file_name'];
+                $imageFile['imageCover'] = $this->upload->data()['file_name'];
 
             } else {
 
-                $errorFile[] = array(
+                $errorFile[0] = array(
 
                     'id' => 0,
-                    'error' => $this->upload->display_errors()
+                    'error' => $this->upload->display_errors("", "")
 
                 );
 
@@ -201,18 +238,61 @@ class Admin extends CI_Controller
 
                 if ($image) {
 
-                    $imageFile[] = $this->upload->data()['file_name'];
+                    $imageFile['image' . $i] = $this->upload->data()['file_name'];
 
                 } else {
 
-                    $errorFile[] = array(
+                    $errorFile[$i] = array(
 
                         'id' => $i,
-                        'error' => $this->upload->display_errors()
+                        'error' => $this->upload->display_errors("", "")
 
                     );
 
                 }
+            }
+
+            foreach ($errorFile as $error) {
+
+                if ($error['error'] == 'You did not select a file to upload.') {
+
+                    unset($errorFile[$error['id']]);
+
+                }
+
+            }
+
+            if (!empty($errorFile)) {
+
+                $dataContent = array(
+
+                    'types' => $this->ProductModel->getAllCategory(),
+                    'sports' => $this->ProductModel->getAllSport(),
+                    'brands' => $this->ProductModel->getAllBrand(),
+                    'errorFile' => $errorFile,
+                    'post' => $this->input->post(),
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent
+
+                );
+
+                $this->LoaderView->load('Admin/addProduct', $data);
+
+            } else {
+
+                if (!isset($imageFile['imageCover'])) {
+
+                    $imageFile['imageCover'] = 'default.png';
+
+                }
+
+                $id = $this->ProductModel->addProduct($post, $imageFile);
+
+                redirect('admin/stock/newCatalogue/' . $id);
 
             }
         }
@@ -434,6 +514,68 @@ class Admin extends CI_Controller
     
         }
     }
+
+    public function checkNameProduct(string $name)
+    {
+
+        $this->load->model('ProductModel');
+
+        $product = $this->ProductModel->findByName($name);
+
+        if ($product == null) {
+
+            return true;
+
+        } else {
+
+            $this->form_validation->set_message('checkNameProduct', 'Le nom du produit existe déjà');
+
+            return false;
+
+        }
+    }
+
+    public function checkSport(int $sport)
+    {
+
+        $this->load->model('ProductModel');
+
+        $sport = $this->ProductModel->findNameSportbyId($sport);
+
+        if ($sport == null) {
+
+            $this->form_validation->set_message('checkSport', 'Le sport n\'existe pas');
+
+            return false;
+
+        } else {
+
+            return true;
+
+        }
+    }
+
+    public function checkType(string $type)
+    {
+
+        $this->load->model('ProductModel');
+
+        $types = $this->ProductModel->getAllCategory();
+
+        if (in_array($type, $types)) {
+
+            return true;
+
+        } else {
+
+            $this->form_validation->set_message('checkType', 'Le type n\'existe pas');
+
+            return false;
+
+        }
+    }
+
+
 
     public function User(){
 

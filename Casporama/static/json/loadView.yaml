@@ -564,9 +564,10 @@ Order/index:
 Order/chooseLocation:
 
     views :
-        head : "templates/blank"
+        head : "user/home/info/head"
         header : "templates/blank"
         content : "order/chooseLocation/homeContent"
+        script: "user/home/info/script"
         footer : "templates/blank"
 
-    baseView: "templates/base"
+    baseView: "user/home/info/base"
