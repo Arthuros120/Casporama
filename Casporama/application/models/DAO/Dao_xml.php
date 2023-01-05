@@ -89,6 +89,10 @@ class Dao_xml extends CI_Model implements DaoInterface {
         $xmldata = simplexml_load_file($file);
 
         foreach ($xmldata->children() as $value) {
+            if (!is_array($value)) {
+                $err = errorFile("Format invalide", $table);
+                return $err;
+            }
 
             $header = $this->db->query("desc $table")->result_array();
             if (count($value) != count($header)) {
