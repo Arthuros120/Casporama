@@ -496,6 +496,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure getAllAsAlive();
     procedure getAllNotAlive();
     procedure getAllBrand();
+    procedure getProductByName( newname varchar(255));
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -587,6 +588,11 @@ CREATE OR REPLACE PACKAGE BODY product AS
     procedure getAllBrand() as
     Begin
         select distinct brand from product;
+    End;
+
+    procedure getProductByName( newname varchar(255)) as
+    Begin
+        select * from product where name = newname;
     End;
 
 END;
