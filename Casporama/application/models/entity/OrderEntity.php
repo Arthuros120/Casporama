@@ -74,7 +74,10 @@ class OrderEntity {
      */
     public function addProducts(ProductEntity $product): void
     {
-        $this->products[] = $product;
+        if (!isset($this->products[$product->getId()])  ) {
+            $this->products[$product->getId()] = $product;
+        }
+
     }
 
     /**

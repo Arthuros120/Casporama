@@ -509,7 +509,7 @@ Cart/index:
 Cart/modify:
 
     views :
-        head : "templates/blank"
+        head : "cart/modify/head"
         header : "templates/blank"
         content : "cart/modify/homeContent"
         footer : "templates/blank"

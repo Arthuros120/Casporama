@@ -40,7 +40,6 @@ class Order extends CI_Controller
                 );
             }
 
-
             $this->LoaderView->load('Order/index',$data);
             
             
