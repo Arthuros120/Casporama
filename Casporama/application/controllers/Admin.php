@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') || exit('No direct script access allowed');
 
+/**
+ * @property UserModel $UserModel
+ * @property LoaderView $LoaderView
+ * @property ProductModel $ProductModel
+ */
 class Admin extends CI_Controller
 {
 
@@ -62,6 +67,19 @@ class Admin extends CI_Controller
         );
 
         $this->LoaderView->load('Admin/Product', $data);
+    }
+
+    public function User(){
+
+        $this->UserModel->adminOnly();
+
+        $users = $this->UserModel->getUsers();
+        $dataContent['users'] = $users;
+        $data = array ('content' => $dataContent);
+        $this->LoaderView->load('Admin/User', $data);
+
+
+
     }
 
     public function addProduct()

@@ -336,6 +336,15 @@ Admin/Product:
 
     baseView: "admin/product/base"
 
+
+Admin/User:
+    views :
+        head: "admin/user/head"
+        header: "admin/header"
+        content: "admin/user/content"
+        script: "admin/user/script"
+    baseView: "admin/user/base"
+
 Admin/addProduct:
 
     views :

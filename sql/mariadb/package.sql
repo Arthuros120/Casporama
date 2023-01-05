@@ -874,3 +874,5 @@ call user.sameAddresseModif(2, '22;Rue des bergeronnettes', 'Nantes');
 call verifKey.getIdByIdKey('8b88e9f89da11a88a28d00225843252fd65995a72d1290cd6618728527b6003e');
 
 call sport.getAll();
+
+call user.getUserInfoById(2);
