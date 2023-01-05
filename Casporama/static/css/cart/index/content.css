@@ -52,7 +52,8 @@
 .product {
     display: grid;
     grid-template-columns: 50% 16.5% 16.5% 16.5%;
-    grid-template-rows: 5vh 20vh;
+    grid-template-rows: 5vh;
+    grid-auto-rows: 16vh;
     width: 100%;
 
     place-items: center;

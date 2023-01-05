@@ -1,32 +1,50 @@
-<!-- user/cart -->
-<?php echo form_open('Cart/modifyCartDB'); if ($cart != null) { ?>
+<!-- cart/modify/content -->
 
-    <h3>Panier enregistrer numéro <?= $cart[0]->getIdcart() ?> </h3>
+<div class="modify_cart">
 
-    <?php foreach ($cart as $product) { ?>
-        <img src=<?= $product->getProduct()->getCover() ?> alt="image" width="250" height="250">
-        <p><?= $product->getProduct()->getSportName() ?></p>
-        <p><?= $product->getProduct()->getBrand() ?></p>
-        <p><?= $product->getProduct()->getName() ?></p>
-        <p><?= $product->getProduct()->getGenre() ?></p>
-        <p>Prix (à l'unité) : <?= $product->getProduct()->getPrice() ?> €</p>
-        <p>Prix (total) : <?= $product->getProduct()->getPrice()*$product->getQuantity() ?> €</p>
-        <p>Reférence : <?= $product->getVariant()->getReference() ?></p>
-        <p><?= $product->getVariant()->getColor() ?></p>
-        <p><?= $product->getVariant()->getSize() ?></p>
-        <p>Quantité : <?php echo form_dropdown($product->getVariant()->getId(),$quantity[$product->getVariant()->getId()],$product->getQuantity()); ?> 
-        </p>
-        <a href="/Cart/deleteProductDB?idcart=<?=$cart[0]->getIdcart()?>&id=<?= $product->getId() ?>">Supprimer</a>
-        <br>
+    <div class="modify_cart_title">
+        <h1>Panier enregistrer N° <?= $cart[0]->getIdcart() ?> </h1>
+    </div>
+
+    <?php echo form_open('Cart/modifyCartDB'); if ($cart != null) { ?>
+    <div class="modify_cart_content">
+        <?php foreach ($cart as $product) { ?>
+            <div class="box">
+                <div class="box_img" style="background-color:<?= $colors[$product->getProduct()->getSportName()] ?>;">
+                    <img src=<?= $product->getProduct()->getCover() ?> alt="image" width="250" height="250">
+                    <div class="box_title">
+                        <h3><?= $product->getProduct()->getName()?> <?= $product->getProduct()->getBrand() ?></h3>
+                    </div>
+                </div>
+
+                <div class="box_desc">
+                    <div class="box_desc_part">
+                        <p>Prix (à l'unité) : <?= $product->getProduct()->getPrice() ?> €</p>
+                        <p>Prix (total) : <?= $product->getProduct()->getPrice()*$product->getQuantity() ?> €</p>
+                    </div>
+                    <div class="box_desc_part">
+                        <p>Taille : <?= $product->getVariant()->getSize() ?></p>
+                        <p>Couleur : <?= $product->getVariant()->getColor() ?></p>
+                    </div>
+                    <div class="box_desc_part">
+                        <p>Quantité : <?php echo form_dropdown($product->getVariant()->getId(),$quantity[$product->getVariant()->getId()],$product->getQuantity()); ?></p>
+                        <a href="/Cart/deleteProductDB?idcart=<?=$cart[0]->getIdcart()?>&id=<?= $product->getId() ?>">Supprimer</a>
+                    </div>
+                </div>
+            </div>
         <?php } ?>
-        <p><?= $totals[$cart[0]->getIdcart()] ?> €</p>
-        <input type="hidden" name="iduser" value=<?= $cart[0]->getIduser() ?> />
-        <input type="hidden" name="idcart" value=<?= $cart[0]->getIdcart() ?> />
-        <input type="submit" value="Confirmer"/> 
-        </form>
-        
-    <?php } else { ?>
+    </form>
+        <?php } else { ?>
+            <p>Panier vide</p>
+        <?php } ?>
+    </div>
 
-    <p>Panier vide</p>
+    <p><?= $totals[$cart[0]->getIdcart()] ?> €</p>
+    <input type="hidden" name="iduser" value=<?= $cart[0]->getIduser() ?> />
+    <input type="hidden" name="idcart" value=<?= $cart[0]->getIdcart() ?> />
+    <input type="submit" value="Confirmer"/> 
 
-<?php } ?>
+</div>
+
+
+<!-- cart/modify/content -->

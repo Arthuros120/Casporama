@@ -160,55 +160,6 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-
-    <div>
-
-        <h3>Marque</h3>
-
-        <input class="brandFilter filter"  type="checkbox" name="AllBrand" id="AllBrand">Tous</input>
-
-        <?php foreach ($brands as $brand): ?>
-
-            <input class="brandFilter filter" type="checkbox" name="<?= $brand ?>"><?= $brand ?></input>
-
-        <?php endforeach ?>
-
-    </div>
-
-    <div>
-
-        <h3>Prix</h3>
-
-        <p>Entre</p>
-        <input class="priceFilter filter" type="number" name="minPrice" id="minPrice" placeholder="Prix min">€</input>
-
-        <p>et</p>
-
-        <input class="priceFilter filter" type="number" name="maxPrice" id="maxPrice" placeholder="Prix max">€</input>
-
-        <input class="filter" type="button" id="supprPriceFilter" name="supprPriceFilter" value="Supprimer le filtre">
-
-    </div>
-
-
-    <div>
-
-        <h3>Recherche</h3>
-
-        <input class="searchFilter filter" id="searchFilter" type="search" name="search" placeholder="Recherche">
-        </input>
-
-        <input class="filter" type="button" id="supprSearchFilter" name="supprSearchFilter" value="Supprimer le filtre">
-
-    </div>
-
-    <div>
-        <input type="button", id="supprFilter" value="Supprimer tous les filtres" >
-    </div>
-
-=======
->>>>>>> 3c8babcf9732de825704461dd4b767c50d363c59
 </div>
 
 <!-- <form action="<?php echo site_url('Admin/ReviveProducts') ?>" method="post">

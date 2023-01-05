@@ -167,6 +167,28 @@ class CartModel extends CI_Model {
 
         $cookieValue = get_cookie('cart');  
 
+        if ($quantity == 1 && $cookieValue != null) {
+            $cart = array_slice(explode("C",$cookieValue),0,-1);
+            foreach ($cart as $product) {
+                $value = explode("P",$product);
+                if ($value[0] == $idproduct && $value[1] == $idvariant) {
+                    $quantity += $value[2];   
+                }
+            }
+            $cookieValue = $this->deleteProduct($idproduct,$idvariant);
+        } 
+
+        $stocks = $this->ProductModel->findById($idproduct)->getStock();
+        foreach ($stocks as $stock) {
+            if ($stock->getId() == $idvariant) {
+                $quantitymax = $stock->getQuantity();
+            }
+        }
+
+        if ($quantity > $quantitymax ) {
+            $quantity = $quantitymax;
+        }
+
         $cookieValue .= "$idproduct"."P"."$idvariant"."P"."$quantity"."C";   
 
         // * On crée le cookie
@@ -202,7 +224,11 @@ class CartModel extends CI_Model {
                 $cart->setIdcart(0);
                 $cart->setProduct($product);
                 $cart->setvariant($product->getVariant(intval($div[1])));
-                $cart->setQuantity($div[2]);
+                if ($div[2] > $cart->getVariant()->getQuantity()) {
+                    $cart->setQuantity($cart->getVariant()->getQuantity());
+                } else {
+                    $cart->setQuantity($div[2]);
+                }
 
                 array_push($res,$cart);
             }
@@ -267,6 +293,8 @@ class CartModel extends CI_Model {
        
         // * On envoie le cookie
         $this->input->set_cookie($cookieSettings);
+
+        return $cookieValue;
     }
 
     public function deleteCart(int $idcart, int $iduser) {
