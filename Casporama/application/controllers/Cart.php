@@ -22,7 +22,7 @@ class Cart extends CI_Controller
         $cart = $this->CartModel->getCart();
 
         $dataContent['total'] = 0;
-
+        
         if ($cart != null) {
             $dataContent['total'] = $this->CartModel->totalCart($cart);
             $dataContent['mainCart'] = $cart;
@@ -47,6 +47,15 @@ class Cart extends CI_Controller
             } 
         } 
         
+        $colors = array (
+            'Football' => '#D3E2D3',
+            'Badminton' => '#D9E6F4',
+            'Volleyball' => '#FBFBC3',
+            'Arts-martiaux' => '#FFB4B0'
+        );
+
+        $dataContent['colors'] = $colors;
+
 
         $data = array(
             'content' => $dataContent

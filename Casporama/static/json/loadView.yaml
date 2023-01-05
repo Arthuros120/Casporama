@@ -336,6 +336,16 @@ Admin/Product:
 
     baseView: "admin/product/base"
 
+Admin/addProduct:
+
+    views :
+        head : "admin/addProduct/head"
+        header : "templates/blank"
+        content : "admin/addProduct/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
 Admin/delete/request:
 
     views :

@@ -64,6 +64,74 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/Product', $data);
     }
 
+    public function addProduct()
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        $config['upload_path']          = './upload/images/import/';
+        $config['allowed_types']        = 'jpg|png|jpeg|svg';
+        $config['max_size']             = 10000;
+        $config['max_width']            = 800;
+        $config['max_height']           = 800;
+        $config['min_width']            = 100;
+        $config['min_height']           = 100;
+        $config['max_filename']         = 255;
+
+        $this->load->library('upload', $config);
+
+        $dataContent = array(
+
+            'types' => $this->ProductModel->getAllCategory(),
+            'sports' => $this->ProductModel->getAllSport(),
+            'brands' => $this->ProductModel->getAllBrand(),
+
+        );
+
+        $data = array(
+
+            'content' => $dataContent
+
+        );
+
+        $this->LoaderView->load('Admin/addProduct', $data);
+
+    }
+
+    public function editProduct(int $id = -1)
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/product');
+
+        }
+
+        $product = $this->ProductModel->findById($id);
+
+        if ($product == null) {
+
+            redirect('admin/product');
+
+        }
+
+        if (!$product->getIsAlive()) {
+
+            redirect('admin/product');
+
+        }
+
+        
+
+
+    }
+
     public function deleteProduct(int $id = -1)
     {
         $this->UserModel->adminOnly();

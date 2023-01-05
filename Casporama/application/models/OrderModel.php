@@ -173,6 +173,7 @@ class OrderModel extends CI_Model {
         if ($carts != null) {
             foreach ($carts as $cart) {
                 $this->db->query("Call `order`.addOrder(" . $id . "," . $iduser . "," . $idorder . "," . "'$date'" . "," . $cart->getProduct()->getId() . "," . $cart->getVariant()->getId() . "," . $cart->getQuantity() . "," . $idlocation . "," . "'Non preparer'" . "," . 'true' . "," . "'$dateLastUpdate'" . ")");
+            
             }
         }
         // decrementer le stock pour les produits commandés.
