@@ -31,6 +31,8 @@
     <p>Status : <?= $order->getState() ?></p>
 
     <p>Total : <?= $total[$order->getId()] ?></p>
+
+    <a href=<?= base_url("Order/savePDF?idorder=".$order->getId()) ?>>Facture</a>
     
     <?php if ($order->getState() == 'Non preparer') { ?>
 
