@@ -94,7 +94,7 @@
         </div>-->
         <div class="admin_user_manage">
             <div class="admin_user_manage_title">
-                <h2>Gérer les produits</h2>
+                <h2>Gérer les Utilisateurs</h2>
             </div>
             <hr>
             <div class="admin_user_manage_content">
@@ -114,7 +114,6 @@
            <!-- <div class="active_filter">
                 <h2> Filtre Actifs : <?php /*= $title */?> </h2>
             </div>-->
-
             <div class="admin_list_user_content">
             <form action="<?php echo site_url('Admin/DeleteUser') ?>" method="post">
 
@@ -147,6 +146,10 @@
                         <td><?php echo $user->getStatus(); ?></td>
 
                         <td><?php echo $user->getIsVerified() ?></td>
+                        <td>
+                            <a href = "<?= site_url('Admin/EditUser/').$user->getId()?>"> Modifier </a>
+                            <a href="<?= site_url('Admin/DeleteUser/' . $user->getId()) ?>">Supprimer</a>
+                        </td>
                         <!--<td>
                         <a href="<?php /*= site_url('Admin/StockProduct/' . $product->getId()) */?>">Stock</a>
                         <a href="<?php /*= site_url('Admin/EditProduct/' . $product->getId()) */?>">Modifier</a>

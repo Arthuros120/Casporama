@@ -69,18 +69,7 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/Product', $data);
     }
 
-    public function User(){
 
-        $this->UserModel->adminOnly();
-
-        $users = $this->UserModel->getUsers();
-        $dataContent['users'] = $users;
-        $data = array ('content' => $dataContent);
-        $this->LoaderView->load('Admin/User', $data);
-
-
-
-    }
 
     public function addProduct()
     {
@@ -444,5 +433,26 @@ class Admin extends CI_Controller
             $this->LoaderView->load('Admin/deletes/error');
     
         }
+    }
+
+    public function User(){
+
+        $this->UserModel->adminOnly();
+
+        $users = $this->UserModel->getUsers();
+        $dataContent['users'] = $users;
+        $data = array ('content' => $dataContent);
+        $this->LoaderView->load('Admin/User', $data);
+
+
+
+    }
+
+    public function addUser(){
+
+    }
+
+    public function editUser(int $id) {
+
     }
 }
