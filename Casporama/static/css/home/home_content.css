@@ -91,7 +91,7 @@
     background-color: white;
     padding: 1%;
 
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 

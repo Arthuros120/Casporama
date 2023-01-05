@@ -180,7 +180,7 @@ class OrderModel extends CI_Model {
         $datestringLastUpdate = 'Y-m-d H:i:s';
         $time = time();
         $datestring = 'Y-m-d';
-
+        
         $date = date($datestring, $time);
         $dateLastUpdate = date($datestringLastUpdate, $time);
 
