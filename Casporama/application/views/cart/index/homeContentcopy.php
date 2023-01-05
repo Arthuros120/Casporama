@@ -1,6 +1,6 @@
 <!-- user/cart -->
 <?php echo form_open('Cart/modifyQuantity');
-    if ($carts != null) {foreach ($carts as $cart) {
+    if ($mainCart != null) { $cart = $mainCart;
 
         if ($cart[0]->getIdcart() == 0) { ?>
 
@@ -42,7 +42,7 @@
     <p>Total : <?= $total[$cart[0]->getIdcart()] ?></p>
     <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>">Payer</a> 
     <br>
-    <?php } } else { ?>
+    <?php } else { ?>
 
     <p>Panier vide</p>
 
