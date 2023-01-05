@@ -377,12 +377,8 @@ class UserEntity
     */
     public function setOrder(array $order)
     {
-
-        if (!isset($this->order)) {
-            $this->order = array();
-        }
         
-        array_push($this->order,$order);
+        $this->order = $order;
 
     }
 }
