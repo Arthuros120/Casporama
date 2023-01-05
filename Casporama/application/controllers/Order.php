@@ -32,8 +32,24 @@ class Order extends CI_Controller
 
             $data = array();
 
+            $succes = $this->input->get('succes');
+
+            if (isset($succes)) {
+                if ($succes == 'true') {
+                    $dataContent['resultat'] = 'La commande a bien été annulé';
+                } else {
+                    $dataContent['resultat'] = "Une erreur est survenue lors de l'annulation de la commande";
+                }
+            }
+
             if ($orders != null) {
                 $dataContent['orders'] = $orders;
+
+                foreach ($orders as $order) {
+                    $total[$order->getId()] = $this->OrderModel->totalOrder($order);
+                }
+                
+                $dataContent['total'] = $total;
 
                 $data = array(
                     'content' => $dataContent
@@ -68,14 +84,49 @@ class Order extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $locations = $this->LocationModel->getLocationsByUserId($user->getId(),true);
+            $listLoc = $this->LocationModel->getLocationsByUserId($user->getId(),true);
 
-            $dataContent['locations'] = $locations;
+            if (isset($listLoc) && !empty($listLoc)) {
+
+                $dataContent['listLoc'] = $listLoc;
+                $dataContent['nbrAddr'] = $this->LocationModel->countAddressByUserId($user->getId());
+                $dataContent['nbrAddr'] = $dataContent['nbrAddr'] . "/" . $this->config->item('address_MaxAdd');
+                $dataContent['addAddIsPos'] = $this->LocationModel->heHaveMaxAddress($user->getId());
+
+                $dataMap = [];
+
+                foreach ($listLoc as $loc) {
+
+                    if ($loc->getLatitude() != null && $loc->getLongitude() != null) {
+
+                        $dataMap[$loc->getId()] = array(
+                            'lat' => $loc->getLatitude(),
+                            'lng' => $loc->getLongitude(),
+                        );
+
+                    }
+                }
+
+                if (!empty($dataMap)) {
+                    $dataScript['dataMap'] = $dataMap;
+                } else {
+                    $dataScript['dataMap'] = null;
+                }
+
+            } else {
+
+                $dataContent['addAddIsPos'] = false;
+                $dataContent['nbrAddr'] = "0/0";
+                $dataScript['dataMap'] = null;
+
+            }
+
 
             $dataContent['idcart'] = $idcart;
 
             $data = array(
-                'content' => $dataContent
+                'content' => $dataContent,
+                'script' => $dataScript,
             );
 
     
@@ -112,6 +163,20 @@ class Order extends CI_Controller
             redirect('User/login');
 
         } 
+
+    }
+
+    public function cancelOrder() {
+
+        $idorder = $this->input->get('idorder');
+
+        $err = $this->OrderModel->delOrder($idorder);
+
+        if ($err) {
+            redirect('Order?succes=true');
+        } else {
+            redirect('Order?succes=false');
+        }
 
     }
 

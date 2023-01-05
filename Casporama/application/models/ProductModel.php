@@ -854,7 +854,7 @@ class ProductModel extends CI_Model
     }
 
 
-    public function sortSizeString($a, $b)
+    private function sortSizeString($a, $b)
     {
 
         $sizes = array(

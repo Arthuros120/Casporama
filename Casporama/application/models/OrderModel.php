@@ -171,4 +171,26 @@ class OrderModel extends CI_Model {
 
     }
 
+    public function totalOrder(OrderEntity $order) :float {
+        $res = 0.0;
+        foreach ($order->getProducts() as $product) {
+            foreach ($order->getVariants() as $variant) {
+                if ($product->getId() == $variant->getNuproduct()) {
+                    $res += $product->getPrice()*$order->getQuantities()[$variant->getId()];
+                }
+            }
+        }
+        return $res;
+    }
+
+    public function delOrder(int $idorder) {
+        $this->db->db_debug = false;
+
+        $err = $this->db->query("call `order`.delOrder(". $idorder .")");
+
+        $this->db->db_debug = true;
+
+        return $err;
+    }
+
 }
