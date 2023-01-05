@@ -56,12 +56,12 @@
     align-items: center;
 }
 
-.menu > ul > li:nth-child(1) {
+.menu > ul > li:nth-child(2) {
     background-color: #233E84;
     color: white;
 }
 
-.menu > ul > li:nth-child(1) > a {
+.menu > ul > li:nth-child(2) > a {
     color: white;
 }
 
