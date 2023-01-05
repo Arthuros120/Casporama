@@ -22,11 +22,15 @@ class Cart extends CI_Controller
         $cart = $this->CartModel->getCart();
 
         $dataContent['total'] = 0;
+        $dataContent['fraisdeport'] = 0;
+        $dataContent['TVA'] = 0;
         
         if ($cart != null) {
             $dataContent['total'] = $this->CartModel->totalCart($cart);
+            $dataContent['TVA'] = $dataContent['total'] * 0.20;
             $dataContent['mainCart'] = $cart;
             $dataContent['quantity'] = $this->CartModel->getQuantityByCart(array($cart));
+            $dataContent['fraisdeport'] = 5;
         }
 
         // * On rend la connexion peréne pour toutes les pages
@@ -42,11 +46,12 @@ class Cart extends CI_Controller
                 $dataContent['savedCart'] = $carts;
                 foreach ($carts as $cart) {
                     $totals[$cart[0]->getIdcart()] = $this->CartModel->totalCart($cart);
+                    $totals[$cart[0]->getIdcart()] = $totals[$cart[0]->getIdcart()] * 1.20;
                 }
                 $dataContent['totals'] = $totals;
             } 
         } 
-        
+
         $colors = array (
             'Football' => '#D3E2D3',
             'Badminton' => '#D9E6F4',
@@ -235,3 +240,4 @@ class Cart extends CI_Controller
 
     }
 }
+

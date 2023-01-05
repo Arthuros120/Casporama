@@ -15,7 +15,6 @@
             <hr>
 
             <div class="product">
-
                 <div>Article</div>
                 <div>Quantité</div>
                 <div>Prix</div>
@@ -108,13 +107,15 @@
                 <div class="cart_recap_desc">
                     <p>Sous-total :</p>
                     <p><?= $total ?>€</p>
+                    <p>TVA (20%) :</p>
+                    <p><?= $TVA ?>€</p>
                     <p>Frais de ports :</p>
-                    <p>5€</p>
+                    <p><?= $fraisdeport ?>€</p>
                 </div>
                 <hr>
                 <div class="cart_recap_total">
                     <p>Total :</p>
-                    <p><?= $total + 5 ?>€</p>
+                    <p><?=$total + $TVA + $fraisdeport ?>€</p>
                 </div>
                 <div class="cart_recap_btn">
                     <a href="/Cart/saveCart">Enregistrer</a>
