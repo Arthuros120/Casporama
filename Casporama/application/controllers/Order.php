@@ -180,20 +180,4 @@ class Order extends CI_Controller
 
     }
 
-    public function savePDF() {
-
-        $this->UserModel->durabilityConnection();
-
-        if ($this->UserModel->isConnected()) {
-
-            $iduser = $this->UserModel->getUserBySession()->getId();
-
-            $this->InvoicePDF->saveInvoice($this->input->get('idorder'),$iduser);
-
-        } else {
-            redirect('User/login')
-        }
-
-    }
-
 }
