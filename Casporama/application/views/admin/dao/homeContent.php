@@ -93,18 +93,12 @@
                     </div>
                 </form>
             </div>
+        <?php } if (isset($msg)) { ?>
+        <h3 style='color:crimson'><?= $msg ?></h3>
         <?php } ?>
+
     </div>
 </div>
-
-
-
-
-
-<?php if (isset($msg)) { ?>
-    <p><?= $msg ?></p>
-<?php } ?>
-
 
 
 <!-- dao/homeContent -->
