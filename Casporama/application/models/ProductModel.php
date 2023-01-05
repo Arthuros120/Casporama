@@ -283,6 +283,82 @@ class ProductModel extends CI_Model
         }
     }
 
+    public function heHaveProductById(int $id) : bool
+    {
+
+        // * Requete SQL pour récupérer le produit par son id
+        $queryProduct = $this->db->query("Call product.getProductById(" . $id . ")");
+
+        // * On stocke le résultat de la requete dans un tableau
+        $product = $queryProduct->row();
+
+        // * On crée un objet ProductEntity
+        $queryProduct->next_result();
+        $queryProduct->free_result();
+
+        // * On vérifie que le produit n'est pas nul
+        return ($product != null);
+
+    }
+
+    /*
+
+        * Function findByName
+
+        @param string $name
+        @return ?ProductEntity
+
+        * Retourne un produit par son nom
+    
+    */
+    public function findByName(string $nameProduct): ?ProductEntity
+    {
+
+        // * Requete SQL pour récupérer le produit par son id
+        $queryProduct = $this->db->query("Call product.getProductByName('" . $nameProduct . "')");
+
+        // * On stocke le résultat de la requete dans un tableau
+        $product = $queryProduct->row();
+
+        // * On crée un objet ProductEntity
+        $queryProduct->next_result();
+        $queryProduct->free_result();
+
+        // * On vérifie que le produit n'est pas nul
+        if ($product != null) {
+
+            // * On crée un objet ProductEntity
+            $newProduct = new ProductEntity();
+
+            // * On hydrate l'objet
+            $newProduct->setId($product->idproduct);
+            $newProduct->setType($product->type);
+            $newProduct->setSport($product->nusport);
+            $newProduct->setBrand($product->brand);
+            $newProduct->setName($product->name);
+            $newProduct->setGenre($product->gender);
+            $newProduct->setPrice($product->price);
+            $newProduct->setDescription($product->description);
+            $newProduct->setIsALive($product->isALive);
+
+            // * On ajoute une image de couverture si une image est fournie
+            if ($product->image != null) {
+                $newProduct->setImage($product->image);
+            } else {
+                $newProduct->setImage("");
+            }
+
+            $newProduct->setStock($this->getStock($product->idproduct));
+
+            // * On retourne l'objet
+            return $newProduct;
+        } else {
+
+            // * On retourne null
+            return null;
+        }
+    }
+
     public function findAllSortBySportCat(): array
     {
 
@@ -761,6 +837,44 @@ class ProductModel extends CI_Model
 
     }
 
+    public function addProduct(array $post, array $images) : int
+    {
+
+        $id = $this->generateId();
+        $name = $post['name'];
+        $brand = $post['brand'];
+        $price = $post['price'];
+        $type = $post['type'];
+        $sport = $post['sport'];
+        $description = $post['description'];
+        $gender = $post['genre'];
+
+        $date = date("Y-m-d H:i:s");
+
+        $strImages = "";
+
+        foreach ($images as $image) {
+
+            if ($image != "default.jpg") {
+
+                $strImages .= "import/" . $image . ";";
+
+            }
+        }
+
+        $strImages = substr($strImages, 0, -1);
+
+        $query = $this->db->query(
+"Call product.addProduct($id, '$type', $sport, '$brand', '$name', '$gender', $price, '$description', '$strImages', 1, '$date')"
+        );
+
+        $query->next_result();
+        $query->free_result();
+
+        return $id;
+
+    }
+
     public function delete(int $id)
     {
 
@@ -811,31 +925,14 @@ class ProductModel extends CI_Model
 
     }
 
-    private function formatStr(string $str): string
+    public function getSize(ProductEntity $product)
     {
-
-        $str = trim($str);
-
-        $str = htmlentities($str, ENT_NOQUOTES, 'utf-8');
-        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
-        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. 'œ'
-        $str = preg_replace('#&[^;]+;#', '', $str);
-        $str = str_replace('-', '+', $str);
-        $str = str_replace('\'', '+', $str);
-
-        $str = strtolower($str);
-
-        return $str;
-    }
-
-
-    public function getSize(ProductEntity $product) {
         $stocks = $product->getStock();
 
         $res = [];
 
         foreach ($stocks as $values) {
-            array_push($res,$values->getSize());
+            array_push($res, $values->getSize());
         }
 
         $res = array_unique($res);
@@ -877,7 +974,8 @@ class ProductModel extends CI_Model
         return ($asize > $bsize) ? 1 : -1;
     }
 
-    public function avalaibleColor($product) {
+    public function avalaibleColor($product)
+    {
         $avalaibleColors = [];
 
         foreach ($product->getStock() as $value) {
@@ -892,7 +990,8 @@ class ProductModel extends CI_Model
         return $avalaibleColors;
     }
 
-    public function avalaibleSize($product, $color) {
+    public function avalaibleSize($product, $color)
+    {
         $tailledispo = [];
         foreach ($product->getStock() as $stock) {
             if ($stock->getColor() == $color && $stock->getQuantity() != 0) {
@@ -902,5 +1001,37 @@ class ProductModel extends CI_Model
 
         return $tailledispo;
     }
+
+    private function generateId() : int
+    {
+
+        $id = rand(10000, 999999999);
+
+        if ($this->heHaveProductById($id)) {
+
+            $id = $this->generateId();
+        }
+
+        return $id;
+
+    }
+
+    private function formatStr(string $str): string
+    {
+
+        $str = trim($str);
+
+        $str = htmlentities($str, ENT_NOQUOTES, 'utf-8');
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. 'œ'
+        $str = preg_replace('#&[^;]+;#', '', $str);
+        $str = str_replace('-', '+', $str);
+        $str = str_replace('\'', '+', $str);
+
+        $str = strtolower($str);
+
+        return $str;
+    }
+
     
 }
