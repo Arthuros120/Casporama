@@ -771,6 +771,46 @@ class ProductModel extends CI_Model
 
     }
 
+    public function getAllCategory() : array
+    {
+
+        return array(
+            'Chaussure',
+            'Vếtement',
+            'Equipement',
+        );
+
+    }
+
+    public function getAllSport() : array
+    {
+
+        $querySport = $this->db->query("Call sport.getAll()");
+
+        $sport = $querySport->result();
+
+        $querySport->next_result();
+        $querySport->free_result();
+
+        $listSport = array();
+
+        foreach ($sport as $sport) {
+
+            array_push($listSport, array(
+
+                'id' => $sport->nusport,
+                'name' => $sport->name,
+
+            ));
+
+        }
+
+        sort($listSport);
+
+        return $listSport;
+
+    }
+
     private function formatStr(string $str): string
     {
 
