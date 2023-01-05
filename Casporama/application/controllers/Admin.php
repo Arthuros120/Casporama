@@ -453,6 +453,12 @@ class Admin extends CI_Controller
     }
 
     public function editUser(int $id) {
+        $this->UserModel->adminOnly();
+
+        $user = $this->UserModel->getUserById($id);
+        $dataContent['user'] = $user;
+        $data = array('content' => $dataContent);
+        $this->LoaderView->load('Admin/EditUser', $data);
 
     }
 }

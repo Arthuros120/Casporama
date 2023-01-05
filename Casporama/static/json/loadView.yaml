@@ -345,6 +345,17 @@ Admin/User:
         script: "admin/user/script"
     baseView: "admin/user/base"
 
+Admin/EditUser:
+    views :
+        head: "admin/user/editUser/head"
+        header: "admin/header"
+        content: "admin/user/editUser/content"
+        script: "admin/user/editUser/script"
+
+
+    baseView: "admin/user/editUser/base"
+
+
 Admin/addProduct:
 
     views :
