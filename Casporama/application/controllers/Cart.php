@@ -140,6 +140,16 @@ class Cart extends CI_Controller
                 $dataContent['totals'] = $totals;
 
                 $dataContent['cart'] = $carts;  
+
+                $colors = array (
+                    'Football' => '#D3E2D3',
+                    'Badminton' => '#D9E6F4',
+                    'Volleyball' => '#FBFBC3',
+                    'Arts-martiaux' => '#FFB4B0'
+                );
+
+                $dataContent['colors'] = $colors;
+                
                 $data = array(
                     'content' => $dataContent
                 );
