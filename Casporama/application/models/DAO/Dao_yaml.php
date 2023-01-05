@@ -76,6 +76,10 @@ class Dao_yaml extends CI_Model implements DaoInterface {
 
         foreach ($yamls as $yaml) {
             foreach ($yaml as $value) {
+                if (!is_array($value)) {
+                    $err = errorFile("Format invalide", $table);
+                    return $err;
+                }
                 $header = $this->db->query("desc $table")->result_array();
                 if (count($value) != count($header)) {
                     $err = errorFile("Nombre de colonne insuffisant", $table);

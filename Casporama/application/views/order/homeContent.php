@@ -1,18 +1,13 @@
 <!-- order/index -->
 
 <?php if (isset($orders)) { foreach ($orders as $order) { ?>
-    
     <h3>Commande n° <?= $order->getId() ?></h3>
     <p>Date Commande : <?= $order->getDate() ?></p>
     <p>Adresse : <?= $order->getLocation()->getAdresse()['number'] . " " . $order->getLocation()->getAdresse()['street'] . ", " . $order->getLocation()->getCodePostal() . " " . $order->getLocation()->getCity() . ", " . $order->getLocation()->getCountry() ?></p>
     <h3>Produit(s) :</h3>
     
     <?php $res=0;
-    /** @var ProductEntity $product
-     * @var OrderEntity $order
-     * @var StockEntity $variant
-     *
-     */
+
     foreach ($order->getProducts() as $product) {
         foreach ($order->getVariants() as $variant) {
             if ($product->getVariant($variant->getId())== $variant) {

@@ -606,7 +606,6 @@ CREATE OR REPLACE PACKAGE `order` AS
     procedure updateLocationOrder( nuorder int, newlocation varchar(15));
     procedure getAll();
     procedure verifyId(newid int);
-    procedure maxIdOrder(newid int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY `order` AS
@@ -632,7 +631,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
 
     procedure addOrder(newid int, newiduser int, newdateorder datetime, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime) as
     BEGIN
-        insert into `order`(id, iduser, dateorder, idlocation, state, isALive, dateLastUpdate ) value (newid,newiduser,newdateorder,newidlocation,newstate,newisalive,newdatelsateupdate);
+        insert into `order`(id, iduser, dateorder, idlocation, state, isALive, dateLastUpdate ) value (newid,newiduser,newdateorder,newidlocation,newstate,newisalive,newdatelastupdate);
     end;
 
     procedure addProductToOrder(newidorder int, newidproduct int , newidvariant int, newquantity int) as
@@ -653,12 +652,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
 
     procedure verifyId(newid int) as
     begin
-        select idorder from `order` where newid = id;
-    end;
-
-    procedure maxIdOrder(newid int) as
-    begin
-        select MAX(idorder) max from `order` where iduser=newid;
+        select id from `order` where newid = id;
     end;
 END;
 

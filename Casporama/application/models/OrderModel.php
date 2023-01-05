@@ -45,12 +45,16 @@ class OrderModel extends CI_Model {
 
 
             foreach ($rows as $order) {
-                /**
-                 * @var ProductEntity $product
-                 */
+                
                 $product = $this->ProductModel->findById($order['idproduct']);
+
+                foreach ($product->getStock() as $stock) {
+                    if ($stock->getId() == $order['idvariant']) {
+                        $newOrder->addVariants($stock);
+                    }
+                }
+
                 $newOrder->addProducts($product);
-                $newOrder->addVariants($product->getVariant($order['idvariant']));
                 $newOrder->addQuantities($order['idvariant'], $order['quantity']);
             }
 
@@ -133,29 +137,10 @@ class OrderModel extends CI_Model {
         return false;
     }
 
-    public function maxIdOrder(int $iduser) : int {
-        $query = $this->db->query("Call `order`.maxIdOrder('" . $iduser . "')");
-
-        $order = $query->row();
-
-        // * On attend un résultat
-        $query->next_result();
-        $query->free_result();
-
-        // * On retourne le résultat
-        if (isset($order->max)) {
-
-            return $order->max+1;
-        }
-
-        return 1;
-    }
-
     public function addOrder(int $idcart, UserEntity $user, int $idlocation) {
 
         $id = $this->generateId();
         $iduser = $user->getId();
-        $idorder = $this->maxIdOrder($iduser);
 
         $datestringLastUpdate = 'Y-m-d H:i:s';
         $time = time();
@@ -171,9 +156,9 @@ class OrderModel extends CI_Model {
         }
 
         if ($carts != null) {
+            $this->db->query("Call `order`.addOrder(" . $id . "," . $iduser . "," . "'$date'" . "," . $idlocation . "," . "'Non preparer'" . "," . 'true' . "," . "'$dateLastUpdate'" . ")");
             foreach ($carts as $cart) {
-                $this->db->query("Call `order`.addOrder(" . $id . "," . $iduser . "," . $idorder . "," . "'$date'" . "," . $cart->getProduct()->getId() . "," . $cart->getVariant()->getId() . "," . $cart->getQuantity() . "," . $idlocation . "," . "'Non preparer'" . "," . 'true' . "," . "'$dateLastUpdate'" . ")");
-            
+                $this->db->query("Call `order`.addProductToOrder(" . $id . "," . $cart->getProduct()->getId() . "," . $cart->getVariant()->getId() . "," . $cart->getQuantity() . ")");
             }
         }
         // decrementer le stock pour les produits commandés.
