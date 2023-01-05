@@ -51,7 +51,7 @@ class Cart extends CI_Controller
             'Football' => '#D3E2D3',
             'Badminton' => '#D9E6F4',
             'Volleyball' => '#FBFBC3',
-            'Mma' => '#FFB4B0'
+            'Arts-martiaux' => '#FFB4B0'
         );
 
         $dataContent['colors'] = $colors;
