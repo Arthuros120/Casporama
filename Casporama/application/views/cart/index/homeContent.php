@@ -9,7 +9,7 @@
     <div class="cart_grid">
         <div class="cart_left">
             <div class="cart_left_title">
-                <h1>Panier</h1>
+                <h1>Votre Panier</h1>
             </div>
             <hr>
             <?php echo form_open('Cart/modifyQuantity'); ?>
@@ -36,8 +36,8 @@
                         </div>
                         <div class="product_quantity">
                             <?php echo form_dropdown($product->getVariant()->getId(),$quantity[$product->getVariant()->getId()],$product->getQuantity()); ?>
-                            <a href="/Cart/deleteProduct?idproduit=<?= $product->getProduct()->getId()?>&idvariant=<?= $product->getVariant()->getId()?>">Supprimer</a>
                             <input type="submit" value="Modifier"/> 
+                            <a href="/Cart/deleteProduct?idproduit=<?= $product->getProduct()->getId()?>&idvariant=<?= $product->getVariant()->getId()?>">Supprimer</a>
 
                         </div>
                         <div class="product_price">
@@ -54,7 +54,7 @@
                         foreach ($savedCart as $cart) {
             ?>
             <div class="cart_left_title">
-                <h1>Panier Enregistrés <?= $cart[0]->getIdCart() ?></h1>
+                <h1>Panier Enregistré <?= $cart[0]->getIdCart() ?></h1>
             </div>
             <hr>
             <div class="product">
@@ -86,10 +86,12 @@
                     </div>
                 <?php } } ?>
             </div>
-            <p>Total : <?= $totals[$cart[0]->getIdcart()] ?> €</p>
+            <div class="product_btn">
+                <p>Total : <?= $totals[$cart[0]->getIdcart()] ?> €</p>
                 <a href="/Cart/deleteCart?idcart=<?= $cart[0]->getIdcart() ?>">Supprimer</a>
                 <a href="/Cart/modifyCart?idcart=<?= $cart[0]->getIdcart() ?>">Modifier</a>
                 <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>">Payer</a> 
+            </div>
             <?php } ?>
         </form>
         </div>
@@ -101,11 +103,19 @@
                 </div>
                 <hr>
                 <div class="cart_recap_desc">
-                    <p>Sous-total : <?= $total ?></p>
+                    <p>Sous-total :</p>
+                    <p><?= $total ?>€</p>
+                    <p>Frais de ports :</p>
+                    <p>5€</p>
                 </div>
+                <hr>
                 <div class="cart_recap_total">
-                <a href="/Cart/saveCart">Enregistrer</a>
-                <a href="/Order/chooseLocation?idcart=0">Payer</a> 
+                    <p>Total :</p>
+                    <p><?=$total + 5 ?>€</p>
+                </div>
+                <div class="cart_recap_btn">
+                    <a href="/Cart/saveCart">Enregistrer</a>
+                    <a href="/Order/chooseLocation?idcart=0">Payer</a> 
                 </div>
             </div>
         </div>

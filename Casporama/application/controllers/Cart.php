@@ -48,8 +48,8 @@ class Cart extends CI_Controller
         } 
         
         $colors = array (
-            'Football' => '#b4f1b4',
-            'Badminton' => '#C3DEFE',
+            'Football' => '#D3E2D3',
+            'Badminton' => '#D9E6F4',
             'Volleyball' => '#FBFBC3',
             'Mma' => '#FFB4B0'
         );
