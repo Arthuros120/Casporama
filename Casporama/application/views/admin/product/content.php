@@ -159,76 +159,63 @@
             </form>
             </div>
         </div>
+
+        <div class="admin_list_product">
+            <div class="admin_list_product_title">
+                <h2>Produit hors-ligne</h2>
+            </div>
+            <hr>
+            <div class="active_filter">
+                <h2> Filtre Actifs : <?= $title ?> </h2>
+            </div>
+
+            <div class="admin_list_product_content">
+            <form action="<?php echo site_url('Admin/ReviveProducts') ?>" method="post">
+
+                <input type="submit" value="Supprimer les produits selectionnés">
+                <input type="checkbox" id="selectAll">Tous selectionner</input>
+
+                <table>
+                    <tr>
+                        <th> ✓ </th>
+                        <th>Id</th>
+                        <th> Sport </th>
+                        <th> Categories </th>
+                        <th>Marque</th>
+                        <th>Nom</th>
+                        <th>Prix(€)</th>
+                        <th>Describtion</th>
+                    </tr>
+                    <?php foreach ($productsNotAlive as $product): ?>
+                    <tr>
+                        <td><input class="selectProduct" type="checkbox" name="product<?= $product->getId() ?>"></td>
+                        <td><?= $product->getId() ?></td>
+                        <td><?php echo $product->getSportName() ?></td>
+                        <td><?php echo $product->getType() ?></td>
+                        <td><?php echo $product->getBrand() ?></td>
+
+                        <td>
+                            <a href="<?= site_url('shop/product/' . $product->getId()) ?>">
+                                <?php echo $product->getName() ?>
+                            </a>
+                        </td>
+
+                        <td><?php echo $product->getPrice() ?></td>
+                        <td><?php echo $product->getTinyDescription(50) ?></td>
+                        <td>
+                            <a href="<?= site_url('Admin/StockProduct/' . $product->getId()) ?>">Stock</a>
+                            <a href="<?= site_url('Admin/ReviveProduct/' . $product->getId()) ?>">Resuciter</a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+                </table>
+            </form>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
-<!-- <form action="<?php echo site_url('Admin/ReviveProducts') ?>" method="post">
-
-<h3> Produit hors-ligne </h3>
-
-    <input type="submit" value="Mettre en ligne les produit suivant">
-    <input type="checkbox" id="selectAllNotAlive">Tous selectionner</input>
-
-<table>
-
-<tr>
-
-    <th> ✓ </th>
-
-    <th>Id</th>
-
-    <th> Sport </th>
-
-    <th> Categories </th>
-
-    <th>Marque</th>
-
-    <th>Nom</th>
-
-    <th>Prix(€)</th>
-
-    <th>Describtion</th>
-
-</tr>
-
-<?php foreach ($productsNotAlive as $product): ?>
-
-    <tr>
-
-        <td><input class="selectProductNotAlive" type="checkbox" name="product<?= $product->getId() ?>"></td>
-
-        <td><?= $product->getId() ?></td>
-
-        <td><?php echo $product->getSportName() ?></td>
-
-        <td><?php echo $product->getType() ?></td>
-
-        <td><?php echo $product->getBrand() ?></td>
-
-        <td>
-            <a href="<?= site_url('shop/product/' . $product->getId()) ?>">
-                <?php echo $product->getName() ?>
-            </a>
-        </td>
-
-        <td><?php echo $product->getPrice() ?></td>
-
-        <td><?php echo $product->getTinyDescription(50) ?></td>
-
-        <td>
-
-            <a href="<?= site_url('Admin/StockProduct/' . $product->getId()) ?>">Stock</a>
-
-            <a href="<?= site_url('Admin/ReviveProduct/' . $product->getId()) ?>">Resuciter</a>
-
-        </td>
-
-    </tr>
-
-<?php endforeach ?>
-
-</table>
-
-</form> -->
 
 <!-- admin/product/content -->

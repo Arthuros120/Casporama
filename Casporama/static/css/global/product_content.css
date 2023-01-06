@@ -151,6 +151,8 @@
     align-items: center;
     flex-direction: row;
 
+    background-color: red;
+
     gap: 2vh;
 }
 
@@ -220,8 +222,9 @@
     justify-content: center;
     align-items: center;
 
-    width: 5vw;
+    width: 7vw;
     padding: 2%;
+    white-space: nowrap;
 
     background-color: var(--color2);
     border: 2px solid var(--color2);

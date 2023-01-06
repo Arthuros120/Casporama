@@ -33,7 +33,7 @@ Home/index:
         head: "home/head"
         header: "templates/blank"
         content: "home/home"
-        footer: "templates/blank"
+        footer: "home/footer"
 
     baseView: "templates/base"
 
@@ -43,7 +43,7 @@ Shop/view:
         head: "shop/view/head"
         header: "shop/global/header"
         content: "shop/global/viewContent"
-        footer: "templates/blank"
+        footer: "home/footer"
 
     baseView: "templates/base"
 
@@ -53,7 +53,7 @@ Shop/product:
         head: "shop/product/head"
         header: "shop/global/header"
         content: "shop/product/productContent"
-        footer: "templates/blank"
+        footer: "home/footer"
 
     baseView: "templates/base"
 

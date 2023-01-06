@@ -50,7 +50,6 @@
                                         <input type="radio" name="size" id="<?=$value?>" value=<?= $value ?> <?php if (!in_array($value,$avalaibleSize)) {  echo "disabled";} ?>></input>
                                         <label for="<?= $value ?>"><?= $value ?></label>
                                     </div>
-                                    
                                 <?php endforeach; ?>
                             </div>
                         </div>
