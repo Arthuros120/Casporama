@@ -93,11 +93,16 @@
                     </div>
                 </form>
             </div>
-        <?php } if (isset($msg)) { ?>
-        <h3 style='color:crimson'><?= $msg ?></h3>
         <?php } ?>
-
     </div>
+    <div class="dao_error">
+            <?php if (isset($msg)) { ?>
+                <div class="dao_error_content">
+                    <img src="<?php base_url() ?>../static/image/icon/error_white.svg" >
+                    <h3><?= $msg ?></h3>
+                </div>
+            <?php } ?>
+        </div>
 </div>
 
 

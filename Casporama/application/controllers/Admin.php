@@ -318,8 +318,35 @@ class Admin extends CI_Controller
 
         }
 
-        
+        $imagesNotFormated = $product->getImagesWithoutCover();
+        $imageCoverNotFormated = $product->getCoverName();
 
+        $images = array();
+        $imageCover = str_replace(base_url(), '', str_replace('/', '+', $imageCoverNotFormated));
+
+
+
+        foreach ($imagesNotFormated as $image) {
+
+            array_push($images, str_replace('/', '+', str_replace(base_url(), '', $image)));
+
+        }
+
+        $dataContent = array(
+
+            'product' => $product,
+            'images' => $images,
+            'imageCover' => $imageCover,
+
+        );
+
+        $data = array(
+
+            'content' => $dataContent
+
+        );
+
+        $this->LoaderView->load('Admin/editProduct', $data);
 
     }
 

@@ -333,6 +333,39 @@ class ProductEntity
 
     /*
     
+        * Function getCoverName
+
+        * Cette fonction sélectione l'image principale
+    
+    */
+    public function getCoverName(): string
+    {
+
+        return $this->image[0];
+    }
+
+    /*
+
+        * Function getImagesWithoutCover
+
+        * Cette fonction retourne les images de l'entité sans l'image principale
+
+    */
+    public function getImagesWithoutCover(): array
+    {
+
+        $res = array();
+
+        for ($i = 1; $i < count($this->image); $i++) {
+
+            array_push($res, base_url($this->image[$i]));
+        }
+
+        return $res;
+    }
+
+    /*
+    
         * Function setImage
     
         @param array $image
@@ -349,7 +382,12 @@ class ProductEntity
 
         foreach ($imageTab as $i) {
 
-            array_push($this->image, "upload/images/" . $i);
+            if ($i != "") {
+
+                array_push($this->image, "upload/images/" . $i);
+
+            }
+            
         }
         
     }
