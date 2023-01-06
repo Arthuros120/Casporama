@@ -619,6 +619,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
     procedure getAll() as
     Begin
         select * from `order`;
+        select * from `order_products`;
     End;
     procedure getOrderUserById( nuorder int, newiduser int) as
     Begin

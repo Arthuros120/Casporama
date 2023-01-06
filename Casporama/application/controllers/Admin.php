@@ -597,4 +597,18 @@ class Admin extends CI_Controller
     }
 
 
+    public function order() {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('OrderModel');
+
+        $orders = $this->OrderModel->getAllOrder();
+
+
+
+        // $this->LoaderView->load('Admin/order');
+
+    }
+
 }

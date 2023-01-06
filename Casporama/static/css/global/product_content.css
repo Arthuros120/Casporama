@@ -151,6 +151,8 @@
     align-items: center;
     flex-direction: row;
 
+    background-color: red;
+
     gap: 2vh;
 }
 
@@ -220,8 +222,9 @@
     justify-content: center;
     align-items: center;
 
-    width: 5vw;
+    width: 7vw;
     padding: 2%;
+    white-space: nowrap;
 
     background-color: var(--color2);
     border: 2px solid var(--color2);
@@ -269,4 +272,20 @@
     font-weight: 600;
 
     cursor: pointer;
+}
+
+.form > h3 {
+    display: flex;
+    justify-content: center;
+
+    width: 90%;
+    padding: 2%;
+
+    border: none;
+
+    border-radius: 25px;
+    background-color: var(--grey1);
+
+    font-size: 1vw;
+    font-weight: 600;
 }

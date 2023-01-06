@@ -36,7 +36,7 @@
     
     <?php if ($order->getState() == 'Non preparer') { ?>
 
-    <a href=<?= base_url('Order/cancelOrder?idorder='.$order->getId()) ?>>Annuler la commande</a>
+    <a href=<?= base_url('Order/cancelOrderConfirm?idorder='.$order->getId()) ?>>Annuler la commande</a>
 
 <?php }}} else { ?>
 

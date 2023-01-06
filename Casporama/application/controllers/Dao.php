@@ -71,7 +71,7 @@ class Dao extends CI_Controller
         }
 
         if (!isset($err)) {
-            $dataContent['msg'] = 'Succes importation';
+            $dataContent['msgSucces'] = 'Succes importation';
         } else {
             $dataContent['msg'] = $err;
         }

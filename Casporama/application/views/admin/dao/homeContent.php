@@ -19,7 +19,7 @@
             <?php echo form_open_multipart('Dao/import'); ?>
             <div class="dao_import_file">
                 <h3>1 - Choissisez un fichier</h3>
-                <label for="file">Upload</label> 
+                <label for="file">Upload</label>
                 <input class="input" accept=".json,.csv,.xml,.yaml" name="userfile" type="file" id="file" />
             </div>
             <div class="dao_import_table">
@@ -35,8 +35,8 @@
             </div>
             <div class="dao_import_submit">
                 <h3>3 - Envoyer le fichier</h3>
-                <input class="input" type="submit" value="Submit"/> 
-            </div>  
+                <input class="input" type="submit" value="Submit"/>
+            </div>
             </form>
         </div>
     </div>
@@ -99,20 +99,33 @@
 
             if (is_array($msg)) {
                 foreach ($msg as $error) {?>
-        
-                    <h3 style='color:crimson'><?= $error ?></h3>
+
+                    <div class="dao_error">
+
+                        <div class="dao_error_content">
+                            <img src="<?php base_url() ?>../static/image/icon/error_white.svg" alt="error icon">
+                            <h3><?= $error ?></h3>
+                        </div>
+                    </div>
 
         <?php   }
 
             } else { ?>
 
-                <h3 style='color:crimson'><?= $msg ?></h3>
+                <div class="dao_error">
+                    <h3 style='color:crimson'><?= $msg ?></h3>
+                </div>
 
         <?php   }
         } ?>
 
-    </div>
-</div>
+        <?php if (isset($msgSucces)) { ?>
 
+                <div class="dao_error_content">
+                    <img src="<?php base_url() ?>../static/image/icon/error_white.svg" alt="error icon">
+                    <h3><?= $msgSucces ?></h3>
+                </div>
+
+        <?php } ?>
 
 <!-- dao/homeContent -->

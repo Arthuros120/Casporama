@@ -3,6 +3,7 @@
 <div class="modify_cart">
 
     <div class="modify_cart_title">
+        <a href="<?php base_url('') ?>/Cart"><img src="<?php base_url() ?>../static/image/icon/arrow.svg" ></a>
         <h1>Panier enregistrer N° <?= $cart[0]->getIdcart() ?> </h1>
     </div>
 
@@ -11,7 +12,9 @@
         <?php foreach ($cart as $product) { ?>
             <div class="box">
                 <div class="box_img" style="background-color:<?= $colors[$product->getProduct()->getSportName()] ?>;">
-                    <img src=<?= $product->getProduct()->getCover() ?> alt="image" width="250" height="250">
+                    <div class="box_cover">
+                        <img src=<?= $product->getProduct()->getCover() ?> alt="image" width="250" height="250">
+                    </div>
                     <div class="box_title">
                         <h3><?= $product->getProduct()->getName()?> <?= $product->getProduct()->getBrand() ?></h3>
                     </div>
@@ -33,18 +36,18 @@
                 </div>
             </div>
         <?php } ?>
-    </form>
         <?php } else { ?>
             <p>Panier vide</p>
         <?php } ?>
     </div>
 
     <div class="modify_cart_btn">
-        <h3>Total :<?= $totals[$cart[0]->getIdcart()] ?> €</h3>
+        <h3><span>Total : </span><?= $totals[$cart[0]->getIdcart()] ?> €</h3>
         <input type="hidden" name="iduser" value=<?= $cart[0]->getIduser() ?> />
         <input type="hidden" name="idcart" value=<?= $cart[0]->getIdcart() ?> />
         <input type="submit" value="Confirmer"/> 
     </div>
+    </form>
 
 </div>
 

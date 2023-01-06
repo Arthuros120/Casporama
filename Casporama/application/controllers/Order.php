@@ -17,9 +17,12 @@ class Order extends CI_Controller
         $this->load->model('ProductModel');
         $this->load->model('LocationModel');
         $this->load->model('CartModel');
+        $this->load->model('EmailModel');
+        $this->load->model('InvoicePDFModel');
     }
 
-    public function index() {
+    public function index()
+    {
 
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
@@ -48,7 +51,7 @@ class Order extends CI_Controller
                 foreach ($orders as $order) {
                     $total[$order->getId()] = $this->OrderModel->totalOrder($order);
                 }
-                
+
                 $dataContent['total'] = $total;
 
                 $data = array(
@@ -56,17 +59,15 @@ class Order extends CI_Controller
                 );
             }
 
-            $this->LoaderView->load('Order/index',$data);
-            
-            
+            $this->LoaderView->load('Order/index', $data);
         } else {
 
             redirect('User/login');
-
-        }     
+        }
     }
 
-    public function chooseLocation() {
+    public function chooseLocation()
+    {
 
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
@@ -84,7 +85,7 @@ class Order extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $listLoc = $this->LocationModel->getLocationsByUserId($user->getId(),true);
+            $listLoc = $this->LocationModel->getLocationsByUserId($user->getId(), true);
 
             if (isset($listLoc) && !empty($listLoc)) {
 
@@ -103,7 +104,6 @@ class Order extends CI_Controller
                             'lat' => $loc->getLatitude(),
                             'lng' => $loc->getLongitude(),
                         );
-
                     }
                 }
 
@@ -112,13 +112,11 @@ class Order extends CI_Controller
                 } else {
                     $dataScript['dataMap'] = null;
                 }
-
             } else {
 
                 $dataContent['addAddIsPos'] = false;
                 $dataContent['nbrAddr'] = "0/0";
                 $dataScript['dataMap'] = null;
-
             }
 
 
@@ -129,19 +127,16 @@ class Order extends CI_Controller
                 'script' => $dataScript,
             );
 
-    
-            $this->LoaderView->load('Order/chooseLocation',$data);
-            
-            
+
+            $this->LoaderView->load('Order/chooseLocation', $data);
         } else {
 
             redirect('User/login');
-
-        } 
-        
+        }
     }
 
-    public function addOrder() {
+    public function addOrder()
+    {
 
         $this->UserModel->durabilityConnection();
 
@@ -152,32 +147,77 @@ class Order extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $this->OrderModel->addOrder($idcart,$user,$idlocation);
+            $user = $this->UserModel->getUserById($user->getId());
 
+            $idorder = $this->OrderModel->addOrder($idcart, $user, $idlocation);
+
+            $fromEmail = array(
+
+                'email' => 'no_reply@casporama.live',
+                'name' => 'Casporama - No Reply'
+
+            );
+
+            $file = $this->InvoicePDFModel->saveInvoice($idorder,$user->getId());
+
+            $this->EmailModel->sendEmailWithAttachement(
+                $fromEmail,
+                $user->getCoordonnees()->getEmail(),
+                'Casporama - Facture n°'.$idorder,
+                "email/factureMail",
+                array(
+                'user' => $user,
+                'idorder' => $idorder,
+                ),
+                $file, 
+            );
 
             redirect("Order");
-            
-            
         } else {
 
             redirect('User/login');
-
-        } 
-
-    }
-
-    public function cancelOrder() {
-
-        $idorder = $this->input->get('idorder');
-
-        $err = $this->OrderModel->delOrder($idorder);
-
-        if ($err) {
-            redirect('Order?succes=true');
-        } else {
-            redirect('Order?succes=false');
         }
-
     }
 
+    public function cancelOrderConfirm()
+    {
+
+        $this->UserModel->durabilityConnection();
+
+        if ($this->UserModel->isConnected()) {
+
+            $idorder = $this->input->get('idorder');
+
+            $data = array(
+                'content' => array('idorder' => $idorder),
+            );
+
+            $this->LoaderView->load('Order/confirm', $data);
+        } else {
+
+            redirect('User/login');
+        }
+    }
+
+    public function cancelOrder()
+    {
+
+        $this->UserModel->durabilityConnection();
+
+        if ($this->UserModel->isConnected()) {
+
+            $idorder = $this->input->get('idorder');
+
+            $err = $this->OrderModel->delOrder($idorder);
+
+            if ($err) {
+                redirect('Order?succes=true');
+            } else {
+                redirect('Order?succes=false');
+            }
+        } else {
+
+            redirect('User/login');
+        }
+    }
 }
