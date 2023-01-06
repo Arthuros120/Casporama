@@ -67,18 +67,18 @@ footer {
     font-size: 0.7vw;
 }
 
-.green_hover:hover {
+.green_hover_footer:hover {
     color: #77DD77;
 }
 
-.blue_hover:hover {
+.blue_hover_footer:hover {
     color: #77B5FE; ;
 }
 
-.yellow_hover:hover {
+.yellow_hover_footer:hover {
     color: #FDFD96; ;
 }
 
-.red_hover:hover {
+.red_hover_footer:hover {
     color: #FF857E; ;
 }
