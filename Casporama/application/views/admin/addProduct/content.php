@@ -3,7 +3,7 @@
 <div class="addproduct">
     <div class="addproduct_header">
         <div class="addproduct_logo">
-            <a href="javascript:history.back()" ><img src="<?= base_url() ?>static/image/icon/arrow.svg"></a>
+            <a href="<?= base_url() ?>Admin/Product" ><img src="<?= base_url() ?>static/image/icon/arrow.svg"></a>
             <a href="<?= base_url() ?>" ><img src="<?= base_url() ?>static/image/casporama.png"></a>
         </div>
         <div class="addproduct_title">
@@ -157,7 +157,7 @@
 
             <div class="addproduct_submit">
                 <input type="submit" value="Ajouter le produit">
-                <a href="javascript:history.back()"><p>Annuler</p></a>
+                <a href="<?= base_url() ?>Admin/Product" ><p>Annuler</p></a>
             </div>
         </div>
     <?php echo form_close(); ?>

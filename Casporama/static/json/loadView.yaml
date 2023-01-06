@@ -556,7 +556,7 @@ Dao/index:
 Order/index:
 
     views :
-        head : "templates/blank"
+        head : "order/index/head"
         header : "templates/blank"
         content : "order/index/homeContent"
         footer : "templates/blank"

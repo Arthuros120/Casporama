@@ -54,6 +54,15 @@ class Order extends CI_Controller
 
                 $dataContent['total'] = $total;
 
+                $colors = array (
+                    'Football' => '#D3E2D3',
+                    'Badminton' => '#D9E6F4',
+                    'Volleyball' => '#FBFBC3',
+                    'Arts-martiaux' => '#FFB4B0'
+                );
+        
+                $dataContent['colors'] = $colors;
+
                 $data = array(
                     'content' => $dataContent
                 );
