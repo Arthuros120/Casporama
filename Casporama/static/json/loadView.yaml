@@ -536,7 +536,7 @@ Order/index:
     views :
         head : "templates/blank"
         header : "templates/blank"
-        content : "order/homeContent"
+        content : "order/index/homeContent"
         footer : "templates/blank"
 
     baseView: "templates/base"
@@ -551,3 +551,13 @@ Order/chooseLocation:
         footer : "templates/blank"
 
     baseView: "user/home/info/base"
+
+Order/confirm:
+
+    views :
+        head : "order/confirm/head"
+        header : "templates/blank"
+        content : "order/confirm/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"

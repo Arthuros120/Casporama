@@ -137,7 +137,7 @@ class OrderModel extends CI_Model {
         return false;
     }
 
-    public function addOrder(int $idcart, UserEntity $user, int $idlocation) {
+    public function addOrder(int $idcart, UserEntity $user, int $idlocation) : int {
 
         $id = $this->generateId();
         $iduser = $user->getId();
@@ -163,11 +163,13 @@ class OrderModel extends CI_Model {
         }
         // decrementer le stock pour les produits commandés.
 
-        if ($cart->getIdcart() == 0) {
+        if ($idcart == 0) {
             delete_cookie('cart');
         } else {
-            $this->CartModel->deleteCart($cart->getIdcart(),$user->getId());
+            $this->CartModel->deleteCart($idcart,$user->getId());
         }
+
+        return $id;
 
     }
 

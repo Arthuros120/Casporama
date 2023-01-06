@@ -1,8 +1,8 @@
-<!--  caspor/deleteCaspor/content -->
+<!--  order/confirm/content -->
 
 <div class="delete_caspor_content">
     <div class="delete_caspor_title">
-        <a href="<?= base_url() ?>User/home">
+        <a href="<?= base_url() ?>Order">
             <img src="<?= base_url() ?>static/image/icon/arrow.svg" alt="arrow">
         </a> 
         <img src="<?= base_url() ?>static/image/casporama.png" alt="logo">
@@ -13,24 +13,19 @@
         </div>
         <div class="delete_caspor_card">
             <div class="delete_caspor_card_text">
-                <h1>Vous nous quittez déjà ?</h1>
+                <h1>Etes-vous sûr de vouloir annuler votre commande ?</h1>
                 <div class="delete_caspor_card_desc">
-                    <h3>Pourquoi nous quittez en si bon chemin ?</h3>
-                    <p>Après nous avoir quitter vous ne bénéficerer plus des avantages extraordinaire de ce 
-                        magnifique abonnement. Nous vous conseillons de bien réfléchir avant de faire le choix fatidique.
+                    <p>Après avoir annuler votre commande nous serons <span style='color:darkred'>triste</span>. 
+                        Nous vous conseillons de bien réfléchir avant de faire le choix fatidique.
                     </p>
                 </div>
             </div>
             <div class="delete_caspor_button">
-                <a href="<?= base_url() ?>Caspor/myCaspor"><h3>Je reste</h3></a> 
-                <a href="<?= base_url() ?>Caspor/supprCaspor"><h3>Je résilie</h3></a>
+                <a href="<?= base_url() ?>Order"><h3>Je garde ma Commande</h3></a> 
+                <a href="<?= base_url() ?>Order/cancelOrder?idorder=<?= $idorder ?>"><h3>J'annule ma Commande</h3></a>
             </div>
         </div>
     </div>
 </div>
 
-<!--  caspor/deleteCaspor/content -->
-
-<!-- <h1>Delete Caspor</h1>
-
--->
+<!--  order/confirm/content -->
