@@ -104,6 +104,7 @@ Casporama/upload/DaoFile/csv/product/*.csv
 Casporama/upload/DaoFile/csv/location/*.csv
 Casporama/upload/DaoFile/csv/information/*.csv
 Casporama/upload/DaoFile/csv/catalog/*.csv
+Casporama/upload/pdf/*.pdf
 
 .gradle/
 build/
