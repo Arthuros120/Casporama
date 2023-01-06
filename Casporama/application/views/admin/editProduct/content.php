@@ -50,7 +50,23 @@
                 </div>
 
         <?php }
+    }
+
+    form_open_multipart('admin/addImage/'.$product->getId());
+    
+    if ($countImages < 5) {
+
+        for ($i = $countImages + 1; $i <= 5; $i++) { ?>
+
+            <h4>Ajout d'une image <?= $i ?> </h4>
+            <input type="file" name="image<?= $i ?>" accept="image/*">
+
+        <?php }
     } ?>
+
+    <input type="submit" value="Ajouter les images">
+
+    <?php echo form_close(); ?>
 
 </div>
 

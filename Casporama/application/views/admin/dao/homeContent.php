@@ -72,7 +72,7 @@
 
             <div class="dao_export_submit">
                 <h3>3 - Confirmer</h3>
-                <input class="input" type="submit" value="Confirmer"/> 
+                <input class="input" type="submit" value="Confirmer"/>
             </div>
         </form>
         </div>
@@ -89,13 +89,27 @@
                         </div>
                     <?php } ?>
                     <div class="dao_export_next_submit">
-                        <input class="export_collumns_input" type="submit" value="Export File"/> 
+                        <input class="export_collumns_input" type="submit" value="Export File"/>
                     </div>
                 </form>
             </div>
-        <?php } if (isset($msg)) { ?>
-        <h3 style='color:crimson'><?= $msg ?></h3>
-        <?php } ?>
+        <?php }
+        
+        if (isset($msg)) {
+
+            if (is_array($msg)) {
+                foreach ($msg as $error) {?>
+        
+                    <h3 style='color:crimson'><?= $error ?></h3>
+
+        <?php   }
+
+            } else { ?>
+
+                <h3 style='color:crimson'><?= $msg ?></h3>
+
+        <?php   }
+        } ?>
 
     </div>
 </div>

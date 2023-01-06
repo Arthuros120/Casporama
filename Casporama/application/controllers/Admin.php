@@ -337,6 +337,7 @@ class Admin extends CI_Controller
             'product' => $product,
             'images' => $images,
             'imageCover' => $imageCover,
+            'countImages' => count($product->getImages()),
 
         );
 
