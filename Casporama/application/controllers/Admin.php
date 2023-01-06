@@ -184,13 +184,16 @@ class Admin extends CI_Controller
 
         if (!$this->form_validation->run()) {
 
+            $errors = explode('.',validation_errors());
+            $errors = array_slice($errors,0,count($errors)-1);
+
             $dataContent = array(
 
                 'types' => $this->ProductModel->getAllCategory(),
                 'sports' => $this->ProductModel->getAllSport(),
                 'brands' => $this->ProductModel->getAllBrand(),
                 'post' => $post,
-                'error' => validation_errors()
+                'errors' => $errors
     
             );
     

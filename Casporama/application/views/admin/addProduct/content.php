@@ -1,4 +1,4 @@
-<!-- admin/addProduct/content -->
+   <!-- admin/addProduct/content -->
 
 <div class="addproduct">
     <div class="addproduct_header">
@@ -129,8 +129,31 @@
                     <?php } ?>
                     </div>
                 </div>
-
             </div>
+
+            <?php if (isset($errors)) { ?>
+            <div class="addproduct_error">
+                <img src="<?= base_url() ?>static/image/icon/error_white.svg" >
+                <div class="error">
+                    <?php foreach ($errors as $error) { ?>
+                            <p> <?= $error ?>.</p>
+                    <?php } ?>
+                </div>
+            </div>
+            <?php } ?>
+
+            <?php if (isset($errorFile)) { ?>
+            <div class="addproduct_error">
+                <img src="<?= base_url() ?>static/image/icon/error_white.svg" >
+                <div class="error">
+                    <?php foreach ($errorFile as $error) { ?>
+                        <h5>Images n°<?= $error['id'] ?></h5>
+                        <p><?= $error['error'] ?></p>
+                    <?php } ?>
+                </div>   
+            </div>
+            <?php } ?>
+
             <div class="addproduct_submit">
                 <input type="submit" value="Ajouter le produit">
                 <a href="javascript:history.back()"><p>Annuler</p></a>
@@ -140,13 +163,6 @@
     </div>
 </div>
 
-<?php if (isset($error)) { ?>
-
-    <div class="error">
-        <p> <?= $error ?> </p>
-    </div>
-
-<?php } ?>
 
 
 
@@ -167,22 +183,8 @@
 
 
 
-<?php if (isset($errorFile)) { ?>
 
-    <div class="error">
 
-    <h4> Erreur lors de l'ajout des images </h4>
-        
-        <?php foreach ($errorFile as $error) { ?>
-
-            <h5>Images n°<?= $error['id'] ?></h5>
-            <p><?= $error['error'] ?></p>
-
-        <?php } ?>
-
-    </div>
-
-<?php } ?>
 
 <datalist id="listBrand" name="listBrand">
     

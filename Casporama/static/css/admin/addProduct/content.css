@@ -18,7 +18,7 @@
     flex-direction: column;
 
     width: 100%;
-    height: 20%;
+    height: 20vh;
 }
 
 .addproduct_logo {
@@ -207,4 +207,34 @@
 
 .addproduct_submit > a > p {
     font-size: 0.7vw;
+}
+
+.addproduct_error {
+    background-color: red;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2vh;
+    padding: 0.5% 0.5%;
+    border-radius: 12px;
+
+    margin-top: 5vh;
+}
+
+.addproduct_error > img {
+    width: 10%;
+    height: auto;
+}
+
+.addproduct_error > .error {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    height: 100%;
+
+    color: white;
 }
