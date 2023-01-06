@@ -132,6 +132,7 @@
             </div>
 
             <?php if (isset($errors)) { ?>
+            <?php if (count($errors) > 0) { ?>
             <div class="addproduct_error">
                 <img src="<?= base_url() ?>static/image/icon/error_white.svg" >
                 <div class="error">
@@ -140,7 +141,7 @@
                     <?php } ?>
                 </div>
             </div>
-            <?php } ?>
+            <?php } } ?>
 
             <?php if (isset($errorFile)) { ?>
             <div class="addproduct_error">
