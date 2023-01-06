@@ -496,6 +496,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure getAllAsAlive();
     procedure getAllNotAlive();
     procedure getAllBrand();
+    procedure getProductByName( newname varchar(255));
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -589,6 +590,11 @@ CREATE OR REPLACE PACKAGE BODY product AS
         select distinct brand from product;
     End;
 
+    procedure getProductByName( newname varchar(255)) as
+    Begin
+        select * from product where name = newname;
+    End;
+
 END;
 
 CREATE OR REPLACE PACKAGE `order` AS
@@ -606,6 +612,7 @@ CREATE OR REPLACE PACKAGE `order` AS
     procedure updateLocationOrder( nuorder int, newlocation varchar(15));
     procedure getAll();
     procedure verifyId(newid int);
+    procedure delOrder(newidorder int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY `order` AS
@@ -615,7 +622,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
     End;
     procedure getOrderUserById( nuorder int, newiduser int) as
     Begin
-        select  o.id, iduser, dateorder, idlocation, state, isALive, dateLastUpdate, op.idproduct, idvariant, quantity
+        select  o.id, iduser, date(dateorder) as 'dateorder', idlocation, state, isALive, dateLastUpdate, op.idproduct, idvariant, quantity
             from `order` o, order_products op
                 where o.id = nuorder
                     and o.iduser = newiduser
@@ -637,6 +644,12 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
     procedure addProductToOrder(newidorder int, newidproduct int , newidvariant int, newquantity int) as
     BEGIN
         insert into order_products(idorder, idproduct, idvariant, quantity) value (newidorder,newidproduct,newidvariant,newquantity);
+    end;
+
+    procedure delOrder(newidorder int) as
+    begin
+        delete from `order` where id = newidorder;
+        delete from order_products where idorder = newidorder;
     end;
 
 

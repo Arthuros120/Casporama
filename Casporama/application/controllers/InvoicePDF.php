@@ -41,11 +41,13 @@ class InvoicePDF extends CI_Controller
 
     }
 
-    public function saveInvoice($idOrder, $iduser) {
+    public function saveInvoice($idOrder, $iduser) : string {
         $invoice = new Konekt\PdfInvoice\InvoicePrinter("A4", "€", "en");
         $user = $this->UserModel->getUserById($iduser);
         $this->GenerateInvoice($idOrder,$user,$invoice);
         $invoice->render(APPPATH.'../upload/pdf/Facture'. $idOrder. '.pdf', 'F');
+        
+        return APPPATH.'../upload/pdf/Facture'. $idOrder. '.pdf';
     }
 
     private function search_product(array $products, int $id) : ?ProductEntity{
