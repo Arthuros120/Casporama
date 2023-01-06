@@ -195,4 +195,20 @@ class OrderModel extends CI_Model {
         return $err;
     }
 
+    public function getAllOrder() : ?array {
+
+        $query = $this->db->query('call `order`.getAll()');
+
+        $orders = $query->result_array();
+
+        $query->next_result();
+        $query->free_result();
+
+        var_dump("orders");
+
+        var_dump($orders);
+
+
+    }
+
 }

@@ -416,6 +416,18 @@ Admin/deletes/error:
 
     baseView: "admin/deletes/global/base"
 
+
+Admin/order:
+
+    views :
+        head : "admin/dao/head"
+        header : "admin/header"
+        content : "admin/order/content"
+        script : "templates/blank"
+        footer: "templates/blank"
+
+    baseView: "admin/base"
+
 #---------------------------------Info View ---------------------------------#
 
 Information/rgpd:

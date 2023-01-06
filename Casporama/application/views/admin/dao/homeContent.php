@@ -102,7 +102,14 @@
                     <h3><?= $msg ?></h3>
                 </div>
             <?php } ?>
-        </div>
+    </div>
+
+    <?php if (isset($msgSucces)) { ?>
+                <div class="dao_error_content">
+                    <img src="<?php base_url() ?>../static/image/icon/error_white.svg" >
+                    <h3><?= $msgSucces ?></h3>
+                </div>
+    <?php } ?>
 </div>
 
 
