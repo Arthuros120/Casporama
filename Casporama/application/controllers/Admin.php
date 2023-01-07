@@ -602,13 +602,7 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('firstname', 'Prénom', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('numTel', 'Téléphone', 'required|trim');
-        $this->form_validation->set_rules('password', 'Mot de passe', 'required|trim');
-        $this->form_validation->set_rules('password2', 'Confirmation du mot de passe', 'required|trim|matches[password]');
         $this->form_validation->set_rules('role', 'Rôle', 'required|trim');
-        $this->form_validation->set_rules('address', 'Adresse', 'required|trim');
-        $this->form_validation->set_rules('ville', 'Ville', 'required|trim');
-        $this->form_validation->set_rules('codePostal', 'Code postal', 'required|trim');
-
 
         $user = $this->UserModel->getUserById($id);
         $dataContent['user'] = $user;
@@ -620,17 +614,27 @@ class Admin extends CI_Controller
     }
 
     public function updateUser() {
+        $this->UserModel->adminOnly();
         //récupéré les donnée du formulaire
         $id = $this->input->post('id');
         $name = $this->input->post('name');
         $firstname = $this->input->post('firstname');
         $email = $this->input->post('email');
         $numTel = $this->input->post('numTel');
-        $password = $this->input->post('password');
         $role = $this->input->post('role');
-        $address = $this->input->post('address');
-        $ville = $this->input->post('ville');
-        $codePostal = $this->input->post('codePostal');
+
+        $user = $this->UserModel->getUserById($id);
+        $coord = $user->getCoordonnees();
+        $coord->setNom($name);
+        $coord->setPrenom($firstname);
+        $coord->setEmail($email);
+        $coord->setTelephone($numTel);
+        $user->setStatus($role);
+
+        $this->UserModel->updateUser($user);
+
+        redirect('Admin/editUser/'.$id);
+
 
 
     }

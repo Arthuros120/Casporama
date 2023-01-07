@@ -44,6 +44,14 @@
                         <input type="text" name="numTel" value="<?= $user->getCoordonnees()->getTelephone() ?>">
 
                     </label>
+                    <label>
+                        Rôle :
+                        <select name="role">
+                            <option value="Administrateur" <?= $user->getStatus() == 'Administrateur' ? 'selected' : '' ?>>Administrateur</option>
+                            <option value="Client" <?= $user->getStatus() == 'Client' ? 'selected' : '' ?>>Client</option>
+                            <option value="Caspor" <?= $user->getStatus() == 'Caspor' ? 'selected' : '' ?>>Caspor</option>
+                        </select>
+                    </label>
                     <input type="submit" value="Update">
 
                 <div class = "admin_edit_user_localisation">
