@@ -35,7 +35,7 @@ class Order extends CI_Controller
 
             $data = array();
 
-            $succes = $this->input->get('succes');
+            $succes = $this->session->flashdata('succes');
 
             if (isset($succes)) {
                 if ($succes == 'true') {
@@ -158,30 +158,64 @@ class Order extends CI_Controller
 
             $user = $this->UserModel->getUserById($user->getId());
 
-            $idorder = $this->OrderModel->addOrder($idcart, $user, $idlocation);
+            if ($idcart == 0) {
+                $carts = $this->CartModel->getCart();
+            } else {
+                $carts = $this->CartModel->getCartDBbyID($user->getId(), $idcart);
+            }
 
-            $fromEmail = array(
+            $bool = $this->OrderModel->haveStock($carts);
 
-                'email' => 'no_reply@casporama.live',
-                'name' => 'Casporama - No Reply'
+            $errStock = array();
 
-            );
+            foreach ($bool as $key => $value) {
+                if (!$value) {
+                    array_push($errStock,$key);
+                }
+            }
 
-            $file = $this->InvoicePDFModel->saveInvoice($idorder,$user->getId());
+            if (empty($errStock)) {
+                $idorder = $this->OrderModel->addOrder($carts, $user, $idlocation);
 
-            $this->EmailModel->sendEmailWithAttachement(
-                $fromEmail,
-                $user->getCoordonnees()->getEmail(),
-                'Casporama - Facture n°'.$idorder,
-                "email/factureMail",
-                array(
-                'user' => $user,
-                'idorder' => $idorder,
-                ),
-                $file, 
-            );
+                $fromEmail = array(
 
-            redirect("Order");
+                    'email' => 'no_reply@casporama.live',
+                    'name' => 'Casporama - No Reply'
+
+                );
+
+                $file = $this->InvoicePDFModel->saveInvoice($idorder,$user->getId());
+
+                $this->EmailModel->sendEmailWithAttachement(
+                    $fromEmail,
+                    $user->getCoordonnees()->getEmail(),
+                    'Casporama - Facture n°'.$idorder,
+                    "email/factureMail",
+                    array(
+                    'user' => $user,
+                    'idorder' => $idorder,
+                    ),
+                    $file, 
+                );
+
+                redirect("Order");
+            } else {
+
+                $errProduct = array();
+
+                foreach ($errStock as $idVariant) {
+                    foreach ($carts as $cart) {
+                        if ($cart->getVariant()->getId() == $idVariant) {
+                            array_push($errProduct,$cart->getProduct()->getName(). " " .$cart->getProduct()->getBrand(). " " .$cart->getVariant()->getSize(). " " .$cart->getVariant()->getColor());
+                        }
+                    } 
+                } 
+
+                $this->LoaderView->load("Cart/error", array('content' => array('err' => $errProduct, 'idcart' => $idcart)));
+
+            }
+
+
         } else {
 
             redirect('User/login');
@@ -220,10 +254,13 @@ class Order extends CI_Controller
             $err = $this->OrderModel->delOrder($idorder);
 
             if ($err) {
-                redirect('Order?succes=true');
+                $this->session->set_flashdata('succes',true);
             } else {
-                redirect('Order?succes=false');
+                $this->session->set_flashdata('succes',false);
             }
+
+            redirect('Order');
+
         } else {
 
             redirect('User/login');

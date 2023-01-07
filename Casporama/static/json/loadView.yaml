@@ -538,6 +538,16 @@ Cart/modify:
 
     baseView: "templates/base"
 
+Cart/error:
+
+    views :
+        head : "cart/error/head"
+        header : "templates/blank"
+        content : "cart/error/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
 #---------------------------------Dao View---------------------------------#
 
 Dao/index:

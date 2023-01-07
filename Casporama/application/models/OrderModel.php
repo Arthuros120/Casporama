@@ -137,7 +137,7 @@ class OrderModel extends CI_Model {
         return false;
     }
 
-    public function addOrder(int $idcart, UserEntity $user, int $idlocation) : int {
+    public function addOrder(array $carts, UserEntity $user, int $idlocation) : int {
 
         $id = $this->generateId();
         $iduser = $user->getId();
@@ -149,24 +149,26 @@ class OrderModel extends CI_Model {
         $date = date($datestring, $time);
         $dateLastUpdate = date($datestringLastUpdate, $time);
 
-        if ($idcart == 0) {
-            $carts = $this->CartModel->getCart();
-        } else {
-            $carts = $this->CartModel->getCartDBbyID($iduser, $idcart);
-        }
-
         if ($carts != null) {
             $this->db->query("Call `order`.addOrder(" . $id . "," . $iduser . "," . "'$date'" . "," . $idlocation . "," . "'Non preparer'" . "," . 'true' . "," . "'$dateLastUpdate'" . ")");
             foreach ($carts as $cart) {
                 $this->db->query("Call `order`.addProductToOrder(" . $id . "," . $cart->getProduct()->getId() . "," . $cart->getVariant()->getId() . "," . $cart->getQuantity() . ")");
+                
+                $query = $this->db->query('call catalog.getStockByVariant('. $cart->getVariant()->getId() .')');
+
+                $quantity = $query->result_array()[0]['quantity'] ;
+
+                $query->next_result();
+                $query->free_result();
+
+                $this->db->query("Call catalog.updateQuantity(". $cart->getVariant()->getId() . "," . $quantity-$cart->getQuantity() .")");
             }
         }
-        // decrementer le stock pour les produits commandés.
 
-        if ($idcart == 0) {
+        if ($carts[0]->getIdcart() == 0) {
             delete_cookie('cart');
         } else {
-            $this->CartModel->deleteCart($idcart,$user->getId());
+            $this->CartModel->deleteCart($carts[0]->getIdcart(),$user->getId());
         }
 
         return $id;
@@ -209,6 +211,20 @@ class OrderModel extends CI_Model {
         var_dump($orders);
 
 
+    }
+
+    public function haveStock(array $carts) : array {
+
+        foreach ($carts as $cart) {
+            $query = $this->db->query('call catalog.getStockByVariant('. $cart->getVariant()->getId() .')');
+            $res[$cart->getVariant()->getId()] = $cart->getQuantity() <= $query->result_array()[0]['quantity'] ;
+
+            $query->next_result();
+            $query->free_result();
+
+        }
+
+        return $res;
     }
 
 }

@@ -1,5 +1,6 @@
 <!-- order/index -->
 
+
 <div class="order">
     <div class="order_header">
         <div class="order_logo">
@@ -10,6 +11,12 @@
             <h1>Commandes</h1>
         </div>
     </div>
+
+    <?php if (isset($resultat)) { ?>
+    
+        <p style='color:red'><?= $resultat ?></p>
+
+    <?php } ?>
 
     <div class="order_content">
     <?php if (isset($orders)) { foreach ($orders as $order) { ?>
@@ -80,10 +87,3 @@
     <?php } ?>
     </div>
 </div>
-
-<?php if (isset($resultat)) { ?>
-    
-    <p style='color:red'><?= $resultat ?></p>
-
-<?php } ?>
-
