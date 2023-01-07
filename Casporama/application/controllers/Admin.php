@@ -597,10 +597,41 @@ class Admin extends CI_Controller
     public function editUser(int $id) {
         $this->UserModel->adminOnly();
 
+        // créer les règles du formulaire
+        $this->form_validation->set_rules('name', 'Nom', 'required|trim');
+        $this->form_validation->set_rules('firstname', 'Prénom', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('numTel', 'Téléphone', 'required|trim');
+        $this->form_validation->set_rules('password', 'Mot de passe', 'required|trim');
+        $this->form_validation->set_rules('password2', 'Confirmation du mot de passe', 'required|trim|matches[password]');
+        $this->form_validation->set_rules('role', 'Rôle', 'required|trim');
+        $this->form_validation->set_rules('address', 'Adresse', 'required|trim');
+        $this->form_validation->set_rules('ville', 'Ville', 'required|trim');
+        $this->form_validation->set_rules('codePostal', 'Code postal', 'required|trim');
+
+
         $user = $this->UserModel->getUserById($id);
         $dataContent['user'] = $user;
+        $dataContent['roles'] = array(['Administrateur'],['Client'],['Caspor']);
         $data = array('content' => $dataContent);
+
         $this->LoaderView->load('Admin/EditUser', $data);
+
+    }
+
+    public function updateUser() {
+        //récupéré les donnée du formulaire
+        $id = $this->input->post('id');
+        $name = $this->input->post('name');
+        $firstname = $this->input->post('firstname');
+        $email = $this->input->post('email');
+        $numTel = $this->input->post('numTel');
+        $password = $this->input->post('password');
+        $role = $this->input->post('role');
+        $address = $this->input->post('address');
+        $ville = $this->input->post('ville');
+        $codePostal = $this->input->post('codePostal');
+
 
     }
 }

@@ -1,6 +1,9 @@
 <?php
 
+
+
 require_once(APPPATH . "libraries/pdf-invoice/src/InvoicePrinter.php");
+use Konekt\PdfInvoice\InvoicePrinter;
 
 /**
  * @property UserModel $UserModel
@@ -65,10 +68,10 @@ class InvoicePDF extends CI_Controller
     /**
      * @param $idOrder
      * @param UserEntity $user
-     * @param \Konekt\PdfInvoice\InvoicePrinter $invoice
+     * @param InvoicePrinter $invoice
      * @return void
      */
-    public function GenerateInvoice($idOrder, UserEntity $user, \Konekt\PdfInvoice\InvoicePrinter $invoice): void
+    public function GenerateInvoice($idOrder, UserEntity $user, InvoicePrinter $invoice): void
     {
         /** @var OrderEntity $order
          * @var UserEntity $user
