@@ -300,7 +300,7 @@ class ProductEntity
     public function setDescription(string $description)
     {
 
-        $this->description = $description;
+        $this->description = trim($description);
     }
 
     /*

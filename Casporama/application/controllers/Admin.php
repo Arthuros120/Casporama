@@ -184,8 +184,8 @@ class Admin extends CI_Controller
 
         if (!$this->form_validation->run()) {
 
-            $errors = explode('.',validation_errors());
-            $errors = array_slice($errors,0,count($errors)-1);
+            $errors = explode('.', validation_errors());
+            $errors = array_slice($errors, 0, count($errors)-1);
 
             $dataContent = array(
 
@@ -301,6 +301,8 @@ class Admin extends CI_Controller
 
         $this->load->model('ProductModel');
 
+        $this->load->library('upload');
+
         if ($id == -1) {
 
             redirect('admin/product');
@@ -335,23 +337,142 @@ class Admin extends CI_Controller
 
         }
 
-        $dataContent = array(
+        // Start of the form validation
 
-            'product' => $product,
-            'images' => $images,
-            'imageCover' => $imageCover,
-            'countImages' => count($product->getImages()),
+        $configFile['upload_path']          = 'upload/images/import/';
+        $configFile['allowed_types']        = 'jpg|png|jpeg|svg';
+        $configFile['max_size']             = 100000;
+        $configFile['max_width']            = 1000;
+        $configFile['max_height']           = 1000;
+        $configFile['min_width']            = 200;
+        $configFile['min_height']           = 200;
+        $configFile['max_filename']         = 0;
+        $configFile['encrypt_name']         = true;
+        $configFile['remove_spaces']        = true;
+        $configFile['overwrite']            = false;
+        $configFile['detect_mime']          = true;
+        $configFile['mod_mime_fix']         = false;
+        $configFile['file_ext_tolower']     = true;
+        $configFile['create_thumb']         = false;
+        $configFile['maintain_ratio']       = true;
 
+        $imageFile = array();
+        $errorFile = array();
+
+        $configRules = array(
+
+            array(
+
+                'field' => 'name',
+                'label' => 'Nom du produit',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|callback_checkNameProduct',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'min_length' => 'Le champ %s doit contenir au moins 3 caractères.',
+                    'max_length' => 'Le champ %s doit contenir au maximum 255 caractères.',
+                    'checkNameProduct' => 'Le champ %s existe déjà.'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'description',
+                'label' => 'Description du produit',
+                'rules' => 'trim|required|min_length[3]',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'min_length' => 'Le champ %s doit contenir au moins 3 caractères.'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'price',
+                'label' => 'Prix du produit',
+                'rules' => 'trim|required|numeric',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'numeric' => 'Le champ %s doit être un nombre.'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'sport',
+                'label' => 'Sport du produit',
+                'rules' => 'required|numeric|callback_checkSport',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'numeric' => 'Le champ %s doit être un nombre.',
+                    'checkSport' => 'Le champ %s n\'existe pas.'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'type',
+                'label' => 'Type du produit',
+                'rules' => 'required|callback_checkType',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'checkType' => 'Le champ %s n\'existe pas.'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'brand',
+                'label' => 'Marque du produit',
+                'rules' => 'trim|required|min_length[3]|max_length[255]',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'min_length' => 'Le champ %s doit contenir au moins 3 caractères.',
+                    'max_length' => 'Le champ %s doit contenir au maximum 255 caractères.'
+
+                )
+            ),
         );
 
-        $data = array(
+        $this->form_validation->set_rules($configRules);
 
-            'content' => $dataContent
+        if (!$this->form_validation->run()) {
 
-        );
+            $dataContent = array(
 
-        $this->LoaderView->load('Admin/editProduct', $data);
+                'product' => $product,
+                'images' => $images,
+                'imageCover' => $imageCover,
+                'countImages' => count($product->getImages()),
+                'types' => $this->ProductModel->getAllCategory(),
+                'sports' => $this->ProductModel->getAllSport(),
+                'brands' => $this->ProductModel->getAllBrand(),
+                'error' => validation_errors()
+            );
+    
+            $data = array(
+    
+                'content' => $dataContent
+    
+            );
+    
+            $this->LoaderView->load('Admin/editProduct', $data);
 
+        } else {
+
+            var_dump($this->input->post());
+
+        }
     }
 
     public function deleteProduct(int $id = -1)
@@ -600,7 +721,8 @@ class Admin extends CI_Controller
     }
 
 
-    public function order() {
+    public function order()
+    {
 
         $this->UserModel->adminOnly();
 

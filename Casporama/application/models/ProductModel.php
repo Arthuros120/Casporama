@@ -314,6 +314,8 @@ class ProductModel extends CI_Model
     public function findByName(string $nameProduct): ?ProductEntity
     {
 
+        $nameProduct = str_replace("'", "\'", $nameProduct);
+
         // * Requete SQL pour récupérer le produit par son id
         $queryProduct = $this->db->query("Call product.getProductByName('" . $nameProduct . "')");
 

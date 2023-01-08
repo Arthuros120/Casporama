@@ -106,7 +106,7 @@
                     Il est possible d'ajouter jusqu'a 5 images, elles doivent être au format .jpg, .jpeg, .png ou .gif
                     Les images doivent faire au minimum 100x100px et au maximum 800x800px et elles doivent faire moins de 10Mo
                     Les images doivent avoir un nom de moins de 255 caractères. L'image de couverture n'est pas obligatoire mais conseiller
-                <p> 
+                <p>
             </div>
             <div class="addproduct_img_content">
                 <div class="img_cover">
