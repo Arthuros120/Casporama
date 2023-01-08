@@ -81,7 +81,7 @@
                 <?php echo form_open_multipart('Dao/export'); ?>
                     <input type="hidden" name="table" value=<?= $table ?>>
                     <input type="hidden" name="ext" value=<?= $ext ?>>
-                    <h3><?=$table?>,<?= $ext ?> :</h3>
+                    <h3><?=$table?>.<?= $ext ?> :</h3>
                     <?php foreach ($colonnes as $value) { ?>
                         <div class="export_collumns">
                             <label for="export-Filter[]"><?= $value ?></label>

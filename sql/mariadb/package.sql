@@ -613,14 +613,33 @@ CREATE OR REPLACE PACKAGE `order` AS
     procedure getAll();
     procedure verifyId(newid int);
     procedure delOrder(newidorder int);
+    procedure getOrderProduct(id int);
+    procedure getOrderById(newid int);
+    procedure getAllProduct();
 END;
+
+call `order`.getAllProduct();
 
 CREATE OR REPLACE PACKAGE BODY `order` AS
     procedure getAll() as
     Begin
         select * from `order`;
-        select * from `order_products`;
     End;
+
+    procedure getAllProduct() as
+    Begin
+        select * from order_products;
+    End;
+
+    procedure getOrderById(newid int) as
+    begin
+        select * from `order` where id = newid;
+    end;
+
+    procedure getOrderProduct(id int) as
+    begin
+        select * from `order_products` where idorder = id;
+    end;
     procedure getOrderUserById( nuorder int, newiduser int) as
     Begin
         select  o.id, iduser, date(dateorder) as 'dateorder', idlocation, state, isALive, dateLastUpdate, op.idproduct, idvariant, quantity
@@ -656,7 +675,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
 
     procedure updateState( nuorder int, newstate varchar(15)) as
     BEGIN
-        update `order` set state=newstate where idorder = nuorder;
+        update `order` set state=newstate where id = nuorder;
     end;
 
     procedure updateLocationOrder( nuorder int, newlocation varchar(15)) as
