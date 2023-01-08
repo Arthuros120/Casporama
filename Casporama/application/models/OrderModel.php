@@ -202,15 +202,43 @@ class OrderModel extends CI_Model {
         $query = $this->db->query('call `order`.getAll()');
 
         $orders = $query->result_array();
-
+        
         $query->next_result();
         $query->free_result();
 
-        var_dump("orders");
+        $res = [];
 
-        var_dump($orders);
+        foreach ($orders as $order) {
 
+            $newOrder = new OrderEntity;
 
+            $newOrder->setId($order['id']);
+            $newOrder->setDate($order['dateorder']);
+            $newOrder->setState($order['state']);
+            $newOrder->setIduser($order['iduser']);
+            $newOrder->setLocation($this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']));
+
+            $query = $this->db->query('call `order`.getOrderProduct('. $order['id'] .')');
+
+            $orderproducts = $query->result_array();
+        
+            $query->next_result();
+            $query->free_result();
+
+            foreach ($orderproducts as $products) {
+                $product = $this->ProductModel->findById($products['idproduct']);
+                $newOrder->addProducts($product);
+                $newOrder->addVariants($product->getVariant($products['idvariant']));
+                $newOrder->addQuantities($products['idvariant'],$products['quantity']);
+            }
+
+            array_push($res,$newOrder);
+        }
+        if (!empty($res)) {
+            return $res;
+        } else {
+            return null;
+        }
     }
 
     public function haveStock(array $carts) : array {
@@ -225,6 +253,52 @@ class OrderModel extends CI_Model {
         }
 
         return $res;
+    }
+
+    public function updateStatus(int $idorder, string $status) {
+
+        $this->db->query("call `order`.updateState(". $idorder . "," . "'$status'" .")");
+
+    }
+
+    public function getOrderById(int $idorder) :?array {
+
+        $query = $this->db->query("call `order`.getOrderById(". $idorder .")");
+
+        $order = $query->result_array()[0];
+
+        $query->next_result();
+        $query->free_result();
+
+
+        if ($order != null) {
+            $newOrder = new OrderEntity;
+
+            $newOrder->setId($order['id']);
+            $newOrder->setDate($order['dateorder']);
+            $newOrder->setState($order['state']);
+            $newOrder->setIduser($order['iduser']);
+            $newOrder->setLocation($this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']));
+
+            $query = $this->db->query('call `order`.getOrderProduct('. $order['id'] .')');
+
+            $orderproducts = $query->result_array();
+        
+            $query->next_result();
+            $query->free_result();
+
+            foreach ($orderproducts as $products) {
+                $product = $this->ProductModel->findById($products['idproduct']);
+                $newOrder->addProducts($product);
+                $newOrder->addVariants($product->getVariant($products['idvariant']));
+                $newOrder->addQuantities($products['idvariant'],$products['quantity']);
+            }
+
+            return array($newOrder);
+        } 
+
+        return null;
+
     }
 
 }

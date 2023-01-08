@@ -600,18 +600,99 @@ class Admin extends CI_Controller
     }
 
 
-    public function order() {
+    public function order()
+    {
 
         $this->UserModel->adminOnly();
 
         $this->load->model('OrderModel');
 
-        $orders = $this->OrderModel->getAllOrder();
+        $succes = $this->session->flashdata('succes');
 
+        if (isset($succes)) {
+            if ($succes == 'true') {
+                $dataContent['resultat'] = 'La commande a bien été annulé';
+            } else {
+                $dataContent['resultat'] = "Une erreur est survenue lors de l'annulation de la commande";
+            }
+        }
 
+        $filtre = $this->input->post('filtre');
 
-        // $this->LoaderView->load('Admin/order');
+        if ($filtre != null) {
 
+            if (intval($filtre) != 0) {
+
+                $orders = $this->OrderModel->getOrderById($filtre);
+            } else {
+
+                $orders = null;
+            }
+        } else {
+
+            $orders = $this->OrderModel->getAllOrder();
+        }
+
+        if ($orders != null) {
+
+            foreach ($orders as $order) {
+
+                $user[$order->getId()] = $this->UserModel->getUserById($order->getIduser())->getCoordonnees();
+            }
+
+            $options = array(
+                'Non preparer' => 'Non preparer',
+                'En preparation' => 'En preparation',
+                'Preparer' => 'Preparer',
+                'Expedier' => 'Expedier'
+            );
+
+            $dataContent = array('orders' => $orders, 'user' => $user, 'options' => $options);
+
+            
+        } 
+        if (isset($dataContent)) {
+            $this->LoaderView->load('Admin/order', array('content' => $dataContent));
+        } else {
+            $this->LoaderView->load('Admin/order');
+        }
     }
 
+    public function changeStatusOrder()
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('OrderModel');
+
+        $array = $this->input->post();
+
+        $key = array_keys($array)[0];
+        $value = $array[$key];
+
+        $this->OrderModel->updateStatus($key, $value);
+
+        redirect('Admin/order');
+    }
+
+    public function cancelOrder()
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('OrderModel');
+
+
+        $idorder = $this->input->get('idorder');
+
+        $err = $this->OrderModel->delOrder($idorder);
+
+        if ($err) {
+            $this->session->set_flashdata('succes', true);
+        } else {
+            $this->session->set_flashdata('succes', false);
+        }
+
+        redirect('Admin/order');
+    }
 }

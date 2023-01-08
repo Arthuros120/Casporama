@@ -420,7 +420,7 @@ Admin/deletes/error:
 Admin/order:
 
     views :
-        head : "admin/dao/head"
+        head : "admin/order/head"
         header : "admin/header"
         content : "admin/order/content"
         script : "templates/blank"

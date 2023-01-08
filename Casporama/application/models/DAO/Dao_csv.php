@@ -24,6 +24,7 @@ class Dao_csv extends CI_Model implements DaoInterface {
             } else {
                 $query = $this->db->query("Call $table.getAll()");
             }
+
             $this->db->db_debug = true;
 
             if ($query == false) {
@@ -40,6 +41,24 @@ class Dao_csv extends CI_Model implements DaoInterface {
         $fp = fopen($path,"w");
         $results = $query->result_array();
 
+        $query->next_result();
+        $query->free_result();
+
+        if ($table == '`order`') {
+            $query = $this->db->query("Call $table.getAllProduct()");
+            $results2 = $query->result();
+
+            $query->next_result();
+            $query->free_result();
+            
+            if ($results2 != null) {
+                foreach ($results2 as $row) {
+                    array_push($results,$row);
+                }
+            }
+        }
+        var_dump($results);
+
         $header = [];
 
         foreach ($results[0] as $key => $value) {
@@ -51,7 +70,7 @@ class Dao_csv extends CI_Model implements DaoInterface {
                 array_push($header,$key);
             }
         }
-
+        
         fputcsv($fp,$header);
 
         $values = [];
