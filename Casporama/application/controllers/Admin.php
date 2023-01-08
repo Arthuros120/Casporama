@@ -634,6 +634,30 @@ class Admin extends CI_Controller
         }
     }
 
+    public function deleteImage(int $id = -1, string $image = "") : void
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        $image = str_replace("..", "", $image);
+
+        if ($id == -1 || $image == "" || $image[strlen($image)-1] == '/') {
+
+            redirect('admin/editProduct/' . $id);
+
+        }
+
+        $image = str_replace("+", "/", $image);
+        $image = str_replace("upload/images/", "", $image);
+
+        $this->ProductModel->deleteImage($id, $image);
+
+        redirect('admin/editProduct/' . $id);
+
+    }
+
     public function deleteProduct(int $id = -1)
     {
         $this->UserModel->adminOnly();

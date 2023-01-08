@@ -940,8 +940,6 @@ class ProductModel extends CI_Model
 
         $strImages = substr($strImages, 0, -1);
 
-        var_dump($strImages);
-
         $strImages = $product->getImageString() . $strImages;
 
         $query = $this->db->query(
@@ -970,6 +968,33 @@ class ProductModel extends CI_Model
 
         $query->next_result();
         $query->free_result();
+
+    }
+
+    public function deleteImage(int $id, string $image) : void
+    {
+
+        $product = $this->findById($id);
+
+        $strImages = $product->getImageString();
+
+        $strImages = str_replace("$image", "", $strImages);
+
+        $strImages = str_replace(";;", ";", $strImages);
+
+        $query = $this->db->query(
+            "Call product.updateImage($id, '$strImages')"
+        );
+
+        $query->next_result();
+        $query->free_result();
+
+
+
+        // TODO : A sécuriser
+        // ! Danger ! Supprime l'image du serveur
+
+        unlink('upload/images/' . $image);
 
     }
 
