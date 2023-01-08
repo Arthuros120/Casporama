@@ -12,25 +12,21 @@
 
     <h3>Image principale</h3>
 
-    <?php if ($imageCover != null) { ?>
+    <div class="image">
 
-        <div class="image">
+        <img src="<?= $product->getCover() ?>" alt="Image de couverture du produit">
 
-            <img src="<?= $product->getCover() ?>" alt="Image de couverture du produit">
+    </div>
 
-            <div class="delete">
+    <?php echo form_open_multipart('admin/EditCoverImage/' . $product->getId()); ?>
 
-                <a href="<?= base_url('admin/deleteImage/' . $product->getId()  . "/" . $imageCover) ?>">
+    <h4>Modification de l'image de couverture</h4>
 
-                    Delete image
+    <input type="file" name="imageCover" accept="image/*">
 
-                </a>
+    <input type="submit" value="Ajouter l'image">
 
-            </div>
-
-        </div>
-
-    <?php } ?>
+    <?php echo form_close(); ?>
 
     <h3>Images secondaires</h3>
 
@@ -58,7 +54,7 @@
         <?php }
     }
 
-    echo form_open_multipart('admin/addImage/'.$product->getId());
+    echo form_open_multipart('admin/addImage/'. $product->getId());
     
     if ($countImages < 5) {
 

@@ -329,35 +329,11 @@ class Admin extends CI_Controller
         $images = array();
         $imageCover = str_replace(base_url(), '', str_replace('/', '+', $imageCoverNotFormated));
 
-
-
         foreach ($imagesNotFormated as $image) {
 
             array_push($images, str_replace('/', '+', str_replace(base_url(), '', $image)));
 
         }
-
-        // Start of the form validation
-
-        $configFile['upload_path']          = 'upload/images/import/';
-        $configFile['allowed_types']        = 'jpg|png|jpeg|svg';
-        $configFile['max_size']             = 100000;
-        $configFile['max_width']            = 1000;
-        $configFile['max_height']           = 1000;
-        $configFile['min_width']            = 200;
-        $configFile['min_height']           = 200;
-        $configFile['max_filename']         = 0;
-        $configFile['encrypt_name']         = true;
-        $configFile['remove_spaces']        = true;
-        $configFile['overwrite']            = false;
-        $configFile['detect_mime']          = true;
-        $configFile['mod_mime_fix']         = false;
-        $configFile['file_ext_tolower']     = true;
-        $configFile['create_thumb']         = false;
-        $configFile['maintain_ratio']       = true;
-
-        $imageFile = array();
-        $errorFile = array();
 
         $configRules = array(
 
@@ -365,7 +341,7 @@ class Admin extends CI_Controller
 
                 'field' => 'name',
                 'label' => 'Nom du produit',
-                'rules' => 'trim|required|min_length[3]|max_length[255]|callback_checkNameProduct',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|callback_checkNameProductWithoutSelf['.$id.']',
                 'errors' => array(
 
                     'required' => 'Le champ %s est requis.',
@@ -470,7 +446,124 @@ class Admin extends CI_Controller
 
         } else {
 
+            $post = $this->input->post();
+
+            $this->ProductModel->editProduct($post, $id);
+
+            redirect('shop/product/' . $id);
+
             var_dump($this->input->post());
+
+        }
+    }
+
+    public function addImage(int $id = -1)
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/editProduct');
+
+        }
+
+        $product = $this->ProductModel->findById($id);
+
+        $this->load->library('upload');
+
+        $configFile['upload_path']          = 'upload/images/import/';
+        $configFile['allowed_types']        = 'jpg|png|jpeg|svg';
+        $configFile['max_size']             = 100000;
+        $configFile['max_width']            = 1000;
+        $configFile['max_height']           = 1000;
+        $configFile['min_width']            = 200;
+        $configFile['min_height']           = 200;
+        $configFile['max_filename']         = 0;
+        $configFile['encrypt_name']         = true;
+        $configFile['remove_spaces']        = true;
+        $configFile['overwrite']            = false;
+        $configFile['detect_mime']          = true;
+        $configFile['mod_mime_fix']         = false;
+        $configFile['file_ext_tolower']     = true;
+        $configFile['create_thumb']         = false;
+        $configFile['maintain_ratio']       = true;
+
+        $imageFile = array();
+        $errorFile = array();
+        
+        $counterImages = count($product->getImages());
+
+        if ($counterImages == 5) {
+
+            show_error('Vous ne pouvez pas ajouter plus de 5 images à un produit.', '500', 'Erreur 500');
+
+        }
+
+        for ($i = $counterImages + 1; $i <= 5; $i++) {
+
+            $this->upload->initialize($configFile);
+
+            $image = $this->upload->do_upload('image' . $i);
+            if ($image) {
+
+                $imageFile['image' . $i] = $this->upload->data()['file_name'];
+
+            } else {
+
+                $errorFile[$i] = array(
+
+                    'id' => $i,
+                    'error' => $this->upload->display_errors("", "")
+
+                );
+
+            }
+        }
+
+        $errorFilePostTraitement = $errorFile;
+        $countErrorFileSelect = 0;
+
+        foreach ($errorFile as $error) {
+
+            if ($error['error'] == 'You did not select a file to upload.') {
+
+                unset($errorFile[$error['id']]);
+                $countErrorFileSelect++;
+
+            }
+
+        }
+
+        if ($countErrorFileSelect == 5 - $counterImages) {
+
+            $errorFile = $errorFilePostTraitement;
+
+        }
+
+        if (!empty($errorFile)) {
+
+            $dataContent = array(
+
+                'errors' => $errorFile,
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/error/errorImage', $data);
+
+        } else {
+
+            $this->ProductModel->addImages($imageFile, $id);
+
+            redirect('admin/editProduct/' . $id);
 
         }
     }
@@ -660,67 +753,6 @@ class Admin extends CI_Controller
         }
     }
 
-    public function checkNameProduct(string $name)
-    {
-
-        $this->load->model('ProductModel');
-
-        $product = $this->ProductModel->findByName($name);
-
-        if ($product == null) {
-
-            return true;
-
-        } else {
-
-            $this->form_validation->set_message('checkNameProduct', 'Le nom du produit existe déjà');
-
-            return false;
-
-        }
-    }
-
-    public function checkSport(int $sport)
-    {
-
-        $this->load->model('ProductModel');
-
-        $sport = $this->ProductModel->findNameSportbyId($sport);
-
-        if ($sport == null) {
-
-            $this->form_validation->set_message('checkSport', 'Le sport n\'existe pas');
-
-            return false;
-
-        } else {
-
-            return true;
-
-        }
-    }
-
-    public function checkType(string $type)
-    {
-
-        $this->load->model('ProductModel');
-
-        $types = $this->ProductModel->getAllCategory();
-
-        if (in_array($type, $types)) {
-
-            return true;
-
-        } else {
-
-            $this->form_validation->set_message('checkType', 'Le type n\'existe pas');
-
-            return false;
-
-        }
-    }
-
-
     public function order()
     {
 
@@ -771,7 +803,8 @@ class Admin extends CI_Controller
             $dataContent = array('orders' => $orders, 'user' => $user, 'options' => $options);
 
             
-        } 
+        }
+
         if (isset($dataContent)) {
             $this->LoaderView->load('Admin/order', array('content' => $dataContent));
         } else {
@@ -815,5 +848,85 @@ class Admin extends CI_Controller
         }
 
         redirect('Admin/order');
+    }
+
+    public function checkNameProduct(string $name) : bool
+    {
+
+        $this->load->model('ProductModel');
+
+        $product = $this->ProductModel->findByName($name);
+
+        if ($product == null) {
+
+            return true;
+
+        } else {
+
+            $this->form_validation->set_message('checkNameProduct', 'Le nom du produit existe déjà');
+
+            return false;
+
+        }
+    }
+
+    public function checkNameProductWithoutSelf(string $name, int $id) : bool
+    {
+
+        $this->load->model('ProductModel');
+
+        $trigger = $this->ProductModel->findByNameWithoutSelf($name, $id);
+
+        if ($trigger) {
+
+            return true;
+
+        } else {
+
+            $this->form_validation->set_message('checkNameProductWithoutSelf', 'Le nom du produit existe déjà');
+
+            return false;
+
+        }
+    }
+
+    public function checkSport(int $sport) : bool
+    {
+
+        $this->load->model('ProductModel');
+
+        $sport = $this->ProductModel->findNameSportbyId($sport);
+
+        if ($sport == null) {
+
+            $this->form_validation->set_message('checkSport', 'Le sport n\'existe pas');
+
+            return false;
+
+        } else {
+
+            return true;
+
+        }
+    }
+
+    public function checkType(string $type) : bool
+    {
+
+        $this->load->model('ProductModel');
+
+        $types = $this->ProductModel->getAllCategory();
+
+        if (in_array($type, $types)) {
+
+            return true;
+
+        } else {
+
+            $this->form_validation->set_message('checkType', 'Le type n\'existe pas');
+
+            return false;
+
+        }
     }
 }

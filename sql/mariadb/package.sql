@@ -485,6 +485,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure getProductById( id integer);
     -- Permet d'ajouter un product à la BD
     procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage text, newIsALive boolean, newDate datetime);    -- Permet de mettre à jour le prix d'un product
+    procedure updateProduct( id int, newtype varchar(15), newnusport int, newmarque varchar(255), newnom varchar(255), newgenre varchar(5), newprix float, newdesc varchar(255));
     procedure updatePrice( nuproduct int,  newprice int);
     -- Permet de mettre à jour la description d'un product
     procedure updateDescription( nuproduct int,  newdesc varchar(255));
@@ -497,6 +498,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure getAllNotAlive();
     procedure getAllBrand();
     procedure getProductByName( newname varchar(255));
+    procedure getProductByNameWithoutSelf( newname varchar(255), id int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -564,6 +566,11 @@ CREATE OR REPLACE PACKAGE BODY product AS
         insert into product(idproduct, type, nusport, brand, name, gender, price, description, image, isALive, dateLastUpdate) value (newid, newtype,newnusport,newmarque,newnom,newgenre,newprix,newdesc,newimage, newIsALive, newDate);
     end;
 
+    procedure updateProduct( id int, newtype varchar(15), newnusport int, newmarque varchar(255), newnom varchar(255), newgenre varchar(5), newprix float, newdesc varchar(255)) as
+    begin
+        update product set type = newtype, nusport = newnusport, brand = newmarque, name = newnom, gender = newgenre, price = newprix, description = newdesc, dateLastUpdate = NOW() where idproduct = id;
+    end;
+
     procedure delProduct( newnuproduct int) as
     BEGIN
         update product set isAlive = false, dateLastUpdate = NOW() where idproduct = newnuproduct;
@@ -593,6 +600,11 @@ CREATE OR REPLACE PACKAGE BODY product AS
     procedure getProductByName( newname varchar(255)) as
     Begin
         select * from product where name = newname;
+    End;
+
+    procedure getProductByNameWithoutSelf( newname varchar(255), id int) as
+    Begin
+        select * from product where name = newname and idproduct != id;
     End;
 
 END;

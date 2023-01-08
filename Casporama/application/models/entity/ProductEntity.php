@@ -320,6 +320,26 @@ class ProductEntity
 
     /*
     
+        * Function getImageString
+    
+        @return string
+    
+        * Cette fonction retourne les images de l'entité en string
+    
+    */
+    public function getImageString(): string
+    {
+
+        $imageString = str_replace("upload/images/", "", $this->image);
+
+        $imageString = implode(';', $imageString);
+
+        return $imageString;
+
+    }
+
+    /*
+    
         * Function getCover
 
         * Cette fonction sélectione l'image principale

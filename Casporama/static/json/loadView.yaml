@@ -356,6 +356,16 @@ Admin/editProduct:
 
     baseView: "templates/base"
 
+Admin/error/errorImage:
+
+    views :
+        head : "admin/error/errorImage/head"
+        header : "templates/blank"
+        content : "admin/error/errorImage/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
 Admin/delete/request:
 
     views :
