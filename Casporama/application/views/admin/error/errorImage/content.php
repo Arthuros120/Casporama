@@ -2,14 +2,21 @@
 
 <?php if (isset($errors)) {
 
-    foreach ($errors as $error) {
+    if (is_array($errors)) {
 
-        echo "<h1> Image" . $error["id"] . "</h1>";
+        foreach ($errors as $error) {
 
-        echo "<p>" . $error["error"] . "</p>";
+            echo "<h1> Image" . $error["id"] . "</h1>";
+    
+            echo "<p>" . $error["error"] . "</p>";
+    
+        }
+
+    } else {
+
+        echo "<p>" . $errors . "</p>";
 
     }
-
 } ?>
 
 <!-- admin/error/errorImage/content -->

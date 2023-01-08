@@ -953,6 +953,26 @@ class ProductModel extends CI_Model
 
     }
 
+    public function editCoverImage(string $image, int $id) : void
+    {
+
+        $product = $this->findById($id);
+
+        $strImages = $product->getImageString();
+
+        $cover = str_replace("upload/images/", "", $product->getCoverName());
+
+        $strImages = str_replace($cover, "import/" . $image, $strImages);
+
+        $query = $this->db->query(
+            "Call product.updateImage($id, '$strImages')"
+        );
+
+        $query->next_result();
+        $query->free_result();
+
+    }
+
     public function delete(int $id)
     {
 

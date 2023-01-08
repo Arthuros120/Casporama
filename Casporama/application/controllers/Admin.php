@@ -507,6 +507,7 @@ class Admin extends CI_Controller
             $this->upload->initialize($configFile);
 
             $image = $this->upload->do_upload('image' . $i);
+
             if ($image) {
 
                 $imageFile['image' . $i] = $this->upload->data()['file_name'];
@@ -564,6 +565,71 @@ class Admin extends CI_Controller
             $this->ProductModel->addImages($imageFile, $id);
 
             redirect('admin/editProduct/' . $id);
+
+        }
+    }
+
+    public function EditCoverImage(int $id = -1)
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/editProduct');
+
+        }
+
+        $product = $this->ProductModel->findById($id);
+
+        $this->load->library('upload');
+
+        $configFile['upload_path']          = 'upload/images/import/';
+        $configFile['allowed_types']        = 'jpg|png|jpeg|svg';
+        $configFile['max_size']             = 100000;
+        $configFile['max_width']            = 1000;
+        $configFile['max_height']           = 1000;
+        $configFile['min_width']            = 200;
+        $configFile['min_height']           = 200;
+        $configFile['max_filename']         = 0;
+        $configFile['encrypt_name']         = true;
+        $configFile['remove_spaces']        = true;
+        $configFile['overwrite']            = false;
+        $configFile['detect_mime']          = true;
+        $configFile['mod_mime_fix']         = false;
+        $configFile['file_ext_tolower']     = true;
+        $configFile['create_thumb']         = false;
+        $configFile['maintain_ratio']       = true;
+
+        $this->upload->initialize($configFile);
+
+        $image = $this->upload->do_upload('imageCover');
+
+        if ($image) {
+
+            $imageFile = $this->upload->data()['file_name'];
+
+            $this->ProductModel->editCoverImage($imageFile, $id);
+
+            redirect('admin/editProduct/' . $id);
+
+        } else {
+
+            $dataContent = array(
+
+                'errors' => $this->upload->display_errors("", ""),
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/error/errorImage', $data);
 
         }
     }
