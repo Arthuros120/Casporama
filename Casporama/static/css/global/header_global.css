@@ -37,6 +37,28 @@ a:visited {
     font-weight: 600;
 }
 
+
+.logo {
+    position: relative;
+  display: inline-block;
+}
+
+.logo::after {
+    content: "";
+    position: absolute;
+    left:0;
+    top: 100%;
+    width: 0;
+    height: 2px;
+    background-color: var(--color3);
+    transition: width .3s ease-in-out;
+}
+
+.logo:hover::after {
+    width: 200%;
+}
+
+
 .list_nav {
     display: flex;
     flex-direction: row;

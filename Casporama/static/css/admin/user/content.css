@@ -4,7 +4,7 @@
     margin: 0;
 }
 
-.user_content {
+.admin_content {
     width: 100vw;
 
     display: flex;
@@ -67,7 +67,7 @@
 
 .admin_user {
     width: 95%;
-    height: 80vh;
+    min-height: 80vh;
 
     background-color: var(--grey2);
 }
