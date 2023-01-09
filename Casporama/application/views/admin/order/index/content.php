@@ -14,7 +14,7 @@
     <?php echo form_open('Admin/order') ?>
     <div class="admin_order_filter">
         <div class="filter_title">
-            <h2>Filtre</h2>
+            <h2>Filtres</h2>
         </div>
         <hr>
         <div class="filter_content">
@@ -45,9 +45,12 @@
 
         <form action="<?php echo site_url('Admin/deleteOrdersConfirm') ?>" method="post">
 
-        <input type="submit" value="Supprimer les commandes selectionnés">
-
         <div class="list_content">
+            
+            <div class="list_input">
+                <input type="submit" value="Supprimer les commandes selectionnés">
+            </div>
+            
             <table>
                 <tr>
                     <th> ✓ </th>
