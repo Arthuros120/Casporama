@@ -11,20 +11,6 @@
         </ul>
     </div>
     <div class="admin_user">
-        <div class="admin_user_manage">
-            <div class="admin_user_manage_title">
-                <h2>Gérer les Utilisateurs</h2>
-            </div>
-            <hr>
-            <div class="admin_user_manage_content">
-                <div class="delete_filter">
-                    <input type="button", id="supprFilter" value="Supprimer tous les filtres" >
-                </div>
-                <div class="add_user">
-                    <a href="<?php echo site_url('Admin/AddUser')  ?>">Ajouter un User</a>
-                </div>
-            </div>
-        </div>
         <div class="admin_list_user">
             <div class="admin_list_user_title">
                 <h2>Liste des Utilisateurs</h2>

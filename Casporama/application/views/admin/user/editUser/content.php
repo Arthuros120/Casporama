@@ -78,7 +78,7 @@
                                 <td><?= $localisation->getCodePostal() ?></td>
                                 <td><?= $localisation->getCity() ?></td>
                                 <td><?= $localisation->getCountry() ?></td>
-                                <td><a href="<?= site_url('Admin/editLocalisation/' . $localisation->getId()) ?>">Modifier</a></td>
+                                <td><a href="<?= site_url('Admin/editLocalisation/' . $localisation->getId() ."-". $user->getId()) ?>">Modifier</a></td>
                                 <td><a href="<?= site_url('Admin/deleteLocalisation/' . $localisation->getId()) ?>">Supprimer</a></td>
                             </tr>
 

@@ -355,6 +355,14 @@ Admin/EditUser:
 
     baseView: "admin/user/editUser/base"
 
+Admin/EditLocalisation:
+    views :
+        head: "admin/user/editLocalisation/head"
+        header: "admin/header"
+        content: "admin/user/editLocalisation/content"
+        script: "admin/user/editLocalisation/script"
+    baseView: "admin/user/editLocalisation/base"
+
 
 Admin/addProduct:
 

@@ -5,6 +5,7 @@ defined('BASEPATH') || exit('No direct script access allowed');
  * @property UserModel $UserModel
  * @property LoaderView $LoaderView
  * @property ProductModel $ProductModel
+ * @property LocationModel $LocationModel
  */
 class Admin extends CI_Controller
 {
@@ -589,11 +590,6 @@ class Admin extends CI_Controller
 
 
     }
-
-    public function addUser(){
-
-    }
-
     public function editUser(int $id) {
         $this->UserModel->adminOnly();
 
@@ -638,4 +634,68 @@ class Admin extends CI_Controller
 
 
     }
+
+    public function editLocalisation(string $ids) {
+        $this->UserModel->adminOnly();
+        $idlocalisation = explode('-',$ids)[0];
+        $iduser = explode('-',$ids)[1];
+
+        // créer les règles du formulaire
+        $this->form_validation->set_rules('adresse', 'Adresse', 'required|trim');
+        $this->form_validation->set_rules('codePostal', 'Code Postal', 'required|trim');
+        $this->form_validation->set_rules('ville', 'Ville', 'required|trim');
+        $this->form_validation->set_rules('pays', 'Pays', 'required|trim');
+
+        $localisation = $this->LocationModel->getLocationByUserId($iduser,$idlocalisation);
+        $dataContent['localisation'] = $localisation;
+        $dataContent['iduser'] = $iduser;
+        $data = array('content' => $dataContent);
+
+        $this->LoaderView->load('Admin/EditLocalisation', $data);
+
+    }
+
+    public function updateLocalisation(int $idloc) {
+
+        $this->UserModel->adminOnly();
+        $loc = new LocationEntity();
+
+        $loc->setId($idloc);
+        $loc->setName($this->input->post('name'));
+        $loc->setAdresse($this->input->post('number') .";". $this->input->post('street'));
+        $loc->setCity($this->input->post('city'));
+        $loc->setCodePostal($this->input->post('postalCode'));
+        $loc->setCountry($this->input->post('country'));
+        $departement = explode(";",$this->input->post('department')) ;
+        $loc->setDepartment($departement[1]);
+        if ($this->input->post('Default') == 'on' ){
+            $loc->setIsDefault(true);
+        } else {
+            $loc->setIsDefault(false);
+        }
+        /*$latlong = $this->LocationModel->searchLatLong($loc->getAdresse(),$loc->getCodePostal());
+        $loc->setLatitude($latlong['latitude']);
+        $loc->setLongitude($latlong['longitude']);*/
+
+        // TODO : A remplacé pour que cela marche réellement
+        $this->LocationModel->updateAddress($loc,$loc->getId(),$this->input->post('idUser'));
+
+        redirect('Admin/editUser/'.$this->input->post('idUser'));
+      
+
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
