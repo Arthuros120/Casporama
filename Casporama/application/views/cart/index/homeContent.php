@@ -31,6 +31,7 @@
                                 <p><?= $product->getProduct()->getName() ?></p>
                                 <p><?= $product->getProduct()->getBrand() ?></p>
                                 <p>Taille : <?= $product->getVariant()->getSize() ?></p>
+                                <p>Couleur : <?= $product->getVariant()->getColor() ?></p>
                             </div>
                         </div>
                         <div class="product_quantity">
@@ -75,6 +76,7 @@
                                     <p><?= $product->getProduct()->getName() ?></p>
                                     <p><?= $product->getProduct()->getBrand() ?></p>
                                     <p>Taille : <?= $product->getVariant()->getSize() ?></p>
+                                    <p>Couleur : <?= $product->getVariant()->getColor() ?></p>
                                 </div>
                             </div>
 

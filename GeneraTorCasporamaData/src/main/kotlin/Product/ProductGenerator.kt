@@ -183,9 +183,11 @@ class ProductGenerator {
 
         listUsedImages.add(image)
 
-        for (i in 0..(2..5).random()) {
+        for (i in 0..(1..3).random()) {
 
             var count = 0
+
+            image = listImages.random()
 
             while (listUsedImages.contains(image) && count < 100) {
 

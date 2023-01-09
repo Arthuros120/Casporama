@@ -8,7 +8,7 @@
 
 header {
     width: 100vw;
-    height: 15vh;
+    height: 20vh;
 
     display: flex;
     align-items: center;
@@ -17,10 +17,17 @@ header {
 
 .logo {
     width: 90%;
-    height: 7vh;
+    height: 10vh;
 
     display: flex;
     align-items: center;
+
+    gap: 2vh;
+}
+
+.logo > a:nth-child(1) > img {
+    transform: rotate(180deg);
+    padding-top: 1vh;
 }
 
 .title {
@@ -30,5 +37,6 @@ header {
     justify-content: center;
     align-items: center;
 
-    height: 8vh;
+    height: 10vh;
+
 }

@@ -147,7 +147,18 @@ class Generator {
 
             val fileUser = File(folderName, "User.json").outputStream()
             val fileInformation = File(folderName, "Information.json").outputStream()
-            val fileLocation = File(folderName, "Location.json").outputStream()
+
+            val fileLocations : MutableList<FileOutputStream> = mutableListOf()
+            val countTotLocationFile = kotlin.math.ceil(listLocation.size.toDouble() / 1000).toInt()
+
+            for (i in 1..countTotLocationFile) {
+
+                fileLocations.add(File(folderName, "Location_$i.json").outputStream())
+
+            }
+
+            val listLocation = listLocation.chunked(1000)
+
             val fileProduct = File(folderName, "Product.json").outputStream()
 
             val fileCategorys : MutableList<FileOutputStream> = mutableListOf()
@@ -164,7 +175,13 @@ class Generator {
 
             Json.encodeToStream(listUser, fileUser)
             Json.encodeToStream(listInformation, fileInformation)
-            Json.encodeToStream(listLocation, fileLocation)
+
+            for (i in listLocation.indices) {
+
+                Json.encodeToStream(listLocation[i], fileLocations[i])
+
+            }
+
             Json.encodeToStream(listProduct, fileProduct)
 
             for (i in listsCategory.indices) {
@@ -175,6 +192,13 @@ class Generator {
 
             fileUser.close()
             fileInformation.close()
+
+            for (i in fileLocations.indices) {
+
+                fileLocations[i].close()
+
+            }
+
             fileProduct.close()
 
             for (i in fileCategorys.indices) {

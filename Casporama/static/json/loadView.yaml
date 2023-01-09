@@ -33,7 +33,7 @@ Home/index:
         head: "home/head"
         header: "templates/blank"
         content: "home/home"
-        footer: "templates/blank"
+        footer: "home/footer"
 
     baseView: "templates/base"
 
@@ -43,7 +43,7 @@ Shop/view:
         head: "shop/view/head"
         header: "shop/global/header"
         content: "shop/global/viewContent"
-        footer: "templates/blank"
+        footer: "home/footer"
 
     baseView: "templates/base"
 
@@ -53,7 +53,7 @@ Shop/product:
         head: "shop/product/head"
         header: "shop/global/header"
         content: "shop/product/productContent"
-        footer: "templates/blank"
+        footer: "home/footer"
 
     baseView: "templates/base"
 
@@ -374,6 +374,26 @@ Admin/addProduct:
 
     baseView: "templates/base"
 
+Admin/editProduct:
+
+    views :
+        head : "admin/editProduct/head"
+        header : "templates/blank"
+        content : "admin/editProduct/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/error/errorImage:
+
+    views :
+        head : "admin/error/errorImage/head"
+        header : "templates/blank"
+        content : "admin/error/errorImage/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
 Admin/delete/request:
 
     views :
@@ -433,6 +453,18 @@ Admin/deletes/error:
         script : "admin/deletes/global/script"
 
     baseView: "admin/deletes/global/base"
+
+
+Admin/order:
+
+    views :
+        head : "admin/order/head"
+        header : "admin/header"
+        content : "admin/order/content"
+        script : "templates/blank"
+        footer: "templates/blank"
+
+    baseView: "admin/base"
 
 #---------------------------------Info View ---------------------------------#
 
@@ -544,6 +576,16 @@ Cart/modify:
 
     baseView: "templates/base"
 
+Cart/error:
+
+    views :
+        head : "cart/error/head"
+        header : "templates/blank"
+        content : "cart/error/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"
+
 #---------------------------------Dao View---------------------------------#
 
 Dao/index:
@@ -562,9 +604,9 @@ Dao/index:
 Order/index:
 
     views :
-        head : "templates/blank"
+        head : "order/index/head"
         header : "templates/blank"
-        content : "order/homeContent"
+        content : "order/index/homeContent"
         footer : "templates/blank"
 
     baseView: "templates/base"
@@ -579,3 +621,13 @@ Order/chooseLocation:
         footer : "templates/blank"
 
     baseView: "user/home/info/base"
+
+Order/confirm:
+
+    views :
+        head : "order/confirm/head"
+        header : "templates/blank"
+        content : "order/confirm/content"
+        footer : "templates/blank"
+
+    baseView: "templates/base"

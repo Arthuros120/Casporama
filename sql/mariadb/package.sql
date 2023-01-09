@@ -484,12 +484,13 @@ CREATE OR REPLACE PACKAGE product AS
     -- Permet d'avoir un product par son ID
     procedure getProductById( id integer);
     -- Permet d'ajouter un product à la BD
-    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage varchar(255), newIsALive boolean, newDate datetime);    -- Permet de mettre à jour le prix d'un product
+    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage text, newIsALive boolean, newDate datetime);    -- Permet de mettre à jour le prix d'un product
+    procedure updateProduct( id int, newtype varchar(15), newnusport int, newmarque varchar(255), newnom varchar(255), newgenre varchar(5), newprix float, newdesc varchar(255));
     procedure updatePrice( nuproduct int,  newprice int);
     -- Permet de mettre à jour la description d'un product
     procedure updateDescription( nuproduct int,  newdesc varchar(255));
     -- Permet de mettre à jour le chemin vers l'image d'un product
-    procedure updateImage( nuproduct int,  newimage varchar(255));
+    procedure updateImage( nuproduct int,  newimage text);
     -- Permet de supprimer un product
     procedure delProduct( nuproduct int);
     procedure getAll();
@@ -497,6 +498,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure getAllNotAlive();
     procedure getAllBrand();
     procedure getProductByName( newname varchar(255));
+    procedure getProductByNameWithoutSelf( newname varchar(255), id int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -559,9 +561,14 @@ CREATE OR REPLACE PACKAGE BODY product AS
         select * from product where idproduct = id;
     end;
 
-    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage varchar(255), newIsALive boolean, newDate datetime) as
+    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage text, newIsALive boolean, newDate datetime) as
     BEGIN
         insert into product(idproduct, type, nusport, brand, name, gender, price, description, image, isALive, dateLastUpdate) value (newid, newtype,newnusport,newmarque,newnom,newgenre,newprix,newdesc,newimage, newIsALive, newDate);
+    end;
+
+    procedure updateProduct( id int, newtype varchar(15), newnusport int, newmarque varchar(255), newnom varchar(255), newgenre varchar(5), newprix float, newdesc varchar(255)) as
+    begin
+        update product set type = newtype, nusport = newnusport, brand = newmarque, name = newnom, gender = newgenre, price = newprix, description = newdesc, dateLastUpdate = NOW() where idproduct = id;
     end;
 
     procedure delProduct( newnuproduct int) as
@@ -580,7 +587,7 @@ CREATE OR REPLACE PACKAGE BODY product AS
         update product set description=newdesc where idproduct=nuproduct;
     end;
 
-    procedure updateImage( nuproduct int,  newimage varchar(255)) as
+    procedure updateImage( nuproduct int,  newimage text) as
     BEGIN
         update product set image=newimage where idproduct=nuproduct;
     end;
@@ -593,6 +600,11 @@ CREATE OR REPLACE PACKAGE BODY product AS
     procedure getProductByName( newname varchar(255)) as
     Begin
         select * from product where name = newname;
+    End;
+
+    procedure getProductByNameWithoutSelf( newname varchar(255), id int) as
+    Begin
+        select * from product where name = newname and idproduct != id;
     End;
 
 END;
@@ -613,13 +625,33 @@ CREATE OR REPLACE PACKAGE `order` AS
     procedure getAll();
     procedure verifyId(newid int);
     procedure delOrder(newidorder int);
+    procedure getOrderProduct(id int);
+    procedure getOrderById(newid int);
+    procedure getAllProduct();
 END;
+
+call `order`.getAllProduct();
 
 CREATE OR REPLACE PACKAGE BODY `order` AS
     procedure getAll() as
     Begin
         select * from `order`;
     End;
+
+    procedure getAllProduct() as
+    Begin
+        select * from order_products;
+    End;
+
+    procedure getOrderById(newid int) as
+    begin
+        select * from `order` where id = newid;
+    end;
+
+    procedure getOrderProduct(id int) as
+    begin
+        select * from `order_products` where idorder = id;
+    end;
     procedure getOrderUserById( nuorder int, newiduser int) as
     Begin
         select  o.id, iduser, date(dateorder) as 'dateorder', idlocation, state, isALive, dateLastUpdate, op.idproduct, idvariant, quantity
@@ -655,7 +687,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
 
     procedure updateState( nuorder int, newstate varchar(15)) as
     BEGIN
-        update `order` set state=newstate where idorder = nuorder;
+        update `order` set state=newstate where id = nuorder;
     end;
 
     procedure updateLocationOrder( nuorder int, newlocation varchar(15)) as
@@ -674,6 +706,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure getStock( id integer);
     -- Permet d'avoir le nombre total en stock d'un product
     procedure getStockTotal( id integer);
+    procedure getStockByVariant( newidvariant int);
     -- Permet d'ajouter au Catalogue un nouveau product ou variante d'un product, la variante étant par exemple un même t-shirt mais de différente couleur ou taille
     procedure addCatalog( newid int,  newproduit int, newreference long , newcouleur varchar(20),  newtaille varchar(3),  newquantite int, newIsALive bool, newDate datetime);
     -- Permet de supprimer une variante
@@ -698,6 +731,11 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     procedure getStockTotal( id integer) as
     begin
         select sum(quantity) as total from catalog where nuproduct = id;
+    end;
+
+    procedure getStockByVariant( newidvariant int) as
+    begin
+        select quantity from catalog where id = newidvariant;
     end;
 
     procedure addCatalog( newid int,  newproduit int, newreference long , newcouleur varchar(20),  newtaille varchar(3),  newquantite int, newIsALive bool, newDate datetime) as

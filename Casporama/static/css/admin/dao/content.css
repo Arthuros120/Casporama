@@ -316,3 +316,33 @@
 
     cursor: pointer;
 }
+
+.dao_error {
+    width: 95%;
+    height: 10vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dao_error_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 12px;
+
+
+    background-color: red;
+    gap: 2vh;
+}
+
+.dao_error_content > h3 {
+    color: white;
+}
+
+.dao_error_content > img {
+    height: auto;
+    width: 8%;
+}

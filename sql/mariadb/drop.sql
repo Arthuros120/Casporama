@@ -146,8 +146,11 @@ drop package if exists user;
 
 drop package if exists product;
 
+delete from order_products where idproduct > 5;
+delete from `order` where id > 5;
+delete from cart where id > 5;
 delete from catalog where id > 5;
 delete from product where idproduct > 5;
-delete from information where id > 20;
-delete from location where id > 20;
-delete from user where id > 20;
+delete from information where id > 10;
+delete from location where id > 10;
+delete from user where id > 10;

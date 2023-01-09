@@ -16,7 +16,7 @@
                 <h1>Vous nous quittez déjà ?</h1>
                 <div class="delete_caspor_card_desc">
                     <h3>Pourquoi nous quittez en si bon chemin ?</h3>
-                    <p>Après nous avoir quitter vous ne bénéficerer plus des avantages extraordianire de ce 
+                    <p>Après nous avoir quitter vous ne bénéficerer plus des avantages extraordinaire de ce 
                         magnifique abonnement. Nous vous conseillons de bien réfléchir avant de faire le choix fatidique.
                     </p>
                 </div>

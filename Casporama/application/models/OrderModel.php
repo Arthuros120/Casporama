@@ -137,7 +137,7 @@ class OrderModel extends CI_Model {
         return false;
     }
 
-    public function addOrder(int $idcart, UserEntity $user, int $idlocation) {
+    public function addOrder(array $carts, UserEntity $user, int $idlocation) : int {
 
         $id = $this->generateId();
         $iduser = $user->getId();
@@ -149,25 +149,29 @@ class OrderModel extends CI_Model {
         $date = date($datestring, $time);
         $dateLastUpdate = date($datestringLastUpdate, $time);
 
-        if ($idcart == 0) {
-            $carts = $this->CartModel->getCart();
-        } else {
-            $carts = $this->CartModel->getCartDBbyID($iduser, $idcart);
-        }
-
         if ($carts != null) {
             $this->db->query("Call `order`.addOrder(" . $id . "," . $iduser . "," . "'$date'" . "," . $idlocation . "," . "'Non preparer'" . "," . 'true' . "," . "'$dateLastUpdate'" . ")");
             foreach ($carts as $cart) {
                 $this->db->query("Call `order`.addProductToOrder(" . $id . "," . $cart->getProduct()->getId() . "," . $cart->getVariant()->getId() . "," . $cart->getQuantity() . ")");
+                
+                $query = $this->db->query('call catalog.getStockByVariant('. $cart->getVariant()->getId() .')');
+
+                $quantity = $query->result_array()[0]['quantity'] ;
+
+                $query->next_result();
+                $query->free_result();
+
+                $this->db->query("Call catalog.updateQuantity(". $cart->getVariant()->getId() . "," . $quantity-$cart->getQuantity() .")");
             }
         }
-        // decrementer le stock pour les produits commandés.
 
-        if ($cart->getIdcart() == 0) {
+        if ($carts[0]->getIdcart() == 0) {
             delete_cookie('cart');
         } else {
-            $this->CartModel->deleteCart($cart->getIdcart(),$user->getId());
+            $this->CartModel->deleteCart($carts[0]->getIdcart(),$user->getId());
         }
+
+        return $id;
 
     }
 
@@ -191,6 +195,110 @@ class OrderModel extends CI_Model {
         $this->db->db_debug = true;
 
         return $err;
+    }
+
+    public function getAllOrder() : ?array {
+
+        $query = $this->db->query('call `order`.getAll()');
+
+        $orders = $query->result_array();
+        
+        $query->next_result();
+        $query->free_result();
+
+        $res = [];
+
+        foreach ($orders as $order) {
+
+            $newOrder = new OrderEntity;
+
+            $newOrder->setId($order['id']);
+            $newOrder->setDate($order['dateorder']);
+            $newOrder->setState($order['state']);
+            $newOrder->setIduser($order['iduser']);
+            $newOrder->setLocation($this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']));
+
+            $query = $this->db->query('call `order`.getOrderProduct('. $order['id'] .')');
+
+            $orderproducts = $query->result_array();
+        
+            $query->next_result();
+            $query->free_result();
+
+            foreach ($orderproducts as $products) {
+                $product = $this->ProductModel->findById($products['idproduct']);
+                $newOrder->addProducts($product);
+                $newOrder->addVariants($product->getVariant($products['idvariant']));
+                $newOrder->addQuantities($products['idvariant'],$products['quantity']);
+            }
+
+            array_push($res,$newOrder);
+        }
+        if (!empty($res)) {
+            return $res;
+        } else {
+            return null;
+        }
+    }
+
+    public function haveStock(array $carts) : array {
+
+        foreach ($carts as $cart) {
+            $query = $this->db->query('call catalog.getStockByVariant('. $cart->getVariant()->getId() .')');
+            $res[$cart->getVariant()->getId()] = $cart->getQuantity() <= $query->result_array()[0]['quantity'] ;
+
+            $query->next_result();
+            $query->free_result();
+
+        }
+
+        return $res;
+    }
+
+    public function updateStatus(int $idorder, string $status) {
+
+        $this->db->query("call `order`.updateState(". $idorder . "," . "'$status'" .")");
+
+    }
+
+    public function getOrderById(int $idorder) :?array {
+
+        $query = $this->db->query("call `order`.getOrderById(". $idorder .")");
+
+        $order = $query->result_array()[0];
+
+        $query->next_result();
+        $query->free_result();
+
+
+        if ($order != null) {
+            $newOrder = new OrderEntity;
+
+            $newOrder->setId($order['id']);
+            $newOrder->setDate($order['dateorder']);
+            $newOrder->setState($order['state']);
+            $newOrder->setIduser($order['iduser']);
+            $newOrder->setLocation($this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']));
+
+            $query = $this->db->query('call `order`.getOrderProduct('. $order['id'] .')');
+
+            $orderproducts = $query->result_array();
+        
+            $query->next_result();
+            $query->free_result();
+
+            foreach ($orderproducts as $products) {
+                $product = $this->ProductModel->findById($products['idproduct']);
+                $newOrder->addProducts($product);
+                $newOrder->addVariants($product->getVariant($products['idvariant']));
+                $newOrder->addQuantities($products['idvariant'],$products['quantity']);
+            }
+
+            return array($newOrder);
+        } 
+
+        return null;
+
     }
 
 }

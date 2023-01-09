@@ -19,7 +19,7 @@
             <?php echo form_open_multipart('Dao/import'); ?>
             <div class="dao_import_file">
                 <h3>1 - Choissisez un fichier</h3>
-                <label for="file">Upload</label> 
+                <label for="file">Upload</label>
                 <input class="input" accept=".json,.csv,.xml,.yaml" name="userfile" type="file" id="file" />
             </div>
             <div class="dao_import_table">
@@ -35,8 +35,8 @@
             </div>
             <div class="dao_import_submit">
                 <h3>3 - Envoyer le fichier</h3>
-                <input class="input" type="submit" value="Submit"/> 
-            </div>  
+                <input class="input" type="submit" value="Submit"/>
+            </div>
             </form>
         </div>
     </div>
@@ -72,7 +72,7 @@
 
             <div class="dao_export_submit">
                 <h3>3 - Confirmer</h3>
-                <input class="input" type="submit" value="Confirmer"/> 
+                <input class="input" type="submit" value="Confirmer"/>
             </div>
         </form>
         </div>
@@ -81,7 +81,7 @@
                 <?php echo form_open_multipart('Dao/export'); ?>
                     <input type="hidden" name="table" value=<?= $table ?>>
                     <input type="hidden" name="ext" value=<?= $ext ?>>
-                    <h3><?=$table?>,<?= $ext ?> :</h3>
+                    <h3><?=$table?>.<?= $ext ?> :</h3>
                     <?php foreach ($colonnes as $value) { ?>
                         <div class="export_collumns">
                             <label for="export-Filter[]"><?= $value ?></label>
@@ -89,16 +89,43 @@
                         </div>
                     <?php } ?>
                     <div class="dao_export_next_submit">
-                        <input class="export_collumns_input" type="submit" value="Export File"/> 
+                        <input class="export_collumns_input" type="submit" value="Export File"/>
                     </div>
                 </form>
             </div>
-        <?php } if (isset($msg)) { ?>
-        <h3 style='color:crimson'><?= $msg ?></h3>
+        <?php }
+        
+        if (isset($msg)) {
+
+            if (is_array($msg)) {
+                foreach ($msg as $error) {?>
+
+                    <div class="dao_error">
+
+                        <div class="dao_error_content">
+                            <img src="<?php base_url() ?>../static/image/icon/error_white.svg" alt="error icon">
+                            <h3><?= $error ?></h3>
+                        </div>
+                    </div>
+
+        <?php   }
+
+            } else { ?>
+
+                <div class="dao_error">
+                    <h3 style='color:crimson'><?= $msg ?></h3>
+                </div>
+
+        <?php   }
+        } ?>
+
+        <?php if (isset($msgSucces)) { ?>
+
+                <div class="dao_error_content">
+                    <img src="<?php base_url() ?>../static/image/icon/error_white.svg" alt="error icon">
+                    <h3><?= $msgSucces ?></h3>
+                </div>
+
         <?php } ?>
-
-    </div>
-</div>
-
 
 <!-- dao/homeContent -->

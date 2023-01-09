@@ -8,22 +8,22 @@
 </head>
 
 <body style="margin:0;padding:0;">
-    <table role="presentation" style="width:100%;border-collapse:collapse;border-spacing:0;background:#ffffff;">
-        <tr>
-            <td align="center" style="padding:0;">
+    <table role="presentation" style="width:100%;border-collapse:collapse;border-spacing:0;background:#ffffff;">
+        <tr>
+            <td align="center" style="padding:0;">
                 <table role="presentation" style="width:50%;border-collapse:collapse;border-spacing:0;text-align:left;">
                     <tr>
                         <td align="center">
-                            <img src="https://casporama.live/static/image/casporama.png" alt="Logo" />
+                            <img src="https://casporama.live/static/image/casporama.png" alt="Logo" />
                         </td>
                     </tr>
                     <tr>
                         <td style="padding:0; line-height:1;">
-                            <h1 style="font-size:2em ;">Bonjour <?= $user->getCoordonnees()->getPrenom() ?> <?= $user->getCoordonnees()->getNom() ?></h1>
+                            <h1 style="font-size:2em ;">Bonjour <?= $user->getCoordonnees()->getPrenom() ?> <?= $user->getCoordonnees()->getNom() ?></h1>
                             <p>Il est important de vérifier votre adresse mail pour activer votre compte</p>
                             <p>Voici le lien et le code de vérification pour activer vortre compte :</p>
-                        </td>
-                    </tr>
+                        </td>
+                    </tr>
                     <tr align="center">
                         <table style="width: 30%;">
                             <tr>
@@ -47,9 +47,9 @@
                        </td>
                    </tr>
                 </table>
-            </td>
-        </tr>
-    </table>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
 

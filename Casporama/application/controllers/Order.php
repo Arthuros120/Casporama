@@ -17,9 +17,12 @@ class Order extends CI_Controller
         $this->load->model('ProductModel');
         $this->load->model('LocationModel');
         $this->load->model('CartModel');
+        $this->load->model('EmailModel');
+        $this->load->model('InvoicePDFModel');
     }
 
-    public function index() {
+    public function index()
+    {
 
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
@@ -32,7 +35,7 @@ class Order extends CI_Controller
 
             $data = array();
 
-            $succes = $this->input->get('succes');
+            $succes = $this->session->flashdata('succes');
 
             if (isset($succes)) {
                 if ($succes == 'true') {
@@ -48,25 +51,32 @@ class Order extends CI_Controller
                 foreach ($orders as $order) {
                     $total[$order->getId()] = $this->OrderModel->totalOrder($order);
                 }
-                
+
                 $dataContent['total'] = $total;
+
+                $colors = array (
+                    'Football' => '#D3E2D3',
+                    'Badminton' => '#D9E6F4',
+                    'Volleyball' => '#FBFBC3',
+                    'Arts-martiaux' => '#FFB4B0'
+                );
+        
+                $dataContent['colors'] = $colors;
 
                 $data = array(
                     'content' => $dataContent
                 );
             }
 
-            $this->LoaderView->load('Order/index',$data);
-            
-            
+            $this->LoaderView->load('Order/index', $data);
         } else {
 
             redirect('User/login');
-
-        }     
+        }
     }
 
-    public function chooseLocation() {
+    public function chooseLocation()
+    {
 
         // * On rend la connexion peréne pour toutes les pages
         $this->UserModel->durabilityConnection();
@@ -84,7 +94,7 @@ class Order extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $listLoc = $this->LocationModel->getLocationsByUserId($user->getId(),true);
+            $listLoc = $this->LocationModel->getLocationsByUserId($user->getId(), true);
 
             if (isset($listLoc) && !empty($listLoc)) {
 
@@ -103,7 +113,6 @@ class Order extends CI_Controller
                             'lat' => $loc->getLatitude(),
                             'lng' => $loc->getLongitude(),
                         );
-
                     }
                 }
 
@@ -112,13 +121,11 @@ class Order extends CI_Controller
                 } else {
                     $dataScript['dataMap'] = null;
                 }
-
             } else {
 
                 $dataContent['addAddIsPos'] = false;
                 $dataContent['nbrAddr'] = "0/0";
                 $dataScript['dataMap'] = null;
-
             }
 
 
@@ -129,19 +136,16 @@ class Order extends CI_Controller
                 'script' => $dataScript,
             );
 
-    
-            $this->LoaderView->load('Order/chooseLocation',$data);
-            
-            
+
+            $this->LoaderView->load('Order/chooseLocation', $data);
         } else {
 
             redirect('User/login');
-
-        } 
-        
+        }
     }
 
-    public function addOrder() {
+    public function addOrder()
+    {
 
         $this->UserModel->durabilityConnection();
 
@@ -152,32 +156,114 @@ class Order extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $this->OrderModel->addOrder($idcart,$user,$idlocation);
+            $user = $this->UserModel->getUserById($user->getId());
+
+            if ($idcart == 0) {
+                $carts = $this->CartModel->getCart();
+            } else {
+                $carts = $this->CartModel->getCartDBbyID($user->getId(), $idcart);
+            }
+
+            $bool = $this->OrderModel->haveStock($carts);
+
+            $errStock = array();
+
+            foreach ($bool as $key => $value) {
+                if (!$value) {
+                    array_push($errStock,$key);
+                }
+            }
+
+            if (empty($errStock)) {
+                $idorder = $this->OrderModel->addOrder($carts, $user, $idlocation);
+
+                $fromEmail = array(
+
+                    'email' => 'no_reply@casporama.live',
+                    'name' => 'Casporama - No Reply'
+
+                );
+
+                $file = $this->InvoicePDFModel->saveInvoice($idorder,$user->getId());
+
+                $this->EmailModel->sendEmailWithAttachement(
+                    $fromEmail,
+                    $user->getCoordonnees()->getEmail(),
+                    'Casporama - Facture n°'.$idorder,
+                    "email/factureMail",
+                    array(
+                    'user' => $user,
+                    'idorder' => $idorder,
+                    ),
+                    $file, 
+                );
+
+                redirect("Order");
+            } else {
+
+                $errProduct = array();
+
+                foreach ($errStock as $idVariant) {
+                    foreach ($carts as $cart) {
+                        if ($cart->getVariant()->getId() == $idVariant) {
+                            array_push($errProduct,$cart->getProduct()->getName(). " " .$cart->getProduct()->getBrand(). " " .$cart->getVariant()->getSize(). " " .$cart->getVariant()->getColor());
+                        }
+                    } 
+                } 
+
+                $this->LoaderView->load("Cart/error", array('content' => array('err' => $errProduct, 'idcart' => $idcart)));
+
+            }
 
 
-            redirect("Order");
-            
-            
         } else {
 
             redirect('User/login');
-
-        } 
-
-    }
-
-    public function cancelOrder() {
-
-        $idorder = $this->input->get('idorder');
-
-        $err = $this->OrderModel->delOrder($idorder);
-
-        if ($err) {
-            redirect('Order?succes=true');
-        } else {
-            redirect('Order?succes=false');
         }
-
     }
 
+    public function cancelOrderConfirm()
+    {
+
+        $this->UserModel->durabilityConnection();
+
+        if ($this->UserModel->isConnected()) {
+
+            $idorder = $this->input->get('idorder');
+
+            $data = array(
+                'content' => array('idorder' => $idorder),
+            );
+
+            $this->LoaderView->load('Order/confirm', $data);
+        } else {
+
+            redirect('User/login');
+        }
+    }
+
+    public function cancelOrder()
+    {
+
+        $this->UserModel->durabilityConnection();
+
+        if ($this->UserModel->isConnected()) {
+
+            $idorder = $this->input->get('idorder');
+
+            $err = $this->OrderModel->delOrder($idorder);
+
+            if ($err) {
+                $this->session->set_flashdata('succes',true);
+            } else {
+                $this->session->set_flashdata('succes',false);
+            }
+
+            redirect('Order');
+
+        } else {
+
+            redirect('User/login');
+        }
+    }
 }

@@ -300,7 +300,7 @@ class ProductEntity
     public function setDescription(string $description)
     {
 
-        $this->description = $description;
+        $this->description = trim($description);
     }
 
     /*
@@ -320,6 +320,26 @@ class ProductEntity
 
     /*
     
+        * Function getImageString
+    
+        @return string
+    
+        * Cette fonction retourne les images de l'entité en string
+    
+    */
+    public function getImageString(): string
+    {
+
+        $imageString = str_replace("upload/images/", "", $this->image);
+
+        $imageString = implode(';', $imageString);
+
+        return $imageString;
+
+    }
+
+    /*
+    
         * Function getCover
 
         * Cette fonction sélectione l'image principale
@@ -329,6 +349,39 @@ class ProductEntity
     {
 
         return base_url($this->image[0]);
+    }
+
+    /*
+    
+        * Function getCoverName
+
+        * Cette fonction sélectione l'image principale
+    
+    */
+    public function getCoverName(): string
+    {
+
+        return $this->image[0];
+    }
+
+    /*
+
+        * Function getImagesWithoutCover
+
+        * Cette fonction retourne les images de l'entité sans l'image principale
+
+    */
+    public function getImagesWithoutCover(): array
+    {
+
+        $res = array();
+
+        for ($i = 1; $i < count($this->image); $i++) {
+
+            array_push($res, base_url($this->image[$i]));
+        }
+
+        return $res;
     }
 
     /*
@@ -349,7 +402,12 @@ class ProductEntity
 
         foreach ($imageTab as $i) {
 
-            array_push($this->image, "upload/images/" . $i);
+            if ($i != "") {
+
+                array_push($this->image, "upload/images/" . $i);
+
+            }
+            
         }
         
     }
