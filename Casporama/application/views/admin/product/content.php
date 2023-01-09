@@ -42,7 +42,7 @@
                         <input class="catFilter filter" type="checkbox" name="Vetement">Vêtement</input>
                         <input class="catFilter filter" type="checkbox" name="Chaussure">Chaussure</input>
                         <input class="catFilter filter" type="checkbox" name="Equipement">Equipement</input>
-                    </div>  
+                    </div>
                 </div>
             </div>
 
@@ -149,7 +149,7 @@
                         <td><?php echo $product->getPrice() ?></td>
                         <td><?php echo $product->getTinyDescription(50) ?></td>
                         <td>
-                        <a href="<?= site_url('Admin/StockProduct/' . $product->getId()) ?>">Stock</a>
+                        <a href="<?= site_url('Admin/Stock/' . $product->getId()) ?>">Stock</a>
                         <a href="<?= site_url('Admin/EditProduct/' . $product->getId()) ?>">Modifier</a>
                         <a href="<?= site_url('Admin/DeleteProduct/' . $product->getId()) ?>">Supprimer</a>
                         </td>
@@ -203,7 +203,7 @@
                         <td><?php echo $product->getPrice() ?></td>
                         <td><?php echo $product->getTinyDescription(50) ?></td>
                         <td>
-                            <a href="<?= site_url('Admin/StockProduct/' . $product->getId()) ?>">Stock</a>
+                            <a href="<?= site_url('Admin/Stock/' . $product->getId()) ?>">Stock</a>
                             <a href="<?= site_url('Admin/ReviveProduct/' . $product->getId()) ?>">Resuciter</a>
                         </td>
                     </tr>

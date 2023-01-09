@@ -364,16 +364,25 @@ Admin/stock/filter:
         content: "admin/stock/filter/content"
         script: "admin/stock/filter/script"
 
-    baseView: "admin/stock/filter/base"
+    baseView: "admin/stock/global/base"
 
 Admin/stock/all:
     views:
         head: "admin/stock/all/head"
         header: "templates/blank"
         content: "admin/stock/all/content"
-        footer: "templates/blank"
+        script: "admin/stock/global/script"
 
-    baseView: "templates/base"
+    baseView: "admin/stock/global/base"
+
+Admin/stock/product:
+    views:
+        head: "admin/stock/product/head"
+        header: "templates/blank"
+        content: "admin/stock/product/content"
+        script: "admin/stock/global/script"
+
+    baseView: "admin/stock/global/base"
 
 Admin/delete/request:
     views:

@@ -1,5 +1,5 @@
 <!-- admin/stock/all/head --->
 
-<title>Stock</title>
+<title>Stock Produits</title>
 
 <!-- admin/stock/all/head --->

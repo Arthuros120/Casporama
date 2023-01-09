@@ -294,7 +294,7 @@ class Admin extends CI_Controller
 
                 $id = $this->ProductModel->addProduct($post, $imageFile);
 
-                redirect('admin/stock/newCatalogue/' . $id);
+                redirect('admin/stock/' . $id);
 
             }
         }
@@ -839,7 +839,30 @@ class Admin extends CI_Controller
 
         } else {
 
-            // Affichage du stock d'un produit
+            $product = $this->ProductModel->findById($id);
+
+            if ($product == null) {
+
+                redirect('admin/product');
+
+            }
+
+            $catalogs = $this->ProductModel->getCatalogsByProducts(array($product))[$product->getId()];
+
+            $dataContent = array(
+
+                'product' => $product,
+                'catalogs' => $catalogs
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/stock/product', $data);
 
         }
     }
