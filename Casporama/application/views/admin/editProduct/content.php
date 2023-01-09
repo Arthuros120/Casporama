@@ -3,8 +3,8 @@
 <div class="modify_product">
     <div class="modify_product_header">
         <div class="header_logo">
-            <a href=""><img src="<?= base_url() ?>static/image/icon/arrow.svg" alt=""></a>
-            <a href=""><img src="<?= base_url() ?>static/image/casporama.png" alt=""></a>
+            <a href="<?= base_url() ?>Admin/Product"><img src="<?= base_url() ?>static/image/icon/arrow.svg" alt=""></a>
+            <a href="<?= base_url() ?>"><img src="<?= base_url() ?>static/image/casporama.png" alt=""></a>
         </div>
         <div class="header_title">
             <h1>Modification de produit</h1>

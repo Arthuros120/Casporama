@@ -937,14 +937,8 @@ class Admin extends CI_Controller
                 $user[$order->getId()] = $this->UserModel->getUserById($order->getIduser())->getCoordonnees();
             }
 
-            $options = array(
-                'Non preparer' => 'Non preparer',
-                'En preparation' => 'En preparation',
-                'Preparer' => 'Preparer',
-                'Expedier' => 'Expedier'
-            );
 
-            $dataContent = array('orders' => $orders, 'user' => $user, 'options' => $options);
+            $dataContent = array('orders' => $orders, 'user' => $user);
 
 
         }
@@ -970,7 +964,7 @@ class Admin extends CI_Controller
 
         $this->OrderModel->updateStatus($key, $value);
 
-        redirect('Admin/order');
+        redirect('Admin/viewOrder?idorder='.$key);
     }
 
     public function cancelOrderConfirm()
@@ -1016,8 +1010,6 @@ class Admin extends CI_Controller
         $dataContent['users'] = $users;
         $data = array ('content' => $dataContent);
         $this->LoaderView->load('Admin/User', $data);
-
-
 
     }
 

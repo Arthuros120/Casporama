@@ -122,6 +122,15 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    padding: 2%;
+}
+
+.list_input {
+    width: 50%;
+    display: flex;
+    align-items: center;
+
 }
 
 

@@ -94,16 +94,16 @@ $RECYCLE.BIN/
 Casporama/captcha/*.jpg
 Casporama/application/cache/*
 Casporama/upload/DaoFile/error/*.txt
-Casporama/upload/DaoFile/json/*.json
-Casporama/upload/DaoFile/yaml/*.yaml
-Casporama/upload/DaoFile/xml/*.xml
-Casporama/upload/DaoFile/csv/order/*.csv
-Casporama/upload/DaoFile/csv/user/*.csv
-Casporama/upload/DaoFile/csv/sport/*.csv
-Casporama/upload/DaoFile/csv/product/*.csv
-Casporama/upload/DaoFile/csv/location/*.csv
-Casporama/upload/DaoFile/csv/information/*.csv
-Casporama/upload/DaoFile/csv/catalog/*.csv
+Casporama/upload/DaoFile/export/json/*.json
+Casporama/upload/DaoFile/export/yaml/*.yaml
+Casporama/upload/DaoFile/export/xml/*.xml
+Casporama/upload/DaoFile/export/csv/order/*.csv
+Casporama/upload/DaoFile/export/csv/user/*.csv
+Casporama/upload/DaoFile/export/csv/sport/*.csv
+Casporama/upload/DaoFile/export/csv/product/*.csv
+Casporama/upload/DaoFile/export/csv/location/*.csv
+Casporama/upload/DaoFile/export/csv/information/*.csv
+Casporama/upload/DaoFile/export/csv/catalog/*.csv
 Casporama/upload/pdf/*.pdf
 
 .gradle/
