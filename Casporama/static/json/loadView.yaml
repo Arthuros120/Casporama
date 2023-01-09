@@ -586,7 +586,7 @@ Order/index:
 Order/chooseLocation:
 
     views :
-        head : "user/home/info/head"
+        head : "order/chooseLocation/head"
         header : "templates/blank"
         content : "order/chooseLocation/homeContent"
         script: "user/home/info/script"
