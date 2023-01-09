@@ -129,8 +129,26 @@
                     <?php } ?>
                     </div>
                 </div>
-
             </div>
+
+            <?php if (isset($error)) { ?>
+            <div class="error">
+                <img src="<?= base_url() ?>static/image/icon/error_white.svg" >
+                <p> <?= $error ?> </p>
+            </div>
+            <?php } ?>
+
+            <?php if (isset($errorFile)) { ?>
+            <div class="error">
+            <h4> Erreur lors de l'ajout des images </h4>
+                <?php foreach ($errorFile as $error) { ?>
+                    <h5>Images n°<?= $error['id'] ?></h5>
+                    <img src="<?= base_url() ?>static/image/icon/error_white.svg" >
+                    <p><?= $error['error'] ?></p>
+                <?php } ?>
+            </div>
+            <?php } ?>
+
             <div class="addproduct_submit">
                 <input type="submit" value="Ajouter le produit">
                 <a href="javascript:history.back()"><p>Annuler</p></a>
@@ -140,13 +158,7 @@
     </div>
 </div>
 
-<?php if (isset($error)) { ?>
 
-    <div class="error">
-        <p> <?= $error ?> </p>
-    </div>
-
-<?php } ?>
 
 
 
