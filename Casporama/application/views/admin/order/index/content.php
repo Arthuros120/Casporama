@@ -43,29 +43,30 @@
 
         <hr>
 
+        <form action="<?php echo site_url('Admin/deleteOrdersConfirm') ?>" method="post">
+
+        <input type="submit" value="Supprimer les commandes selectionnés">
+
         <div class="list_content">
             <table>
                 <tr>
+                    <th> ✓ </th>
                     <th>Numéro de commande</th>
                     <th>Nom du client</th>
                     <th>Date de commande</th>
                     <th>Status de la commande</th>
                 </tr>
-        <?php if (isset($orders)) { foreach ($orders as $order) { 
-            
-            echo form_open('Admin/changeStatusOrder'); ?>
+        <?php if (isset($orders)) { foreach ($orders as $order) {?>
             <div class="box">
                 <tr>
+                    <td><input class="selectProduct" type="checkbox" name="<?= $order->getId() ?>"></td>
                     <td><?= $order->getId() ?></td>
                     <td><?= $user[$order->getId()]->getNom(). " " .$user[$order->getId()]->getPrenom() ?></td>
                     <td><?= $order->getDate() ?></td>
                     <td><?= $order->getState() ?></td>
-                    <td>Nouveau status : <?php echo form_dropdown($order->getId(),$options,$order->getState()); ?></td>
-                    <td><input type="submit" value="Modifier Status" /></td>
-                    <td><a href="<?=site_url('Admin/cancelOrder?idorder='.$order->getId())?>">Annuler commande</a></td>
+                    <td><a href="<?=site_url('Admin/viewOrder?idorder='.$order->getId())?>">Consulter Commande</a></td>
                 </tr>
             </div>
-            </form>
 
         <?php }} else { ?>
 
@@ -74,7 +75,7 @@
         <?php } ?>
             </table>
         </div>
-        
+        </form>
     </div>
 
     

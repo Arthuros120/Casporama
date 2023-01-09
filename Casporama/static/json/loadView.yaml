@@ -458,9 +458,9 @@ Admin/deletes/error:
 Admin/order:
 
     views :
-        head : "admin/order/head"
+        head : "admin/order/index/head"
         header : "admin/header"
-        content : "admin/order/content"
+        content : "admin/order/index/content"
         script : "templates/blank"
         footer: "templates/blank"
 
@@ -472,6 +472,28 @@ Admin/confirmCancel:
         head : "admin/order/confirm/head"
         header : "templates/blank"
         content : "admin/order/confirm/content"
+        script : "templates/blank"
+        footer: "templates/blank"
+
+    baseView: "admin/base"
+
+Admin/viewOrder:
+
+    views :
+        head : "admin/order/viewOrder/head"
+        header : "templates/blank"
+        content : "admin/order/viewOrder/content"
+        script : "templates/blank"
+        footer: "templates/blank"
+
+    baseView: "admin/base"
+
+Admin/confirmDeleteOrders:
+
+    views :
+        head : "admin/order/confirm2/head"
+        header : "templates/blank"
+        content : "admin/order/confirm2/content"
         script : "templates/blank"
         footer: "templates/blank"
 

@@ -892,14 +892,8 @@ class Admin extends CI_Controller
                 $user[$order->getId()] = $this->UserModel->getUserById($order->getIduser())->getCoordonnees();
             }
 
-            $options = array(
-                'Non preparer' => 'Non preparer',
-                'En preparation' => 'En preparation',
-                'Preparer' => 'Preparer',
-                'Expedier' => 'Expedier'
-            );
 
-            $dataContent = array('orders' => $orders, 'user' => $user, 'options' => $options);
+            $dataContent = array('orders' => $orders, 'user' => $user);
 
 
         }
@@ -925,7 +919,7 @@ class Admin extends CI_Controller
 
         $this->OrderModel->updateStatus($key, $value);
 
-        redirect('Admin/order');
+        redirect('Admin/viewOrder?idorder='.$key);
     }
 
     public function cancelOrderConfirm()
@@ -961,6 +955,108 @@ class Admin extends CI_Controller
         }
 
         redirect('Admin/order');
+    }
+
+    public function deleteOrdersConfirm() {
+
+        $this->UserModel->adminOnly();
+
+        $idorders = $this->input->post();
+
+        if ($idorders != null) {
+            $idorders = array_keys($idorders);
+
+            $data = array(
+                'content' => array('idorders' => $idorders),
+            );
+
+            $this->LoaderView->load('Admin/confirmDeleteOrders', $data);
+        } else {
+            redirect('Admin/order');
+        }
+
+    }
+
+    public function deleteOrders() {
+        $this->UserModel->adminOnly();
+
+        $idorders = $this->input->post();
+
+        $this->load->model('OrderModel');
+
+
+        if ($idorders != null) {
+
+            $idorders = array_keys($idorders);
+            $err = false;
+
+            foreach ($idorders as $idorder) {
+
+                $newerr = $this->OrderModel->delOrder($idorder);
+
+                $err = $err || $newerr;
+            }
+
+            if ($err) {
+                $this->session->set_flashdata('succes', true);
+            } else {
+                $this->session->set_flashdata('succes', false);
+            }
+
+        } 
+
+        redirect("Admin/order");
+
+
+    }
+
+    public function viewOrder() {
+
+        $this->UserModel->adminOnly();
+
+        $idorder = $this->input->get('idorder');
+
+        $this->load->model('OrderModel');
+        $this->load->model('LocationModel');
+
+        if ($idorder != null) {
+            $orders = $this->OrderModel->getOrderById($idorder);
+
+            if ($orders != null) {
+                $order = $orders[0];
+
+                $dataContent['order'] = $order;
+
+                $colors = array (
+                    'Football' => '#D3E2D3',
+                    'Badminton' => '#D9E6F4',
+                    'Volleyball' => '#FBFBC3',
+                    'Arts-martiaux' => '#FFB4B0'
+                );
+
+                $options = array(
+                    'Non preparer' => 'Non preparer',
+                    'En preparation' => 'En preparation',
+                    'Preparer' => 'Preparer',
+                    'Expedier' => 'Expedier'
+                );
+
+                $user = $this->UserModel->getUserById($order->getIduser())->getCoordonnees();
+
+                $dataContent['options'] = $options;
+        
+                $dataContent['colors'] = $colors;
+
+                $dataContent['user'] = $user;
+
+                $this->LoaderView->load('Admin/viewOrder', array('content' => $dataContent));
+            }
+
+        } else {
+
+            redirect("Admin/order");
+        }
+
     }
 
     public function checkNameProduct(string $name) : bool
