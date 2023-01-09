@@ -184,13 +184,16 @@ class Admin extends CI_Controller
 
         if (!$this->form_validation->run()) {
 
+            $errors = explode('.', validation_errors());
+            $errors = array_slice($errors, 0, count($errors)-1);
+
             $dataContent = array(
 
                 'types' => $this->ProductModel->getAllCategory(),
                 'sports' => $this->ProductModel->getAllSport(),
                 'brands' => $this->ProductModel->getAllBrand(),
                 'post' => $post,
-                'error' => validation_errors()
+                'errors' => $errors
     
             );
     
@@ -298,6 +301,8 @@ class Admin extends CI_Controller
 
         $this->load->model('ProductModel');
 
+        $this->load->library('upload');
+
         if ($id == -1) {
 
             redirect('admin/product');
@@ -324,29 +329,332 @@ class Admin extends CI_Controller
         $images = array();
         $imageCover = str_replace(base_url(), '', str_replace('/', '+', $imageCoverNotFormated));
 
-
-
         foreach ($imagesNotFormated as $image) {
 
             array_push($images, str_replace('/', '+', str_replace(base_url(), '', $image)));
 
         }
 
-        $dataContent = array(
+        $configRules = array(
 
-            'product' => $product,
-            'images' => $images,
-            'imageCover' => $imageCover,
+            array(
 
+                'field' => 'name',
+                'label' => 'Nom du produit',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|callback_checkNameProductWithoutSelf['.$id.']',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'min_length' => 'Le champ %s doit contenir au moins 3 caractères.',
+                    'max_length' => 'Le champ %s doit contenir au maximum 255 caractères.',
+                    'checkNameProduct' => 'Le champ %s existe déjà.'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'description',
+                'label' => 'Description du produit',
+                'rules' => 'trim|required|min_length[3]',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'min_length' => 'Le champ %s doit contenir au moins 3 caractères.'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'price',
+                'label' => 'Prix du produit',
+                'rules' => 'trim|required|numeric',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'numeric' => 'Le champ %s doit être un nombre.'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'sport',
+                'label' => 'Sport du produit',
+                'rules' => 'required|numeric|callback_checkSport',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'numeric' => 'Le champ %s doit être un nombre.',
+                    'checkSport' => 'Le champ %s n\'existe pas.'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'type',
+                'label' => 'Type du produit',
+                'rules' => 'required|callback_checkType',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'checkType' => 'Le champ %s n\'existe pas.'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'brand',
+                'label' => 'Marque du produit',
+                'rules' => 'trim|required|min_length[3]|max_length[255]',
+                'errors' => array(
+
+                    'required' => 'Le champ %s est requis.',
+                    'min_length' => 'Le champ %s doit contenir au moins 3 caractères.',
+                    'max_length' => 'Le champ %s doit contenir au maximum 255 caractères.'
+
+                )
+            ),
         );
 
-        $data = array(
+        $this->form_validation->set_rules($configRules);
 
-            'content' => $dataContent
+        if (!$this->form_validation->run()) {
 
-        );
+            $dataContent = array(
 
-        $this->LoaderView->load('Admin/editProduct', $data);
+                'product' => $product,
+                'images' => $images,
+                'imageCover' => $imageCover,
+                'countImages' => count($product->getImages()),
+                'types' => $this->ProductModel->getAllCategory(),
+                'sports' => $this->ProductModel->getAllSport(),
+                'brands' => $this->ProductModel->getAllBrand(),
+                'error' => validation_errors()
+            );
+    
+            $data = array(
+    
+                'content' => $dataContent
+    
+            );
+    
+            $this->LoaderView->load('Admin/editProduct', $data);
+
+        } else {
+
+            $post = $this->input->post();
+
+            $this->ProductModel->editProduct($post, $id);
+
+            redirect('shop/product/' . $id);
+
+            var_dump($this->input->post());
+
+        }
+    }
+
+    public function addImage(int $id = -1)
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/editProduct');
+
+        }
+
+        $product = $this->ProductModel->findById($id);
+
+        $this->load->library('upload');
+
+        $configFile['upload_path']          = 'upload/images/import/';
+        $configFile['allowed_types']        = 'jpg|png|jpeg|svg';
+        $configFile['max_size']             = 100000;
+        $configFile['max_width']            = 1000;
+        $configFile['max_height']           = 1000;
+        $configFile['min_width']            = 200;
+        $configFile['min_height']           = 200;
+        $configFile['max_filename']         = 0;
+        $configFile['encrypt_name']         = true;
+        $configFile['remove_spaces']        = true;
+        $configFile['overwrite']            = false;
+        $configFile['detect_mime']          = true;
+        $configFile['mod_mime_fix']         = false;
+        $configFile['file_ext_tolower']     = true;
+        $configFile['create_thumb']         = false;
+        $configFile['maintain_ratio']       = true;
+
+        $imageFile = array();
+        $errorFile = array();
+        
+        $counterImages = count($product->getImages());
+
+        if ($counterImages == 5) {
+
+            show_error('Vous ne pouvez pas ajouter plus de 5 images à un produit.', '500', 'Erreur 500');
+
+        }
+
+        for ($i = $counterImages + 1; $i <= 5; $i++) {
+
+            $this->upload->initialize($configFile);
+
+            $image = $this->upload->do_upload('image' . $i);
+
+            if ($image) {
+
+                $imageFile['image' . $i] = $this->upload->data()['file_name'];
+
+            } else {
+
+                $errorFile[$i] = array(
+
+                    'id' => $i,
+                    'error' => $this->upload->display_errors("", "")
+
+                );
+
+            }
+        }
+
+        $errorFilePostTraitement = $errorFile;
+        $countErrorFileSelect = 0;
+
+        foreach ($errorFile as $error) {
+
+            if ($error['error'] == 'You did not select a file to upload.') {
+
+                unset($errorFile[$error['id']]);
+                $countErrorFileSelect++;
+
+            }
+
+        }
+
+        if ($countErrorFileSelect == 5 - $counterImages) {
+
+            $errorFile = $errorFilePostTraitement;
+
+        }
+
+        if (!empty($errorFile)) {
+
+            $dataContent = array(
+
+                'errors' => $errorFile,
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/error/errorImage', $data);
+
+        } else {
+
+            $this->ProductModel->addImages($imageFile, $id);
+
+            redirect('admin/editProduct/' . $id);
+
+        }
+    }
+
+    public function EditCoverImage(int $id = -1)
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/editProduct');
+
+        }
+
+        $product = $this->ProductModel->findById($id);
+
+        $this->load->library('upload');
+
+        $configFile['upload_path']          = 'upload/images/import/';
+        $configFile['allowed_types']        = 'jpg|png|jpeg|svg';
+        $configFile['max_size']             = 100000;
+        $configFile['max_width']            = 1000;
+        $configFile['max_height']           = 1000;
+        $configFile['min_width']            = 200;
+        $configFile['min_height']           = 200;
+        $configFile['max_filename']         = 0;
+        $configFile['encrypt_name']         = true;
+        $configFile['remove_spaces']        = true;
+        $configFile['overwrite']            = false;
+        $configFile['detect_mime']          = true;
+        $configFile['mod_mime_fix']         = false;
+        $configFile['file_ext_tolower']     = true;
+        $configFile['create_thumb']         = false;
+        $configFile['maintain_ratio']       = true;
+
+        $this->upload->initialize($configFile);
+
+        $image = $this->upload->do_upload('imageCover');
+
+        if ($image) {
+
+            $imageFile = $this->upload->data()['file_name'];
+
+            $this->ProductModel->editCoverImage($imageFile, $id);
+
+            redirect('admin/editProduct/' . $id);
+
+        } else {
+
+            $dataContent = array(
+
+                'errors' => $this->upload->display_errors("", ""),
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/error/errorImage', $data);
+
+        }
+    }
+
+    public function deleteImage(int $id = -1, string $image = "") : void
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        $image = str_replace("..", "", $image);
+
+        if ($id == -1 || $image == "" || $image[strlen($image)-1] == '/') {
+
+            redirect('admin/editProduct/' . $id);
+
+        }
+
+        $image = str_replace("+", "/", $image);
+        $image = str_replace("upload/images/", "", $image);
+
+        $this->ProductModel->deleteImage($id, $image);
+
+        redirect('admin/editProduct/' . $id);
 
     }
 
@@ -535,7 +843,104 @@ class Admin extends CI_Controller
         }
     }
 
-    public function checkNameProduct(string $name)
+    public function order()
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('OrderModel');
+
+        $succes = $this->session->flashdata('succes');
+
+        if (isset($succes)) {
+            if ($succes == 'true') {
+                $dataContent['resultat'] = 'La commande a bien été annulé';
+            } else {
+                $dataContent['resultat'] = "Une erreur est survenue lors de l'annulation de la commande";
+            }
+        }
+
+        $filtre = $this->input->post('filtre');
+
+        if ($filtre != null) {
+
+            if (intval($filtre) != 0) {
+
+                $orders = $this->OrderModel->getOrderById($filtre);
+            } else {
+
+                $orders = null;
+            }
+        } else {
+
+            $orders = $this->OrderModel->getAllOrder();
+        }
+
+        if ($orders != null) {
+
+            foreach ($orders as $order) {
+
+                $user[$order->getId()] = $this->UserModel->getUserById($order->getIduser())->getCoordonnees();
+            }
+
+            $options = array(
+                'Non preparer' => 'Non preparer',
+                'En preparation' => 'En preparation',
+                'Preparer' => 'Preparer',
+                'Expedier' => 'Expedier'
+            );
+
+            $dataContent = array('orders' => $orders, 'user' => $user, 'options' => $options);
+
+            
+        }
+
+        if (isset($dataContent)) {
+            $this->LoaderView->load('Admin/order', array('content' => $dataContent));
+        } else {
+            $this->LoaderView->load('Admin/order');
+        }
+    }
+
+    public function changeStatusOrder()
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('OrderModel');
+
+        $array = $this->input->post();
+
+        $key = array_keys($array)[0];
+        $value = $array[$key];
+
+        $this->OrderModel->updateStatus($key, $value);
+
+        redirect('Admin/order');
+    }
+
+    public function cancelOrder()
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('OrderModel');
+
+
+        $idorder = $this->input->get('idorder');
+
+        $err = $this->OrderModel->delOrder($idorder);
+
+        if ($err) {
+            $this->session->set_flashdata('succes', true);
+        } else {
+            $this->session->set_flashdata('succes', false);
+        }
+
+        redirect('Admin/order');
+    }
+
+    public function checkNameProduct(string $name) : bool
     {
 
         $this->load->model('ProductModel');
@@ -555,7 +960,27 @@ class Admin extends CI_Controller
         }
     }
 
-    public function checkSport(int $sport)
+    public function checkNameProductWithoutSelf(string $name, int $id) : bool
+    {
+
+        $this->load->model('ProductModel');
+
+        $trigger = $this->ProductModel->findByNameWithoutSelf($name, $id);
+
+        if ($trigger) {
+
+            return true;
+
+        } else {
+
+            $this->form_validation->set_message('checkNameProductWithoutSelf', 'Le nom du produit existe déjà');
+
+            return false;
+
+        }
+    }
+
+    public function checkSport(int $sport) : bool
     {
 
         $this->load->model('ProductModel');
@@ -575,7 +1000,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function checkType(string $type)
+    public function checkType(string $type) : bool
     {
 
         $this->load->model('ProductModel');
@@ -594,6 +1019,4 @@ class Admin extends CI_Controller
 
         }
     }
-
-
 }

@@ -276,7 +276,7 @@ class CartModel extends CI_Model {
             foreach ($cart as $product) {
                 $idvariant = $product->getVariant()->getId();
                 $idproduct = $product->getProduct()->getId();
-                if ($idvariant != $delvariant && $idproduct != $delproduct) {
+                if (($idproduct != $delproduct) || ($idvariant != $delvariant && $idproduct == $delproduct)) {
                     $cookieValue .= $idproduct."P"."$idvariant"."P".$product->getQuantity()."C";
                 }
             } 

@@ -300,7 +300,7 @@ class ProductEntity
     public function setDescription(string $description)
     {
 
-        $this->description = $description;
+        $this->description = trim($description);
     }
 
     /*
@@ -316,6 +316,26 @@ class ProductEntity
     {
 
         return $this->image;
+    }
+
+    /*
+    
+        * Function getImageString
+    
+        @return string
+    
+        * Cette fonction retourne les images de l'entité en string
+    
+    */
+    public function getImageString(): string
+    {
+
+        $imageString = str_replace("upload/images/", "", $this->image);
+
+        $imageString = implode(';', $imageString);
+
+        return $imageString;
+
     }
 
     /*

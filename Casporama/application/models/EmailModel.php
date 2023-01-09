@@ -39,6 +39,8 @@ class EmailModel extends CI_Model
 
         $this->email->send();
 
+        unlink($attachement);
+
     }
     
 }

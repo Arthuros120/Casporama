@@ -273,3 +273,19 @@
 
     cursor: pointer;
 }
+
+.form > h3 {
+    display: flex;
+    justify-content: center;
+
+    width: 90%;
+    padding: 2%;
+
+    border: none;
+
+    border-radius: 25px;
+    background-color: var(--grey1);
+
+    font-size: 1vw;
+    font-weight: 600;
+}

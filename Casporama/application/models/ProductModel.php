@@ -314,6 +314,8 @@ class ProductModel extends CI_Model
     public function findByName(string $nameProduct): ?ProductEntity
     {
 
+        $nameProduct = str_replace("'", "\'", $nameProduct);
+
         // * Requete SQL pour récupérer le produit par son id
         $queryProduct = $this->db->query("Call product.getProductByName('" . $nameProduct . "')");
 
@@ -357,6 +359,26 @@ class ProductModel extends CI_Model
             // * On retourne null
             return null;
         }
+    }
+
+    public function findByNameWithoutSelf(string $nameProduct, int $id) : bool
+    {
+        $nameProduct = str_replace("'", "\'", $nameProduct);
+
+        // * Requete SQL pour récupérer le produit par son id
+        $queryProduct = $this->db->query(
+            "Call product.getProductByNameWithoutSelf('" . $nameProduct . "' , " . $id . ")"
+        );
+
+        // * On stocke le résultat de la requete dans un tableau
+        $product = $queryProduct->row();
+
+        // * On crée un objet ProductEntity
+        $queryProduct->next_result();
+        $queryProduct->free_result();
+
+        return ($product == null);
+
     }
 
     public function findAllSortBySportCat(): array
@@ -849,6 +871,10 @@ class ProductModel extends CI_Model
         $description = $post['description'];
         $gender = $post['genre'];
 
+        $name = str_replace("'", "\'", $name);
+        $brand = str_replace("'", "\'", $brand);
+        $description = str_replace("'", "\'", $description);
+
         $date = date("Y-m-d H:i:s");
 
         $strImages = "";
@@ -865,13 +891,110 @@ class ProductModel extends CI_Model
         $strImages = substr($strImages, 0, -1);
 
         $query = $this->db->query(
-"Call product.addProduct($id, '$type', $sport, '$brand', '$name', '$gender', $price, '$description', '$strImages', 1, '$date')"
+"Call product.addProduct($id,'$type',$sport,'$brand','$name','$gender',$price,'$description','$strImages',1,'$date')"
         );
 
         $query->next_result();
         $query->free_result();
 
         return $id;
+
+    }
+
+    public function editProduct(array $post, int $id) : void
+    {
+    
+        $name = $post['name'];
+        $brand = $post['brand'];
+        $price = $post['price'];
+        $type = $post['type'];
+        $sport = $post['sport'];
+        $description = $post['description'];
+        $gender = $post['genre'];
+
+        $name = str_replace("'", "\'", $name);
+        $brand = str_replace("'", "\'", $brand);
+        $description = str_replace("'", "\'", $description);
+
+        $query = $this->db->query(
+            "Call product.updateProduct($id, '$type', $sport, '$brand', '$name', '$gender', $price, '$description')"
+        );
+
+        $query->next_result();
+        $query->free_result();
+
+    }
+
+    public function addImages(array $images, int $id) : void
+    {
+
+        $product = $this->findById($id);
+
+        $strImages = ";";
+
+        foreach ($images as $image) {
+
+                $strImages .= "import/" . $image . ";";
+
+        }
+
+        $strImages = substr($strImages, 0, -1);
+
+        $strImages = $product->getImageString() . $strImages;
+
+        $query = $this->db->query(
+            "Call product.updateImage($id, '$strImages')"
+        );
+
+        $query->next_result();
+        $query->free_result();
+
+    }
+
+    public function editCoverImage(string $image, int $id) : void
+    {
+
+        $product = $this->findById($id);
+
+        $strImages = $product->getImageString();
+
+        $cover = str_replace("upload/images/", "", $product->getCoverName());
+
+        $strImages = str_replace($cover, "import/" . $image, $strImages);
+
+        $query = $this->db->query(
+            "Call product.updateImage($id, '$strImages')"
+        );
+
+        $query->next_result();
+        $query->free_result();
+
+    }
+
+    public function deleteImage(int $id, string $image) : void
+    {
+
+        $product = $this->findById($id);
+
+        $strImages = $product->getImageString();
+
+        $strImages = str_replace("$image", "", $strImages);
+
+        $strImages = str_replace(";;", ";", $strImages);
+
+        $query = $this->db->query(
+            "Call product.updateImage($id, '$strImages')"
+        );
+
+        $query->next_result();
+        $query->free_result();
+
+
+
+        // TODO : A sécuriser
+        // ! Danger ! Supprime l'image du serveur
+
+        unlink('upload/images/' . $image);
 
     }
 

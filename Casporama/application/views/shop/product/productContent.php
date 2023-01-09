@@ -38,6 +38,12 @@
                                 <?php endforeach ?>
                             </div>
                         </div>
+                    <?php } else { ?>
+                    
+                        <div class="form">
+                            <h3>Actuellement Indisponible</h3>
+                        </div>
+
                     <?php } echo form_open('Cart/add');
                         if (isset($avalaibleSize)) { ?>
                         <div class="size">
@@ -63,7 +69,7 @@
                     </div>
                     <?php if (isset($avalaibleSize)) { ?>
                     <div class="form">
-                        <input type="submit" value="AJOUTER AU PANIER"/><h2>
+                        <input type="submit" value="AJOUTER AU PANIER"/>
                     </div>
                     </form>
                     <?php } ?>

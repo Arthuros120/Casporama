@@ -1,9 +1,9 @@
-<!-- admin/addProduct/content -->
+   <!-- admin/addProduct/content -->
 
 <div class="addproduct">
     <div class="addproduct_header">
         <div class="addproduct_logo">
-            <a href="javascript:history.back()" ><img src="<?= base_url() ?>static/image/icon/arrow.svg"></a>
+            <a href="<?= base_url() ?>Admin/Product" ><img src="<?= base_url() ?>static/image/icon/arrow.svg"></a>
             <a href="<?= base_url() ?>" ><img src="<?= base_url() ?>static/image/casporama.png"></a>
         </div>
         <div class="addproduct_title">
@@ -106,7 +106,7 @@
                     Il est possible d'ajouter jusqu'a 5 images, elles doivent être au format .jpg, .jpeg, .png ou .gif
                     Les images doivent faire au minimum 100x100px et au maximum 800x800px et elles doivent faire moins de 10Mo
                     Les images doivent avoir un nom de moins de 255 caractères. L'image de couverture n'est pas obligatoire mais conseiller
-                <p> 
+                <p>
             </div>
             <div class="addproduct_img_content">
                 <div class="img_cover">
@@ -131,27 +131,33 @@
                 </div>
             </div>
 
-            <?php if (isset($error)) { ?>
-            <div class="error">
+            <?php if (isset($errors)) { ?>
+            <?php if (count($errors) > 0) { ?>
+            <div class="addproduct_error">
                 <img src="<?= base_url() ?>static/image/icon/error_white.svg" >
-                <p> <?= $error ?> </p>
+                <div class="error">
+                    <?php foreach ($errors as $error) { ?>
+                            <p> <?= $error ?>.</p>
+                    <?php } ?>
+                </div>
             </div>
-            <?php } ?>
+            <?php } } ?>
 
             <?php if (isset($errorFile)) { ?>
-            <div class="error">
-            <h4> Erreur lors de l'ajout des images </h4>
-                <?php foreach ($errorFile as $error) { ?>
-                    <h5>Images n°<?= $error['id'] ?></h5>
-                    <img src="<?= base_url() ?>static/image/icon/error_white.svg" >
-                    <p><?= $error['error'] ?></p>
-                <?php } ?>
+            <div class="addproduct_error">
+                <img src="<?= base_url() ?>static/image/icon/error_white.svg" >
+                <div class="error">
+                    <?php foreach ($errorFile as $error) { ?>
+                        <h5>Images n°<?= $error['id'] ?></h5>
+                        <p><?= $error['error'] ?></p>
+                    <?php } ?>
+                </div>   
             </div>
             <?php } ?>
 
             <div class="addproduct_submit">
                 <input type="submit" value="Ajouter le produit">
-                <a href="javascript:history.back()"><p>Annuler</p></a>
+                <a href="<?= base_url() ?>Admin/Product" ><p>Annuler</p></a>
             </div>
         </div>
     <?php echo form_close(); ?>
@@ -179,22 +185,7 @@
 
 
 
-<?php if (isset($errorFile)) { ?>
 
-    <div class="error">
-
-    <h4> Erreur lors de l'ajout des images </h4>
-        
-        <?php foreach ($errorFile as $error) { ?>
-
-            <h5>Images n°<?= $error['id'] ?></h5>
-            <p><?= $error['error'] ?></p>
-
-        <?php } ?>
-
-    </div>
-
-<?php } ?>
 
 <datalist id="listBrand" name="listBrand">
     
