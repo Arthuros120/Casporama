@@ -194,6 +194,28 @@ class UserModel extends CI_Model
         return false;
     }
 
+
+    public function getUsers():?array {
+
+        $querry = $this->db->query('call user.getAllUser()');
+        $usersarray = $querry->result_array();
+        $users = array();
+        $this->load->model('InformationModel');
+        $querry->next_result();
+        $querry->free_result();
+        foreach ($usersarray as $userarray) {
+            $newuser = new UserEntity();
+            $newuser->setId($userarray['id']);
+            $newuser->setCoordonnees($this->InformationModel->getInformationByUserId($userarray['id']) ? :new InformationEntity());
+            $newuser->setStatus($userarray['status']);
+            $newuser->setIsVerified($userarray['isVerified']);
+            $newuser->setIsAlive($userarray['isALive']);
+            $users[] = $newuser;
+        }
+
+        return $users;
+    }
+
     /*
     
         * getUserByLoginOrEmail
@@ -874,14 +896,14 @@ class UserModel extends CI_Model
     public function updateLastName(int $id, string $newLastName)
     {
 
-        $this->db->query("Call user.updateLastName(" . $id . ",' "  . $newLastName . "')");
+        $this->db->query("Call user.updateLastName(" . $id . ",'"  . $newLastName . "')");
 
     }
 
     public function updateFirstName(int $id, string $newFirstName)
     {
 
-        $this->db->query("Call user.updateFirstName(" . $id . ",' " . $newFirstName . "')");
+        $this->db->query("Call user.updateFirstName(" . $id . ",'" . $newFirstName . "')");
 
     }
 
@@ -1011,5 +1033,18 @@ class UserModel extends CI_Model
 
     public function changeStatus(int $id, string $newStatus) {
         $this->db->query("Call user.changeStatus('" . $id . "', '" . $newStatus . "')");
+    }
+
+
+    public function updateUser(UserEntity $user) {
+
+        $this->updateFirstName($user->getId(), $user->getCoordonnees()->getPrenom());
+        $this->updateLastName($user->getId(), $user->getCoordonnees()->getNom());
+        $this->updateEmail($user->getId(), $user->getCoordonnees()->getEmail());
+        $this->updateMobile($user->getId(), $user->getCoordonnees()->getTelephone());
+        $this->updateFixe($user->getId(), $user->getCoordonnees()->getFixe());
+        $this->changeStatus($user->getId(), $user->getStatus());
+
+
     }
 }

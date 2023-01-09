@@ -1,7 +1,7 @@
 <div class="user_info_address">
 
     <div class="user_info_title">
-        <h1>Vos addresse <?php echo $nbrAddr ?></h1>
+        <h1>Choisissez une adresse</h1>
         <hr>
     </div>
 

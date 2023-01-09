@@ -1,6 +1,12 @@
 <?php
 defined('BASEPATH') || exit('No direct script access allowed');
 
+/**
+ * @property UserModel $UserModel
+ * @property LoaderView $LoaderView
+ * @property ProductModel $ProductModel
+ * @property LocationModel $LocationModel
+ */
 class Admin extends CI_Controller
 {
 
@@ -63,6 +69,8 @@ class Admin extends CI_Controller
 
         $this->LoaderView->load('Admin/Product', $data);
     }
+
+
 
     public function addProduct()
     {
@@ -267,15 +275,15 @@ class Admin extends CI_Controller
                     'brands' => $this->ProductModel->getAllBrand(),
                     'errorFile' => $errorFile,
                     'post' => $this->input->post(),
-    
+
                 );
-    
+
                 $data = array(
-    
+
                     'content' => $dataContent
-    
+
                 );
-    
+
                 $this->LoaderView->load('Admin/addProduct', $data);
 
             } else {
@@ -435,13 +443,13 @@ class Admin extends CI_Controller
                 'brands' => $this->ProductModel->getAllBrand(),
                 'error' => validation_errors()
             );
-    
+
             $data = array(
-    
+
                 'content' => $dataContent
-    
+
             );
-    
+
             $this->LoaderView->load('Admin/editProduct', $data);
 
         } else {
@@ -493,7 +501,7 @@ class Admin extends CI_Controller
 
         $imageFile = array();
         $errorFile = array();
-        
+
         $counterImages = count($product->getImages());
 
         if ($counterImages == 5) {
@@ -893,7 +901,7 @@ class Admin extends CI_Controller
 
             $dataContent = array('orders' => $orders, 'user' => $user, 'options' => $options);
 
-            
+
         }
 
         if (isset($dataContent)) {
@@ -1034,4 +1042,127 @@ class Admin extends CI_Controller
 
         }
     }
+
+
+
+    public function User(){
+
+        $this->UserModel->adminOnly();
+
+        $users = $this->UserModel->getUsers();
+        $dataContent['users'] = $users;
+        $data = array ('content' => $dataContent);
+        $this->LoaderView->load('Admin/User', $data);
+
+
+
+    }
+    public function editUser(int $id) {
+        $this->UserModel->adminOnly();
+
+        // créer les règles du formulaire
+        $this->form_validation->set_rules('name', 'Nom', 'required|trim');
+        $this->form_validation->set_rules('firstname', 'Prénom', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('numTel', 'Téléphone', 'required|trim');
+        $this->form_validation->set_rules('role', 'Rôle', 'required|trim');
+
+        $user = $this->UserModel->getUserById($id);
+        $dataContent['user'] = $user;
+        $dataContent['roles'] = array(['Administrateur'],['Client'],['Caspor']);
+        $data = array('content' => $dataContent);
+
+        $this->LoaderView->load('Admin/EditUser', $data);
+
+    }
+
+    public function updateUser() {
+        $this->UserModel->adminOnly();
+        //récupéré les donnée du formulaire
+        $id = $this->input->post('id');
+        $name = $this->input->post('name');
+        $firstname = $this->input->post('firstname');
+        $email = $this->input->post('email');
+        $numTel = $this->input->post('numTel');
+        $role = $this->input->post('role');
+
+        $user = $this->UserModel->getUserById($id);
+        $coord = $user->getCoordonnees();
+        $coord->setNom($name);
+        $coord->setPrenom($firstname);
+        $coord->setEmail($email);
+        $coord->setTelephone($numTel);
+        $user->setStatus($role);
+
+        $this->UserModel->updateUser($user);
+
+        redirect('Admin/editUser/'.$id);
+
+
+
+    }
+
+    public function editLocalisation(string $ids) {
+        $this->UserModel->adminOnly();
+        $idlocalisation = explode('-',$ids)[0];
+        $iduser = explode('-',$ids)[1];
+
+        // créer les règles du formulaire
+        $this->form_validation->set_rules('adresse', 'Adresse', 'required|trim');
+        $this->form_validation->set_rules('codePostal', 'Code Postal', 'required|trim');
+        $this->form_validation->set_rules('ville', 'Ville', 'required|trim');
+        $this->form_validation->set_rules('pays', 'Pays', 'required|trim');
+
+        $localisation = $this->LocationModel->getLocationByUserId($iduser,$idlocalisation);
+        $dataContent['localisation'] = $localisation;
+        $dataContent['iduser'] = $iduser;
+        $data = array('content' => $dataContent);
+
+        $this->LoaderView->load('Admin/EditLocalisation', $data);
+
+    }
+
+    public function updateLocalisation(int $idloc) {
+
+        $this->UserModel->adminOnly();
+        $loc = new LocationEntity();
+
+        $loc->setId($idloc);
+        $loc->setName($this->input->post('name'));
+        $loc->setAdresse($this->input->post('number') .";". $this->input->post('street'));
+        $loc->setCity($this->input->post('city'));
+        $loc->setCodePostal($this->input->post('postalCode'));
+        $loc->setCountry($this->input->post('country'));
+        $departement = explode(";",$this->input->post('department')) ;
+        $loc->setDepartment($departement[1]);
+        if ($this->input->post('Default') == 'on' ){
+            $loc->setIsDefault(true);
+        } else {
+            $loc->setIsDefault(false);
+        }
+        /*$latlong = $this->LocationModel->searchLatLong($loc->getAdresse(),$loc->getCodePostal());
+        $loc->setLatitude($latlong['latitude']);
+        $loc->setLongitude($latlong['longitude']);*/
+
+        // TODO : A remplacé pour que cela marche réellement
+        $this->LocationModel->updateAddress($loc,$loc->getId(),$this->input->post('idUser'));
+
+        redirect('Admin/editUser/'.$this->input->post('idUser'));
+
+
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
