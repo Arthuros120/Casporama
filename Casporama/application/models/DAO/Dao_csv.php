@@ -16,18 +16,18 @@ class Dao_csv extends CI_Model implements DaoInterface {
     }
 
 
-    function getData($id,$table,$filter) {
+    function getData($id,$table,$filter) :?string {
         try {
             $this->db->db_debug = false;
             if (in_array($table,['user','location','information'])) {
                 $query = $this->db->query("Call user.getAll$table()");
-            } else {
+            } else if ($table != '`order`') {
                 $query = $this->db->query("Call $table.getAll()");
             }
 
             $this->db->db_debug = true;
 
-            if ($query == false) {
+            if (isset($query) && $query == false) {
                 $err = errorFile($this->db->error(), $table);
                 return $err;
             }
@@ -35,60 +35,114 @@ class Dao_csv extends CI_Model implements DaoInterface {
             $err = errorFile($err, $table);
             return $err;
         }
-        
-        $time = date("Y-m-d-h:i:s",time());
-        $path = "./upload/DaoFile/export/csv/$table/$time"."_$table"."_$id.csv";
-        $fp = fopen($path,"w");
-        $results = $query->result_array();
 
-        $query->next_result();
-        $query->free_result();
-
-        if ($table == '`order`') {
-            $query = $this->db->query("Call $table.getAllProduct()");
-            $results2 = $query->result();
+        if (isset($query)) {
+            $results = $query->result_array();
 
             $query->next_result();
             $query->free_result();
-            
-            if ($results2 != null) {
-                foreach ($results2 as $row) {
-                    array_push($results,$row);
-                }
-            }
         }
-        var_dump($results);
 
-        $header = [];
-
-        foreach ($results[0] as $key => $value) {
-            if ($filter != null) {
-                if (in_array($key,$filter)) {
-                    array_push($header,$key);
-                }
-            } else {
-                array_push($header,$key);
-            }
+        if ($table == '`order`') {
+            $orders = $this->OrderModel->getAllOrder();
         }
-        
-        fputcsv($fp,$header);
 
-        $values = [];
-        foreach ($results as $result) {
-            foreach ($result as $key => $value) {
+        if (isset($results) && $results != null) {
+
+            $time = date("Y-m-d-h:i:s",time());
+            $name = str_replace('`','',$table);
+            $path = "./upload/DaoFile/export/csv/$name/$time"."_$name"."_$id.csv";
+            $fp = fopen($path,"w");
+
+            $header = [];            
+
+            foreach ($results[0] as $key => $value) {
                 if ($filter != null) {
                     if (in_array($key,$filter)) {
-                        $values[$key] = $value;
+                        array_push($header,$key);
                     }
                 } else {
-                    $values[$key] = $value;
+                    array_push($header,$key);
                 }
             }
-            fputcsv($fp,$values);
-        }
 
-        fclose($fp);
-        return $path;
+            if (isset($size)) {
+                foreach ($results[$size] as $key => $value) {
+                    if ($filter != null) {
+                        if (in_array($key,$filter)) {
+                            array_push($header,$key);
+                        }
+                    } else {
+                        array_push($header,$key);
+                    }
+                }
+            }
+            
+            fputcsv($fp,$header);
+
+            $values = [];
+            foreach ($results as $result) {
+                foreach ($result as $key => $value) {
+                    if ($filter != null) {
+                        if (in_array($key,$filter)) {
+                            $values[$key] = $value;
+                        }
+                    } else {
+                        $values[$key] = $value;
+                    }
+                }
+                fputcsv($fp,$values);
+            }
+
+            fclose($fp);
+            return $path;
+        } else if (isset($orders)) {
+            
+            $time = date("Y-m-d-h:i:s",time());
+            $name = str_replace('`','',$table);
+            $path = "./upload/DaoFile/export/csv/$name/$time"."_$name"."_$id.csv";
+            $fp = fopen($path,"w");
+
+            if ($filter != null) {
+                fputcsv($fp,$filter);
+            } else {
+                fputcsv($fp,array('id','iduser','dateorder','idlocation','state','isAlive','dateLastUpdate','idproduct','idvariant','quantity'));
+            }
+
+            foreach ($orders as $order) {
+
+                $query = $this->db->query("call `order`.getOrderById(" . $order->getId() . ")");
+
+                $results = $query->result_array()[0 ];
+
+                $query->next_result();
+                $query->free_result();
+
+                $row = array(
+                    'id' => $order->getId(),
+                    'iduser' => $order->getIduser(),
+                    'dateorder' => $order->getDate(),
+                    'idlocation' => $order->getLocation()->getId(),
+                    'state' => $order->getState(),
+                    'isALive' => $results['isALive'],
+                    'dateLastUpdate' => $results['dateLastUpdate'],
+                    'idproduct' => implode(",",array_map('getProductId',$order->getProducts())),
+                    'idvariant' => implode(",",array_map('getVariantId',$order->getVariants())),
+                    'quantity' => implode(",",$order->getQuantities())
+                );
+
+                if ($filter != null) {
+                    fputcsv($fp,array_intersect_key($row,array_fill_keys($filter,'test')));
+                } else {
+                    fputcsv($fp,$row);
+                }
+
+            }
+            fclose($fp);
+            return $path;
+        } else {
+            return null;
+        }
     }
     
     function addData($file, $table) {
@@ -115,8 +169,21 @@ class Dao_csv extends CI_Model implements DaoInterface {
                         
                         $err = $this->db->query($query, $dataRequete);
                         
+                    } else if ($table == 'order_products') { 
+                    
+                        $query ="Call `order`.addProductToOrder(";
+                        $dataRequete = [];
+                        for ($i = 0; $i < $size; $i++) {
+                            $query .= "?,";
+                            array_push($dataRequete,$row[$i]);
+                        }
+                        $query = substr($query,0,-1);
+                        $query .= ")";
+
+                        $err = $this->db->query($query, $dataRequete);
+
                     } else {
-                        $query ="Call $table.add$table(";
+                        $query ="Call $table.add".str_replace('`','',$table)."(";
                         $dataRequete = [];
                         for ($i = 0; $i < $size; $i++) {
                             $query .= "?,";
@@ -158,8 +225,8 @@ class Dao_csv extends CI_Model implements DaoInterface {
             }
         }
         fclose($fp);
-
     }
+
 }
 
 ?>

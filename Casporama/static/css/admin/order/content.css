@@ -6,6 +6,14 @@
     font-family: var(--main-font);
 }
 
+.admin_content {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 
 .menu {
     width: 95%;
@@ -54,4 +62,69 @@
 
 .menu > ul > li:nth-child(3) > a {
     color: white;
+}
+
+.admin_order_filter {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--grey1);
+    width: 100%;
+}
+
+.filter_title {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    align-items: center;
+    padding-left: 5vh;
+
+    font-size: 1vw;
+}
+
+.filter_content {
+    width: 100%;
+    height: 15vh;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+.admin_order_list {
+    width: 95%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--grey1);
+}
+
+.admin_order_list > hr {
+    width: 100%;
+}
+
+.order_list_title {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    align-items: center;
+    padding-left: 5vh;
+}
+
+.list_content {
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+form {
+    width: 95%;
 }

@@ -336,6 +336,34 @@ Admin/Product:
 
     baseView: "admin/product/base"
 
+
+Admin/User:
+    views :
+        head: "admin/user/head"
+        header: "admin/header"
+        content: "admin/user/content"
+        script: "admin/user/script"
+    baseView: "admin/user/base"
+
+Admin/EditUser:
+    views :
+        head: "admin/user/editUser/head"
+        header: "admin/header"
+        content: "admin/user/editUser/content"
+        script: "admin/user/editUser/script"
+
+
+    baseView: "admin/user/editUser/base"
+
+Admin/EditLocalisation:
+    views :
+        head: "admin/user/editLocalisation/head"
+        header: "admin/header"
+        content: "admin/user/editLocalisation/content"
+        script: "admin/user/editLocalisation/script"
+    baseView: "admin/user/editLocalisation/base"
+
+
 Admin/addProduct:
 
     views :
@@ -443,6 +471,17 @@ Admin/order:
         head : "admin/order/head"
         header : "admin/header"
         content : "admin/order/content"
+        script : "templates/blank"
+        footer: "templates/blank"
+
+    baseView: "admin/base"
+
+Admin/confirmCancel:
+
+    views :
+        head : "admin/order/confirm/head"
+        header : "templates/blank"
+        content : "admin/order/confirm/content"
         script : "templates/blank"
         footer: "templates/blank"
 
@@ -596,7 +635,7 @@ Order/index:
 Order/chooseLocation:
 
     views :
-        head : "user/home/info/head"
+        head : "order/chooseLocation/head"
         header : "templates/blank"
         content : "order/chooseLocation/homeContent"
         script: "user/home/info/script"

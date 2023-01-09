@@ -702,6 +702,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
     begin
         select id from `order` where newid = id;
     end;
+
 END;
 
 CREATE OR REPLACE PACKAGE catalog AS
@@ -929,3 +930,5 @@ Call product.getProductBySportType(1, 'Vetement');
 -- call verifKey.getIdByIdKey('8b88e9f89da11a88a28d00225843252fd65995a72d1290cd6618728527b6003e');
 
 -- call sport.getAll();
+
+call user.getUserInfoById(2);

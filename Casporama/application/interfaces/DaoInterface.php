@@ -29,3 +29,15 @@ function errorFile($err, $table)
     
     return $err;
 }
+
+function getProductId(ProductEntity $product) {
+
+    return $product->getId();
+
+}
+
+function getVariantId(StockEntity $variant) {
+
+    return $variant->getId();
+
+}
