@@ -73,10 +73,6 @@
     width: 100%;
 }
 
-.info_input > select option {
-    background-color: white;
-    color: white;
-}
 
 .info_input > select {
     background-color: white;

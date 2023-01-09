@@ -499,6 +499,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure getAllBrand();
     procedure getProductByName( newname varchar(255));
     procedure getProductByNameWithoutSelf( newname varchar(255), id int);
+    procedure countAll();
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -607,6 +608,10 @@ CREATE OR REPLACE PACKAGE BODY product AS
         select * from product where name = newname and idproduct != id;
     End;
 
+    procedure countAll() as
+    begin
+        select count(*) as count from product;
+    end;
 END;
 
 CREATE OR REPLACE PACKAGE `order` AS
@@ -629,8 +634,6 @@ CREATE OR REPLACE PACKAGE `order` AS
     procedure getOrderById(newid int);
     procedure getAllProduct();
 END;
-
-call `order`.getAllProduct();
 
 CREATE OR REPLACE PACKAGE BODY `order` AS
     procedure getAll() as
@@ -717,6 +720,8 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure updateALive(idvariante int, newstate bool);
     procedure getAll();
     procedure getCatalogByVariant(newidvariant int);
+    procedure getAllByNuProduct(newNuProduct int);
+
 END;
 
 CREATE OR REPLACE PACKAGE BODY catalog AS
@@ -760,6 +765,11 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     procedure updateALive(idvariante int, newstate bool) as
     begin
         update catalog set isALive=newstate where id = idvariant;
+    end;
+
+    procedure getAllByNuProduct(newNuProduct int) as
+    begin
+        select * from catalog where nuproduct = newNuProduct;
     end;
 END;
 
@@ -911,14 +921,14 @@ Call product.getProductBySportType(1, 'Vetement');
 
 /*call user.countAliveAddressByUserId(2);*/
 
-call order.getOrderUserById(1,2);
+-- call order.getOrderUserById(1,2);
 
-desc user;
+-- desc user;
 
-call user.sameAddresseModif(2, '22;Rue des bergeronnettes', 'Nantes');
+-- call user.sameAddresseModif(2, '22;Rue des bergeronnettes', 'Nantes');
 
-call verifKey.getIdByIdKey('8b88e9f89da11a88a28d00225843252fd65995a72d1290cd6618728527b6003e');
+-- call verifKey.getIdByIdKey('8b88e9f89da11a88a28d00225843252fd65995a72d1290cd6618728527b6003e');
 
-call sport.getAll();
+-- call sport.getAll();
 
 call user.getUserInfoById(2);

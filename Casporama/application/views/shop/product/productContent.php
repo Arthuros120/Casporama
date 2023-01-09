@@ -34,7 +34,9 @@
                             <h2>Couleur</h2>
                             <div class="allbox">
                                 <?php foreach ($avalaibleColors as $color) : ?>
-                                    <a href="<?= base_url() ."shop/product/" . $product->getId() . "?color=" . $color ?>" class="box" a><p><?= str_replace('+', ' ', $color)?></p></a>
+                                    <div class="box">
+                                        <a href="<?= base_url() ."shop/product/" . $product->getId() . "?color=" . $color ?>" class="box" a><p><?= str_replace('+', ' ', $color)?></p></a>
+                                    </div>    
                                 <?php endforeach ?>
                             </div>
                         </div>
