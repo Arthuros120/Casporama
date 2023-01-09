@@ -70,8 +70,6 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/Product', $data);
     }
 
-
-
     public function addProduct()
     {
 
@@ -767,16 +765,31 @@ class Admin extends CI_Controller
 
             if (
                 !empty($get) &&
-                in_array($get['sport'], $this->ProductModel->getAllSportName()) &&
+                in_array($get['sport'], $this->ProductModel->getAllSportId()) &&
                 in_array($get['type'], $this->ProductModel->getAllCategory()) &&
                 $this->ProductModel->verifRange($get['range'])
             ) {
+
+                // vérification de la range1 max !
 
                 echo "selection sport";
 
             } else {
 
-                $this->LoaderView->load('Admin/stock/filter');
+                $dataContent = array(
+
+                    'sports' => $this->ProductModel->getAllSport(),
+                    'types' => $this->ProductModel->getAllCategory(),
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent
+
+                );
+
+                $this->LoaderView->load('Admin/stock/filter', $data);
 
             }
 
@@ -989,190 +1002,6 @@ class Admin extends CI_Controller
         redirect('Admin/order');
     }
 
-    public function deleteOrdersConfirm() {
-
-        $this->UserModel->adminOnly();
-
-        $idorders = $this->input->post();
-
-        if ($idorders != null) {
-            $idorders = array_keys($idorders);
-
-            $data = array(
-                'content' => array('idorders' => $idorders),
-            );
-
-            $this->LoaderView->load('Admin/confirmDeleteOrders', $data);
-        } else {
-            redirect('Admin/order');
-        }
-
-    }
-
-    public function deleteOrders() {
-        $this->UserModel->adminOnly();
-
-        $idorders = $this->input->post();
-
-        $this->load->model('OrderModel');
-
-
-        if ($idorders != null) {
-
-            $idorders = array_keys($idorders);
-            $err = false;
-
-            foreach ($idorders as $idorder) {
-
-                $newerr = $this->OrderModel->delOrder($idorder);
-
-                $err = $err || $newerr;
-            }
-
-            if ($err) {
-                $this->session->set_flashdata('succes', true);
-            } else {
-                $this->session->set_flashdata('succes', false);
-            }
-
-        } 
-
-        redirect("Admin/order");
-
-
-    }
-
-    public function viewOrder() {
-
-        $this->UserModel->adminOnly();
-
-        $idorder = $this->input->get('idorder');
-
-        $this->load->model('OrderModel');
-        $this->load->model('LocationModel');
-
-        if ($idorder != null) {
-            $orders = $this->OrderModel->getOrderById($idorder);
-
-            if ($orders != null) {
-                $order = $orders[0];
-
-                $dataContent['order'] = $order;
-
-                $colors = array (
-                    'Football' => '#D3E2D3',
-                    'Badminton' => '#D9E6F4',
-                    'Volleyball' => '#FBFBC3',
-                    'Arts-martiaux' => '#FFB4B0'
-                );
-
-                $options = array(
-                    'Non preparer' => 'Non preparer',
-                    'En preparation' => 'En preparation',
-                    'Preparer' => 'Preparer',
-                    'Expedier' => 'Expedier'
-                );
-
-                $user = $this->UserModel->getUserById($order->getIduser())->getCoordonnees();
-
-                $dataContent['options'] = $options;
-        
-                $dataContent['colors'] = $colors;
-
-                $dataContent['user'] = $user;
-
-                $this->LoaderView->load('Admin/viewOrder', array('content' => $dataContent));
-            }
-
-        } else {
-
-            redirect("Admin/order");
-        }
-
-    }
-
-    public function checkNameProduct(string $name) : bool
-    {
-
-        $this->load->model('ProductModel');
-
-        $product = $this->ProductModel->findByName($name);
-
-        if ($product == null) {
-
-            return true;
-
-        } else {
-
-            $this->form_validation->set_message('checkNameProduct', 'Le nom du produit existe déjà');
-
-            return false;
-
-        }
-    }
-
-    public function checkNameProductWithoutSelf(string $name, int $id) : bool
-    {
-
-        $this->load->model('ProductModel');
-
-        $trigger = $this->ProductModel->findByNameWithoutSelf($name, $id);
-
-        if ($trigger) {
-
-            return true;
-
-        } else {
-
-            $this->form_validation->set_message('checkNameProductWithoutSelf', 'Le nom du produit existe déjà');
-
-            return false;
-
-        }
-    }
-
-    public function checkSport(int $sport) : bool
-    {
-
-        $this->load->model('ProductModel');
-
-        $sport = $this->ProductModel->findNameSportbyId($sport);
-
-        if ($sport == null) {
-
-            $this->form_validation->set_message('checkSport', 'Le sport n\'existe pas');
-
-            return false;
-
-        } else {
-
-            return true;
-
-        }
-    }
-
-    public function checkType(string $type) : bool
-    {
-
-        $this->load->model('ProductModel');
-
-        $types = $this->ProductModel->getAllCategory();
-
-        if (in_array($type, $types)) {
-
-            return true;
-
-        } else {
-
-            $this->form_validation->set_message('checkType', 'Le type n\'existe pas');
-
-            return false;
-
-        }
-    }
-
-
-
     public function User(){
 
         $this->UserModel->adminOnly();
@@ -1182,9 +1011,8 @@ class Admin extends CI_Controller
         $data = array ('content' => $dataContent);
         $this->LoaderView->load('Admin/User', $data);
 
-
-
     }
+
     public function editUser(int $id) {
         $this->UserModel->adminOnly();
 
@@ -1279,6 +1107,86 @@ class Admin extends CI_Controller
 
 
 
+    }
+
+    public function checkNameProduct(string $name) : bool
+    {
+
+        $this->load->model('ProductModel');
+
+        $product = $this->ProductModel->findByName($name);
+
+        if ($product == null) {
+
+            return true;
+
+        } else {
+
+            $this->form_validation->set_message('checkNameProduct', 'Le nom du produit existe déjà');
+
+            return false;
+
+        }
+    }
+
+    public function checkNameProductWithoutSelf(string $name, int $id) : bool
+    {
+
+        $this->load->model('ProductModel');
+
+        $trigger = $this->ProductModel->findByNameWithoutSelf($name, $id);
+
+        if ($trigger) {
+
+            return true;
+
+        } else {
+
+            $this->form_validation->set_message('checkNameProductWithoutSelf', 'Le nom du produit existe déjà');
+
+            return false;
+
+        }
+    }
+
+    public function checkSport(int $sport) : bool
+    {
+
+        $this->load->model('ProductModel');
+
+        $sport = $this->ProductModel->findNameSportbyId($sport);
+
+        if ($sport == null) {
+
+            $this->form_validation->set_message('checkSport', 'Le sport n\'existe pas');
+
+            return false;
+
+        } else {
+
+            return true;
+
+        }
+    }
+
+    public function checkType(string $type) : bool
+    {
+
+        $this->load->model('ProductModel');
+
+        $types = $this->ProductModel->getAllCategory();
+
+        if (in_array($type, $types)) {
+
+            return true;
+
+        } else {
+
+            $this->form_validation->set_message('checkType', 'Le type n\'existe pas');
+
+            return false;
+
+        }
     }
 }
 
