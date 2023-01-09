@@ -2,6 +2,7 @@
 
 // * On importe les classes nécessaires
 require_once APPPATH . 'models/entity/ProductEntity.php';
+require_once APPPATH . 'models/entity/CatalogEntity.php';
 
 /*
 
@@ -1046,6 +1047,65 @@ class ProductModel extends CI_Model
 
         return $listSport;
 
+    }
+
+    public function getAllSportName() : array
+    {
+
+        $querySport = $this->db->query("Call sport.getAll()");
+
+        $sport = $querySport->result();
+
+        $querySport->next_result();
+        $querySport->free_result();
+
+        $listSport = array();
+
+        foreach ($sport as $sport) {
+
+            array_push($listSport, $sport->name);
+
+        }
+        return $listSport;
+
+    }
+
+    public function verifRange(string $range) : Bool
+    {
+
+        $range = explode(";", $range);
+
+        if (
+            count($range) == 2 &&
+            is_numeric($range[0]) &&
+            is_numeric($range[1]) &&
+            $range[0] >= 0 &&
+            $range[1] >= 1 &&
+            $range[0] < $range[1] &&
+            (($range[1] - $range[0]) <= 20) &&
+            $range[1] <= $this->countAllProduct()
+
+        ) {
+
+            return true;
+
+        }
+        
+        return false;
+
+    }
+
+    public function countAllProduct() : Int
+    {
+            
+            $query = $this->db->query("Call product.countAll()");
+    
+            $count = $query->result();
+    
+            $query->next_result();
+            $query->free_result();
+    
+            return $count[0]->count;
     }
 
     public function getSize(ProductEntity $product)

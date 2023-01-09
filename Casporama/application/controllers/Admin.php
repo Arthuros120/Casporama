@@ -746,6 +746,38 @@ class Admin extends CI_Controller
         }
     }
 
+    public function stock(int $id = -1)
+    {
+
+        $this->UserModel->AdminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            $get = $this->input->get();
+
+            if (
+                !empty($get) &&
+                in_array($get['sport'], $this->ProductModel->getAllSportName()) &&
+                in_array($get['type'], $this->ProductModel->getAllCategory()) &&
+                $this->ProductModel->verifRange($get['range'])
+            ) {
+
+                echo "selection sport";
+
+            } else {
+
+                $this->LoaderView->load('Admin/stock/filter');
+
+            }
+
+        } else {
+
+            // Affichage du stock d'un produit
+
+        }
+    }
 
     public function deleteProducts()
     {
