@@ -1070,6 +1070,27 @@ class ProductModel extends CI_Model
 
     }
 
+    public function getAllSportId() : array
+    {
+
+        $querySport = $this->db->query("Call sport.getAll()");
+
+        $sport = $querySport->result();
+
+        $querySport->next_result();
+        $querySport->free_result();
+
+        $listSport = array();
+
+        foreach ($sport as $sport) {
+
+            array_push($listSport, intval($sport->nusport));
+
+        }
+        return $listSport;
+
+    }
+
     public function verifRange(string $range) : Bool
     {
 
@@ -1082,8 +1103,7 @@ class ProductModel extends CI_Model
             $range[0] >= 0 &&
             $range[1] >= 1 &&
             $range[0] < $range[1] &&
-            (($range[1] - $range[0]) <= 20) &&
-            $range[1] <= $this->countAllProduct()
+            (($range[1] - $range[0]) <= 20)
 
         ) {
 

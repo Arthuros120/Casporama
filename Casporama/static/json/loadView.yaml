@@ -398,7 +398,7 @@ Admin/stock/filter:
     
         views :
             head : "admin/stock/filter/head"
-            header : "admin/header"
+            header : "templates/blank"
             content : "admin/stock/filter/content"
             script : "admin/stock/filter/script"
     
