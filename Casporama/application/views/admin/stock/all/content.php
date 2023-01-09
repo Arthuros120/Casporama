@@ -3,9 +3,26 @@
 <h1>Stock des produits</h1>
 <h2><?= $type ?> de <?= $sport ?> de <?= $minRange ?> à <?= $maxRange ?></h2>
 
+<a href="<?= base_url('admin/stock')?>"> Retour aux filtre </a>
+
+<br>
+
+<?php if ($minRange > 0) {?>
+
+<input class="previousButton" type="button" name="precedent" value="Page precedente">
+
+<?php } ?>
+
+<?php if ($nextIsPosible) {?>
+
+<input class="nextButton" type="button" name="suivant" value="Page suivante">
+
+<?php } ?>
+
+
 <?php foreach ($products as $product) { ?>
 
-    <a href="<?= base_url("shop/product/" . $product->getId()) ?>">
+    <a href="<?= base_url("admin/stock/" . $product->getId()) ?>">
         <h2><?= $product->getName() ?></h2>
     </a>
     <p><?= $product->getBrand() ?></p>
@@ -79,5 +96,17 @@
     }
 }
 ?>
+
+<?php if ($minRange > 0) {?>
+
+    <input class="previousButton" type="button" name="precedent" value="Page precedente">
+
+<?php } ?>
+
+<?php if ($nextIsPosible) {?>
+
+    <input class="nextButton" type="button" name="suivant" value="Page suivante">
+
+<?php } ?>
 
 <!-- admin/stock/all/content --->

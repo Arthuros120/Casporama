@@ -807,6 +807,7 @@ class Admin extends CI_Controller
                     'sport' => $sportName,
                     'minRange' => $minRange,
                     'maxRange' => $maxRange,
+                    'nextIsPosible' => $maxRange < $countMaxProduct,
 
                 );
 
@@ -1261,16 +1262,3 @@ class Admin extends CI_Controller
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
