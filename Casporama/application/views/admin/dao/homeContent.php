@@ -27,7 +27,8 @@
                 <select class="input" name="import" id="table-select">
                     <option value="user">User</option>
                     <option value="product">Product</option>
-                    <option value="order">Order</option>
+                    <option value="`order`">Order</option>
+                    <option value="order_products">Order Products</option>
                     <option value="location">Location</option>
                     <option value="information">Information</option>
                     <option value="catalog">Catalog</option>
@@ -121,8 +122,8 @@
 
         <?php if (isset($msgSucces)) { ?>
 
-                <div class="dao_error_content">
-                    <img src="<?php base_url() ?>../static/image/icon/error_white.svg" alt="error icon">
+                <div class="dao_succes_content">
+                    <img src="<?php base_url() ?>../static/image/icon/success_white.svg" alt="succes icon">
                     <h3><?= $msgSucces ?></h3>
                 </div>
 

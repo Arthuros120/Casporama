@@ -22,6 +22,7 @@ class Dao extends CI_Controller
         $this->load->model('DAO/Dao_xml');
         $this->load->model('DAO/Dao_yaml');
         $this->load->model('DAO/DaoModel');
+        $this->load->model('OrderModel');
         $this->load->helper('download');
 
     }
@@ -123,7 +124,11 @@ class Dao extends CI_Controller
                 $file = $this->Dao_yaml->getData($id,$table, $filter);
             }
 
-            force_download($file, null);
+            if ($file != null) {
+                force_download($file, null);
+            } else {
+                $err = "Aucune donnée a exporter";
+            }
 
         } else {
 

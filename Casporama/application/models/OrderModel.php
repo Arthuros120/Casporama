@@ -188,11 +188,26 @@ class OrderModel extends CI_Model {
     }
 
     public function delOrder(int $idorder) {
+
+        $order = $this->getOrderById($idorder)[0];
+
         $this->db->db_debug = false;
 
         $err = $this->db->query("call `order`.delOrder(". $idorder .")");
 
         $this->db->db_debug = true;
+
+        foreach ($order->getVariants() as $variant) {
+            $query = $this->db->query('call catalog.getStockByVariant('. $variant->getId() .')');
+
+            $quantity = $query->result_array()[0]['quantity'] ;
+
+            $query->next_result();
+            $query->free_result();
+            
+            $this->db->query("Call catalog.updateQuantity(". $variant->getId() . "," . $quantity+$order->getQuantities()[$variant->getId()] .")");
+        
+        }
 
         return $err;
     }
@@ -206,6 +221,7 @@ class OrderModel extends CI_Model {
         $query->next_result();
         $query->free_result();
 
+        
         $res = [];
 
         foreach ($orders as $order) {
@@ -265,13 +281,14 @@ class OrderModel extends CI_Model {
 
         $query = $this->db->query("call `order`.getOrderById(". $idorder .")");
 
-        $order = $query->result_array()[0];
+        $order = $query->result_array();
 
         $query->next_result();
         $query->free_result();
 
 
         if ($order != null) {
+            $order = $query->result_array()[0];
             $newOrder = new OrderEntity;
 
             $newOrder->setId($order['id']);
