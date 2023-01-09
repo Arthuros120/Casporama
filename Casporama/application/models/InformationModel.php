@@ -32,6 +32,8 @@ class InformationModel extends CI_Model
 
         } else {
 
+            $query->next_result();
+            $query->free_result();
             return null;
 
         }
