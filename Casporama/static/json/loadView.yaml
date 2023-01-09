@@ -394,6 +394,16 @@ Admin/error/errorImage:
 
     baseView: "templates/base"
 
+Admin/stock/filter:
+    
+        views :
+            head : "admin/stock/filter/head"
+            header : "admin/header"
+            content : "admin/stock/filter/content"
+            script : "admin/stock/filter/script"
+    
+        baseView: "admin/stock/filter/base"
+
 Admin/delete/request:
 
     views :
@@ -461,6 +471,17 @@ Admin/order:
         head : "admin/order/head"
         header : "admin/header"
         content : "admin/order/content"
+        script : "templates/blank"
+        footer: "templates/blank"
+
+    baseView: "admin/base"
+
+Admin/confirmCancel:
+
+    views :
+        head : "admin/order/confirm/head"
+        header : "templates/blank"
+        content : "admin/order/confirm/content"
         script : "templates/blank"
         footer: "templates/blank"
 

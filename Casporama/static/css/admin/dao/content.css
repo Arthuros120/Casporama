@@ -346,3 +346,24 @@
     height: auto;
     width: 8%;
 }
+
+.dao_succes_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 12px;
+
+
+    background-color: green;
+    gap: 2vh;
+}
+
+.dao_succes_content > h3 {
+    color: white;
+}
+
+.dao_succes_content > img {
+    height: auto;
+    width: 8%;
+}
