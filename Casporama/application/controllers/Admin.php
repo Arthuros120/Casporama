@@ -770,9 +770,53 @@ class Admin extends CI_Controller
                 $this->ProductModel->verifRange($get['range'])
             ) {
 
-                // vérification de la range1 max !
+                $range = explode(";", $get['range']);
 
-                echo "selection sport";
+                $countMaxProduct = $this->ProductModel->countByTypeAndSport($get['type'], $get['sport']);
+
+                if ($range[0] > $countMaxProduct) {
+
+                    $range[0] = $countMaxProduct - 1;
+
+                    redirect(
+                        'Admin/Stock?range='.$range[0].';'. $range[1].'&sport='.$get['sport'].'&type='.$get['type']
+                    );
+
+                }
+
+                $products = $this->ProductModel->getProductByRangeAndSportAndType($range, $get['sport'], $get['type']);
+
+                $catalog = $this->ProductModel->getCatalogsByProducts($products);
+
+                $minRange = $range[0];
+                $maxRange = $range[0] + $range[1];
+
+                if ($maxRange > $countMaxProduct) {
+
+                    $maxRange = $countMaxProduct;
+
+                }
+
+                $sportName = $this->ProductModel->findNameSportbyId($get['sport']);
+
+                $dataContent = array (
+
+                    'products' => $products,
+                    'catalogs' => $catalog,
+                    'type' => $get['type'],
+                    'sport' => $sportName,
+                    'minRange' => $minRange,
+                    'maxRange' => $maxRange,
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent
+
+                );
+
+                $this->LoaderView->load('Admin/stock/all', $data);
 
             } else {
 
@@ -1002,7 +1046,8 @@ class Admin extends CI_Controller
         redirect('Admin/order');
     }
 
-    public function User(){
+    public function User()
+    {
 
         $this->UserModel->adminOnly();
 
@@ -1013,7 +1058,8 @@ class Admin extends CI_Controller
 
     }
 
-    public function editUser(int $id) {
+    public function editUser(int $id)
+    {
         $this->UserModel->adminOnly();
 
         // créer les règles du formulaire
@@ -1032,7 +1078,8 @@ class Admin extends CI_Controller
 
     }
 
-    public function updateUser() {
+    public function updateUser()
+    {
         $this->UserModel->adminOnly();
         //récupéré les donnée du formulaire
         $id = $this->input->post('id');
@@ -1058,7 +1105,8 @@ class Admin extends CI_Controller
 
     }
 
-    public function editLocalisation(string $ids) {
+    public function editLocalisation(string $ids)
+    {
         $this->UserModel->adminOnly();
         $idlocalisation = explode('-',$ids)[0];
         $iduser = explode('-',$ids)[1];
@@ -1078,7 +1126,8 @@ class Admin extends CI_Controller
 
     }
 
-    public function updateLocalisation(int $idloc) {
+    public function updateLocalisation(int $idloc)
+    {
 
         $this->UserModel->adminOnly();
         $loc = new LocationEntity();

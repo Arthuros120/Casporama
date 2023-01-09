@@ -22,6 +22,20 @@
 
 </select>
 
-<input type="submit" value="Filtrer">
+<select name="step" id="step">
+
+    <option value="5">5</option>
+
+    <option value="10">10</option>
+
+    <option value="20" selected>20</option>
+
+    <option value="50">50</option>
+
+    <option value="100">100</option>
+
+</select>
+
+<input id='submit' type="submit" value="Filtrer">
 
 <!-- admin/stock/filter/content --->

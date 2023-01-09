@@ -500,6 +500,8 @@ CREATE OR REPLACE PACKAGE product AS
     procedure getProductByName( newname varchar(255));
     procedure getProductByNameWithoutSelf( newname varchar(255), id int);
     procedure countAll();
+    procedure countByTypeAndSport( newtype varchar(15),  newsport int);
+    procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15));
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -612,7 +614,21 @@ CREATE OR REPLACE PACKAGE BODY product AS
     begin
         select count(*) as count from product;
     end;
+
+    procedure countByTypeAndSport( newtype varchar(15),  newsport int) as
+    begin
+        select count(*) as count from product where type = newtype and nusport = newsport;
+    end;
+
+    procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15)) as
+    begin
+        select * from product where nusport = sport and type = newtype and isAlive = true limit start, step;
+    end;
 END;
+
+call product.countByTypeAndSport('Chaussure', "1");
+
+call product.getProductByRangeAndSportAndType(0, 60, 1, 'chaussure');
 
 CREATE OR REPLACE PACKAGE `order` AS
     -- Permet d'avoir une commande par son ID
@@ -773,6 +789,7 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     end;
 END;
 
+call catalog.getStock(1);
 
 CREATE OR REPLACE PACKAGE captcha AS
     -- Permet d'avoir le nombre de Captcha actif pour une adresse donnée
