@@ -438,6 +438,17 @@ Admin/order:
 
     baseView: "admin/base"
 
+Admin/confirmCancel:
+
+    views :
+        head : "admin/order/confirm/head"
+        header : "templates/blank"
+        content : "admin/order/confirm/content"
+        script : "templates/blank"
+        footer: "templates/blank"
+
+    baseView: "admin/base"
+
 #---------------------------------Info View ---------------------------------#
 
 Information/rgpd:

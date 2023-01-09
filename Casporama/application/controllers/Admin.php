@@ -867,6 +867,7 @@ class Admin extends CI_Controller
             if (intval($filtre) != 0) {
 
                 $orders = $this->OrderModel->getOrderById($filtre);
+
             } else {
 
                 $orders = null;
@@ -917,6 +918,20 @@ class Admin extends CI_Controller
         $this->OrderModel->updateStatus($key, $value);
 
         redirect('Admin/order');
+    }
+
+    public function cancelOrderConfirm()
+    {
+
+        $this->UserModel->adminOnly();
+
+        $idorder = $this->input->get('idorder');
+
+        $data = array(
+            'content' => array('idorder' => $idorder),
+        );
+
+        $this->LoaderView->load('Admin/confirmCancel', $data);
     }
 
     public function cancelOrder()

@@ -699,6 +699,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
     begin
         select id from `order` where newid = id;
     end;
+
 END;
 
 CREATE OR REPLACE PACKAGE catalog AS

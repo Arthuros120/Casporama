@@ -151,6 +151,8 @@ class Order extends CI_Controller
 
         if ($this->UserModel->isConnected()) {
 
+
+            
             $idcart = $this->input->get('idcart');
             $idlocation = $this->input->get('idlocation');
 

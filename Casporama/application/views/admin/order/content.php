@@ -47,7 +47,7 @@
                 <td><?= $order->getState() ?></td>
                 <td>Nouveau status : <?php echo form_dropdown($order->getId(),$options,$order->getState()); ?></td>
                 <td><input type="submit" value="Modifier Status" /></td>
-                <td><a href="<?=site_url('Admin/cancelOrder?idorder='.$order->getId())?>">Annuler commande</a></td>
+                <td><a href="<?=site_url('Admin/cancelOrderConfirm?idorder='.$order->getId())?>">Annuler commande</a></td>
             </tr>
         </table>
 
