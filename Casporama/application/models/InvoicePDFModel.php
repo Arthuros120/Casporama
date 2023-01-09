@@ -44,11 +44,14 @@ class InvoicePDFModel extends CI_Model
                 if (!isset($product)) {
                     echo "nope";
                 }
-                $invoice->addItem($product->getName() . ' ' . $variante->getColor() . ' ' . $variante->getSize(), $product->getDescription(), $quantities[$variante->getId()], 0,
+                $invoice->addItem($product->getName() . ' ' . $variante->getColor() . ' ' . $variante->getSize(), $product->getDescription(), $quantities[$variante->getId()], $product->getPrice()*0.20,
                     $product->getPrice(), 0, $product->getPrice() * $quantities[$variante->getId()]);
                 $total += $product->getPrice() * $quantities[$variante->getId()];
             }
 
+            $total += 5;
+
+            $invoice->addTotal('Frais de Port : ', 5);
             $invoice->addTotal('Total TTC', $total);
 
 

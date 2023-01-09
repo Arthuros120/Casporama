@@ -27,7 +27,7 @@ class InvoicePDF extends CI_Controller
      */
     public function getInvoice($idOrder)
     {
-        $invoice = new Konekt\PdfInvoice\InvoicePrinter("A4", "€", "en");
+        $invoice = new Konekt\PdfInvoice\InvoicePrinter("A4", "€", "fr");
 
         $this->UserModel->durabilityConnection();
 
