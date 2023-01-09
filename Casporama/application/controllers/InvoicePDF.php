@@ -27,17 +27,21 @@ class InvoicePDF extends CI_Controller
      */
     public function getInvoice($idOrder)
     {
-        $invoice = new Konekt\PdfInvoice\InvoicePrinter("A4", "€", "fr");
 
         $this->UserModel->durabilityConnection();
 
         $user = $this->UserModel->getUserBySession();
         if (isset($user)) {
-            $this->InvoicePDFModel->GenerateInvoice($idOrder, $user, $invoice);
+            $invoice = $this->InvoicePDFModel->GenerateInvoice($idOrder, $user, $invoice);
+            if (isset($invoice)) {
+                $invoice->render('Facture.pdf', 'I');
+            }else {
+                redirect('/');
+            }
         }else {
             redirect('/');
         }
-        $invoice->render('Facture.pdf', 'I');
+
 
 
     }

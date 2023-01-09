@@ -1081,8 +1081,15 @@ class Admin extends CI_Controller
 
         $this->UserModel->adminOnly();
 
-        $users = $this->UserModel->getUsers();
+        if ($this->input->post('currentPage') !== null){
+            $currentPage = $this->input->post('currentPage') + 1;
+        }else {
+            $currentPage = 1;
+        }
+
+        $users = array_slice($this->UserModel->getUsers(),($currentPage-1)*50,$currentPage*50);
         $dataContent['users'] = $users;
+        $dataContent['currentPage'] = $currentPage;
         $data = array ('content' => $dataContent);
         $this->LoaderView->load('Admin/User', $data);
 
@@ -1093,11 +1100,63 @@ class Admin extends CI_Controller
         $this->UserModel->adminOnly();
 
         // créer les règles du formulaire
-        $this->form_validation->set_rules('name', 'Nom', 'required|trim');
-        $this->form_validation->set_rules('firstname', 'Prénom', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
-        $this->form_validation->set_rules('numTel', 'Téléphone', 'required|trim');
-        $this->form_validation->set_rules('role', 'Rôle', 'required|trim');
+        $configRules = array(
+
+            // * Configuration des paramètre du champlogin
+            array(
+                'field' => 'prenom',
+                'label' => 'Prénom',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                ),
+            ),
+
+            array(
+                'field' => 'nom',
+                'label' => 'Nom',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                ),
+            ),
+
+            array(
+                'field' => 'numTel',
+                'label' => 'Téléphone mobile',
+                'rules' => 'trim|required|min_length[10]|max_length[10]|numeric',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 10 caractères",
+                    "max_length" => "Le %s doit faire au plus 10 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                ),
+            ),
+
+            array(
+                'field' => 'fixePhone',
+                'label' => 'Téléphone fixe',
+                'rules' => 'trim|min_length[10]|max_length[10]|numeric',
+                'errors' => array( // * On définit les messages d'erreurs
+                    "min_length" => "Le %s doit faire au moins 10 caractères",
+                    "max_length" => "Le %s doit faire au plus 10 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                ),
+            ),
+        );
+
+
+        $this->form_validation->set_rules($configRules);
 
         $user = $this->UserModel->getUserById($id);
         $dataContent['user'] = $user;

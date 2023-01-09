@@ -55,15 +55,18 @@
                             <a href = "<?= site_url('Admin/EditUser/').$user->getId()?>"> Modifier </a>
                             <a href="<?= site_url('Admin/DeleteUser/' . $user->getId()) ?>">Supprimer</a>
                         </td>
-                        <!--<td>
-                        <a href="<?php /*= site_url('Admin/StockProduct/' . $product->getId()) */?>">Stock</a>
-                        <a href="<?php /*= site_url('Admin/EditProduct/' . $product->getId()) */?>">Modifier</a>
-                        <a href="<?php /*= site_url('Admin/DeleteProduct/' . $product->getId()) */?>">Supprimer</a>
-                        </td>-->
                     </tr>
                 <?php endforeach ?>
                 </table>
+
+                <input type="submit" formaction="/Admin/User" value="NextPage">
+                <input type="hidden" name="currentPage" value="<?= $currentPage ?>">
+                <input type="submit" formaction="/Admin/User" value="PreviousPage" onclick="do {
+                        document.getElementsByName('currentPage')[0].value = <?= $currentPage - 2 ?>;
+                        } while (false)">
+
             </form>
+
             </div>
         </div>
     </div>

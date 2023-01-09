@@ -45,6 +45,10 @@
 
                     </label>
                     <label>
+                        numéro de téléphone fixe :
+                        <input type="text" name="fixePhone" value="<?= $user->getCoordonnees()->getFixe()?>">
+                    </label>
+                    <label>
                         Rôle :
                         <select name="role">
                             <option value="Administrateur" <?= $user->getStatus() == 'Administrateur' ? 'selected' : '' ?>>Administrateur</option>
