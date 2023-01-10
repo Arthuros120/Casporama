@@ -32,7 +32,7 @@ class InvoicePDF extends CI_Controller
 
         $user = $this->UserModel->getUserBySession();
         if (isset($user)) {
-            $invoice = $this->InvoicePDFModel->GenerateInvoice($idOrder, $user, $invoice);
+            $invoice = $this->InvoicePDFModel->GenerateInvoice($idOrder, $user);
             if (isset($invoice)) {
                 $invoice->render('Facture.pdf', 'I');
             }else {
