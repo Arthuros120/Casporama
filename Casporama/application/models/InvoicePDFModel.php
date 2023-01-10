@@ -23,7 +23,7 @@ class InvoicePDFModel extends CI_Model
          */
         $order = $this->OrderModel->findOrderById($idOrder, $user->getId());
         if (isset($order)) {
-            $invoice = new Konekt\PdfInvoice\InvoicePrinter("A4", "€", "en");
+            $invoice = new Konekt\PdfInvoice\InvoicePrinter("A4", "€", "fr");
             $billinginfo = $this->InformationModel->getInformationByUserId($user->getId());
             $locationinfo = $this->LocationModel->getLocationByUserId($user->getId(), $order->getLocation()->getId());
 
@@ -37,8 +37,8 @@ class InvoicePDFModel extends CI_Model
             $invoice->setType("Facture d'achat");
             $invoice->setReference($order->getId());
             $invoice->setDate("     " . $order->getDate());
-            $invoice->setFrom(array("Casporama", "Casporama", "Iut Nontes", "44444"));
-            //var_dump( $locationinfo->getCodePostal() . $locationinfo->getCity() );
+            $invoice->setFrom(array("Casporama", "Casporama", "3 Rue Maréchal Joffre", "44000 Nantes"));
+
             $invoice->setTo(array(($billinginfo->getPrenom() . " " . $billinginfo->getNom()), (($billinginfo->getPrenom() . " " . $billinginfo->getNom())),
                 implode(" ", $locationinfo->getAdresse()), $locationinfo->getCodePostal() . " " . $locationinfo->getCity()));
             $total = 0;
@@ -47,9 +47,14 @@ class InvoicePDFModel extends CI_Model
                 if (!isset($product)) {
                     echo "nope";
                 }
+                if ($user->getStatus() == 'Caspor') {
+                    $discount = $product->getPrice() * 0.05;
+                } else {
+                    $discount = 0;
+                }
                 $invoice->addItem($product->getName() . ' ' . $variante->getColor() . ' ' . $variante->getSize(), $product->getDescription(), $quantities[$variante->getId()], $product->getPrice()*0.20,
-                    $product->getPrice(), 0, $product->getPrice() * $quantities[$variante->getId()]);
-                $total += $product->getPrice() * $quantities[$variante->getId()];
+                    $product->getPrice(), $discount, (($product->getPrice()-$discount)*1.20) * $quantities[$variante->getId()]);
+                $total += (($product->getPrice()-$discount)*1.20) * $quantities[$variante->getId()];
             }
 
             $total += 5;
@@ -58,7 +63,7 @@ class InvoicePDFModel extends CI_Model
             $invoice->addTotal('Total TTC', $total);
 
 
-            $invoice->addParagraph("No item will be replaced or refunded if you don't have the invoice with you.");
+            $invoice->addParagraph("Aucun article ne sera remplacer ou rembourser si vous n'avez cette facture avec vous");
             $invoice->setFooternote("Casporama SA");
             return $invoice;
 
@@ -69,9 +74,8 @@ class InvoicePDFModel extends CI_Model
     }
 
     public function saveInvoice($idOrder, $iduser) : string {
-        $invoice = new Konekt\PdfInvoice\InvoicePrinter("A4", "€", "en");
         $user = $this->UserModel->getUserById($iduser);
-        $this->GenerateInvoice($idOrder,$user,$invoice);
+        $invoice = $this->GenerateInvoice($idOrder,$user);
         $invoice->render(APPPATH.'../upload/pdf/Facture'. $idOrder. '.pdf', 'F');
         
         return APPPATH.'../upload/pdf/Facture'. $idOrder. '.pdf';

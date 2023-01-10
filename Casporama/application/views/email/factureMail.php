@@ -18,15 +18,16 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="padding:0; line-height:1;">
+                        <td align="center" style="padding:0; line-height:1;">
                             <h1 style="font-size:2em ;">Bonjour <?= $user->getCoordonnees()->getPrenom() ?> <?= $user->getCoordonnees()->getNom() ?></h1>
                         </td>
                     </tr>
                     <tr align="center">
                        <td style="line-height:1 ;" align="center">
-                           <p style="color:lightgrey;"> Voici ci-joint votre Facture correspondant à
+                           <p style="color:lightgrey;">Voici ci-joint votre Facture correspondant à
                            <p style="color:lightgrey;">La commande n° <?= $idorder ?></p>
                            <p style="color:lightgrey;">Vous pouvez également la retrouver dans vos commandes, dans votre panneau utilisateur</p>
+                           <a style="text-decoration:none ;" href="<?= base_url() ?>Order"><p style="color:white; font-weight:600;">Vos Commandes</p></a>
                            </p>
                        </td>
                    </tr>

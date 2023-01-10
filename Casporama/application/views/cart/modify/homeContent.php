@@ -42,7 +42,7 @@
     </div>
 
     <div class="modify_cart_btn">
-        <h3><span>Total : </span><?= $totals[$cart[0]->getIdcart()] ?> €</h3>
+        <h3><span>Total TCC : </span><?= $totals[$cart[0]->getIdcart()] ?> €</h3>
         <input type="hidden" name="iduser" value=<?= $cart[0]->getIduser() ?> />
         <input type="hidden" name="idcart" value=<?= $cart[0]->getIdcart() ?> />
         <input type="submit" value="Confirmer"/> 

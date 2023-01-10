@@ -16,21 +16,21 @@ Nous avons utilisé une démarche de développement incrémental. Nous avons dev
 
 - Les Controllers
 
-![alt diagramme_26/10/22](./Diagramme/20221026-Controller.png)
+![Controller 26/10/2022](./Diagramme/20221026-Controller.png)
 
 - Les Models
 
-![alt diagramme_26/10/22](./Diagramme/20221026-Models.png)
+![Models 26/10/22](./Diagramme/20221026-Models.png)
 
 Ensuite nous avons continué ces controllers. Puis Nous avons implémenté un par un les controller Info, Admin, Cart, Caspor, Order et InvoicePDF , ainsi que leurs modeles. Voici des images montrantnotre avancé le 10/01/2023
 
 - Les Controllers
 
-![alt diagramme_26/10/22](./Diagramme/controllers_10_O1_23.jpg)
+![Controller 10/01/2023](./Diagramme/controllers_10_O1_23.jpg)
 
 - Les Models
 
-![alt diagramme_26/10/22](./Diagramme/models_10_01_23.jpg)
+![alt Models 10/01/2023](./Diagramme/models_10_01_23.jpg)
 
 Tout cela pour dire que notre approche à été incrémental car nous nous sommes concentre sur la livraison de version successives de produit qui incluent un nombre croissant de fonctionnalités.
 

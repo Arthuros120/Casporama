@@ -49,7 +49,12 @@ class Order extends CI_Controller
                 $dataContent['orders'] = $orders;
 
                 foreach ($orders as $order) {
-                    $total[$order->getId()] = $this->OrderModel->totalOrder($order);
+                    if ($user->getStatus() == 'Caspor') {
+                        $totalClient = round((($this->OrderModel->totalOrder($order)*0.95)*1.20)+5,2);
+                    } else {
+                        $totalClient = round(($this->OrderModel->totalOrder($order)*1.20)+5,2);
+                    }
+                    $total[$order->getId()] = $totalClient;
                 }
 
                 $dataContent['total'] = $total;
