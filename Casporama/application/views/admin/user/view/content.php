@@ -14,6 +14,8 @@
 <p> Téléphone : <?= $user->getCoordonnees()->getTelephone() ?> </p>
 <p> Téléphone Fixe: <?= $user->getCoordonnees()->getFixe() ?> </p>
 
+<a href="<?= base_url('Admin/EditUser/') . $user->getId() ?>"> Modifier </a>
+
 <h3> Adresse <?= $nbrAddr ?></h3>
 <?php if (!empty($user->getLocalisation())) {
     foreach ($user->getLocalisation() as $loc) { ?>
@@ -28,8 +30,8 @@
         <p>Département: <?= $loc->getDepartment() ?></p>
         <p>Pays: <?= $loc->getCountry() ?></p>
     
-        <a href="admin/modifAddress/<?= $loc->getId() ?>">Modifier</a>
-        <a href="admin/supprAddress/<?= $loc->getId() ?>">Supprimer</a>
+        <a href="<?= base_url('admin/modifAddress/' . $loc->getId()) ?>">Modifier</a>
+        <a href="<?= base_url('admin/supprAddress/' . $loc->getId()) ?>">Supprimer</a>
     
         <div class="map_all">
             <div class="card-map">
@@ -56,6 +58,44 @@ if (!$addAddIsPos) { ?>
         <img src="<?= base_url() . "static/image/icon/add.svg" ?>"
         alt="Add" ></a>
     </div>
+<?php } ?>
+
+<h3> Commandes </h3>
+
+<?php if ($commands != null) { ?>
+    <table>
+        <thead>
+            <tr>
+                <th>Numéro de commande</th>
+                <th>Date de commande</th>
+                <th>Addresse de livraison</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($commands as $command) {
+                $loc = $command->getLocation(); ?>
+                <tr>
+                    <td>
+                        <a href="<?= base_url('Admin/viewOrder?idorder=' . $command->getId()) ?>">
+                            <?= $command->getId() ?>
+                        </a>
+                    </td>
+                    <td><?= $command->getDate() ?></td>
+                    <td>
+                    <?= $loc->getName() ?>
+                    (
+                    <?= $loc->getAdresse()['number'] ?>
+                    <?= $loc->getAdresse()['street'] ?>
+                    )
+                </td>
+                    <td><?= $command->getState() ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+<?php } else { ?>
+    <p>Il n'y a pas de commande enregistré</p>
 <?php } ?>
 
 <a href="<?= base_url('Admin/DeleteUser/' . $user->getId()) ?>">Supprimer l'utilisateur</a>

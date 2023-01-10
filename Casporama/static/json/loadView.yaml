@@ -330,14 +330,14 @@ Admin/user/view:
         script: "admin/user/view/script"
     baseView: "admin/user/base"
 
-Admin/EditUser:
+Admin/user/editUser:
     views:
         head: "admin/user/editUser/head"
-        header: "admin/header"
+        header: "templates/blank"
         content: "admin/user/editUser/content"
         script: "admin/user/editUser/script"
 
-    baseView: "admin/user/editUser/base"
+    baseView: "admin/user/base"
 
 Admin/EditLocalisation:
     views:

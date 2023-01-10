@@ -279,6 +279,7 @@ function initInputCat(cat) {
 }
 
 function initInputSport(sport) {
+
   if (sport !== null) {
     sport = sport.split(",");
 

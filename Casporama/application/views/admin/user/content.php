@@ -28,6 +28,7 @@
 
                 <?php } ?>
             </div>
+            <a href="<?= base_url('admin/AddUser') ?>">Ajouter un utilisateur</a>
             <hr>
             <div class="admin_list_user_content">
 

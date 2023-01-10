@@ -173,7 +173,7 @@
             <form action="<?php echo site_url('Admin/ReviveProducts') ?>" method="post">
 
                 <input type="submit" value="Supprimer les produits selectionnés">
-                <input type="checkbox" id="selectAll">Tous selectionner</input>
+                <input type="checkbox" id="selectAllNotAlive">Tous selectionner</input>
 
                 <table>
                     <tr>

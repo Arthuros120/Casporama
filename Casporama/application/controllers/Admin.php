@@ -1576,6 +1576,7 @@ class Admin extends CI_Controller
         } else {
 
             $user = $this->UserModel->getUserById($id);
+            $this->load->model('OrderModel');
 
             if ($user != null) {
 
@@ -1617,7 +1618,9 @@ class Admin extends CI_Controller
                     $dataMap = null;
                 }
 
-                $dataScript = array (
+                $commands = $this->OrderModel->getOrderByUser($user);
+
+                $dataScript = array(
 
                     'dataMap' => $dataMap
 
@@ -1627,7 +1630,8 @@ class Admin extends CI_Controller
 
                     'user' => $user,
                     'addAddIsPos' => $addAddIsPos,
-                    'nbrAddr' => $nbrAddr
+                    'nbrAddr' => $nbrAddr,
+                    'commands' => $commands
 
                 );
 
@@ -1639,7 +1643,6 @@ class Admin extends CI_Controller
                 );
 
                 $this->LoaderView->load('Admin/user/view', $data);
-
             } else {
 
                 redirect('Admin/User');
@@ -1647,11 +1650,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function editUser(int $id)
+    public function editUser(int $id = -1)
     {
+
         $this->UserModel->adminOnly();
 
-        // créer les règles du formulaire
+        if ($id == -1) {
+
+            redirect('Admin/User');
+        }
+
         $configRules = array(
 
             // * Configuration des paramètre du champlogin
@@ -1682,9 +1690,9 @@ class Admin extends CI_Controller
             ),
 
             array(
-                'field' => 'numTel',
+                'field' => 'mobilePhone',
                 'label' => 'Téléphone mobile',
-                'rules' => 'trim|required|min_length[10]|max_length[10]|numeric',
+                'rules' => 'trim|required|min_length[10]|max_length[10]|numeric|callback_IsUniqueMobilePhone[' . $id . ']',
                 'errors' => array( // * On définit les messages d'erreurs
                     'required' => 'Vous avez oublié %s.',
                     "min_length" => "Le %s doit faire au moins 10 caractères",
@@ -1705,41 +1713,124 @@ class Admin extends CI_Controller
                     'numeric' => 'Le %s ne doit contenir que des caractères numériques',
                 ),
             ),
-        );
 
+            array(
+                'field' => 'newEmail',
+                'label' => 'email',
+                'rules' => 'trim|required|min_length[5]|max_length[255]|valid_email|callback_IsUniqueEmail[' . $id . ']',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 5 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'valid_email' => 'Le %s n\'est pas valide',
+                ),
+            )
+        );
 
         $this->form_validation->set_rules($configRules);
 
-        $user = $this->UserModel->getUserById($id);
-        $dataContent['user'] = $user;
-        $dataContent['roles'] = array(['Administrateur'], ['Client'], ['Caspor']);
-        $data = array('content' => $dataContent);
+        if (!$this->form_validation->run()) {
 
-        $this->LoaderView->load('Admin/EditUser', $data);
-    }
+            $error = validation_errors();
 
-    public function updateUser()
-    {
-        $this->UserModel->adminOnly();
-        //récupéré les donnée du formulaire
-        $id = $this->input->post('id');
-        $name = $this->input->post('name');
-        $firstname = $this->input->post('firstname');
-        $email = $this->input->post('email');
-        $numTel = $this->input->post('numTel');
-        $role = $this->input->post('role');
+            $this->load->model('OrderModel');
 
-        $user = $this->UserModel->getUserById($id);
-        $coord = $user->getCoordonnees();
-        $coord->setNom($name);
-        $coord->setPrenom($firstname);
-        $coord->setEmail($email);
-        $coord->setTelephone($numTel);
-        $user->setStatus($role);
+            $user = $this->UserModel->getUserById($id);
 
-        $this->UserModel->updateUser($user);
+            if ($user != null) {
 
-        redirect('Admin/editUser/' . $id);
+                $listLoc = $user->getLocalisation();
+
+                if (!empty($listLoc)) {
+
+                    $nbrAddr = $this->LocationModel->countAddressByUserId($user->getId());
+
+                    $nbrAddr = $nbrAddr . "/" . $this->config->item('address_MaxAdd');
+
+                    $addAddIsPos = $this->LocationModel->heHaveMaxAddress($user->getId());
+
+                    $dataMap = [];
+
+                    foreach ($listLoc as $loc) {
+
+                        if ($loc->getLatitude() != null && $loc->getLongitude() != null) {
+
+                            $dataMap[$loc->getId()] = array(
+
+                                'lat' => $loc->getLatitude(),
+                                'lng' => $loc->getLongitude(),
+
+                            );
+                        }
+                    }
+                    if (!empty($dataMap)) {
+
+                        $dataScript['dataMap'] = $dataMap;
+                    } else {
+
+                        $dataScript['dataMap'] = null;
+                    }
+                } else {
+
+                    $nbrAddr = "0/0";
+                    $addAddIsPos = false;
+                    $dataMap = null;
+                }
+
+                $commands = $this->OrderModel->getOrderByUser($user);
+
+                $dataScript = array(
+
+                    'dataMap' => $dataMap
+
+                );
+
+                $dataContent = array(
+
+                    'user' => $user,
+                    'addAddIsPos' => $addAddIsPos,
+                    'nbrAddr' => $nbrAddr,
+                    'commands' => $commands,
+                    'error' => $error
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent,
+                    'script' => $dataScript
+
+                );
+
+                $this->LoaderView->load('Admin/user/editUser', $data);
+            } else {
+
+                redirect('Admin/User');
+            }
+        } else {
+
+            $user = $this->UserModel->getUserById($id);
+
+            if ($user == null) {
+
+                redirect('Admin/User');
+            }
+
+            $lastEmail = $user->getCoordonnees()->getEmail();
+
+            $post = $this->input->post();
+
+            $user->getCoordonnees()->setNom($post['nom']);
+            $user->getCoordonnees()->setPrenom($post['prenom']);
+            $user->getCoordonnees()->setEmail($post['newEmail']);
+            $user->getCoordonnees()->setTelephone($post['mobilePhone']);
+            $user->getCoordonnees()->setFixe($post['fixePhone']);
+
+            $this->UserModel->updateUser($user, $lastEmail);
+
+            redirect('Admin/User/' . $id);
+        }
     }
 
     public function editLocalisation(string $ids)
@@ -1762,34 +1853,44 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/EditLocalisation', $data);
     }
 
-    public function updateLocalisation(int $idloc)
+    public function IsUniqueEmail(string $strEmail, int $id): bool
     {
 
-        $this->UserModel->adminOnly();
-        $loc = new LocationEntity();
+        $user = $this->UserModel->getUserById($id);
 
-        $loc->setId($idloc);
-        $loc->setName($this->input->post('name'));
-        $loc->setAdresse($this->input->post('number') . ";" . $this->input->post('street'));
-        $loc->setCity($this->input->post('city'));
-        $loc->setCodePostal($this->input->post('postalCode'));
-        $loc->setCountry($this->input->post('country'));
-        $departement = explode(";", $this->input->post('department'));
-        $loc->setDepartment($departement[1]);
-        if ($this->input->post('Default') == 'on') {
-            $loc->setIsDefault(true);
-        } else {
-            $loc->setIsDefault(false);
+        $actualEmail = $user->getCoordonnees()->getEmail();
+
+        // * On vérifie que l'email n'existe pas
+        if ($this->UserModel->heHaveUserByEmail($strEmail) && $strEmail != $actualEmail) {
+
+            // * On retourne une erreur
+            $this->form_validation->set_message('IsUniqueEmail', 'Cet email existe déjà !');
+
+            return false;
         }
-        /*$latlong = $this->LocationModel->searchLatLong($loc->getAdresse(),$loc->getCodePostal());
-        $loc->setLatitude($latlong['latitude']);
-        $loc->setLongitude($latlong['longitude']);*/
 
-        // TODO : A remplacé pour que cela marche réellement
-        $this->LocationModel->updateAddress($loc, $loc->getId(), $this->input->post('idUser'));
-
-        redirect('Admin/editUser/' . $this->input->post('idUser'));
+        return true;
     }
+
+    public function IsUniqueMobilePhone(string $strPhone, int $id): bool
+    {
+
+        $user = $this->UserModel->getUserById($id);
+
+        $actualPhone = $user->getCoordonnees()->getTelephone();
+
+        // * On vérifie que le mobile n'existe pas
+        if ($this->UserModel->heHaveUserByMobilePhone($strPhone) && $strPhone != $actualPhone) {
+
+            // * On retourne une erreur
+            $this->form_validation->set_message('IsUniqueMobilePhone', 'Ce numéro de téléphone est déja utilisé !');
+
+            return false;
+        }
+
+        return true;
+    }
+
 
     public function checkNameProduct(string $name): bool
     {

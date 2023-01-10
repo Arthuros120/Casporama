@@ -1,100 +1,118 @@
-<!-- admin/product/content -->
+<!-- admin/stock/view/content --->
 
-<div class="admin_content">
-    <div class="menu">
-        <ul>
-            <li><a href="<?= site_url('Admin/Product') ?>">Gerer les Produit</a></li>
-            <li><a href="<?= site_url('Admin/User') ?>">Gerer les utilisateurs</a></li>
-            <li><a href="<?= site_url('Admin/Order') ?>">Gerer les commandes</a></li>
-            <li><a href="<?= site_url('Admin/Stock') ?>">Gerer le stock</a></li>
-            <li><a href="<?= site_url('Dao') ?>">Import / Export les données</a></li>
-        </ul>
+<h1> Gestion de l'utilisateur </h1>
+
+<h3> Information de connexion </h3>
+
+<?= form_open('admin/editUser/' . $user->getId()) ?>
+
+<p> Login : <?= $user->getLogin(); ?> </p>
+<p> Mot de passe : <a href="admin/reserPass/" . <?= $user->getId() ?>>Réinitialiser</a></p>
+
+<h3> Information personnelles </h3>
+
+<?php if (isset($error) && $error != "") { ?>
+
+    <div class="error">
+        <h2><?= $error ?></h2>
+        <img src="<?= base_url() . "static/image/icon/error.svg" ?>" alt="error">
     </div>
-    <div class="admin_user">
-        <div class="admin_list_user">
-            <div class="admin_list_user_title">
-                <h2>Liste des Utilisateurs</h2>
-            </div>
-            <hr>
 
-            <div class="admin_edit_user">
-                <?php echo form_open('Admin/updateUser');?>
+<?php } ?>
 
-                    <p> Id : <?= /** @var UserEntity $user */
-                        $user->getId() ?></p>
-                    <input type="hidden" name="id" value="<?= $user->getId() ?>">
-                    <label>
-                        Login :
-                        <input type="text" name="login" value="<?= $user->getLogin() ?>">
-                    </label>
-                    <label>
-                        Nom :
-                        <input type="text" name="name" value="<?= $user->getCoordonnees()->getNom() ?>">
-                    </label>
-                    <label>
-                        Prénom :
-                        <input type="text" name="firstname" value="<?= $user->getCoordonnees()->getPrenom() ?>">
-                    </label>
-                    <label>
-                        Email :
-                        <input type="text" name="email" value="<?= $user->getCoordonnees()->getEmail() ?>">
-                    </label>
-                    <label>
-                        numéro de téléphone :
-                        <input type="text" name="numTel" value="<?= $user->getCoordonnees()->getTelephone() ?>">
+<p> Nom : <input type="text" name="nom" value="<?= $user->getCoordonnees()->getNom() ?>"></p>
+<p> Prénom : <input type="text" name="prenom" value="<?= $user->getCoordonnees()->getPrenom() ?>"></p>
+<p> Email: <input type="email" name="newEmail" value="<?= $user->getCoordonnees()->getEmail() ?>"></p>
+<p> Téléphone : <input type="tel" name="mobilePhone" value="<?= $user->getCoordonnees()->getTelephone() ?>"></p>
+<p> Téléphone Fixe: <input type="tel" name="fixePhone" value="<?= $user->getCoordonnees()->getFixe() ?>"></p>
 
-                    </label>
-                    <label>
-                        numéro de téléphone fixe :
-                        <input type="text" name="fixePhone" value="<?= $user->getCoordonnees()->getFixe()?>">
-                    </label>
-                    <label>
-                        Rôle :
-                        <select name="role">
-                            <option value="Administrateur" <?= $user->getStatus() == 'Administrateur' ? 'selected' : '' ?>>Administrateur</option>
-                            <option value="Client" <?= $user->getStatus() == 'Client' ? 'selected' : '' ?>>Client</option>
-                            <option value="Caspor" <?= $user->getStatus() == 'Caspor' ? 'selected' : '' ?>>Caspor</option>
-                        </select>
-                    </label>
-                    <input type="submit" value="Update">
+<input type="submit" value="Modifier">
 
-                <div class = "admin_edit_user_localisation">
-                    Adresse de livraisons :
+<?= form_close() ?>
 
-                    <table>
-                        <tr>
-                            <th>Id</th>
-                            <th> Nom </th>
-                            <th> Adresse </th>
-                            <th> code Postal </th>
-                            <th> Ville</th>
-                            <th> Pays </th>
-                            <th> Modifier </th>
-                            <th> Supprimer </th>
-                        </tr>
+<h3> Adresse <?= $nbrAddr ?></h3>
+<?php if (!empty($user->getLocalisation())) {
+    foreach ($user->getLocalisation() as $loc) { ?>
 
-                        <?php foreach ($user->getLocalisation() as $localisation) {
-                            /** @var LocationEntity $localisation */ ?>
-                            <tr>
-                                <td><?= $localisation->getId() ?></td>
-                                <td><?= $localisation->getName() ?></td>
-                                <td><?= $localisation->getStringAdresse() ?></td>
-                                <td><?= $localisation->getCodePostal() ?></td>
-                                <td><?= $localisation->getCity() ?></td>
-                                <td><?= $localisation->getCountry() ?></td>
-                                <td><a href="<?= site_url('Admin/editLocalisation/' . $localisation->getId() ."-". $user->getId()) ?>">Modifier</a></td>
-                                <td><a href="<?= site_url('Admin/deleteLocalisation/' . $localisation->getId()) ?>">Supprimer</a></td>
-                            </tr>
-
-                        <?php } ?>
-
-                    </table>
-
-
-                </div>
-
-
+        <h2><?= $loc->getName()?></h2>
+        <?php if ($loc->getIsDefault()) { ?>
+            <h2>(Par défaut)</h2>
+        <?php } ?>
+        <p>Adresse: <?= $loc->getAdresse()['number'] ?> <?= $loc->getAdresse()['street'] ?></p>
+        <p>Code postal: <?= $loc->getCodePostal() ?></p>
+        <p>Ville: <?= $loc->getCity() ?></p>
+        <p>Département: <?= $loc->getDepartment() ?></p>
+        <p>Pays: <?= $loc->getCountry() ?></p>
+    
+        <a href="<?= base_url('admin/modifAddress/' . $loc->getId()) ?>">Modifier</a>
+        <a href="<?= base_url('admin/supprAddress/' . $loc->getId()) ?>">Supprimer</a>
+    
+        <div class="map_all">
+            <div class="card-map">
+                <?php
+                    if ($loc->getLatitude() != null && $loc->getLongitude() != null) { ?>
+                        <div id="map<?= $loc->getId() ?>" class="map"></div>
+                    <?php } else { ?>
+                        <div class="map_error">
+                            <h2>Aucune localisation n'a été trouvé pour cette adresse</h2>
+                        <img src="<?= base_url() . "static/image/icon/error.svg" ?>" alt="error">
+                        </div>
+                <?php } ?>
             </div>
         </div>
+    <?php } ?>
+<?php } else { ?>
+    <p>Il n'y a pas d'addresse enregisté</p>
+<?php }
+
+if (!$addAddIsPos) { ?>
+    <div class="card_add_address">
+        <a
+        href="<?= base_url('User/admin/addAddress/' . $user->getId())?>" >
+        <img src="<?= base_url() . "static/image/icon/add.svg" ?>"
+        alt="Add" ></a>
     </div>
-</div>
+<?php } ?>
+
+<h3> Commandes </h3>
+
+<?php if ($commands != null) { ?>
+    <table>
+        <thead>
+            <tr>
+                <th>Numéro de commande</th>
+                <th>Date de commande</th>
+                <th>Addresse de livraison</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($commands as $command) {
+                $loc = $command->getLocation(); ?>
+                <tr>
+                    <td>
+                        <a href="<?= base_url('Admin/viewOrder?idorder=' . $command->getId()) ?>">
+                            <?= $command->getId() ?>
+                        </a>
+                    </td>
+                    <td><?= $command->getDate() ?></td>
+                    <td>
+                    <?= $loc->getName() ?>
+                    (
+                    <?= $loc->getAdresse()['number'] ?>
+                    <?= $loc->getAdresse()['street'] ?>
+                    )
+                </td>
+                    <td><?= $command->getState() ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+<?php } else { ?>
+    <p>Il n'y a pas de commande enregistré</p>
+<?php } ?>
+
+<a href="<?= base_url('Admin/DeleteUser/' . $user->getId()) ?>">Supprimer l'utilisateur</a>
+
+
+<!-- admin/stock/view/content --->
