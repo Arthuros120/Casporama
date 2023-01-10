@@ -2,7 +2,6 @@ use CasporamaDEV;
 
 insert into user (id, login, password, salt, status, isVerified, isALive, dateLastUpdate)
 values
-    (1,'root','$2y$10$MCDgDzmwpaP.JVNIU5zZluM2fgms.ev5i2cOVK5EmEwbcQhamHMYy','117503329635307be4a2976.09876691','Administrateur', true, true, '2022-12-06 14:59:37'), -- CA$torama2022A
     (2,'arthur','$2y$10$2A4swofgoN/cg8bZYMk9fe6rvys6To1fIDJQiMBeGuusRPYsvPaIK','561630926353082e643284.05064160','Administrateur', true, true, '2022-12-06 14:59:37'), -- arthur123
     (3,'maximef','$2y$10$0hr30fUMXc3JvBdBPg2c7O0usKf4Kz5szidUmVpAqNdzK1fvKfjmC','16911063756353084b2bba54.99559659','Administrateur', true, true, '2022-12-06 14:59:37'), -- maxime123
     (4,'maximes','$2y$10$CpJ8tVdCdgY7c0npGR6NzeV6wAVQSdXfCWl8OlMgbShPv.Wdh8X2W','132452177363530853c62e81.40022211','Administrateur', true, true, '2022-12-06 14:59:37'), -- maxime123

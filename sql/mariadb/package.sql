@@ -145,7 +145,7 @@ CREATE OR REPLACE PACKAGE user AS
     -- Permet de compter le nombre d'adresse active par user
     procedure countAliveAddressByUserId(searchUserId int);
     -- Permet de récupérer tout les user
-    procedure getAllUser();
+    procedure getAllUser(start int, step int);
     -- Permet de récupérer toute les Locations
     procedure getAllLocation();
     -- Permet de récupérer tout les Information
@@ -162,12 +162,17 @@ CREATE OR REPLACE PACKAGE user AS
     procedure setUserVerified(searchId int, newDate datetime);
     -- Permet de chnager le status de l'user
     procedure changeStatus(searchId int, newStatus varchar(255));
+    procedure countUser(); -- newArthur
+
 END;
 
+-- call user.getAllUser(0, 10); -- newArthur
+
 CREATE OR REPLACE PACKAGE BODY user AS
-    procedure getAllUser() as
+    procedure getAllUser(start int, step int) as
     Begin
-        select * from user;
+        select user.id, login, status, isVerified, user.isALive, firstname, name, mail
+        from user left join information on user.id = information.id limit start, step;
     End;
     procedure getAllLocation() as
     Begin
@@ -493,6 +498,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
     procedure changeStatus(searchId int, newStatus varchar(255)) as
     begin
         update user set status = newStatus where id = searchId;
+    end;
+
+    procedure countUser() as
+    begin
+        select count(*) as count from user;
     end;
 end;
 

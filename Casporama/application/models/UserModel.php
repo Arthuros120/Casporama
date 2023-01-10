@@ -195,25 +195,118 @@ class UserModel extends CI_Model
     }
 
 
-    public function getUsers():?array {
+    public function getUsers(array $range): array
+    {
 
-        $querry = $this->db->query('call user.getAllUser()');
-        $usersarray = $querry->result_array();
+        $query = $this->db->query(
+            'call user.getAllUser(?, ?)',
+            array(
+                $range[0],
+                $range[1]
+            )
+        );
+        
+        $usersarray = $query->result_array();
+
         $users = array();
-        $this->load->model('InformationModel');
-        $querry->next_result();
-        $querry->free_result();
+
+        $query->next_result();
+        $query->free_result();
+
         foreach ($usersarray as $userarray) {
+
             $newuser = new UserEntity();
+
             $newuser->setId($userarray['id']);
-            $newuser->setCoordonnees($this->InformationModel->getInformationByUserId($userarray['id']) ? :new InformationEntity());
+            $newuser->setLogin($userarray['login']);
             $newuser->setStatus($userarray['status']);
             $newuser->setIsVerified($userarray['isVerified']);
             $newuser->setIsAlive($userarray['isALive']);
+
+            $newInfo = new InformationEntity();
+
+            $newInfo->setPrenom($userarray['firstname']);
+            $newInfo->setNom($userarray['name']);
+            $newInfo->setEmail($userarray['mail']);
+
+            $newuser->setCoordonnees($newInfo);
+
             $users[] = $newuser;
+
         }
 
         return $users;
+
+    }
+
+    public function search(string $title, array $users, string $search) : array
+    {
+
+        $title .= " Recherche -> " . $search . ", ";
+
+        // * Initialisation du tableau de retour
+        $listUsersBySearch = array();
+
+        $search = $this->formatStr($search);
+
+        $search = explode(' ', $search);
+        $countSearch = count($search);
+
+        // * On parcours le tableau des utilisateur
+        foreach ($users as &$user) {
+
+            $count = 0;
+
+            foreach ($search as $word) {
+
+                if (
+                    stristr($this->formatStr($users->getCoordonnees()->getNom()), $word) ||
+                    stristr($this->formatStr($users->getCoordonnees()->getPrenom()), $word) ||
+                    stristr($this->formatStr($users->getLogin()), $word)
+                    ) {
+
+                    $count++;
+
+                }
+            }
+
+            if ($countSearch == $count) {
+
+                // * On ajoute l'objet au tableau de retour
+                array_push($listUsersBySearch, $user);
+            }
+
+        }
+
+                // * On retourne le tableau de retour
+        return array(
+            'title' => $title,
+            'users' => $listUsersBySearch
+        );
+    }
+
+    public function filtred(array $get, array $users) : array
+    {
+
+        if (empty($get['search'])) {
+
+            return array(
+                'title' => "Tous les utilisateurs",
+                'users' => $users
+            );
+        }
+
+        $title = "Utilisateur filtrés par :";
+
+        $res = $this->search($title, $users, $get['search']);
+        $title = $res['title'];
+        $users = $res['users'];
+
+        return array(
+            'title' => $title,
+            'products' => $users,
+        );
+
     }
 
     /*
@@ -1041,12 +1134,50 @@ class UserModel extends CI_Model
 
     }
 
-    public function changeStatus(int $id, string $newStatus) {
+    public function verifRange(string $range) : Bool
+    {
+
+        $range = explode(";", $range);
+
+        if (
+            count($range) == 2 &&
+            is_numeric($range[0]) &&
+            is_numeric($range[1]) &&
+            $range[0] >= 0 &&
+            $range[1] >= 1
+
+        ) {
+
+            return true;
+
+        }
+        
+        return false;
+
+    }
+
+    public function countUser() : int
+    {
+
+        $query = $this->db->query("Call user.countUser()");
+
+        $count = $query->result();
+
+        $query->next_result();
+        $query->free_result();
+
+        return $count[0]->count;
+
+    }
+
+    public function changeStatus(int $id, string $newStatus)
+    {
         $this->db->query("Call user.changeStatus('" . $id . "', '" . $newStatus . "')");
     }
 
 
-    public function updateUser(UserEntity $user) {
+    public function updateUser(UserEntity $user)
+    {
 
         $this->updateFirstName($user->getId(), $user->getCoordonnees()->getPrenom());
         $this->updateLastName($user->getId(), $user->getCoordonnees()->getNom());
