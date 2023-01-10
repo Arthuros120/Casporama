@@ -543,6 +543,7 @@ CREATE OR REPLACE PACKAGE product AS
     -- Permet de compté le nombre de produit par sport et par type
     procedure countByTypeAndSport( newtype varchar(15),  newsport int);
     procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15));
+    procedure revive(newid int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -664,6 +665,12 @@ CREATE OR REPLACE PACKAGE BODY product AS
     procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15)) as
     begin
         select * from product where nusport = sport and type = newtype and isAlive = true limit start, step;
+    end;
+
+    procedure revive(newid int) as
+    begin
+        update product set isAlive = true, dateLastUpdate = NOW() where idproduct = newid;
+        update catalog set isAlive = true, dateLastUpdate = NOW() where nuproduct = newid;
     end;
 END;
 

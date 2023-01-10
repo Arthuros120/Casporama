@@ -1047,6 +1047,16 @@ class ProductModel extends CI_Model
 
     }
 
+    public function revive(int $id)
+    {
+
+        $query = $this->db->query("Call product.revive($id)");
+
+        $query->next_result();
+        $query->free_result();
+
+    }
+
     public function delete(int $id)
     {
 
