@@ -14,53 +14,51 @@
         filter.classList.add('product_filter_unscrolled')
         filter.classList.remove('product_filter_scrolled')
     }
-
-    if (window.scrollY >= 5500) {
-        filter.classList.remove('product_filter_scrolled')
-        filter.classList.add('product_end')
-    }
-
-    if (window.scrollY < 5000 && window.scrollY > 4000) {
-        filter.classList.remove('product_end')
-        filter.classList.add('product_filter_scrolled')
-    }
 } )
 </script>
 
 <div class="global_product">
     <div class="left_product">
         <div id="filter" class="product_filter">
-            <h2>Filtre</h2>
-
-            <div class="delete_filter">
-                    <input type="button", id="supprFilter" value="Supprimer tous les filtres" >
+            <div class="filter_title">
+                <h2>Filtre</h2>
             </div>
+
+            <hr>
 
             <div class="brand_title">
                     <h3>Marque</h3>
-                </div>
-                <div class="brand_input">
-                    <input class="brandFilter filter"  type="checkbox" name="AllBrand" id="AllBrand">Tous</input>
-                    <?php foreach ($brands as $brand): ?>
-                        <input class="brandFilter filter" type="checkbox" name="<?= $brand ?>"><?= $brand ?></input>
-                    <?php endforeach ?>
-                </div>
+            </div>
+            <div class="brand_input">
+                <input class="brandFilter filter"  type="checkbox" name="AllBrand" id="AllBrand">Tous</input>
+                <?php foreach ($brands as $brand): ?>
+                    <input class="brandFilter filter" type="checkbox" name="<?= $brand ?>"><?= $brand ?></input>
+                <?php endforeach ?>
+            </div>
+
+            <div class="price_title">
+                <h3>Prix</h3>
+            </div>
 
             <div class="price_input">
 
-                <p>Entre  <input
+                <p>Entre</p>
+
+                <input
                 class="priceFilter filter"
                 type="number"
                 name="minPrice"
                 id="minPrice"
-                placeholder="Prix min"></input>€</p>
+                placeholder="Prix min"></input>
 
-                <p>et<input
+                <p>et</p>
+
+                <input
                 class="priceFilter filter"
                 type="number"
                 name="maxPrice"
                 id="maxPrice"
-                placeholder="Prix max"></input>€</p>
+                placeholder="Prix max"></input>
 
             </div>
 
@@ -78,14 +76,27 @@
                     </div>
 
                     <div class="search_delete">
-                    <input class="filter" type="button" id="supprSearchFilter" name="supprSearchFilter" value="Supprimer le filtre">
+                        <input class="filter" type="button" id="supprSearchFilter" name="supprSearchFilter" value="Supprimer le filtre">
                     </div>
 
             </div>
+
+            <div class="active_filter_title">
+                <h3>Filtre Actifs :</h3>
+            </div>
+
+            <div class="active_filter">
+                <p><?= $title ?> </p>
+            </div>
+
+            <div class="delete_filter">
+                    <input type="button", id="supprFilter" value="Supprimer tous les filtres" >
+            </div>
+
+
         </div>
     </div>
     <div class="right_product">
-        <h2> Filtre Actifs : <?= $title ?> </h2>
         <div class="all_card">
             <?php foreach ($listProduct as $product) {?>
             <div class="product_card">
