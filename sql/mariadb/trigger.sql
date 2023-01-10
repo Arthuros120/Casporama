@@ -35,10 +35,3 @@ create or replace trigger dateLastUpdate before update on user for each row
                 SET new.dateLastUpdate = NOW();
             end if;
         end;
-
-/*
-create or replace trigger idCart before delete on cart for each row
-        begin
-            update cart c set c.idcart = c.idcart - 1 where old.idcart < c.idcart;
-        end;
-*/

@@ -52,9 +52,11 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getPasswordById( idSearch VARCHAR(255));
     -- Permet de récupérer un status par un ID
     procedure getStatusById( idSearch VARCHAR(255));
-    -- Permet de récupérer un mot de passe par une adresse mail
+    -- Permet de récupérer les information d'un user à partir de son id
     procedure getUserInfoById(iduser integer);
+    -- Permet de récupérer la Location d'un user avec son ID
     procedure getUserLocationById(iduser int);
+    -- Permet de récupérer un mot de passe par une adresse mail
     procedure loginMail( mail VARCHAR(255));
     -- Permet d'ajouter un user
     procedure addUser( newid integer, newlogin varchar(255),  newpass varchar(255),  newsalt VARCHAR(45), newcookie varchar(45), newstatus varchar(20), newverif boolean, newalive boolean, newdate datetime);
@@ -517,8 +519,10 @@ CREATE OR REPLACE PACKAGE product AS
     -- Permet d'avoir un product par son ID
     procedure getProductById( id integer);
     -- Permet d'ajouter un product à la BD
-    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage text, newIsALive boolean, newDate datetime);    -- Permet de mettre à jour le prix d'un product
+    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage text, newIsALive boolean, newDate datetime);
+    -- Permet de mettre à jour un produit
     procedure updateProduct( id int, newtype varchar(15), newnusport int, newmarque varchar(255), newnom varchar(255), newgenre varchar(5), newprix float, newdesc varchar(255));
+    -- Permet de metre à jour le prix d'un produit
     procedure updatePrice( nuproduct int,  newprice int);
     -- Permet de mettre à jour la description d'un product
     procedure updateDescription( nuproduct int,  newdesc varchar(255));
