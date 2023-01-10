@@ -109,8 +109,9 @@ create table if not exists order_products (
     idvariant int not null,
     quantity int not null,
     primary key (idorder, idproduct,idvariant),
-    foreign key (idvariant) references catalog(id)
-
+    foreign key (idvariant) references catalog(id),
+    foreign key (idproduct) references product(idproduct),
+    foreign key (idorder) references `order`(id)
 
 );
 
