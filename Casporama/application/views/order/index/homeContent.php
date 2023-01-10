@@ -66,7 +66,7 @@
     <div class="order_footer">
         <div class="order_info">
             <p>Status : <?= $order->getState() ?></p>
-            <p>Total : <?= $total[$order->getId()] ?></p>
+            <p>Total TTC : <?= $total[$order->getId()] ?> €</p>
         </div>
         <?php if ($order->getState() == 'Non preparer') { ?>
             <div class="order_remove">
