@@ -870,8 +870,73 @@ class Admin extends CI_Controller
 
     public function editQuantite(int $id = -1) : void
     {
-    
-        
+
+        $this->UserModel->AdminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/product');
+
+        }
+
+        $catalog = $this->ProductModel->findCatalogById($id);
+
+        if ($catalog == null) {
+
+            redirect('admin/product');
+
+        }
+
+        $product = $this->ProductModel->findById($catalog->getNuProduct());
+
+        if ($product == null) {
+
+            redirect('admin/product');
+
+        }
+
+        $this->form_validation->set_rules(
+            'quantite',
+            'Quantité',
+            'required|numeric|greater_than[-1]|less_than[1000000]|trim|is_natural',
+            array(
+
+                'required' => 'Vous devez renseigner une quantité',
+                'numeric' => 'La quantité doit être un nombre',
+                'greater_than' => 'La quantité doit être supérieur à 0',
+                'less_than' => 'La quantité doit être inférieur à 100000',
+                'is_natural' => 'La quantité doit être un nombre entier',
+
+            ));
+
+        if (!$this->form_validation->run()) {
+
+            $dataContent = array(
+
+                'product' => $product,
+                'catalog' => $catalog
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/stock/editQuantite', $data);
+
+        } else {
+
+            $catalog->setQuantity($this->input->post('quantite'));
+
+            $this->ProductModel->updateCatalogQuantity($catalog);
+
+            redirect('Admin/Stock/' . $product->getId());
+
+        }
 
     }
 

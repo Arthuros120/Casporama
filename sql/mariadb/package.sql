@@ -626,10 +626,6 @@ CREATE OR REPLACE PACKAGE BODY product AS
     end;
 END;
 
-call product.countByTypeAndSport('Chaussure', "1");
-
-call product.getProductByRangeAndSportAndType(0, 60, 1, 'chaussure');
-
 CREATE OR REPLACE PACKAGE `order` AS
     -- Permet d'avoir une commande par son ID
     procedure getOrderUserById( nuorder int, newiduser int);
@@ -737,7 +733,8 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure getAll();
     procedure getCatalogByVariant(newidvariant int);
     procedure getAllByNuProduct(newNuProduct int);
-
+    procedure getCatalogById(newid int);
+    procedure updateCatalogQuantite(newid int, newquantite int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY catalog AS
@@ -774,6 +771,7 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     BEGIN
         update catalog set quantity=newquantity where id = iduser;
     end;
+
     procedure getCatalogByVariant(newidvariant int) as
     begin
         select * from catalog where id = newidvariant;
@@ -787,9 +785,17 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     begin
         select * from catalog where nuproduct = newNuProduct;
     end;
-END;
 
-call catalog.getStock(1);
+    procedure getCatalogById(newid int) as
+    begin
+        select * from catalog where id = newid;
+    end;
+
+    procedure updateCatalogQuantite(newid int, newquantite int) as
+    begin
+        update catalog set quantity=newquantite where id = newid;
+    end;
+END;
 
 CREATE OR REPLACE PACKAGE captcha AS
     -- Permet d'avoir le nombre de Captcha actif pour une adresse donnée

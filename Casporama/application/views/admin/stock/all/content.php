@@ -1,7 +1,7 @@
 <!-- admin/stock/all/content --->
 
 <h1>Stock des produits</h1>
-<h2><?= $type ?> de <?= $sport ?> de <?= $minRange ?> à <?= $maxRange ?></h2>
+<h2><?= $type ?> de <?= $sport ?> de <?= $minRange + 1 ?> à <?= $maxRange ?></h2>
 
 <a href="<?= base_url('admin/stock')?>"> Retour aux filtre </a>
 

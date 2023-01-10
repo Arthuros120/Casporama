@@ -228,7 +228,7 @@ class ProductModel extends CI_Model
 
     /*
 
-        * Function findBySport
+        * Function findById
 
         @param int $idProduct
         @return ?ProductEntity
@@ -1339,6 +1339,48 @@ class ProductModel extends CI_Model
         }
 
         return $listCatalogs;
+
+    }
+
+    public function findCatalogById(int $id) : ?CatalogEntity
+    {
+    
+        $queryCatalog = $this->db->query("Call catalog.getCatalogById($id)");
+
+        $catalog = $queryCatalog->row();
+
+        // * On crée un objet ProductEntity
+        $queryCatalog->next_result();
+        $queryCatalog->free_result();
+
+        // * On vérifie que le produit n'est pas nul
+        if ($catalog != null) {
+
+            $newCatalog = new CatalogEntity;
+
+            $newCatalog->setId($catalog->id);
+            $newCatalog->setNuProduct($catalog->nuproduct);
+            $newCatalog->setReference($catalog->reference);
+            $newCatalog->setColor($catalog->color);
+            $newCatalog->setSize($catalog->size);
+            $newCatalog->setQuantity($catalog->quantity);
+
+            return $newCatalog;
+
+        } else {
+
+            return null;
+
+        }
+    }
+
+    public function updateCatalogQuantity(CatalogEntity $catalog) : void
+    {
+
+        $id = $catalog->getId();
+        $quantity = $catalog->getQuantity();
+
+        $this->db->query("Call catalog.updateCatalogQuantite($id, $quantity)");
 
     }
 

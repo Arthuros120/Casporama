@@ -384,6 +384,15 @@ Admin/stock/product:
 
     baseView: "admin/stock/global/base"
 
+Admin/stock/editQuantite:
+    views:
+        head: "admin/stock/editQuantite/head"
+        header: "templates/blank"
+        content: "admin/stock/editQuantite/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
 Admin/delete/request:
     views:
         head: "admin/delete/request/head"
