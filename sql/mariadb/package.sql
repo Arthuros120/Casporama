@@ -500,6 +500,8 @@ CREATE OR REPLACE PACKAGE product AS
     procedure getProductByName( newname varchar(255));
     procedure getProductByNameWithoutSelf( newname varchar(255), id int);
     procedure countAll();
+    procedure countByTypeAndSport( newtype varchar(15),  newsport int);
+    procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15));
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -612,6 +614,16 @@ CREATE OR REPLACE PACKAGE BODY product AS
     begin
         select count(*) as count from product;
     end;
+
+    procedure countByTypeAndSport( newtype varchar(15),  newsport int) as
+    begin
+        select count(*) as count from product where type = newtype and nusport = newsport;
+    end;
+
+    procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15)) as
+    begin
+        select * from product where nusport = sport and type = newtype and isAlive = true limit start, step;
+    end;
 END;
 
 CREATE OR REPLACE PACKAGE `order` AS
@@ -721,7 +733,10 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure getAll();
     procedure getCatalogByVariant(newidvariant int);
     procedure getAllByNuProduct(newNuProduct int);
-
+    procedure getCatalogById(newid int);
+    procedure updateCatalogQuantite(newid int, newquantite int);
+    procedure deleteCatalog(newid int);
+    procedure heHaveCatalog(newnuproduct int, newColor varchar(20), newSize varchar(3));
 END;
 
 CREATE OR REPLACE PACKAGE BODY catalog AS
@@ -731,7 +746,7 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     End;
     procedure getStock( id integer) as
     begin
-        select * from catalog where nuproduct = id;
+        select * from catalog where nuproduct = id and isAlive = true;
     end;
 
     procedure getStockTotal( id integer) as
@@ -758,6 +773,7 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     BEGIN
         update catalog set quantity=newquantity where id = iduser;
     end;
+
     procedure getCatalogByVariant(newidvariant int) as
     begin
         select * from catalog where id = newidvariant;
@@ -771,8 +787,27 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     begin
         select * from catalog where nuproduct = newNuProduct;
     end;
-END;
 
+    procedure getCatalogById(newid int) as
+    begin
+        select * from catalog where id = newid;
+    end;
+
+    procedure updateCatalogQuantite(newid int, newquantite int) as
+    begin
+        update catalog set quantity=newquantite where id = newid;
+    end;
+
+    procedure deleteCatalog(newid int) as
+    begin
+        update catalog set isALive=false where id = newid;
+    end;
+
+    procedure heHaveCatalog(newnuproduct int, newColor varchar(20), newSize varchar(3)) as
+    begin
+        select count(*) as count from catalog where nuproduct = newnuproduct and color = newColor and size = newSize;
+    end;
+END;
 
 CREATE OR REPLACE PACKAGE captcha AS
     -- Permet d'avoir le nombre de Captcha actif pour une adresse donnée

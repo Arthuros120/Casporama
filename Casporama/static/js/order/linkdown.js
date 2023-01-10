@@ -1,4 +1,6 @@
-function disabled()
+function disabled(link)
 {
-  document.getElementById("link").href=""; 
+    link.onclick = function(event) {
+        event.preventDefault();
+    }
 };

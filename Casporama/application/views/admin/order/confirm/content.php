@@ -2,7 +2,7 @@
 
 <div class="delete_caspor_content">
     <div class="delete_caspor_title">
-        <a href="<?= base_url() ?>Order">
+        <a href="<?= base_url() ?>Admin/viewOrder?idorder=<?= $idorder ?>">
             <img src="<?= base_url() ?>static/image/icon/arrow.svg" alt="arrow">
         </a> 
         <img src="<?= base_url() ?>static/image/casporama.png" alt="logo">
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="delete_caspor_button">
-                <a href="<?= base_url() ?>Admin/order"><h3>Je garde la Commande</h3></a> 
+                <a href="<?= base_url() ?>Admin/viewOrder?idorder=<?= $idorder ?>"><h3>Je garde la Commande</h3></a> 
                 <a href="<?= base_url() ?>Admin/cancelOrder?idorder=<?= $idorder ?>"><h3>J'annule la Commande</h3></a>
             </div>
         </div>

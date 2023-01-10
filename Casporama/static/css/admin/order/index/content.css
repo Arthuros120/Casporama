@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: var(--main-font);
+}
+
+.admin_content {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.menu {
+    width: 95%;
+    height: 5vh;
+    background-color: var(--grey2);
+}
+
+.menu > ul {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: 1fr;
+    place-items: center;
+
+    list-style-type: none;
+}
+
+.menu > ul > li {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu > ul > li > a {
+    color: black;
+    text-decoration: none;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu > ul > li:nth-child(3) {
+    background-color: #233E84;
+    color: white;
+}
+
+.menu > ul > li:nth-child(3) > a {
+    color: white;
+}
+
+.admin_order_filter {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--grey1);
+    width: 100%;
+}
+
+.filter_title {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    align-items: center;
+    padding-left: 5vh;
+
+    font-size: 1vw;
+}
+
+.filter_content {
+    width: 100%;
+    height: 15vh;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+.admin_order_list {
+    width: 95%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--grey1);
+}
+
+.admin_order_list > hr {
+    width: 100%;
+}
+
+.order_list_title {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    align-items: center;
+    padding-left: 5vh;
+}
+
+.list_content {
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 2%;
+}
+
+.list_input {
+    width: 50%;
+    display: flex;
+    align-items: center;
+
+}
+
+
+form {
+    width: 95%;
+}

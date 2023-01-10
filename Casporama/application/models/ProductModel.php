@@ -228,7 +228,7 @@ class ProductModel extends CI_Model
 
     /*
 
-        * Function findBySport
+        * Function findById
 
         @param int $idProduct
         @return ?ProductEntity
@@ -524,6 +524,54 @@ class ProductModel extends CI_Model
 
         // * On retourne le tableau de retour
         return $listProduct;
+    }
+
+    public function getProductByRangeAndSportAndType(array $range, string $sport, string $type) : array
+    {
+
+        $listProduct = array();
+
+        $queryProduct = $this->db->query(
+            "Call product.getProductByRangeAndSportAndType(?, ?, ?, ?)",
+            array($range[0], $range[1], $sport, $type)
+        );
+
+        $products = $queryProduct->result();
+
+        $queryProduct->next_result();
+        $queryProduct->free_result();
+
+        // * On parcours les résultats de la requete
+        foreach ($products as &$product) {
+
+            // * On crée un objet ProductEntity
+            $newProduct = new ProductEntity();
+
+            // * On hydrate l'objet
+            $newProduct->setId($product->idproduct);
+            $newProduct->setType($product->type);
+            $newProduct->setSport($product->nusport);
+            $newProduct->setBrand($product->brand);
+            $newProduct->setName($product->name);
+            $newProduct->setGenre($product->gender);
+            $newProduct->setPrice($product->price);
+            $newProduct->setDescription($product->description);
+            $newProduct->setIsALive($product->isALive);
+
+            // * On ajoute une image de couverture si une image est fournie
+            if ($product->image != null) {
+                $newProduct->setImage($product->image);
+            } else {
+                $newProduct->setImage("");
+            }
+            
+            // * On ajoute l'objet au tableau de retour
+            array_push($listProduct, $newProduct);
+        }
+
+        // * On retourne le tableau de retour
+        return $listProduct;
+
     }
 
     public function filterByBrand(string $title, array $products, array $get): array
@@ -1070,6 +1118,27 @@ class ProductModel extends CI_Model
 
     }
 
+    public function getAllSportId() : array
+    {
+
+        $querySport = $this->db->query("Call sport.getAll()");
+
+        $sport = $querySport->result();
+
+        $querySport->next_result();
+        $querySport->free_result();
+
+        $listSport = array();
+
+        foreach ($sport as $sport) {
+
+            array_push($listSport, intval($sport->nusport));
+
+        }
+        return $listSport;
+
+    }
+
     public function verifRange(string $range) : Bool
     {
 
@@ -1080,10 +1149,7 @@ class ProductModel extends CI_Model
             is_numeric($range[0]) &&
             is_numeric($range[1]) &&
             $range[0] >= 0 &&
-            $range[1] >= 1 &&
-            $range[0] < $range[1] &&
-            (($range[1] - $range[0]) <= 20) &&
-            $range[1] <= $this->countAllProduct()
+            $range[1] >= 1
 
         ) {
 
@@ -1108,6 +1174,20 @@ class ProductModel extends CI_Model
             return $count[0]->count;
     }
 
+    public function countByTypeAndSport(string $type, int $sport) : Int
+    {
+            
+            $query = $this->db->query("Call product.countByTypeAndSport('" . $type . "', " . $sport .")");
+    
+            $count = $query->result();
+    
+            $query->next_result();
+            $query->free_result();
+    
+            return $count[0]->count;
+    }
+
+
     public function getSize(ProductEntity $product)
     {
         $stocks = $product->getStock();
@@ -1131,30 +1211,6 @@ class ProductModel extends CI_Model
         }
 
         return $res;
-    }
-
-
-    private function sortSizeString($a, $b)
-    {
-
-        $sizes = array(
-        "XXS" => 0,
-        "XS" => 1,
-        "S" => 2,
-        "M" => 3,
-        "L" => 4,
-        "XL" => 5,
-        "XXL" => 6
-        );
-
-        $asize = $sizes[$a];
-        $bsize = $sizes[$b];
-
-        if ($asize == $bsize) {
-            return 0;
-        }
-
-        return ($asize > $bsize) ? 1 : -1;
     }
 
     public function avalaibleColor($product)
@@ -1185,6 +1241,223 @@ class ProductModel extends CI_Model
         return $tailledispo;
     }
 
+    public function getCatalogsByProductId(int $id) : array
+    {
+
+        $query = $this->db->query("Call catalog.getStock($id)");
+
+        $catalogs = $query->result();
+
+        $query->next_result();
+        $query->free_result();
+
+        $listCatalogs = array();
+
+        foreach ($catalogs as $catalog) {
+
+            $newCatalog = new CatalogEntity;
+
+            $newCatalog->setId($catalog->id);
+            $newCatalog->setNuProduct($catalog->nuproduct);
+            $newCatalog->setReference($catalog->reference);
+            $newCatalog->setColor($catalog->color);
+            $newCatalog->setSize($catalog->size);
+            $newCatalog->setQuantity($catalog->quantity);
+            $newCatalog->setIsALive($catalog->isALive);
+
+            array_push($listCatalogs, $newCatalog);
+
+        }
+
+        $listColor = array();
+
+        foreach ($listCatalogs as $catalog) {
+
+            if (!in_array($catalog->getColor(), $listColor)) {
+                array_push($listColor, $catalog->getColor());
+            }
+
+        }
+
+        $sortListCatalog = array();
+
+        foreach ($listColor as $color) {
+
+            $sortListCatalog[$color] = array();
+
+            foreach ($listCatalogs as $catalog) {
+
+                if ($catalog->getColor() == $color) {
+                    array_push($sortListCatalog[$color], $catalog);
+                }
+
+            }
+        }
+
+        return $sortListCatalog;
+
+    }
+
+    public function getCatalogsByProducts(array $products) : array
+    {
+    
+        if (empty($products)) {
+            return array();
+        }
+
+        $listCatalogs = array();
+
+        foreach ($products as $product) {
+
+            $category = $this->getCatalogsByProductId($product->getId());
+
+            $listCatalogs[$product->getId()] = $category;
+
+        }
+
+        return $listCatalogs;
+
+    }
+
+    public function findCatalogById(int $id) : ?CatalogEntity
+    {
+    
+        $queryCatalog = $this->db->query("Call catalog.getCatalogById($id)");
+
+        $catalog = $queryCatalog->row();
+
+        // * On crée un objet ProductEntity
+        $queryCatalog->next_result();
+        $queryCatalog->free_result();
+
+        // * On vérifie que le produit n'est pas nul
+        if ($catalog != null) {
+
+            $newCatalog = new CatalogEntity;
+
+            $newCatalog->setId($catalog->id);
+            $newCatalog->setNuProduct($catalog->nuproduct);
+            $newCatalog->setReference($catalog->reference);
+            $newCatalog->setColor($catalog->color);
+            $newCatalog->setSize($catalog->size);
+            $newCatalog->setQuantity($catalog->quantity);
+            $newCatalog->setIsALive($catalog->isALive);
+
+            return $newCatalog;
+
+        } else {
+
+            return null;
+
+        }
+    }
+
+    public function updateCatalogQuantity(CatalogEntity $catalog) : void
+    {
+
+        $id = $catalog->getId();
+        $quantity = $catalog->getQuantity();
+
+        $this->db->query("Call catalog.updateCatalogQuantite($id, $quantity)");
+
+    }
+
+    public function deleteCatalog(int $id) : void
+    {
+
+        $this->db->query("Call catalog.deleteCatalog($id)");
+
+    }
+
+    public function heHaveCatalog(CatalogEntity $catalog) : bool
+    {
+
+        $nuproduct = $catalog->getNuProduct();
+        $color = $catalog->getColor();
+        $size = $catalog->getSize();
+
+        $query = $this->db->query("Call catalog.heHaveCatalog($nuproduct, '$color', '$size')");
+
+        $result = $query->row();
+
+        $query->next_result();
+        $query->free_result();
+
+        return (!$result->count == 0);
+
+    }
+
+    public function addCatalog(CatalogEntity $catalog) : void
+    {
+
+        $id = $this->generateCatalogId();
+        $nuproduct = $catalog->getNuProduct();
+        $reference = $catalog->getReference();
+        $color = $catalog->getColor();
+        $size = $catalog->getSize();
+        $quantity = $catalog->getQuantity();
+
+        $date = date("Y-m-d H:i:s");
+
+        $this->db->query(
+            "Call catalog.addCatalog($id, $nuproduct, '$reference', '$color', '$size', $quantity, 1, '$date')"
+        );
+
+    }
+
+    public function getAllSizeByType(string $type) : array
+    {
+
+        $type = $this->formatStr($type);
+
+        if ($type == $this->formatStr("Vếtement") ||
+        $type == $this->formatStr("Vêtement") ||
+        $type == $this->formatStr("Equipement")) {
+
+            return array("XXS", "XS", "S", "M", "L", "XL", "XXL");
+
+        } elseif ($type == $this->formatStr("Chaussure")) {
+
+            $size = array();
+
+            for ($i = 30; $i <= 50; $i++) {
+
+                array_push($size, $i);
+
+            }
+
+            return $size;
+
+        } else {
+
+            return array();
+
+        }
+    }
+
+    private function sortSizeString($a, $b)
+    {
+
+        $sizes = array(
+        "XXS" => 0,
+        "XS" => 1,
+        "S" => 2,
+        "M" => 3,
+        "L" => 4,
+        "XL" => 5,
+        "XXL" => 6
+        );
+
+        $asize = $sizes[$a];
+        $bsize = $sizes[$b];
+
+        if ($asize == $bsize) {
+            return 0;
+        }
+
+        return ($asize > $bsize) ? 1 : -1;
+    }
+
     private function generateId() : int
     {
 
@@ -1193,6 +1466,22 @@ class ProductModel extends CI_Model
         if ($this->heHaveProductById($id)) {
 
             $id = $this->generateId();
+
+        }
+
+        return $id;
+
+    }
+
+    private function generateCatalogId() : int
+    {
+
+        $id = rand(10000, 999999999);
+
+        if ($this->findCatalogById($id) != null) {
+
+            $id = $this->generateId();
+
         }
 
         return $id;
@@ -1215,6 +1504,4 @@ class ProductModel extends CI_Model
 
         return $str;
     }
-
-    
 }

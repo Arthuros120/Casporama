@@ -12,10 +12,15 @@ class CatalogEntity
 
     private int $id;
     private int $nuProduct;
+
     private string $reference;
+
     private string $color;
     private string $size;
+
     private int $quantity;
+
+    private bool $isALive;
 
     public function getId() : int
     {
@@ -75,5 +80,15 @@ class CatalogEntity
     public function setQuantity(int $quantity)
     {
         $this->quantity = $quantity;
+    }
+
+    public function getIsALive() : bool
+    {
+        return $this->isALive;
+    }
+
+    public function setIsALive(bool $isALive)
+    {
+        $this->isALive = $isALive;
     }
 }

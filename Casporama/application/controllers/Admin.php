@@ -70,8 +70,6 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/Product', $data);
     }
 
-
-
     public function addProduct()
     {
 
@@ -296,7 +294,7 @@ class Admin extends CI_Controller
 
                 $id = $this->ProductModel->addProduct($post, $imageFile);
 
-                redirect('admin/stock/newCatalogue/' . $id);
+                redirect('admin/stock/' . $id);
 
             }
         }
@@ -767,22 +765,526 @@ class Admin extends CI_Controller
 
             if (
                 !empty($get) &&
-                in_array($get['sport'], $this->ProductModel->getAllSportName()) &&
+                in_array($get['sport'], $this->ProductModel->getAllSportId()) &&
                 in_array($get['type'], $this->ProductModel->getAllCategory()) &&
                 $this->ProductModel->verifRange($get['range'])
             ) {
 
-                echo "selection sport";
+                $range = explode(";", $get['range']);
+
+                $countMaxProduct = $this->ProductModel->countByTypeAndSport($get['type'], $get['sport']);
+
+                if ($range[0] > $countMaxProduct) {
+
+                    $range[0] = $countMaxProduct - 1;
+
+                    redirect(
+                        'Admin/Stock?range='.$range[0].';'. $range[1].'&sport='.$get['sport'].'&type='.$get['type']
+                    );
+
+                }
+
+                $products = $this->ProductModel->getProductByRangeAndSportAndType($range, $get['sport'], $get['type']);
+
+                $catalog = $this->ProductModel->getCatalogsByProducts($products);
+
+                $minRange = $range[0];
+                $maxRange = $range[0] + $range[1];
+
+                if ($maxRange > $countMaxProduct) {
+
+                    $maxRange = $countMaxProduct;
+
+                }
+
+                $sportName = $this->ProductModel->findNameSportbyId($get['sport']);
+
+                $dataContent = array (
+
+                    'products' => $products,
+                    'catalogs' => $catalog,
+                    'type' => $get['type'],
+                    'sport' => $sportName,
+                    'minRange' => $minRange,
+                    'maxRange' => $maxRange,
+                    'nextIsPosible' => $maxRange < $countMaxProduct,
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent
+
+                );
+
+                $this->LoaderView->load('Admin/stock/all', $data);
 
             } else {
 
-                $this->LoaderView->load('Admin/stock/filter');
+                $dataContent = array(
+
+                    'sports' => $this->ProductModel->getAllSport(),
+                    'types' => $this->ProductModel->getAllCategory(),
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent
+
+                );
+
+                $this->LoaderView->load('Admin/stock/filter', $data);
 
             }
 
         } else {
 
-            // Affichage du stock d'un produit
+            $product = $this->ProductModel->findById($id);
+
+            if ($product == null) {
+
+                redirect('admin/product');
+
+            }
+
+            $catalogs = $this->ProductModel->getCatalogsByProducts(array($product))[$product->getId()];
+
+            $dataContent = array(
+
+                'product' => $product,
+                'catalogs' => $catalogs
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/stock/product', $data);
+
+        }
+    }
+
+    public function addStock(int $id = -1) : void
+    {
+
+        $this->UserModel->AdminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/product');
+
+        }
+
+        $product = $this->ProductModel->findById($id);
+
+        if ($product == null) {
+
+            redirect('admin/product');
+
+        }
+
+        $sizes = $this->ProductModel->getAllSizeByType($product->getType());
+
+        $configRules = array(
+
+            array(
+
+                'field' => 'reference',
+                'label' => 'Référence',
+                'rules' => 'trim|required|is_natural',
+                'errors' => array(
+
+                    'required' => 'La référence est obligatoire',
+                    'is_natural' => 'La référence doit être un nombre entier'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'color',
+                'label' => 'Couleur',
+                'rules' => 'trim|required|alpha',
+                'errors' => array(
+
+                    'required' => 'La couleur est obligatoire',
+                    'alpha' => 'La couleur doit être composé de lettre'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'size',
+                'label' => 'Taille',
+                'rules' => 'trim|required|in_list['.implode(',', $sizes).']',
+                'errors' => array(
+
+                    'required' => 'La taille est obligatoire',
+                    'in_list' => 'La taille n\'est pas valide'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'quantity',
+                'label' => 'Quantité',
+                'rules' => 'trim|required|is_natural',
+                'errors' => array(
+
+                    'required' => 'La quantité est obligatoire',
+                    'is_natural' => 'La quantité doit être un nombre entier'
+
+                )
+            )
+
+        );
+
+        $this->form_validation->set_rules($configRules);
+
+        if (!$this->form_validation->run()) {
+
+            $error = validation_errors();
+
+            $dataContent = array(
+
+                'product' => $product,
+                'sizes' => $sizes,
+                'error' => $error
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/stock/addStock', $data);
+
+        } else {
+
+            $post = $this->input->post();
+
+            $newCatalog = new CatalogEntity();
+
+            $newCatalog->setNuProduct($product->getId());
+            $newCatalog->setReference($post['reference']);
+            $newCatalog->setColor($post['color']);
+            $newCatalog->setSize($post['size']);
+            $newCatalog->setQuantity($post['quantity']);
+
+            if (!$this->ProductModel->heHaveCatalog($newCatalog)) {
+
+                $this->ProductModel->addCatalog($newCatalog);
+
+                redirect('admin/stock/'. $product->getId());
+
+            } else {
+
+                show_error('Une référence pour ce produit avec ces paramètres existe déjà', '500');
+
+            }
+        }
+    }
+
+    public function editQuantite(int $id = -1) : void
+    {
+
+        $this->UserModel->AdminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/product');
+
+        }
+
+        $catalog = $this->ProductModel->findCatalogById($id);
+
+        if ($catalog == null) {
+
+            redirect('admin/product');
+
+        }
+
+        $product = $this->ProductModel->findById($catalog->getNuProduct());
+
+        if ($product == null) {
+
+            redirect('admin/product');
+
+        }
+
+        $this->form_validation->set_rules(
+            'quantite',
+            'Quantité',
+            'required|numeric|greater_than[-1]|less_than[1000000]|trim|is_natural',
+            array(
+
+                'required' => 'Vous devez renseigner une quantité',
+                'numeric' => 'La quantité doit être un nombre',
+                'greater_than' => 'La quantité doit être supérieur à 0',
+                'less_than' => 'La quantité doit être inférieur à 100000',
+                'is_natural' => 'La quantité doit être un nombre entier',
+
+            ));
+
+        if (!$this->form_validation->run()) {
+
+            $dataContent = array(
+
+                'product' => $product,
+                'catalog' => $catalog,
+                'error' => validation_errors()
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/stock/editQuantite', $data);
+
+        } else {
+
+            $catalog->setQuantity($this->input->post('quantite'));
+
+            $this->ProductModel->updateCatalogQuantity($catalog);
+
+            redirect('Admin/Stock/' . $product->getId());
+
+        }
+
+    }
+
+    public function suppStock(int $id = -1) : void
+    {
+
+        $this->UserModel->AdminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/product');
+
+        }
+
+        $catalog = $this->ProductModel->findCatalogById($id);
+
+        if ($catalog == null) {
+
+            redirect('admin/product');
+
+        }
+
+        if (!$catalog->getIsALive()) {
+
+            redirect('Admin/Stock/' . $catalog->getNuProduct());
+
+        }
+
+        $product = $this->ProductModel->findById($catalog->getNuProduct());
+
+        if ($product == null) {
+
+            redirect('admin/product');
+
+        }
+
+        $status = $this->session->flashdata('status');
+
+        $dataContent = array (
+
+            'product' => $product,
+            'catalog' => $catalog,
+
+        );
+
+        $dataScript = array(
+
+            'id' => $product->getId()
+
+        );
+
+        $data = array(
+
+            'content' => $dataContent,
+            'script' => $dataScript
+
+        );
+
+        if ($status == 'success') {
+
+            $this->ProductModel->deleteCatalog($id);
+
+            $this->LoaderView->load('Admin/stock/suppStock/success', $data);
+
+        } elseif ($status == 'error') {
+
+            $this->LoaderView->load('Admin/stock/suppStock/error', $data);
+
+        } else {
+
+            $charge = $this->session->flashdata('charge');
+
+            if ($this->input->post('switch') == 'on') {
+
+                $this->session->set_flashdata('status', 'success');
+
+                redirect('Admin/suppStock/' . $id);
+
+            } else {
+
+                if ($charge == 'on') {
+
+                    if ($this->input->post('switch') == 'on') {
+
+                        $this->session->set_flashdata('status', 'success');
+
+                        redirect('Admin/suppStock/' . $id);
+
+                    } else {
+
+                        $this->session->set_flashdata('status', 'error');
+
+                        redirect('Admin/suppStock/' . $id);
+
+                    }
+
+                } else {
+
+                    $this->session->set_flashdata('charge', 'on');
+                    $this->LoaderView->load('Admin/stock/suppStock/request', $data);
+
+                }
+            }
+
+        }
+
+    }
+
+    public function suppStocks() : void
+    {
+
+        $this->UserModel->adminOnly();
+
+        if (empty($this->input->post())) {
+
+            redirect('Admin/Product');
+
+        }
+
+        $this->load->model('ProductModel');
+
+        $catalogsToDelete = array();
+
+        $post = $this->input->post();
+
+        foreach ($post as $key => $value) {
+
+            $idCat = explode('-', $key)[1];
+
+            $catalogsToDelete[] = $this->ProductModel->findCatalogById($idCat);
+
+        }
+
+        $listCatalogs = "";
+
+        foreach ($catalogsToDelete as $catalog) {
+
+            $listCatalogs .= $catalog->getId() . ";";
+
+        }
+
+        $product = $this->ProductModel->findById($catalogsToDelete[0]->getNuProduct());
+
+        $dataContent = array(
+
+            'catalogs' => $catalogsToDelete,
+            'product' => $product,
+            'listCatalogs' => $listCatalogs
+
+        );
+
+        $data = array(
+
+            'content' => $dataContent
+
+        );
+
+        $this->LoaderView->load('Admin/stock/suppStocks/request', $data);
+
+    }
+
+    public function suppStocksComf() : void
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        $submitbutton = $this->input->post('switch');
+
+        $productId = $this->input->post('product');
+
+        $dataScript = array(
+
+            'id' => $productId
+
+        );
+
+        if ($submitbutton == 'on') {
+
+            $listCatalogs = $this->input->post('catalogs');
+
+            $listCatalogs = explode(';', $listCatalogs);
+
+            foreach ($listCatalogs as $catalog) {
+
+                if ($catalog != "") {
+
+                    $this->ProductModel->deleteCatalog($catalog);
+
+                }
+
+            }
+
+            $dataContent = array(
+
+                'listCatalogs' => $listCatalogs
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent,
+                'script' => $dataScript
+
+            );
+
+            $this->LoaderView->load('Admin/stock/suppStocks/success', $data);
+
+        } else {
+
+            $data = array(
+
+                'script' => $dataScript
+
+            );
+
+            $this->LoaderView->load('Admin/stock/suppStocks/error', $data);
 
         }
     }
@@ -848,8 +1350,6 @@ class Admin extends CI_Controller
         if ($submitbutton == 'on') {
 
             $listProducts = $this->input->post('products');
-
-            var_dump($listProducts);
 
             $listProducts = explode(';', $listProducts);
 
@@ -924,14 +1424,8 @@ class Admin extends CI_Controller
                 $user[$order->getId()] = $this->UserModel->getUserById($order->getIduser())->getCoordonnees();
             }
 
-            $options = array(
-                'Non preparer' => 'Non preparer',
-                'En preparation' => 'En preparation',
-                'Preparer' => 'Preparer',
-                'Expedier' => 'Expedier'
-            );
 
-            $dataContent = array('orders' => $orders, 'user' => $user, 'options' => $options);
+            $dataContent = array('orders' => $orders, 'user' => $user);
 
 
         }
@@ -957,7 +1451,7 @@ class Admin extends CI_Controller
 
         $this->OrderModel->updateStatus($key, $value);
 
-        redirect('Admin/order');
+        redirect('Admin/viewOrder?idorder='.$key);
     }
 
     public function cancelOrderConfirm()
@@ -993,6 +1487,279 @@ class Admin extends CI_Controller
         }
 
         redirect('Admin/order');
+    }
+
+    public function deleteOrdersConfirm() {
+
+        $this->UserModel->adminOnly();
+
+        $idorders = $this->input->post();
+
+        if ($idorders != null) {
+            $idorders = array_keys($idorders);
+
+            $data = array(
+                'content' => array('idorders' => $idorders),
+            );
+
+            $this->LoaderView->load('Admin/confirmDeleteOrders', $data);
+        } else {
+            redirect('Admin/order');
+        }
+
+    }
+
+    public function deleteOrders() {
+        $this->UserModel->adminOnly();
+
+        $idorders = $this->input->post();
+
+        $this->load->model('OrderModel');
+
+
+        if ($idorders != null) {
+
+            $idorders = array_keys($idorders);
+            $err = false;
+
+            foreach ($idorders as $idorder) {
+
+                $newerr = $this->OrderModel->delOrder($idorder);
+
+                $err = $err || $newerr;
+            }
+
+            if ($err) {
+                $this->session->set_flashdata('succes', true);
+            } else {
+                $this->session->set_flashdata('succes', false);
+            }
+
+        }
+
+        redirect("Admin/order");
+
+
+    }
+
+    public function viewOrder() {
+
+        $this->UserModel->adminOnly();
+
+        $idorder = $this->input->get('idorder');
+
+        $this->load->model('OrderModel');
+        $this->load->model('LocationModel');
+
+        if ($idorder != null) {
+            $orders = $this->OrderModel->getOrderById($idorder);
+
+            if ($orders != null) {
+                $order = $orders[0];
+
+                $dataContent['order'] = $order;
+
+                $colors = array (
+                    'Football' => '#D3E2D3',
+                    'Badminton' => '#D9E6F4',
+                    'Volleyball' => '#FBFBC3',
+                    'Arts-martiaux' => '#FFB4B0'
+                );
+
+                $options = array(
+                    'Non preparer' => 'Non preparer',
+                    'En preparation' => 'En preparation',
+                    'Preparer' => 'Preparer',
+                    'Expedier' => 'Expedier'
+                );
+
+                $user = $this->UserModel->getUserById($order->getIduser())->getCoordonnees();
+
+                $dataContent['options'] = $options;
+
+                $dataContent['colors'] = $colors;
+
+                $dataContent['user'] = $user;
+
+                $this->LoaderView->load('Admin/viewOrder', array('content' => $dataContent));
+            }
+
+        } else {
+
+            redirect("Admin/order");
+        }
+
+    }
+
+    public function User()
+    {
+
+        $this->UserModel->adminOnly();
+
+        if ($this->input->post('currentPage') !== null){
+            $currentPage = $this->input->post('currentPage') + 1;
+        }else {
+            $currentPage = 1;
+        }
+
+        $users = array_slice($this->UserModel->getUsers(),($currentPage-1)*50,$currentPage*50);
+        $dataContent['users'] = $users;
+        $dataContent['currentPage'] = $currentPage;
+        $data = array ('content' => $dataContent);
+        $this->LoaderView->load('Admin/User', $data);
+
+    }
+
+    public function editUser(int $id)
+    {
+        $this->UserModel->adminOnly();
+
+        // créer les règles du formulaire
+        $configRules = array(
+
+            // * Configuration des paramètre du champlogin
+            array(
+                'field' => 'prenom',
+                'label' => 'Prénom',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                ),
+            ),
+
+            array(
+                'field' => 'nom',
+                'label' => 'Nom',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                ),
+            ),
+
+            array(
+                'field' => 'numTel',
+                'label' => 'Téléphone mobile',
+                'rules' => 'trim|required|min_length[10]|max_length[10]|numeric',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 10 caractères",
+                    "max_length" => "Le %s doit faire au plus 10 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                ),
+            ),
+
+            array(
+                'field' => 'fixePhone',
+                'label' => 'Téléphone fixe',
+                'rules' => 'trim|min_length[10]|max_length[10]|numeric',
+                'errors' => array( // * On définit les messages d'erreurs
+                    "min_length" => "Le %s doit faire au moins 10 caractères",
+                    "max_length" => "Le %s doit faire au plus 10 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                ),
+            ),
+        );
+
+
+        $this->form_validation->set_rules($configRules);
+
+        $user = $this->UserModel->getUserById($id);
+        $dataContent['user'] = $user;
+        $dataContent['roles'] = array(['Administrateur'],['Client'],['Caspor']);
+        $data = array('content' => $dataContent);
+
+        $this->LoaderView->load('Admin/EditUser', $data);
+
+    }
+
+    public function updateUser()
+    {
+        $this->UserModel->adminOnly();
+        //récupéré les donnée du formulaire
+        $id = $this->input->post('id');
+        $name = $this->input->post('name');
+        $firstname = $this->input->post('firstname');
+        $email = $this->input->post('email');
+        $numTel = $this->input->post('numTel');
+        $role = $this->input->post('role');
+
+        $user = $this->UserModel->getUserById($id);
+        $coord = $user->getCoordonnees();
+        $coord->setNom($name);
+        $coord->setPrenom($firstname);
+        $coord->setEmail($email);
+        $coord->setTelephone($numTel);
+        $user->setStatus($role);
+
+        $this->UserModel->updateUser($user);
+
+        redirect('Admin/editUser/'.$id);
+
+
+
+    }
+
+    public function editLocalisation(string $ids)
+    {
+        $this->UserModel->adminOnly();
+        $idlocalisation = explode('-',$ids)[0];
+        $iduser = explode('-',$ids)[1];
+
+        // créer les règles du formulaire
+        $this->form_validation->set_rules('adresse', 'Adresse', 'required|trim');
+        $this->form_validation->set_rules('codePostal', 'Code Postal', 'required|trim');
+        $this->form_validation->set_rules('ville', 'Ville', 'required|trim');
+        $this->form_validation->set_rules('pays', 'Pays', 'required|trim');
+
+        $localisation = $this->LocationModel->getLocationByUserId($iduser,$idlocalisation);
+        $dataContent['localisation'] = $localisation;
+        $dataContent['iduser'] = $iduser;
+        $data = array('content' => $dataContent);
+
+        $this->LoaderView->load('Admin/EditLocalisation', $data);
+
+    }
+
+    public function updateLocalisation(int $idloc)
+    {
+
+        $this->UserModel->adminOnly();
+        $loc = new LocationEntity();
+
+        $loc->setId($idloc);
+        $loc->setName($this->input->post('name'));
+        $loc->setAdresse($this->input->post('number') .";". $this->input->post('street'));
+        $loc->setCity($this->input->post('city'));
+        $loc->setCodePostal($this->input->post('postalCode'));
+        $loc->setCountry($this->input->post('country'));
+        $departement = explode(";",$this->input->post('department')) ;
+        $loc->setDepartment($departement[1]);
+        if ($this->input->post('Default') == 'on' ){
+            $loc->setIsDefault(true);
+        } else {
+            $loc->setIsDefault(false);
+        }
+        /*$latlong = $this->LocationModel->searchLatLong($loc->getAdresse(),$loc->getCodePostal());
+        $loc->setLatitude($latlong['latitude']);
+        $loc->setLongitude($latlong['longitude']);*/
+
+        // TODO : A remplacé pour que cela marche réellement
+        $this->LocationModel->updateAddress($loc,$loc->getId(),$this->input->post('idUser'));
+
+        redirect('Admin/editUser/'.$this->input->post('idUser'));
+
+
+
     }
 
     public function checkNameProduct(string $name) : bool
@@ -1074,186 +1841,4 @@ class Admin extends CI_Controller
 
         }
     }
-
-
-
-    public function User(){
-
-        $this->UserModel->adminOnly();
-
-        if ($this->input->post('currentPage') !== null){
-            $currentPage = $this->input->post('currentPage') + 1;
-        }else {
-            $currentPage = 1;
-        }
-
-        $users = array_slice($this->UserModel->getUsers(),($currentPage-1)*50,$currentPage*50);
-        $dataContent['users'] = $users;
-        $dataContent['currentPage'] = $currentPage;
-        $data = array ('content' => $dataContent);
-        $this->LoaderView->load('Admin/User', $data);
-
-
-
-    }
-    public function editUser(int $id) {
-        $this->UserModel->adminOnly();
-
-        // créer les règles du formulaire
-        $configRules = array(
-
-            // * Configuration des paramètre du champlogin
-            array(
-                'field' => 'prenom',
-                'label' => 'Prénom',
-                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
-                'errors' => array( // * On définit les messages d'erreurs
-                    'required' => 'Vous avez oublié %s.',
-                    "min_length" => "Le %s doit faire au moins 3 caractères",
-                    "max_length" => "Le %s doit faire au plus 255 caractères",
-                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
-                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
-                ),
-            ),
-
-            array(
-                'field' => 'nom',
-                'label' => 'Nom',
-                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
-                'errors' => array( // * On définit les messages d'erreurs
-                    'required' => 'Vous avez oublié %s.',
-                    "min_length" => "Le %s doit faire au moins 3 caractères",
-                    "max_length" => "Le %s doit faire au plus 255 caractères",
-                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
-                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
-                ),
-            ),
-
-            array(
-                'field' => 'numTel',
-                'label' => 'Téléphone mobile',
-                'rules' => 'trim|required|min_length[10]|max_length[10]|numeric',
-                'errors' => array( // * On définit les messages d'erreurs
-                    'required' => 'Vous avez oublié %s.',
-                    "min_length" => "Le %s doit faire au moins 10 caractères",
-                    "max_length" => "Le %s doit faire au plus 10 caractères",
-                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
-                    'numeric' => 'Le %s ne doit contenir que des caractères numériques',
-                ),
-            ),
-
-            array(
-                'field' => 'fixePhone',
-                'label' => 'Téléphone fixe',
-                'rules' => 'trim|min_length[10]|max_length[10]|numeric',
-                'errors' => array( // * On définit les messages d'erreurs
-                    "min_length" => "Le %s doit faire au moins 10 caractères",
-                    "max_length" => "Le %s doit faire au plus 10 caractères",
-                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
-                    'numeric' => 'Le %s ne doit contenir que des caractères numériques',
-                ),
-            ),
-        );
-
-
-        $this->form_validation->set_rules($configRules);
-
-        $user = $this->UserModel->getUserById($id);
-        $dataContent['user'] = $user;
-        $dataContent['roles'] = array(['Administrateur'],['Client'],['Caspor']);
-        $data = array('content' => $dataContent);
-
-        $this->LoaderView->load('Admin/EditUser', $data);
-
-    }
-
-    public function updateUser() {
-        $this->UserModel->adminOnly();
-        //récupéré les donnée du formulaire
-        $id = $this->input->post('id');
-        $name = $this->input->post('name');
-        $firstname = $this->input->post('firstname');
-        $email = $this->input->post('email');
-        $numTel = $this->input->post('numTel');
-        $role = $this->input->post('role');
-
-        $user = $this->UserModel->getUserById($id);
-        $coord = $user->getCoordonnees();
-        $coord->setNom($name);
-        $coord->setPrenom($firstname);
-        $coord->setEmail($email);
-        $coord->setTelephone($numTel);
-        $user->setStatus($role);
-
-        $this->UserModel->updateUser($user);
-
-        redirect('Admin/editUser/'.$id);
-
-
-
-    }
-
-    public function editLocalisation(string $ids) {
-        $this->UserModel->adminOnly();
-        $idlocalisation = explode('-',$ids)[0];
-        $iduser = explode('-',$ids)[1];
-
-        // créer les règles du formulaire
-        $this->form_validation->set_rules('adresse', 'Adresse', 'required|trim');
-        $this->form_validation->set_rules('codePostal', 'Code Postal', 'required|trim');
-        $this->form_validation->set_rules('ville', 'Ville', 'required|trim');
-        $this->form_validation->set_rules('pays', 'Pays', 'required|trim');
-
-        $localisation = $this->LocationModel->getLocationByUserId($iduser,$idlocalisation);
-        $dataContent['localisation'] = $localisation;
-        $dataContent['iduser'] = $iduser;
-        $data = array('content' => $dataContent);
-
-        $this->LoaderView->load('Admin/EditLocalisation', $data);
-
-    }
-
-    public function updateLocalisation(int $idloc) {
-
-        $this->UserModel->adminOnly();
-        $loc = new LocationEntity();
-
-        $loc->setId($idloc);
-        $loc->setName($this->input->post('name'));
-        $loc->setAdresse($this->input->post('number') .";". $this->input->post('street'));
-        $loc->setCity($this->input->post('city'));
-        $loc->setCodePostal($this->input->post('postalCode'));
-        $loc->setCountry($this->input->post('country'));
-        $departement = explode(";",$this->input->post('department')) ;
-        $loc->setDepartment($departement[1]);
-        if ($this->input->post('Default') == 'on' ){
-            $loc->setIsDefault(true);
-        } else {
-            $loc->setIsDefault(false);
-        }
-        /*$latlong = $this->LocationModel->searchLatLong($loc->getAdresse(),$loc->getCodePostal());
-        $loc->setLatitude($latlong['latitude']);
-        $loc->setLongitude($latlong['longitude']);*/
-
-        // TODO : A remplacé pour que cela marche réellement
-        $this->LocationModel->updateAddress($loc,$loc->getId(),$this->input->post('idUser'));
-
-        redirect('Admin/editUser/'.$this->input->post('idUser'));
-
-
-
-    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
