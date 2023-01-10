@@ -191,7 +191,7 @@ class Admin extends CI_Controller
         if (!$this->form_validation->run()) {
 
             $errors = explode('.', validation_errors());
-            $errors = array_slice($errors, 0, count($errors)-1);
+            $errors = array_slice($errors, 0, count($errors) - 1);
 
             $dataContent = array(
 
@@ -200,17 +200,16 @@ class Admin extends CI_Controller
                 'brands' => $this->ProductModel->getAllBrand(),
                 'post' => $post,
                 'errors' => $errors
-    
-            );
-    
-            $data = array(
-    
-                'content' => $dataContent
-    
-            );
-    
-            $this->LoaderView->load('Admin/addProduct', $data);
 
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('Admin/addProduct', $data);
         } else {
 
             $this->upload->initialize($configFile);
@@ -220,7 +219,6 @@ class Admin extends CI_Controller
             if ($imageCover) {
 
                 $imageFile['imageCover'] = $this->upload->data()['file_name'];
-
             } else {
 
                 $errorFile[0] = array(
@@ -229,7 +227,6 @@ class Admin extends CI_Controller
                     'error' => $this->upload->display_errors("", "")
 
                 );
-
             }
 
             for ($i = 1; $i <= 4; $i++) {
@@ -241,7 +238,6 @@ class Admin extends CI_Controller
                 if ($image) {
 
                     $imageFile['image' . $i] = $this->upload->data()['file_name'];
-
                 } else {
 
                     $errorFile[$i] = array(
@@ -250,7 +246,6 @@ class Admin extends CI_Controller
                         'error' => $this->upload->display_errors("", "")
 
                     );
-
                 }
             }
 
@@ -259,9 +254,7 @@ class Admin extends CI_Controller
                 if ($error['error'] == 'You did not select a file to upload.') {
 
                     unset($errorFile[$error['id']]);
-
                 }
-
             }
 
             if (!empty($errorFile)) {
@@ -283,19 +276,16 @@ class Admin extends CI_Controller
                 );
 
                 $this->LoaderView->load('Admin/addProduct', $data);
-
             } else {
 
                 if (!isset($imageFile['imageCover'])) {
 
                     $imageFile['imageCover'] = 'default.png';
-
                 }
 
                 $id = $this->ProductModel->addProduct($post, $imageFile);
 
                 redirect('admin/stock/' . $id);
-
             }
         }
     }
@@ -312,7 +302,6 @@ class Admin extends CI_Controller
         if ($id == -1) {
 
             redirect('admin/product');
-
         }
 
         $product = $this->ProductModel->findById($id);
@@ -320,13 +309,11 @@ class Admin extends CI_Controller
         if ($product == null) {
 
             redirect('admin/product');
-
         }
 
         if (!$product->getIsAlive()) {
 
             redirect('admin/product');
-
         }
 
         $imagesNotFormated = $product->getImagesWithoutCover();
@@ -338,7 +325,6 @@ class Admin extends CI_Controller
         foreach ($imagesNotFormated as $image) {
 
             array_push($images, str_replace('/', '+', str_replace(base_url(), '', $image)));
-
         }
 
         $configRules = array(
@@ -347,7 +333,7 @@ class Admin extends CI_Controller
 
                 'field' => 'name',
                 'label' => 'Nom du produit',
-                'rules' => 'trim|required|min_length[3]|max_length[255]|callback_checkNameProductWithoutSelf['.$id.']',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|callback_checkNameProductWithoutSelf[' . $id . ']',
                 'errors' => array(
 
                     'required' => 'Le champ %s est requis.',
@@ -449,7 +435,6 @@ class Admin extends CI_Controller
             );
 
             $this->LoaderView->load('Admin/editProduct', $data);
-
         } else {
 
             $post = $this->input->post();
@@ -459,7 +444,6 @@ class Admin extends CI_Controller
             redirect('shop/product/' . $id);
 
             var_dump($this->input->post());
-
         }
     }
 
@@ -473,7 +457,6 @@ class Admin extends CI_Controller
         if ($id == -1) {
 
             redirect('admin/editProduct');
-
         }
 
         $product = $this->ProductModel->findById($id);
@@ -505,7 +488,6 @@ class Admin extends CI_Controller
         if ($counterImages == 5) {
 
             show_error('Vous ne pouvez pas ajouter plus de 5 images à un produit.', '500', 'Erreur 500');
-
         }
 
         for ($i = $counterImages + 1; $i <= 5; $i++) {
@@ -517,7 +499,6 @@ class Admin extends CI_Controller
             if ($image) {
 
                 $imageFile['image' . $i] = $this->upload->data()['file_name'];
-
             } else {
 
                 $errorFile[$i] = array(
@@ -526,7 +507,6 @@ class Admin extends CI_Controller
                     'error' => $this->upload->display_errors("", "")
 
                 );
-
             }
         }
 
@@ -539,15 +519,12 @@ class Admin extends CI_Controller
 
                 unset($errorFile[$error['id']]);
                 $countErrorFileSelect++;
-
             }
-
         }
 
         if ($countErrorFileSelect == 5 - $counterImages) {
 
             $errorFile = $errorFilePostTraitement;
-
         }
 
         if (!empty($errorFile)) {
@@ -565,13 +542,11 @@ class Admin extends CI_Controller
             );
 
             $this->LoaderView->load('Admin/error/errorImage', $data);
-
         } else {
 
             $this->ProductModel->addImages($imageFile, $id);
 
             redirect('admin/editProduct/' . $id);
-
         }
     }
 
@@ -585,10 +560,7 @@ class Admin extends CI_Controller
         if ($id == -1) {
 
             redirect('admin/editProduct');
-
         }
-
-        $product = $this->ProductModel->findById($id);
 
         $this->load->library('upload');
 
@@ -620,7 +592,6 @@ class Admin extends CI_Controller
             $this->ProductModel->editCoverImage($imageFile, $id);
 
             redirect('admin/editProduct/' . $id);
-
         } else {
 
             $dataContent = array(
@@ -636,11 +607,10 @@ class Admin extends CI_Controller
             );
 
             $this->LoaderView->load('Admin/error/errorImage', $data);
-
         }
     }
 
-    public function deleteImage(int $id = -1, string $image = "") : void
+    public function deleteImage(int $id = -1, string $image = ""): void
     {
 
         $this->UserModel->adminOnly();
@@ -649,10 +619,9 @@ class Admin extends CI_Controller
 
         $image = str_replace("..", "", $image);
 
-        if ($id == -1 || $image == "" || $image[strlen($image)-1] == '/') {
+        if ($id == -1 || $image == "" || $image[strlen($image) - 1] == '/') {
 
             redirect('admin/editProduct/' . $id);
-
         }
 
         $image = str_replace("+", "/", $image);
@@ -661,7 +630,6 @@ class Admin extends CI_Controller
         $this->ProductModel->deleteImage($id, $image);
 
         redirect('admin/editProduct/' . $id);
-
     }
 
     public function deleteProduct(int $id = -1)
@@ -673,7 +641,6 @@ class Admin extends CI_Controller
         if ($id == -1) {
 
             redirect('admin/product');
-
         }
 
         $product = $this->ProductModel->findById($id);
@@ -681,13 +648,11 @@ class Admin extends CI_Controller
         if ($product == null) {
 
             redirect('admin/product');
-
         }
 
         if (!$product->getIsAlive()) {
 
             redirect('admin/product');
-
         }
 
         $status = $this->session->flashdata('status');
@@ -709,11 +674,9 @@ class Admin extends CI_Controller
             $this->ProductModel->delete($id);
 
             $this->LoaderView->load('Admin/delete/success', $data);
-
         } elseif ($status == 'error') {
 
             $this->LoaderView->load('Admin/delete/error', $data);
-
         } else {
 
             $charge = $this->session->flashdata('charge');
@@ -723,7 +686,6 @@ class Admin extends CI_Controller
                 $this->session->set_flashdata('status', 'success');
 
                 redirect('Admin/DeleteProduct/' . $id);
-
             } else {
 
                 if ($charge == 'on') {
@@ -733,26 +695,22 @@ class Admin extends CI_Controller
                         $this->session->set_flashdata('status', 'success');
 
                         redirect('Admin/DeleteProduct/' . $id);
-
                     } else {
 
                         $this->session->set_flashdata('status', 'error');
 
                         redirect('Admin/DeleteProduct/' . $id);
-
                     }
-
                 } else {
 
                     $this->session->set_flashdata('charge', 'on');
                     $this->LoaderView->load('Admin/delete/request', $data);
-
                 }
             }
         }
     }
 
-    public function reviveProduct(int $id = -1) : void
+    public function reviveProduct(int $id = -1): void
     {
 
         $this->UserModel->adminOnly();
@@ -762,13 +720,11 @@ class Admin extends CI_Controller
         if ($id == -1) {
 
             redirect('admin/product');
-
         }
 
         $this->ProductModel->revive($id);
 
         redirect('admin/product');
-
     }
 
     public function stock(int $id = -1)
@@ -798,9 +754,8 @@ class Admin extends CI_Controller
                     $range[0] = $countMaxProduct - 1;
 
                     redirect(
-                        'Admin/Stock?range='.$range[0].';'. $range[1].'&sport='.$get['sport'].'&type='.$get['type']
+                        'Admin/Stock?range=' . $range[0] . ';' . $range[1] . '&sport=' . $get['sport'] . '&type=' . $get['type']
                     );
-
                 }
 
                 $products = $this->ProductModel->getProductByRangeAndSportAndType($range, $get['sport'], $get['type']);
@@ -813,12 +768,11 @@ class Admin extends CI_Controller
                 if ($maxRange > $countMaxProduct) {
 
                     $maxRange = $countMaxProduct;
-
                 }
 
                 $sportName = $this->ProductModel->findNameSportbyId($get['sport']);
 
-                $dataContent = array (
+                $dataContent = array(
 
                     'products' => $products,
                     'catalogs' => $catalog,
@@ -837,7 +791,6 @@ class Admin extends CI_Controller
                 );
 
                 $this->LoaderView->load('Admin/stock/all', $data);
-
             } else {
 
                 $dataContent = array(
@@ -854,9 +807,7 @@ class Admin extends CI_Controller
                 );
 
                 $this->LoaderView->load('Admin/stock/filter', $data);
-
             }
-
         } else {
 
             $product = $this->ProductModel->findById($id);
@@ -864,7 +815,6 @@ class Admin extends CI_Controller
             if ($product == null) {
 
                 redirect('admin/product');
-
             }
 
             $catalogs = $this->ProductModel->getCatalogsByProducts(array($product))[$product->getId()];
@@ -883,11 +833,10 @@ class Admin extends CI_Controller
             );
 
             $this->LoaderView->load('Admin/stock/product', $data);
-
         }
     }
 
-    public function addStock(int $id = -1) : void
+    public function addStock(int $id = -1): void
     {
 
         $this->UserModel->AdminOnly();
@@ -897,7 +846,6 @@ class Admin extends CI_Controller
         if ($id == -1) {
 
             redirect('admin/product');
-
         }
 
         $product = $this->ProductModel->findById($id);
@@ -905,7 +853,6 @@ class Admin extends CI_Controller
         if ($product == null) {
 
             redirect('admin/product');
-
         }
 
         $sizes = $this->ProductModel->getAllSizeByType($product->getType());
@@ -942,7 +889,7 @@ class Admin extends CI_Controller
 
                 'field' => 'size',
                 'label' => 'Taille',
-                'rules' => 'trim|required|in_list['.implode(',', $sizes).']',
+                'rules' => 'trim|required|in_list[' . implode(',', $sizes) . ']',
                 'errors' => array(
 
                     'required' => 'La taille est obligatoire',
@@ -987,7 +934,6 @@ class Admin extends CI_Controller
             );
 
             $this->LoaderView->load('Admin/stock/addStock', $data);
-
         } else {
 
             $post = $this->input->post();
@@ -1004,17 +950,15 @@ class Admin extends CI_Controller
 
                 $this->ProductModel->addCatalog($newCatalog);
 
-                redirect('admin/stock/'. $product->getId());
-
+                redirect('admin/stock/' . $product->getId());
             } else {
 
                 show_error('Une référence pour ce produit avec ces paramètres existe déjà', '500');
-
             }
         }
     }
 
-    public function editQuantite(int $id = -1) : void
+    public function editQuantite(int $id = -1): void
     {
 
         $this->UserModel->AdminOnly();
@@ -1024,7 +968,6 @@ class Admin extends CI_Controller
         if ($id == -1) {
 
             redirect('admin/product');
-
         }
 
         $catalog = $this->ProductModel->findCatalogById($id);
@@ -1032,7 +975,6 @@ class Admin extends CI_Controller
         if ($catalog == null) {
 
             redirect('admin/product');
-
         }
 
         $product = $this->ProductModel->findById($catalog->getNuProduct());
@@ -1040,7 +982,6 @@ class Admin extends CI_Controller
         if ($product == null) {
 
             redirect('admin/product');
-
         }
 
         $this->form_validation->set_rules(
@@ -1055,7 +996,8 @@ class Admin extends CI_Controller
                 'less_than' => 'La quantité doit être inférieur à 100000',
                 'is_natural' => 'La quantité doit être un nombre entier',
 
-            ));
+            )
+        );
 
         if (!$this->form_validation->run()) {
 
@@ -1074,7 +1016,6 @@ class Admin extends CI_Controller
             );
 
             $this->LoaderView->load('Admin/stock/editQuantite', $data);
-
         } else {
 
             $catalog->setQuantity($this->input->post('quantite'));
@@ -1082,12 +1023,10 @@ class Admin extends CI_Controller
             $this->ProductModel->updateCatalogQuantity($catalog);
 
             redirect('Admin/Stock/' . $product->getId());
-
         }
-
     }
 
-    public function suppStock(int $id = -1) : void
+    public function suppStock(int $id = -1): void
     {
 
         $this->UserModel->AdminOnly();
@@ -1097,7 +1036,6 @@ class Admin extends CI_Controller
         if ($id == -1) {
 
             redirect('admin/product');
-
         }
 
         $catalog = $this->ProductModel->findCatalogById($id);
@@ -1105,13 +1043,11 @@ class Admin extends CI_Controller
         if ($catalog == null) {
 
             redirect('admin/product');
-
         }
 
         if (!$catalog->getIsALive()) {
 
             redirect('Admin/Stock/' . $catalog->getNuProduct());
-
         }
 
         $product = $this->ProductModel->findById($catalog->getNuProduct());
@@ -1119,12 +1055,11 @@ class Admin extends CI_Controller
         if ($product == null) {
 
             redirect('admin/product');
-
         }
 
         $status = $this->session->flashdata('status');
 
-        $dataContent = array (
+        $dataContent = array(
 
             'product' => $product,
             'catalog' => $catalog,
@@ -1149,11 +1084,9 @@ class Admin extends CI_Controller
             $this->ProductModel->deleteCatalog($id);
 
             $this->LoaderView->load('Admin/stock/suppStock/success', $data);
-
         } elseif ($status == 'error') {
 
             $this->LoaderView->load('Admin/stock/suppStock/error', $data);
-
         } else {
 
             $charge = $this->session->flashdata('charge');
@@ -1163,7 +1096,6 @@ class Admin extends CI_Controller
                 $this->session->set_flashdata('status', 'success');
 
                 redirect('Admin/suppStock/' . $id);
-
             } else {
 
                 if ($charge == 'on') {
@@ -1173,28 +1105,22 @@ class Admin extends CI_Controller
                         $this->session->set_flashdata('status', 'success');
 
                         redirect('Admin/suppStock/' . $id);
-
                     } else {
 
                         $this->session->set_flashdata('status', 'error');
 
                         redirect('Admin/suppStock/' . $id);
-
                     }
-
                 } else {
 
                     $this->session->set_flashdata('charge', 'on');
                     $this->LoaderView->load('Admin/stock/suppStock/request', $data);
-
                 }
             }
-
         }
-
     }
 
-    public function suppStocks() : void
+    public function suppStocks(): void
     {
 
         $this->UserModel->adminOnly();
@@ -1202,7 +1128,6 @@ class Admin extends CI_Controller
         if (empty($this->input->post())) {
 
             redirect('Admin/Product');
-
         }
 
         $this->load->model('ProductModel');
@@ -1216,7 +1141,6 @@ class Admin extends CI_Controller
             $idCat = explode('-', $key)[1];
 
             $catalogsToDelete[] = $this->ProductModel->findCatalogById($idCat);
-
         }
 
         $listCatalogs = "";
@@ -1224,7 +1148,6 @@ class Admin extends CI_Controller
         foreach ($catalogsToDelete as $catalog) {
 
             $listCatalogs .= $catalog->getId() . ";";
-
         }
 
         $product = $this->ProductModel->findById($catalogsToDelete[0]->getNuProduct());
@@ -1244,10 +1167,9 @@ class Admin extends CI_Controller
         );
 
         $this->LoaderView->load('Admin/stock/suppStocks/request', $data);
-
     }
 
-    public function suppStocksComf() : void
+    public function suppStocksComf(): void
     {
 
         $this->UserModel->adminOnly();
@@ -1275,9 +1197,7 @@ class Admin extends CI_Controller
                 if ($catalog != "") {
 
                     $this->ProductModel->deleteCatalog($catalog);
-
                 }
-
             }
 
             $dataContent = array(
@@ -1294,7 +1214,6 @@ class Admin extends CI_Controller
             );
 
             $this->LoaderView->load('Admin/stock/suppStocks/success', $data);
-
         } else {
 
             $data = array(
@@ -1304,7 +1223,6 @@ class Admin extends CI_Controller
             );
 
             $this->LoaderView->load('Admin/stock/suppStocks/error', $data);
-
         }
     }
 
@@ -1315,7 +1233,6 @@ class Admin extends CI_Controller
         if (empty($this->input->post())) {
 
             redirect('Admin/Product');
-
         }
 
         $this->load->model('ProductModel');
@@ -1329,7 +1246,6 @@ class Admin extends CI_Controller
             if ($this->input->post('product' . $product->getId()) == 'on') {
 
                 $productsToDelete[] = $product;
-
             }
         }
 
@@ -1338,7 +1254,6 @@ class Admin extends CI_Controller
         foreach ($productsToDelete as $product) {
 
             $listProducts .= $product->getId() . ";";
-
         }
 
         $dataContent = array(
@@ -1377,7 +1292,6 @@ class Admin extends CI_Controller
                 if ($id != '') {
 
                     $this->ProductModel->delete($id);
-
                 }
             }
 
@@ -1394,17 +1308,15 @@ class Admin extends CI_Controller
             );
 
             $this->LoaderView->load('Admin/deletes/success', $data);
-
         } else {
-    
+
             $this->LoaderView->load('Admin/deletes/error');
-    
         }
     }
 
     public function order()
     {
-        
+
         $this->UserModel->adminOnly();
 
         $this->load->model('OrderModel');
@@ -1426,7 +1338,6 @@ class Admin extends CI_Controller
             if (intval($filtre) != 0) {
 
                 $orders = $this->OrderModel->getOrderById($filtre);
-
             } else {
 
                 $orders = null;
@@ -1445,8 +1356,6 @@ class Admin extends CI_Controller
 
 
             $dataContent = array('orders' => $orders, 'user' => $user);
-
-
         }
 
         if (isset($dataContent)) {
@@ -1470,7 +1379,7 @@ class Admin extends CI_Controller
 
         $this->OrderModel->updateStatus($key, $value);
 
-        redirect('Admin/viewOrder?idorder='.$key);
+        redirect('Admin/viewOrder?idorder=' . $key);
     }
 
     public function cancelOrderConfirm()
@@ -1526,7 +1435,6 @@ class Admin extends CI_Controller
         } else {
             redirect('Admin/order');
         }
-
     }
 
     public function deleteOrders()
@@ -1555,12 +1463,9 @@ class Admin extends CI_Controller
             } else {
                 $this->session->set_flashdata('succes', false);
             }
-
         }
 
         redirect("Admin/order");
-
-
     }
 
     public function viewOrder()
@@ -1581,7 +1486,7 @@ class Admin extends CI_Controller
 
                 $dataContent['order'] = $order;
 
-                $colors = array (
+                $colors = array(
                     'Football' => '#D3E2D3',
                     'Badminton' => '#D9E6F4',
                     'Volleyball' => '#FBFBC3',
@@ -1605,31 +1510,141 @@ class Admin extends CI_Controller
 
                 $this->LoaderView->load('Admin/viewOrder', array('content' => $dataContent));
             }
-
         } else {
 
             redirect("Admin/order");
         }
-
     }
 
-    public function User()
+    public function User(int $id = -1): void
     {
 
         $this->UserModel->adminOnly();
 
-        if ($this->input->post('currentPage') !== null){
-            $currentPage = $this->input->post('currentPage') + 1;
-        }else {
-            $currentPage = 1;
+        if ($id == -1) {
+
+            $get = $this->input->get();
+
+            if (
+                !empty($get['range']) &&
+                $this->UserModel->verifRange($get['range'])
+            ) {
+
+                $range = explode(";", $get['range']);
+
+                $countMaxUser = $this->UserModel->countUser();
+
+                if ($range[0] > $countMaxUser) {
+
+                    $range[0] = $countMaxUser - 1;
+
+                    redirect(
+                        'Admin/User?range=' . $range[0] . ';' . $range[1]
+                    );
+                }
+
+                $users = $this->UserModel->getUsers($range);
+
+                $minRange = $range[0];
+                $maxRange = $range[0] + $range[1];
+
+                if ($maxRange > $countMaxUser) {
+
+                    $maxRange = $countMaxUser;
+                }
+
+                $dataContent = array(
+
+                    'users' => $users,
+                    'minRange' => $minRange,
+                    'maxRange' => $maxRange,
+                    'nextIsPosible' => $maxRange < $countMaxUser,
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent
+
+                );
+
+                $this->LoaderView->load('Admin/User', $data);
+            } else {
+
+                $this->LoaderView->load('Admin/user/filter');
+            }
+        } else {
+
+            $user = $this->UserModel->getUserById($id);
+
+            if ($user != null) {
+
+                $listLoc = $user->getLocalisation();
+
+                if (!empty($listLoc)) {
+
+                    $nbrAddr = $this->LocationModel->countAddressByUserId($user->getId());
+
+                    $nbrAddr = $nbrAddr . "/" . $this->config->item('address_MaxAdd');
+
+                    $addAddIsPos = $this->LocationModel->heHaveMaxAddress($user->getId());
+
+                    $dataMap = [];
+
+                    foreach ($listLoc as $loc) {
+
+                        if ($loc->getLatitude() != null && $loc->getLongitude() != null) {
+
+                            $dataMap[$loc->getId()] = array(
+
+                                'lat' => $loc->getLatitude(),
+                                'lng' => $loc->getLongitude(),
+
+                            );
+                        }
+                    }
+                    if (!empty($dataMap)) {
+
+                        $dataScript['dataMap'] = $dataMap;
+                    } else {
+
+                        $dataScript['dataMap'] = null;
+                    }
+                } else {
+
+                    $nbrAddr = "0/0";
+                    $addAddIsPos = false;
+                    $dataMap = null;
+                }
+
+                $dataScript = array (
+
+                    'dataMap' => $dataMap
+
+                );
+
+                $dataContent = array(
+
+                    'user' => $user,
+                    'addAddIsPos' => $addAddIsPos,
+                    'nbrAddr' => $nbrAddr
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent,
+                    'script' => $dataScript
+
+                );
+
+                $this->LoaderView->load('Admin/user/view', $data);
+
+            } else {
+
+                redirect('Admin/User');
+            }
         }
-
-        $users = array_slice($this->UserModel->getUsers(),($currentPage-1)*50,$currentPage*50);
-        $dataContent['users'] = $users;
-        $dataContent['currentPage'] = $currentPage;
-        $data = array ('content' => $dataContent);
-        $this->LoaderView->load('Admin/User', $data);
-
     }
 
     public function editUser(int $id)
@@ -1697,11 +1712,10 @@ class Admin extends CI_Controller
 
         $user = $this->UserModel->getUserById($id);
         $dataContent['user'] = $user;
-        $dataContent['roles'] = array(['Administrateur'],['Client'],['Caspor']);
+        $dataContent['roles'] = array(['Administrateur'], ['Client'], ['Caspor']);
         $data = array('content' => $dataContent);
 
         $this->LoaderView->load('Admin/EditUser', $data);
-
     }
 
     public function updateUser()
@@ -1725,17 +1739,14 @@ class Admin extends CI_Controller
 
         $this->UserModel->updateUser($user);
 
-        redirect('Admin/editUser/'.$id);
-
-
-
+        redirect('Admin/editUser/' . $id);
     }
 
     public function editLocalisation(string $ids)
     {
         $this->UserModel->adminOnly();
-        $idlocalisation = explode('-',$ids)[0];
-        $iduser = explode('-',$ids)[1];
+        $idlocalisation = explode('-', $ids)[0];
+        $iduser = explode('-', $ids)[1];
 
         // créer les règles du formulaire
         $this->form_validation->set_rules('adresse', 'Adresse', 'required|trim');
@@ -1743,13 +1754,12 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('ville', 'Ville', 'required|trim');
         $this->form_validation->set_rules('pays', 'Pays', 'required|trim');
 
-        $localisation = $this->LocationModel->getLocationByUserId($iduser,$idlocalisation);
+        $localisation = $this->LocationModel->getLocationByUserId($iduser, $idlocalisation);
         $dataContent['localisation'] = $localisation;
         $dataContent['iduser'] = $iduser;
         $data = array('content' => $dataContent);
 
         $this->LoaderView->load('Admin/EditLocalisation', $data);
-
     }
 
     public function updateLocalisation(int $idloc)
@@ -1760,13 +1770,13 @@ class Admin extends CI_Controller
 
         $loc->setId($idloc);
         $loc->setName($this->input->post('name'));
-        $loc->setAdresse($this->input->post('number') .";". $this->input->post('street'));
+        $loc->setAdresse($this->input->post('number') . ";" . $this->input->post('street'));
         $loc->setCity($this->input->post('city'));
         $loc->setCodePostal($this->input->post('postalCode'));
         $loc->setCountry($this->input->post('country'));
-        $departement = explode(";",$this->input->post('department')) ;
+        $departement = explode(";", $this->input->post('department'));
         $loc->setDepartment($departement[1]);
-        if ($this->input->post('Default') == 'on' ){
+        if ($this->input->post('Default') == 'on') {
             $loc->setIsDefault(true);
         } else {
             $loc->setIsDefault(false);
@@ -1776,15 +1786,12 @@ class Admin extends CI_Controller
         $loc->setLongitude($latlong['longitude']);*/
 
         // TODO : A remplacé pour que cela marche réellement
-        $this->LocationModel->updateAddress($loc,$loc->getId(),$this->input->post('idUser'));
+        $this->LocationModel->updateAddress($loc, $loc->getId(), $this->input->post('idUser'));
 
-        redirect('Admin/editUser/'.$this->input->post('idUser'));
-
-
-
+        redirect('Admin/editUser/' . $this->input->post('idUser'));
     }
 
-    public function checkNameProduct(string $name) : bool
+    public function checkNameProduct(string $name): bool
     {
 
         $this->load->model('ProductModel');
@@ -1794,17 +1801,15 @@ class Admin extends CI_Controller
         if ($product == null) {
 
             return true;
-
         } else {
 
             $this->form_validation->set_message('checkNameProduct', 'Le nom du produit existe déjà');
 
             return false;
-
         }
     }
 
-    public function checkNameProductWithoutSelf(string $name, int $id) : bool
+    public function checkNameProductWithoutSelf(string $name, int $id): bool
     {
 
         $this->load->model('ProductModel');
@@ -1814,17 +1819,15 @@ class Admin extends CI_Controller
         if ($trigger) {
 
             return true;
-
         } else {
 
             $this->form_validation->set_message('checkNameProductWithoutSelf', 'Le nom du produit existe déjà');
 
             return false;
-
         }
     }
 
-    public function checkSport(int $sport) : bool
+    public function checkSport(int $sport): bool
     {
 
         $this->load->model('ProductModel');
@@ -1836,15 +1839,13 @@ class Admin extends CI_Controller
             $this->form_validation->set_message('checkSport', 'Le sport n\'existe pas');
 
             return false;
-
         } else {
 
             return true;
-
         }
     }
 
-    public function checkType(string $type) : bool
+    public function checkType(string $type): bool
     {
 
         $this->load->model('ProductModel');
@@ -1854,13 +1855,11 @@ class Admin extends CI_Controller
         if (in_array($type, $types)) {
 
             return true;
-
         } else {
 
             $this->form_validation->set_message('checkType', 'Le type n\'existe pas');
 
             return false;
-
         }
     }
 }

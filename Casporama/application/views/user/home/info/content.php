@@ -151,7 +151,6 @@
                         </div>
                         
                     </div>
-                               
                 <?php }
                 } else {
                     echo ' <div class="card"><p>Vous n\'avez pas d\'adresse enregistré<p></div>';
@@ -169,7 +168,7 @@
             </div>
             <div class="user_info_delete">
                 <a href="<?= base_url("User/home/supprUser") ?>">Supprimer l'utilisateur</a>
-            </div> 
+            </div>
         </div>
     </div>
 </div>

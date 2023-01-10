@@ -314,6 +314,22 @@ Admin/User:
         script: "admin/user/script"
     baseView: "admin/user/base"
 
+Admin/user/filter:
+    views:
+        head: "admin/user/filter/head"
+        header: "admin/header"
+        content: "admin/user/filter/content"
+        script: "admin/user/filter/script"
+    baseView: "admin/user/base"
+
+Admin/user/view:
+    views:
+        head: "admin/user/view/head"
+        header: "templates/blank"
+        content: "admin/user/view/content"
+        script: "admin/user/view/script"
+    baseView: "admin/user/base"
+
 Admin/EditUser:
     views:
         head: "admin/user/editUser/head"

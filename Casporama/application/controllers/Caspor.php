@@ -202,17 +202,23 @@ class Caspor extends CI_Controller{
         if ($this->UserModel->isConnected()) {
 
             // Récupérer l'ID de l'utilisateur connecté
-            $id = $this->UserModel->getUserBySession()->getId();
-            // Récupérer l'objet utilisateur correspondant à l'ID
-            $user = $this->UserModel->getUserById($id);
+            $userSession = $this->UserModel->getUserBySession();
+            
+
             // Récupérer le statut de l'utilisateur
-            $status = $user->getStatus();
+            $status = $userSession->getStatus();
 
             // Vérifier si l'utilisateur a le statut "Client"
             if ($status == "Client") {
                 
                 // Changer le statut de l'utilisateur en "Caspor"
-                $this->UserModel->changeStatus($id,"Caspor");
+                $this->UserModel->changeStatus($userSession->getId(),"Caspor");
+
+                // Récupérer l'objet utilisateur correspondant à l'ID
+                $user = $this->UserModel->getUserById($userSession->getId());
+
+                // On met à jour la variable session de l'utilisateur
+                $this->UserModel->setUserSession($user);
 
                 // Rediriger vers la page d'accueil de Caspor
                 redirect('Caspor/home');                
@@ -236,18 +242,23 @@ class Caspor extends CI_Controller{
         // Vérifier si l'utilisateur est connecté
         if ($this->UserModel->isConnected()) {
 
-            // Récupérer l'ID de l'utilisateur connecté
-            $id = $this->UserModel->getUserBySession()->getId();
-            // Récupérer l'objet utilisateur correspondant à l'ID
-            $user = $this->UserModel->getUserById($id);
+            // Récupérer l'utilisateur par la session
+            $userSession = $this->UserModel->getUserBySession();
+            
             // Récupérer le statut de l'utilisateur
-            $status = $user->getStatus();
+            $status = $userSession->getStatus();
 
             // Vérifier si l'utilisateur a le statut "Caspor"
             if ($status == "Caspor") {
                 
                 // Changer le statut de l'utilisateur en "Client"
-                $this->UserModel->changeStatus($id,"Client");
+                $this->UserModel->changeStatus($userSession->getId(),"Client");
+
+                // Récupérer l'objet utilisateur correspondant à l'ID
+                $user = $this->UserModel->getUserById($userSession->getId());
+
+                // On met à jour la variable session de l'utilisateur
+                $this->UserModel->setUserSession($user);
 
                 // Rediriger vers la page d'accueil de l'utilisateur
                 redirect('User/home');

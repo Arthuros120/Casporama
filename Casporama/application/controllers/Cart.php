@@ -19,34 +19,53 @@ class Cart extends CI_Controller
 
     public function index()
     {
+
         $cart = $this->CartModel->getCart();
+
+        // * On rend la connexion peréne pour toutes les pages
+        $this->UserModel->durabilityConnection();
 
         $dataContent['total'] = 0;
         $dataContent['fraisdeport'] = 0;
         $dataContent['TVA'] = 0;
         
         if ($cart != null) {
-            $dataContent['total'] = $this->CartModel->totalCart($cart);
-            $dataContent['TVA'] = $dataContent['total'] * 0.20;
+            if ($this->UserModel->isConnected()) {
+                $user = $this->UserModel->getUserBySession();
+                var_dump($user->getStatus());
+                if ($user->getStatus() == 'Caspor') {
+                    $total = $this->CartModel->totalCart($cart)*0.95;
+                } else {
+                    $total = $this->CartModel->totalCart($cart);
+                }
+            }else {
+                $total = $this->CartModel->totalCart($cart);
+            }
+            $dataContent['total'] = round($total,2);
+            $dataContent['TVA'] = round($total * 0.20,2);
             $dataContent['mainCart'] = $cart;
             $dataContent['quantity'] = $this->CartModel->getQuantityByCart(array($cart));
             $dataContent['fraisdeport'] = 5;
         }
 
-        // * On rend la connexion peréne pour toutes les pages
-        $this->UserModel->durabilityConnection();
-
         if ($this->UserModel->isConnected()) {
 
-            $user = $this->UserModel->getUserBySession();
+            if (!isset($user)) {
+                $user = $this->UserModel->getUserBySession();
+            }
 
             $carts = $this->CartModel->getCartDB($user);
 
             if ($carts != null) {
                 $dataContent['savedCart'] = $carts;
                 foreach ($carts as $cart) {
-                    $totals[$cart[0]->getIdcart()] = $this->CartModel->totalCart($cart);
-                    $totals[$cart[0]->getIdcart()] = $totals[$cart[0]->getIdcart()] * 1.20;
+                    if ($user->getStatus() == 'Caspor') {
+                        $totalClient = $this->CartModel->totalCart($cart)*0.95;
+                    } else {
+                        $totalClient = $this->CartModel->totalCart($cart);
+                    }
+                    $totals[$cart[0]->getIdcart()] = $totalClient;
+                    $totals[$cart[0]->getIdcart()] = round(($totals[$cart[0]->getIdcart()] * 1.20)+5,2);
                 }
                 $dataContent['totals'] = $totals;
             } 
@@ -141,7 +160,13 @@ class Cart extends CI_Controller
 
                 $dataContent['quantity'] = $this->CartModel->getQuantityByCart(array($carts));
 
-                $totals[$carts[0]->getIdcart()] = $this->CartModel->totalCart($carts);
+                if ($user->getStatus() == 'Caspor') {
+                    $total = (($this->CartModel->totalCart($carts)*0.95)*1.20)+5;
+                } else {
+                    $total = ($this->CartModel->totalCart($carts)*1.20)+5;
+                }
+
+                $totals[$carts[0]->getIdcart()] = $total;
                 $dataContent['totals'] = $totals;
 
                 $dataContent['cart'] = $carts;  
