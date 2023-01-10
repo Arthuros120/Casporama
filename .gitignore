@@ -121,3 +121,4 @@ gradle-app.setting
 .gradle
 
 .idea/
+.vscode/settings.json
