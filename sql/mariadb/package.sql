@@ -52,9 +52,11 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getPasswordById( idSearch VARCHAR(255));
     -- Permet de récupérer un status par un ID
     procedure getStatusById( idSearch VARCHAR(255));
-    -- Permet de récupérer un mot de passe par une adresse mail
+    -- Permet de récupérer les information d'un user à partir de son id
     procedure getUserInfoById(iduser integer);
+    -- Permet de récupérer la Location d'un user avec son ID
     procedure getUserLocationById(iduser int);
+    -- Permet de récupérer un mot de passe par une adresse mail
     procedure loginMail( mail VARCHAR(255));
     -- Permet d'ajouter un user
     procedure addUser( newid integer, newlogin varchar(255),  newpass varchar(255),  newsalt VARCHAR(45), newcookie varchar(45), newstatus varchar(20), newverif boolean, newalive boolean, newdate datetime);
@@ -141,7 +143,7 @@ CREATE OR REPLACE PACKAGE user AS
     -- Permet de vérifier si deux adresse son pareil, renvoie le nombre d'adresse identique
     procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
     -- Permet de vérifier si deux adresse son pareil, renvoie le nombre d'adresse identique et l'id
-    procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
+    procedure sameAddresseModif(searchUserId int, oldAddress int, searchAddress varchar(255), searchCity varchar(255));
     -- Permet de compter le nombre d'adresse active par user
     procedure countAliveAddressByUserId(searchUserId int);
     -- Permet de récupérer tout les user
@@ -455,9 +457,9 @@ CREATE OR REPLACE PACKAGE BODY user AS
         select count(*) as total from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
     end;
 
-    procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255)) as
+    procedure sameAddresseModif(searchUserId int, oldAddress int, searchAddress varchar(255), searchCity varchar(255)) as
     begin
-        select count(*) as total, id from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
+        select count(*) as total, id from location where id = searchUserId and idlocation != oldAddress and location = searchAddress and city = searchCity and isALive=true;
     end;
 
     procedure countAliveAddressByUserId(searchUserId int) as
@@ -518,9 +520,9 @@ CREATE OR REPLACE PACKAGE product AS
     procedure getProductById( id integer);
     -- Permet d'ajouter un product à la BD
     procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage text, newIsALive boolean, newDate datetime);
-    -- Permet de modifier un product
+    -- Permet de mettre à jour un produit
     procedure updateProduct( id int, newtype varchar(15), newnusport int, newmarque varchar(255), newnom varchar(255), newgenre varchar(5), newprix float, newdesc varchar(255));
-    -- Permet de mettre à jour le prix d'un product
+    -- Permet de metre à jour le prix d'un produit
     procedure updatePrice( nuproduct int,  newprice int);
     -- Permet de mettre à jour la description d'un product
     procedure updateDescription( nuproduct int,  newdesc varchar(255));
@@ -546,6 +548,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure countByTypeAndSport( newtype varchar(15),  newsport int);
     -- Permet d'avoir un nombre donnée de produit par sport et type
     procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15));
+    procedure revive(newid int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -667,6 +670,12 @@ CREATE OR REPLACE PACKAGE BODY product AS
     procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15)) as
     begin
         select * from product where nusport = sport and type = newtype and isAlive = true limit start, step;
+    end;
+
+    procedure revive(newid int) as
+    begin
+        update product set isAlive = true, dateLastUpdate = NOW() where idproduct = newid;
+        update catalog set isAlive = true, dateLastUpdate = NOW() where nuproduct = newid;
     end;
 END;
 

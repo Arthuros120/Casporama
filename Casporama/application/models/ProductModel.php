@@ -863,6 +863,47 @@ class ProductModel extends CI_Model
 
     }
 
+    public function filtredWithoutSportAndType(array $get, array $products) : array
+    {
+
+        if (empty($get)) {
+
+            return array(
+                'title' => "Tous les produits",
+                'products' => $products,
+                'productNotFiltredByBrand' => $products
+            );
+        }
+
+        $title = "Produits filtrés par :";
+
+        $res = $this->filterByPrice($title, $products, $get);
+
+        $title = $res['title'];
+        $products = $res['products'];
+
+        if (!empty($get['search'])) {
+
+            $res = $this->search($title, $products, $get['search']);
+            $title = $res['title'];
+            $products = $res['products'];
+
+        }
+
+        $productNotFiltredByBrand = $products;
+
+        $res = $this->filterByBrand($title, $products, $get);
+
+        $title = $res['title'];
+        $products = $res['products'];
+
+        return array(
+            'title' => $title,
+            'products' => $products,
+            'productNotFiltredByBrand' => $productNotFiltredByBrand
+        );
+    }
+
     public function getAllBrand() : array
     {
 
@@ -1044,6 +1085,16 @@ class ProductModel extends CI_Model
         // ! Danger ! Supprime l'image du serveur
 
         unlink('upload/images/' . $image);
+
+    }
+
+    public function revive(int $id)
+    {
+
+        $query = $this->db->query("Call product.revive($id)");
+
+        $query->next_result();
+        $query->free_result();
 
     }
 

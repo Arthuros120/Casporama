@@ -752,6 +752,25 @@ class Admin extends CI_Controller
         }
     }
 
+    public function reviveProduct(int $id = -1) : void
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/product');
+
+        }
+
+        $this->ProductModel->revive($id);
+
+        redirect('admin/product');
+
+    }
+
     public function stock(int $id = -1)
     {
 
@@ -1489,7 +1508,8 @@ class Admin extends CI_Controller
         redirect('Admin/order');
     }
 
-    public function deleteOrdersConfirm() {
+    public function deleteOrdersConfirm()
+    {
 
         $this->UserModel->adminOnly();
 
@@ -1509,7 +1529,8 @@ class Admin extends CI_Controller
 
     }
 
-    public function deleteOrders() {
+    public function deleteOrders()
+    {
         $this->UserModel->adminOnly();
 
         $idorders = $this->input->post();
@@ -1542,7 +1563,8 @@ class Admin extends CI_Controller
 
     }
 
-    public function viewOrder() {
+    public function viewOrder()
+    {
 
         $this->UserModel->adminOnly();
 

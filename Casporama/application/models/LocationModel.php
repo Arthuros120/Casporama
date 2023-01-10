@@ -667,9 +667,8 @@ class LocationModel extends CI_Model
         $addresse = $newAddresse->getStringAdresse();
         $city = $newAddresse->getCity();
 
-
         $query = $this->db->query(
-            "call user.sameAddresseModif('" . $userId . "', '" . $addresse . "', '" . $city . "')"
+            "call user.sameAddresseModif('$userId', $oldId, '" . $addresse . "', '" . $city . "')"
         );
 
         $result = $query->row();
