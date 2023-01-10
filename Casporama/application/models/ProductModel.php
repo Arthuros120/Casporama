@@ -1213,30 +1213,6 @@ class ProductModel extends CI_Model
         return $res;
     }
 
-
-    private function sortSizeString($a, $b)
-    {
-
-        $sizes = array(
-        "XXS" => 0,
-        "XS" => 1,
-        "S" => 2,
-        "M" => 3,
-        "L" => 4,
-        "XL" => 5,
-        "XXL" => 6
-        );
-
-        $asize = $sizes[$a];
-        $bsize = $sizes[$b];
-
-        if ($asize == $bsize) {
-            return 0;
-        }
-
-        return ($asize > $bsize) ? 1 : -1;
-    }
-
     public function avalaibleColor($product)
     {
         $avalaibleColors = [];
@@ -1393,6 +1369,95 @@ class ProductModel extends CI_Model
 
     }
 
+    public function heHaveCatalog(CatalogEntity $catalog) : bool
+    {
+
+        $nuproduct = $catalog->getNuProduct();
+        $color = $catalog->getColor();
+        $size = $catalog->getSize();
+
+        $query = $this->db->query("Call catalog.heHaveCatalog($nuproduct, '$color', '$size')");
+
+        $result = $query->row();
+
+        $query->next_result();
+        $query->free_result();
+
+        return (!$result->count == 0);
+
+    }
+
+    public function addCatalog(CatalogEntity $catalog) : void
+    {
+
+        $id = $this->generateCatalogId();
+        $nuproduct = $catalog->getNuProduct();
+        $reference = $catalog->getReference();
+        $color = $catalog->getColor();
+        $size = $catalog->getSize();
+        $quantity = $catalog->getQuantity();
+
+        $date = date("Y-m-d H:i:s");
+
+        $this->db->query(
+            "Call catalog.addCatalog($id, $nuproduct, '$reference', '$color', '$size', $quantity, 1, '$date')"
+        );
+
+    }
+
+    public function getAllSizeByType(string $type) : array
+    {
+
+        $type = $this->formatStr($type);
+
+        if ($type == $this->formatStr("Vếtement") ||
+        $type == $this->formatStr("Vêtement") ||
+        $type == $this->formatStr("Equipement")) {
+
+            return array("XXS", "XS", "S", "M", "L", "XL", "XXL");
+
+        } elseif ($type == $this->formatStr("Chaussure")) {
+
+            $size = array();
+
+            for ($i = 30; $i <= 50; $i++) {
+
+                array_push($size, $i);
+
+            }
+
+            return $size;
+
+        } else {
+
+            return array();
+
+        }
+    }
+
+    private function sortSizeString($a, $b)
+    {
+
+        $sizes = array(
+        "XXS" => 0,
+        "XS" => 1,
+        "S" => 2,
+        "M" => 3,
+        "L" => 4,
+        "XL" => 5,
+        "XXL" => 6
+        );
+
+        $asize = $sizes[$a];
+        $bsize = $sizes[$b];
+
+        if ($asize == $bsize) {
+            return 0;
+        }
+
+        return ($asize > $bsize) ? 1 : -1;
+    }
+
     private function generateId() : int
     {
 
@@ -1401,6 +1466,22 @@ class ProductModel extends CI_Model
         if ($this->heHaveProductById($id)) {
 
             $id = $this->generateId();
+
+        }
+
+        return $id;
+
+    }
+
+    private function generateCatalogId() : int
+    {
+
+        $id = rand(10000, 999999999);
+
+        if ($this->findCatalogById($id) != null) {
+
+            $id = $this->generateId();
+
         }
 
         return $id;
@@ -1423,6 +1504,4 @@ class ProductModel extends CI_Model
 
         return $str;
     }
-
-    
 }

@@ -868,6 +868,133 @@ class Admin extends CI_Controller
         }
     }
 
+    public function addStock(int $id = -1) : void
+    {
+
+        $this->UserModel->AdminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/product');
+
+        }
+
+        $product = $this->ProductModel->findById($id);
+
+        if ($product == null) {
+
+            redirect('admin/product');
+
+        }
+
+        $sizes = $this->ProductModel->getAllSizeByType($product->getType());
+
+        $configRules = array(
+
+            array(
+
+                'field' => 'reference',
+                'label' => 'Référence',
+                'rules' => 'trim|required|is_natural',
+                'errors' => array(
+
+                    'required' => 'La référence est obligatoire',
+                    'is_natural' => 'La référence doit être un nombre entier'
+
+                )
+            ),
+
+            array(
+                
+                'field' => 'color',
+                'label' => 'Couleur',
+                'rules' => 'trim|required|alpha',
+                'errors' => array(
+
+                    'required' => 'La couleur est obligatoire',
+                    'alpha' => 'La couleur doit être composé de lettre'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'size',
+                'label' => 'Taille',
+                'rules' => 'trim|required|in_list['.implode(',', $sizes).']',
+                'errors' => array(
+
+                    'required' => 'La taille est obligatoire',
+                    'in_list' => 'La taille n\'est pas valide'
+
+                )
+            ),
+
+            array(
+
+                'field' => 'quantity',
+                'label' => 'Quantité',
+                'rules' => 'trim|required|is_natural',
+                'errors' => array(
+
+                    'required' => 'La quantité est obligatoire',
+                    'is_natural' => 'La quantité doit être un nombre entier'
+
+                )
+            )
+
+        );
+
+        $this->form_validation->set_rules($configRules);
+
+        if (!$this->form_validation->run()) {
+
+            $error = validation_errors();
+
+            $dataContent = array(
+
+                'product' => $product,
+                'sizes' => $sizes,
+                'error' => $error
+    
+            );
+    
+            $data = array(
+    
+                'content' => $dataContent
+    
+            );
+    
+            $this->LoaderView->load('Admin/stock/addStock', $data);
+
+        } else {
+
+            $post = $this->input->post();
+
+            $newCatalog = new CatalogEntity();
+
+            $newCatalog->setNuProduct($product->getId());
+            $newCatalog->setReference($post['reference']);
+            $newCatalog->setColor($post['color']);
+            $newCatalog->setSize($post['size']);
+            $newCatalog->setQuantity($post['quantity']);
+
+            if (!$this->ProductModel->heHaveCatalog($newCatalog)) {
+
+                $this->ProductModel->addCatalog($newCatalog);
+
+                redirect('admin/stock/'. $product->getId());
+
+            } else {
+
+                show_error('Une référence pour ce produit avec ces paramètres existe déjà', '500');
+
+            }
+        }
+    }
+
     public function editQuantite(int $id = -1) : void
     {
 
@@ -916,7 +1043,8 @@ class Admin extends CI_Controller
             $dataContent = array(
 
                 'product' => $product,
-                'catalog' => $catalog
+                'catalog' => $catalog,
+                'error' => validation_errors()
 
             );
 

@@ -13,6 +13,7 @@
     <p> <?php echo $product->getDescription() ?> </p>
     <p> <?php echo $product->getPrice() ?> € </p>
   </div>
+</div>
 
 <p> la référence est la suivante:</p>
 

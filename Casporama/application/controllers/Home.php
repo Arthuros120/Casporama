@@ -30,6 +30,8 @@ class Home extends CI_Controller
     public function index()
     {
 
+        $this->UserModel->durabilityConnection();
+
         if ($this->UserModel->isConnected()) {
 
             $id = $this->UserModel->getUserBySession()->getId();
@@ -47,7 +49,7 @@ class Home extends CI_Controller
 
             );
 
-            $this->LoaderView->load('Home/index',$dataArray);
+            $this->LoaderView->load('Home/index', $dataArray);
 
         } else {
 

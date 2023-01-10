@@ -736,6 +736,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure getCatalogById(newid int);
     procedure updateCatalogQuantite(newid int, newquantite int);
     procedure deleteCatalog(newid int);
+    procedure heHaveCatalog(newnuproduct int, newColor varchar(20), newSize varchar(3));
 END;
 
 CREATE OR REPLACE PACKAGE BODY catalog AS
@@ -800,6 +801,11 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     procedure deleteCatalog(newid int) as
     begin
         update catalog set isALive=false where id = newid;
+    end;
+
+    procedure heHaveCatalog(newnuproduct int, newColor varchar(20), newSize varchar(3)) as
+    begin
+        select count(*) as count from catalog where nuproduct = newnuproduct and color = newColor and size = newSize;
     end;
 END;
 

@@ -384,6 +384,15 @@ Admin/stock/product:
 
     baseView: "admin/stock/global/base"
 
+Admin/stock/addStock:
+    views:
+        head: "admin/stock/addStock/head"
+        header: "templates/blank"
+        content: "admin/stock/addStock/content"
+        script: "templates/blank"
+    
+    baseView: "admin/stock/global/base"
+
 Admin/stock/editQuantite:
     views:
         head: "admin/stock/editQuantite/head"
