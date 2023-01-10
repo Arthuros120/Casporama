@@ -420,6 +420,36 @@ Admin/stock/suppStock/success:
 
     baseView: "admin/stock/suppStock/global/base"
 
+Admin/stock/suppStocks/request:
+
+    views:
+        head: "admin/stock/suppStocks/request/head"
+        header: "templates/blank"
+        content: "admin/stock/suppStocks/request/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/stock/suppStocks/error:
+
+    views:
+        head: "admin/stock/suppStocks/global/head"
+        header: "templates/blank"
+        content: "admin/stock/suppStocks/error/content"
+        script: "admin/stock/suppStocks/global/script"
+
+    baseView: "admin/stock/suppStocks/global/base"
+
+Admin/stock/suppStocks/success:
+
+    views:
+        head: "admin/stock/suppStocks/global/head"
+        header: "templates/blank"
+        content: "admin/stock/suppStocks/success/content"
+        script: "admin/stock/suppStocks/global/script"
+
+    baseView: "admin/stock/suppStocks/global/base"
+
 Admin/delete/request:
     views:
         head: "admin/delete/request/head"

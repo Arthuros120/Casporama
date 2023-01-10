@@ -62,7 +62,7 @@
                             <td>
                                 <input
                                 class="selectCatalog selectCatalog-<?=$product->getId() . "-" . $color?>"
-                                type="checkbox" name="catalog<?= $catalog->getId() ?>">
+                                type="checkbox" name="catalog-<?= $catalog->getId() ?>">
                             </td>
                             <td><?= $catalog->getSize() ?></td>
                             <td><?= $catalog->getReference() ?></td>

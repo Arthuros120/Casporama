@@ -1047,6 +1047,120 @@ class Admin extends CI_Controller
 
     }
 
+    public function suppStocks() : void
+    {
+    
+        $this->UserModel->adminOnly();
+
+        if (empty($this->input->post())) {
+
+            redirect('Admin/Product');
+
+        }
+
+        $this->load->model('ProductModel');
+
+        $catalogsToDelete = array();
+
+        $post = $this->input->post();
+
+        foreach ($post as $key => $value) {
+
+            $idCat = explode('-', $key)[1];
+
+            $catalogsToDelete[] = $this->ProductModel->findCatalogById($idCat);
+
+        }
+
+        $listCatalogs = "";
+
+        foreach ($catalogsToDelete as $catalog) {
+
+            $listCatalogs .= $catalog->getId() . ";";
+
+        }
+
+        $product = $this->ProductModel->findById($catalogsToDelete[0]->getNuProduct());
+
+        $dataContent = array(
+
+            'catalogs' => $catalogsToDelete,
+            'product' => $product,
+            'listCatalogs' => $listCatalogs
+
+        );
+
+        $data = array(
+
+            'content' => $dataContent
+
+        );
+
+        $this->LoaderView->load('Admin/stock/suppStocks/request', $data);
+
+    }
+
+    public function suppStocksComf() : void
+    {
+
+        $this->UserModel->adminOnly();
+
+        $this->load->model('ProductModel');
+
+        $submitbutton = $this->input->post('switch');
+
+        $productId = $this->input->post('product');
+
+        $dataScript = array(
+
+            'id' => $productId
+
+        );
+
+        if ($submitbutton == 'on') {
+
+            $listCatalogs = $this->input->post('catalogs');
+
+            $listCatalogs = explode(';', $listCatalogs);
+
+            foreach ($listCatalogs as $catalog) {
+
+                if ($catalog != "") {
+
+                    $this->ProductModel->deleteCatalog($catalog);
+
+                }
+
+            }
+
+            $dataContent = array(
+
+                'listCatalogs' => $listCatalogs
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent,
+                'script' => $dataScript
+
+            );
+
+            $this->LoaderView->load('Admin/stock/suppStocks/success', $data);
+
+        } else {
+
+            $data = array(
+
+                'script' => $dataScript
+
+            );
+
+            $this->LoaderView->load('Admin/stock/suppStocks/error', $data);
+
+        }
+    }
+
     public function deleteProducts()
     {
         $this->UserModel->adminOnly();
@@ -1108,8 +1222,6 @@ class Admin extends CI_Controller
         if ($submitbutton == 'on') {
 
             $listProducts = $this->input->post('products');
-
-            var_dump($listProducts);
 
             $listProducts = explode(';', $listProducts);
 
