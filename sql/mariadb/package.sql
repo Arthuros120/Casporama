@@ -517,8 +517,10 @@ CREATE OR REPLACE PACKAGE product AS
     -- Permet d'avoir un product par son ID
     procedure getProductById( id integer);
     -- Permet d'ajouter un product à la BD
-    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage text, newIsALive boolean, newDate datetime);    -- Permet de mettre à jour le prix d'un product
+    procedure addProduct( newid int,  newtype varchar(15),  newnusport int,  newmarque varchar(255),  newnom varchar(255), newgenre varchar(5),  newprix float,  newdesc varchar(255),  newimage text, newIsALive boolean, newDate datetime);
+    -- Permet de modifier un product
     procedure updateProduct( id int, newtype varchar(15), newnusport int, newmarque varchar(255), newnom varchar(255), newgenre varchar(5), newprix float, newdesc varchar(255));
+    -- Permet de mettre à jour le prix d'un product
     procedure updatePrice( nuproduct int,  newprice int);
     -- Permet de mettre à jour la description d'un product
     procedure updateDescription( nuproduct int,  newdesc varchar(255));
@@ -542,6 +544,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure countAll();
     -- Permet de compté le nombre de produit par sport et par type
     procedure countByTypeAndSport( newtype varchar(15),  newsport int);
+    -- Permet d'avoir un nombre donnée de produit par sport et type
     procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15));
 END;
 
