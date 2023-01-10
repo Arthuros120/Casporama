@@ -566,6 +566,11 @@ class UserModel extends CI_Model
     public function setUserCookie(UserEntity $user)
     {
 
+        if (isset($_COOKIE["user"])) {
+            // * On supprime si il existe le cookie de l'utilisateur
+            $this->unsetUserCookie($user);
+        }
+
         // * On initialise le cookieId
         $user->setCookieCheck();
 
@@ -680,6 +685,11 @@ class UserModel extends CI_Model
     */
     public function setUserSession(UserEntity $user)
     {
+
+        if (isset($_SESSION['user'])) {
+            // * On supprime si il existe la session de l'utilisateur
+            $this->unsetUserSession();
+        }
 
         // * On crée la donné pour la session
         $sessionValueString = $user->getId() . '|' . $user->getStatus();

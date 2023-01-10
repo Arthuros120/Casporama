@@ -109,9 +109,9 @@ create table if not exists order_products (
     idvariant int not null,
     quantity int not null,
     primary key (idorder, idproduct,idvariant),
-    foreign key (idvariant) references catalog(id)
-
-
+    foreign key (idvariant) references catalog(id),
+    foreign key (idorder) references `order`(id),
+    foreign key (idproduct) references product(idproduct)
 );
 
 -- Ajout de la table captcha pour la gestion des captcha
