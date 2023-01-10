@@ -868,6 +868,13 @@ class Admin extends CI_Controller
         }
     }
 
+    public function editQuantite(int $id = -1) : void
+    {
+    
+        
+
+    }
+
     public function deleteProducts()
     {
         $this->UserModel->adminOnly();

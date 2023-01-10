@@ -68,7 +68,7 @@
                         <td><?= $catalog->getReference() ?></td>
                         <td><?= $catalog->getQuantity() ?></td>
                         <td>
-                            <a href="<?= base_url("admin/editQuantité/" . $catalog->getId()) ?>">
+                            <a href="<?= base_url("admin/editQuantite/" . $catalog->getId()) ?>">
                                 Changer la quantité
                             </a>
                             <a href="<?= base_url("admin/suppStock/" . $catalog->getId()) ?>">
