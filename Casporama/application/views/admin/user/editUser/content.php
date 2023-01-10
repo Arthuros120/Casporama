@@ -18,7 +18,7 @@
             <hr>
 
             <div class="admin_edit_user">
-                <form action="<?= site_url('Admin/updateUser') ?>" method="post">
+                <?php echo form_open('Admin/updateUser');?>
 
                     <p> Id : <?= /** @var UserEntity $user */
                         $user->getId() ?></p>
@@ -92,7 +92,6 @@
 
 
                 </div>
-                </form>
 
 
             </div>

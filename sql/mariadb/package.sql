@@ -4,29 +4,34 @@ SET sql_mode=ORACLE;
 
 -- Les packages sont construit en fonction des différentes tables présentes dans la base de donnée
 
+-- Package pour manipuler les informations sur les sports
 CREATE OR REPLACE PACKAGE sport AS
     -- Permet d'avoir le nom du sport en fonction de son id
     procedure getNameSport( nusport integer);
     -- Permet d'avoir l'id du sport en fonction de son nom
     procedure getIdSport( name VARCHAR(20));
+    -- Permet de récupérer toutes les informations sur les sports
     procedure getAll();
 END;
 
 CREATE OR REPLACE PACKAGE BODY sport AS
+    -- Récupère toutes les informations sur les sports
     procedure getAll() as
     Begin
         select * from sport;
     End;
+    -- Récupère le nom du sport en fonction de son id
   procedure getNameSport( nusport integer) as
     begin
         select name from sport where sport.nusport = nusport;
     end;
-
+    -- Récupère l'id du sport en fonction de son nom
   procedure getIdSport( name VARCHAR(20)) as
     begin
         select nusport from sport where sport.name = name;
     end;
 END;
+
 
 CREATE OR REPLACE PACKAGE user AS
     -- Permet de vérifier si un login donnée est présent dans la BD
@@ -74,18 +79,31 @@ CREATE OR REPLACE PACKAGE user AS
     procedure updateUtilisateur( iduser int,  newlogin varchar(255),  newpass varchar(255));
     -- Permet de mettre à jour le status d'un user
     procedure updateStatus( iduser int,  newstatus varchar(20));
+    -- Peremt de connaitre la Location d'un user à partir de son id
     procedure getLocationById(idloc integer);
+    -- Permet de mettre à jour le nom de famille du User
     procedure updateLastName(targetId integer, newLastName varchar(255));
+    -- Permet de mettre à jour le prénom du user
     procedure updateFirstName(targetId integer, newFirstName varchar(255));
+    -- Permet de mettre à jour l'email du user
     procedure updateEmail(targetId integer, newMail varchar(255));
+    -- Permet de mettre à jour le numéros de téléphone portable du user
     procedure updateMobile(targetId integer, newMobile varchar(255));
+    -- Permet de mettre à jour le numéros de téléphone fixe du user
     procedure updateFixe(targetId integer, newFixe varchar(255));
+    -- Permet de mettre à jour le password du user
     procedure updatePassword(targetId integer, newPass varchar(255), newSalt varchar(45));
+    -- Permet de vérifier que le sel n'est pas déja présent dans la BD
     procedure verifySalt(newSalt varchar(255));
+    -- Permet de trouver une location d'un user
     procedure getLocationByIdAndUserId(idUser int, idLoc int);
+    -- Permet de vérifier que le nom de l'adresse ne figure pas déja dans les adresse du user
     procedure isUniqueAddressName(searchName varchar(255), searchIdUser int);
+    -- Permet de récupérer l'adresse avec l'id du user
     procedure getAddresseById(searchId int);
+    -- Permet de récupérer le nom d'une location grace à son id
     procedure verifyLocId(searchId int);
+    -- Permet de mettre à jour une Location avec son id
     procedure updateLocById(
         searchId int,
         newId int,
@@ -101,8 +119,11 @@ CREATE OR REPLACE PACKAGE user AS
         newIsDefault bool,
         dateCreation date
         );
+    -- Permet de vérifier si une adresse est en morte
     procedure addressIsDead(searchId int, newDateLastUpdate datetime);
+    -- Permet de compter le nombre d'adresse ayant le meme nom et le meme id que celui donner en parametre
     procedure countAddressByIdAndName(searchId int, searchName varchar(255));
+    -- Permet de créer une Location
     procedure createLoc(
         newId int,
         idUser int,
@@ -117,17 +138,29 @@ CREATE OR REPLACE PACKAGE user AS
         newIsDefault bool,
         dateCreation date
         );
+    -- Permet de vérifier si deux adresse son pareil, renvoie le nombre d'adresse identique
     procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
+    -- Permet de vérifier si deux adresse son pareil, renvoie le nombre d'adresse identique et l'id
     procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
+    -- Permet de compter le nombre d'adresse active par user
     procedure countAliveAddressByUserId(searchUserId int);
+    -- Permet de récupérer tout les user
     procedure getAllUser();
+    -- Permet de récupérer toute les Locations
     procedure getAllLocation();
+    -- Permet de récupérer tout les Information
     procedure getAllInformation();
+    -- Permet de vérifier qu'un user est vérifié à partir de son id
     procedure getIsVerifiedById( idSearch VARCHAR(255));
+    -- Permet de vérifier si un user est en vie avec son id
     procedure getIsALiveById( idSearch VARCHAR(255));
+    -- Permet de récupérer la date du dernier update d'un user avec son id
     procedure getDateLastUpdateById( idSearch VARCHAR(255));
+    -- Permet de mettre un user mort avec son id
     procedure userIsDead(searchId int, newDateLastUpdate date);
+    -- Permet de vérifié un user avec son id
     procedure setUserVerified(searchId int, newDate datetime);
+    -- Permet de chnager le status de l'user
     procedure changeStatus(searchId int, newStatus varchar(255));
 END;
 
@@ -493,13 +526,21 @@ CREATE OR REPLACE PACKAGE product AS
     procedure updateImage( nuproduct int,  newimage text);
     -- Permet de supprimer un product
     procedure delProduct( nuproduct int);
+    -- Permet de récupérer tout les produits
     procedure getAll();
+    -- Permet de récupérer tout les produits en vie
     procedure getAllAsAlive();
+    -- Permet de récupérer tout les produits qui ne sont pas en vie.
     procedure getAllNotAlive();
+    -- Permet de récupérer toutes les marques
     procedure getAllBrand();
+    -- Permet de récupérer un produit selon son nom
     procedure getProductByName( newname varchar(255));
+    -- Permet de récupérer un produit selon son nom sauf celui qui correspond a l'id fourni
     procedure getProductByNameWithoutSelf( newname varchar(255), id int);
+    -- Permet de compter le nombre de produit
     procedure countAll();
+    -- Permet de compté le nombre de produit par sport et par type
     procedure countByTypeAndSport( newtype varchar(15),  newsport int);
     procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15));
 END;
@@ -639,11 +680,17 @@ CREATE OR REPLACE PACKAGE `order` AS
     procedure updateState( nuorder int, newstate varchar(15));
     -- Permet de mettre à jour l'adresse d'une commande
     procedure updateLocationOrder( nuorder int, newlocation varchar(15));
+    -- Permet de récupérer tout les commandes
     procedure getAll();
+    -- Permet de vérifier que l'id n'est pas déjà présnet dans la BD
     procedure verifyId(newid int);
+    -- Permet de supprimer une commandes
     procedure delOrder(newidorder int);
+    -- Permet de récupérer tout les produits d'une commande
     procedure getOrderProduct(id int);
+    -- Permet de récupérer une commande à partir de son id
     procedure getOrderById(newid int);
+    -- Permet de récupérer tout les produits de toutes les commandes
     procedure getAllProduct();
 END;
 
@@ -729,13 +776,21 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure delVariante( idvariante int);
     -- Permet de mettre à jour la quantité d'une variante donnée
     procedure updateQuantity( idvariante int,  newquantity int);
+    -- Permet de mettre un variant de produit alive avec son id
     procedure updateALive(idvariante int, newstate bool);
+    -- Permet de récupérer tout les variants de produits
     procedure getAll();
+    -- Permet récupérer le variant à paartir de son catalogue
     procedure getCatalogByVariant(newidvariant int);
+    -- Permet de récupérer tout les variant d'un produit à partir de son numéros
     procedure getAllByNuProduct(newNuProduct int);
+    -- Permet récupérer le variant à paartir de son catalogue
     procedure getCatalogById(newid int);
+    -- Permet de mettre à jour la quantité d"un variant dans le catalogue
     procedure updateCatalogQuantite(newid int, newquantite int);
+    -- Permet de supprimer un variant dans le catalogue
     procedure deleteCatalog(newid int);
+    -- Permet de savoir si un variant existe avec se numéros cette couleur et cette taille
     procedure heHaveCatalog(newnuproduct int, newColor varchar(20), newSize varchar(3));
 END;
 
@@ -894,14 +949,23 @@ CREATE OR REPLACE PACKAGE BODY verifKey AS
 END;
 
 create or replace package cart as
+    -- Permet de récupérer tout les panier
     procedure getCart();
+    -- Permet d'enregistré un panier
     procedure addCart(newid int, newiduser int, newidcart int, newidvariant int, newquantity int, newdate datetime, newdatexp datetime);
+    -- Permet de vérifier si l'id n'est pas déjà présnet dans la base
     procedure verifyId(id int);
+    -- permet de récupérer un panier avec son id
     procedure getCartById(newid int);
+    -- Permet de récupérer l'id d'un panier le plus grand d'un user
     procedure maxIdCart(newid int);
+    -- Permet de modifier la quantité d'un panier
     procedure modifyQuantity(newquantity int, user int, cart int, variant int);
+    -- Permet de supprimer un panier
     procedure deleteCart(newidcart int, newiduser int);
+    -- Permet de supprimer un produit d'un panier
     procedure deleteProductDB(newiduser int, newid int);
+    -- Permet de récupérer un panier avec son id
     procedure getCartIdcart(newiduser int ,newidcart int);
 End;
 
@@ -943,27 +1007,3 @@ create or replace package body cart as
         select * from cart where newidcart = idcart and newiduser = iduser;
     end;
 end;
-
-
-
-/*
-use Casporama;
-call `order`.getCommandeClient(6);
-Call product.getProductBySportType(1, 'Vetement');
-*/
-
-/*call user.sameAddresse(2, '78;Boulevard Jules Verne', 'Nantes')*/
-
-/*call user.countAliveAddressByUserId(2);*/
-
--- call order.getOrderUserById(1,2);
-
--- desc user;
-
--- call user.sameAddresseModif(2, '22;Rue des bergeronnettes', 'Nantes');
-
--- call verifKey.getIdByIdKey('8b88e9f89da11a88a28d00225843252fd65995a72d1290cd6618728527b6003e');
-
--- call sport.getAll();
-
-call user.getUserInfoById(2);
