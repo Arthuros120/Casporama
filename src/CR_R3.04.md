@@ -1,7 +1,6 @@
+# Designs patern Utilisé dans le projet :
 
-# Designs patern Utilisé dans le projet : 
-
-## 1 : Le design patern Facade 
+## 1 : Le design patern Facade
 
 ### Ou ? :
 
@@ -21,6 +20,4 @@ classDiagram
     InvoicePrinter --> FPDF 
 ```
 
-
-
-
+On a donc bien InvoicePDF qui utilise InvoicePDFModel pour simplifié la génération des facture, InvoicePDFModel se chargant de l'utilisation de InvoicePrinter.
