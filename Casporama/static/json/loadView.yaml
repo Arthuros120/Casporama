@@ -377,7 +377,7 @@ Admin/error/errorImage:
 Admin/stock/filter:
     views:
         head: "admin/stock/filter/head"
-        header: "templates/blank"
+        header: "admin/header.php"
         content: "admin/stock/filter/content"
         script: "admin/stock/filter/script"
 
