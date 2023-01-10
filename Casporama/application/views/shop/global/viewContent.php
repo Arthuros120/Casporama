@@ -13,24 +13,17 @@
     if (window.scrollY < 100) {
         filter.classList.add('product_filter_unscrolled')
         filter.classList.remove('product_filter_scrolled')
-        console.log('add scrolled')
     }
 
     if (window.scrollY >= 5500) {
         filter.classList.remove('product_filter_scrolled')
         filter.classList.add('product_end')
-        console.log("C'est add")
     }
 
     if (window.scrollY < 5000 && window.scrollY > 4000) {
         filter.classList.remove('product_end')
         filter.classList.add('product_filter_scrolled')
-        console.log("C'est remove")
     }
-
-
-
-    console.log(window.scrollY)
 } )
 </script>
 

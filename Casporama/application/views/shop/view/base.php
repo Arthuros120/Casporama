@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="<?php echo base_url() ?>static/css/global/color.css">
         <link rel="icon" type="image/svg" sizes="16x16" href="<?= base_url("static/image/icon/favicon.svg") ?>">
         <link type="text/css" rel="stylesheet" href="<?php base_url() ?>../static/css/admin/header.css" >
+        <link rel="stylesheet" type="text/css" href="<?= base_url() ?>static/css/global/footer.css" >
 
         <?= $loadView['head'] ?>
 
