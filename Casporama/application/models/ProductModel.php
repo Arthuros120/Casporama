@@ -1287,6 +1287,7 @@ class ProductModel extends CI_Model
             $newCatalog->setColor($catalog->color);
             $newCatalog->setSize($catalog->size);
             $newCatalog->setQuantity($catalog->quantity);
+            $newCatalog->setIsALive($catalog->isALive);
 
             array_push($listCatalogs, $newCatalog);
 
@@ -1364,6 +1365,7 @@ class ProductModel extends CI_Model
             $newCatalog->setColor($catalog->color);
             $newCatalog->setSize($catalog->size);
             $newCatalog->setQuantity($catalog->quantity);
+            $newCatalog->setIsALive($catalog->isALive);
 
             return $newCatalog;
 
@@ -1381,6 +1383,13 @@ class ProductModel extends CI_Model
         $quantity = $catalog->getQuantity();
 
         $this->db->query("Call catalog.updateCatalogQuantite($id, $quantity)");
+
+    }
+
+    public function deleteCatalog(int $id) : void
+    {
+
+        $this->db->query("Call catalog.deleteCatalog($id)");
 
     }
 

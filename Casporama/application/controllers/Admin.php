@@ -940,6 +940,113 @@ class Admin extends CI_Controller
 
     }
 
+    public function suppStock(int $id = -1) : void
+    {
+
+        $this->UserModel->AdminOnly();
+
+        $this->load->model('ProductModel');
+
+        if ($id == -1) {
+
+            redirect('admin/product');
+
+        }
+
+        $catalog = $this->ProductModel->findCatalogById($id);
+
+        if ($catalog == null) {
+
+            redirect('admin/product');
+
+        }
+
+        if (!$catalog->getIsALive()) {
+
+            redirect('Admin/Stock/' . $catalog->getNuProduct());
+
+        }
+
+        $product = $this->ProductModel->findById($catalog->getNuProduct());
+
+        if ($product == null) {
+
+            redirect('admin/product');
+
+        }
+
+        $status = $this->session->flashdata('status');
+
+        $dataContent = array (
+
+            'product' => $product,
+            'catalog' => $catalog,
+
+        );
+
+        $dataScript = array(
+
+            'id' => $product->getId()
+
+        );
+
+        $data = array(
+
+            'content' => $dataContent,
+            'script' => $dataScript
+
+        );
+
+        if ($status == 'success') {
+
+            $this->ProductModel->deleteCatalog($id);
+
+            $this->LoaderView->load('Admin/stock/suppStock/success', $data);
+
+        } elseif ($status == 'error') {
+
+            $this->LoaderView->load('Admin/stock/suppStock/error', $data);
+
+        } else {
+
+            $charge = $this->session->flashdata('charge');
+
+            if ($this->input->post('switch') == 'on') {
+
+                $this->session->set_flashdata('status', 'success');
+
+                redirect('Admin/suppStock/' . $id);
+
+            } else {
+
+                if ($charge == 'on') {
+
+                    if ($this->input->post('switch') == 'on') {
+
+                        $this->session->set_flashdata('status', 'success');
+
+                        redirect('Admin/suppStock/' . $id);
+
+                    } else {
+
+                        $this->session->set_flashdata('status', 'error');
+
+                        redirect('Admin/suppStock/' . $id);
+
+                    }
+
+                } else {
+
+                    $this->session->set_flashdata('charge', 'on');
+                    $this->LoaderView->load('Admin/stock/suppStock/request', $data);
+
+                }
+            }
+
+        }
+
+    }
+
     public function deleteProducts()
     {
         $this->UserModel->adminOnly();

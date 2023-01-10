@@ -735,6 +735,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure getAllByNuProduct(newNuProduct int);
     procedure getCatalogById(newid int);
     procedure updateCatalogQuantite(newid int, newquantite int);
+    procedure deleteCatalog(newid int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY catalog AS
@@ -744,7 +745,7 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     End;
     procedure getStock( id integer) as
     begin
-        select * from catalog where nuproduct = id;
+        select * from catalog where nuproduct = id and isAlive = true;
     end;
 
     procedure getStockTotal( id integer) as
@@ -794,6 +795,11 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     procedure updateCatalogQuantite(newid int, newquantite int) as
     begin
         update catalog set quantity=newquantite where id = newid;
+    end;
+
+    procedure deleteCatalog(newid int) as
+    begin
+        update catalog set isALive=false where id = newid;
     end;
 END;
 

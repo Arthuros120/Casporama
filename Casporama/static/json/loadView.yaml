@@ -393,6 +393,33 @@ Admin/stock/editQuantite:
 
     baseView: "templates/base"
 
+Admin/stock/suppStock/request:
+    views:
+        head: "admin/stock/suppStock/request/head"
+        header: "templates/blank"
+        content: "admin/stock/suppStock/request/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/stock/suppStock/error:
+    views:
+        head: "admin/stock/suppStock/global/head"
+        header: "templates/blank"
+        content: "admin/stock/suppStock/error/content"
+        script: "admin/stock/suppStock/global/script"
+
+    baseView: "admin/stock/suppStock/global/base"
+
+Admin/stock/suppStock/success:
+    views:
+        head: "admin/stock/suppStock/global/head"
+        header: "templates/blank"
+        content: "admin/stock/suppStock/success/content"
+        script: "admin/stock/suppStock/global/script"
+
+    baseView: "admin/stock/suppStock/global/base"
+
 Admin/delete/request:
     views:
         head: "admin/delete/request/head"
