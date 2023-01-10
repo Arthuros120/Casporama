@@ -19,7 +19,7 @@
                              +"<div class='modal_actual_name'>"
                              +"<p>Votre adresse <span>"+sameName+"</span> va être supprimé</p>"
                              +"</div>"
-                             +"<form class='modal_form' action='<?= base_url('User/home/supprAddress');?>' method='post' accept-charset='utf-8'>"
+                             +"<form class='modal_form' action='<?= base_url('User/home/supprAddress/' . $hint);?>' method='post' accept-charset='utf-8'>"
                              +"<input class='modal_input' type='hidden' name='sameName' value='" + sameName + "' />"
                              +"<div class='modal_form_btn'>"
                              +"<input class='modal_input' type='submit' value='Valider' >"

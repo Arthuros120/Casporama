@@ -141,7 +141,7 @@ CREATE OR REPLACE PACKAGE user AS
     -- Permet de vérifier si deux adresse son pareil, renvoie le nombre d'adresse identique
     procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
     -- Permet de vérifier si deux adresse son pareil, renvoie le nombre d'adresse identique et l'id
-    procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
+    procedure sameAddresseModif(searchUserId int, oldAddress int, searchAddress varchar(255), searchCity varchar(255));
     -- Permet de compter le nombre d'adresse active par user
     procedure countAliveAddressByUserId(searchUserId int);
     -- Permet de récupérer tout les user
@@ -455,9 +455,9 @@ CREATE OR REPLACE PACKAGE BODY user AS
         select count(*) as total from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
     end;
 
-    procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255)) as
+    procedure sameAddresseModif(searchUserId int, oldAddress int, searchAddress varchar(255), searchCity varchar(255)) as
     begin
-        select count(*) as total, id from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
+        select count(*) as total, id from location where id = searchUserId and idlocation != oldAddress and location = searchAddress and city = searchCity and isALive=true;
     end;
 
     procedure countAliveAddressByUserId(searchUserId int) as
