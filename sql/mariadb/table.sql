@@ -110,9 +110,8 @@ create table if not exists order_products (
     quantity int not null,
     primary key (idorder, idproduct,idvariant),
     foreign key (idvariant) references catalog(id),
-    foreign key (idproduct) references product(idproduct),
-    foreign key (idorder) references `order`(id)
-
+    foreign key (idorder) references `order`(id),
+    foreign key (idproduct) references product(idproduct)
 );
 
 -- Ajout de la table captcha pour la gestion des captcha
@@ -137,16 +136,16 @@ Create table if not exists verifKey (
 );
 
 create table if not exists cart (
-                                    id int not null unique,
-                                    iduser int not null,
-                                    idcart int not null,
-                                    idvariant int not null,
-                                    quantity int not null,
-                                    date datetime not null,
-                                    dateExp datetime not null,
-                                    primary key (id),
-                                    constraint fk_cart_user
-                                        foreign key (iduser) references user(id),
-                                    constraint fk_cart_product
-                                        foreign key (idvariant) references catalog(id)
+    id int not null unique,
+    iduser int not null,
+    idcart int not null,
+    idvariant int not null,
+    quantity int not null,
+    date datetime not null,
+    dateExp datetime not null,
+    primary key (id),
+    constraint fk_cart_user
+        foreign key (iduser) references user(id),
+    constraint fk_cart_product
+        foreign key (idvariant) references catalog(id)
 );

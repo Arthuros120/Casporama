@@ -129,11 +129,6 @@ class User extends CI_Controller
                     $user->setIsVerified($this->UserModel->getIsVerifiedById($user->getId()));
                     $user->setIsALive($this->UserModel->getIsALiveById($user->getId()));
 
-                    // * On supprime si il existe le cookie de l'utilisateur
-                    $this->UserModel->unsetUserCookie($user);
-
-                    // * On supprime si il existe la session de l'utilisateur
-                    $this->UserModel->unsetUserSession();
 
                     // * On vérifie que l'utilisateur veut rester connecté
                     if ($this->input->post('conPersistance') == 'on') {
