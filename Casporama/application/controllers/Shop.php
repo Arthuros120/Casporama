@@ -126,9 +126,19 @@ class Shop extends CI_Controller
             in_array($sport, array("Football", "Volleyball", "Badminton", "Arts-martiaux"))
             && in_array($catProduct, array("Equipement", "Chaussure", "Vetement"))) {
 
+            $get = $this->input->get();
+
             // * On recupére tout les produit du sport et de la catégorie passé en paramètre
             // * et on les stock dans une variable
             $listProduct = $this->ProductModel->findBySportType($sport, $catProduct);
+
+            $res = $this->ProductModel->filtredWithoutSportAndType($get, $listProduct);
+
+            $title = $res['title'];
+            $listProduct = $res['products'];
+            $allProducts = $res['productNotFiltredByBrand'];
+
+            $brands = $this->ProductModel->getAllBrandByProducts($allProducts);
 
             // * On selectionne l'icon de la fonction user en fonction de la connection de l'utilisateur
             $dataHeader['userIcon'] = $this->UtilView->chooseUserIcon();
@@ -137,8 +147,12 @@ class Shop extends CI_Controller
             // * dans des variable qui seront utilisé dans les vues.
             $dataHead['sport'] = $sport;
             $dataHead['category'] = $catProduct;
+
             $dataHeader['sport'] = $sport;
+
             $dataContent['listProduct'] = $listProduct;
+            $dataContent['title'] = $title;
+            $dataContent['brands'] = $brands;
 
             // * On fait correspondre les données au bonne vues et on les stock dans une variable.
             $data = array(

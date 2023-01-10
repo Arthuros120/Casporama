@@ -143,7 +143,7 @@ CREATE OR REPLACE PACKAGE user AS
     -- Permet de vérifier si deux adresse son pareil, renvoie le nombre d'adresse identique
     procedure sameAddresse(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
     -- Permet de vérifier si deux adresse son pareil, renvoie le nombre d'adresse identique et l'id
-    procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255));
+    procedure sameAddresseModif(searchUserId int, oldAddress int, searchAddress varchar(255), searchCity varchar(255));
     -- Permet de compter le nombre d'adresse active par user
     procedure countAliveAddressByUserId(searchUserId int);
     -- Permet de récupérer tout les user
@@ -457,9 +457,9 @@ CREATE OR REPLACE PACKAGE BODY user AS
         select count(*) as total from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
     end;
 
-    procedure sameAddresseModif(searchUserId int, searchAddress varchar(255), searchCity varchar(255)) as
+    procedure sameAddresseModif(searchUserId int, oldAddress int, searchAddress varchar(255), searchCity varchar(255)) as
     begin
-        select count(*) as total, id from location where id = searchUserId and location = searchAddress and city = searchCity and isALive=true;
+        select count(*) as total, id from location where id = searchUserId and idlocation != oldAddress and location = searchAddress and city = searchCity and isALive=true;
     end;
 
     procedure countAliveAddressByUserId(searchUserId int) as
@@ -547,6 +547,7 @@ CREATE OR REPLACE PACKAGE product AS
     -- Permet de compté le nombre de produit par sport et par type
     procedure countByTypeAndSport( newtype varchar(15),  newsport int);
     procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15));
+    procedure revive(newid int);
 END;
 
 CREATE OR REPLACE PACKAGE BODY product AS
@@ -668,6 +669,12 @@ CREATE OR REPLACE PACKAGE BODY product AS
     procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15)) as
     begin
         select * from product where nusport = sport and type = newtype and isAlive = true limit start, step;
+    end;
+
+    procedure revive(newid int) as
+    begin
+        update product set isAlive = true, dateLastUpdate = NOW() where idproduct = newid;
+        update catalog set isAlive = true, dateLastUpdate = NOW() where nuproduct = newid;
     end;
 END;
 

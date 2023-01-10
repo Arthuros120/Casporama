@@ -41,8 +41,9 @@ Shop/view:
         header: "shop/global/header"
         content: "shop/global/viewContent"
         footer: "home/footer"
+        script: "shop/view/script"
 
-    baseView: "templates/base"
+    baseView: "shop/view/base"
 
 Shop/product:
     views:
