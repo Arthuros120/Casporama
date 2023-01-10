@@ -907,7 +907,7 @@ class Admin extends CI_Controller
             ),
 
             array(
-                
+
                 'field' => 'color',
                 'label' => 'Couleur',
                 'rules' => 'trim|required|alpha',
@@ -958,15 +958,15 @@ class Admin extends CI_Controller
                 'product' => $product,
                 'sizes' => $sizes,
                 'error' => $error
-    
+
             );
-    
+
             $data = array(
-    
+
                 'content' => $dataContent
-    
+
             );
-    
+
             $this->LoaderView->load('Admin/stock/addStock', $data);
 
         } else {
@@ -1177,7 +1177,7 @@ class Admin extends CI_Controller
 
     public function suppStocks() : void
     {
-    
+
         $this->UserModel->adminOnly();
 
         if (empty($this->input->post())) {
@@ -1489,13 +1489,122 @@ class Admin extends CI_Controller
         redirect('Admin/order');
     }
 
+    public function deleteOrdersConfirm() {
+
+        $this->UserModel->adminOnly();
+
+        $idorders = $this->input->post();
+
+        if ($idorders != null) {
+            $idorders = array_keys($idorders);
+
+            $data = array(
+                'content' => array('idorders' => $idorders),
+            );
+
+            $this->LoaderView->load('Admin/confirmDeleteOrders', $data);
+        } else {
+            redirect('Admin/order');
+        }
+
+    }
+
+    public function deleteOrders() {
+        $this->UserModel->adminOnly();
+
+        $idorders = $this->input->post();
+
+        $this->load->model('OrderModel');
+
+
+        if ($idorders != null) {
+
+            $idorders = array_keys($idorders);
+            $err = false;
+
+            foreach ($idorders as $idorder) {
+
+                $newerr = $this->OrderModel->delOrder($idorder);
+
+                $err = $err || $newerr;
+            }
+
+            if ($err) {
+                $this->session->set_flashdata('succes', true);
+            } else {
+                $this->session->set_flashdata('succes', false);
+            }
+
+        }
+
+        redirect("Admin/order");
+
+
+    }
+
+    public function viewOrder() {
+
+        $this->UserModel->adminOnly();
+
+        $idorder = $this->input->get('idorder');
+
+        $this->load->model('OrderModel');
+        $this->load->model('LocationModel');
+
+        if ($idorder != null) {
+            $orders = $this->OrderModel->getOrderById($idorder);
+
+            if ($orders != null) {
+                $order = $orders[0];
+
+                $dataContent['order'] = $order;
+
+                $colors = array (
+                    'Football' => '#D3E2D3',
+                    'Badminton' => '#D9E6F4',
+                    'Volleyball' => '#FBFBC3',
+                    'Arts-martiaux' => '#FFB4B0'
+                );
+
+                $options = array(
+                    'Non preparer' => 'Non preparer',
+                    'En preparation' => 'En preparation',
+                    'Preparer' => 'Preparer',
+                    'Expedier' => 'Expedier'
+                );
+
+                $user = $this->UserModel->getUserById($order->getIduser())->getCoordonnees();
+
+                $dataContent['options'] = $options;
+
+                $dataContent['colors'] = $colors;
+
+                $dataContent['user'] = $user;
+
+                $this->LoaderView->load('Admin/viewOrder', array('content' => $dataContent));
+            }
+
+        } else {
+
+            redirect("Admin/order");
+        }
+
+    }
+
     public function User()
     {
 
         $this->UserModel->adminOnly();
 
-        $users = $this->UserModel->getUsers();
+        if ($this->input->post('currentPage') !== null){
+            $currentPage = $this->input->post('currentPage') + 1;
+        }else {
+            $currentPage = 1;
+        }
+
+        $users = array_slice($this->UserModel->getUsers(),($currentPage-1)*50,$currentPage*50);
         $dataContent['users'] = $users;
+        $dataContent['currentPage'] = $currentPage;
         $data = array ('content' => $dataContent);
         $this->LoaderView->load('Admin/User', $data);
 
@@ -1506,11 +1615,63 @@ class Admin extends CI_Controller
         $this->UserModel->adminOnly();
 
         // créer les règles du formulaire
-        $this->form_validation->set_rules('name', 'Nom', 'required|trim');
-        $this->form_validation->set_rules('firstname', 'Prénom', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
-        $this->form_validation->set_rules('numTel', 'Téléphone', 'required|trim');
-        $this->form_validation->set_rules('role', 'Rôle', 'required|trim');
+        $configRules = array(
+
+            // * Configuration des paramètre du champlogin
+            array(
+                'field' => 'prenom',
+                'label' => 'Prénom',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                ),
+            ),
+
+            array(
+                'field' => 'nom',
+                'label' => 'Nom',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                ),
+            ),
+
+            array(
+                'field' => 'numTel',
+                'label' => 'Téléphone mobile',
+                'rules' => 'trim|required|min_length[10]|max_length[10]|numeric',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 10 caractères",
+                    "max_length" => "Le %s doit faire au plus 10 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                ),
+            ),
+
+            array(
+                'field' => 'fixePhone',
+                'label' => 'Téléphone fixe',
+                'rules' => 'trim|min_length[10]|max_length[10]|numeric',
+                'errors' => array( // * On définit les messages d'erreurs
+                    "min_length" => "Le %s doit faire au moins 10 caractères",
+                    "max_length" => "Le %s doit faire au plus 10 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'numeric' => 'Le %s ne doit contenir que des caractères numériques',
+                ),
+            ),
+        );
+
+
+        $this->form_validation->set_rules($configRules);
 
         $user = $this->UserModel->getUserById($id);
         $dataContent['user'] = $user;

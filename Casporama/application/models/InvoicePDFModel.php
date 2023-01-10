@@ -9,18 +9,21 @@ class InvoicePDFModel extends CI_Model
      * @param $idOrder
      * @param UserEntity $user
      * @param \Konekt\PdfInvoice\InvoicePrinter $invoice
-     * @return void
-     */
-    public function GenerateInvoice($idOrder, UserEntity $user, \Konekt\PdfInvoice\InvoicePrinter $invoice): void
+     * @return \Konekt\PdfInvoice\InvoicePrinter
+ */
+    public function GenerateInvoice($idOrder, UserEntity $user): ?\Konekt\PdfInvoice\InvoicePrinter
     {
         /** @var OrderEntity $order
          * @var UserEntity $user
          * @var InformationEntity $billinginfo
          * @var LocationEntity $locationinfo
          * @var StockEntity $variante
+         *
+         * Ici : design patern Facade
          */
         $order = $this->OrderModel->findOrderById($idOrder, $user->getId());
         if (isset($order)) {
+            $invoice = new Konekt\PdfInvoice\InvoicePrinter("A4", "€", "en");
             $billinginfo = $this->InformationModel->getInformationByUserId($user->getId());
             $locationinfo = $this->LocationModel->getLocationByUserId($user->getId(), $order->getLocation()->getId());
 
@@ -44,20 +47,24 @@ class InvoicePDFModel extends CI_Model
                 if (!isset($product)) {
                     echo "nope";
                 }
-                $invoice->addItem($product->getName() . ' ' . $variante->getColor() . ' ' . $variante->getSize(), $product->getDescription(), $quantities[$variante->getId()], 0,
+                $invoice->addItem($product->getName() . ' ' . $variante->getColor() . ' ' . $variante->getSize(), $product->getDescription(), $quantities[$variante->getId()], $product->getPrice()*0.20,
                     $product->getPrice(), 0, $product->getPrice() * $quantities[$variante->getId()]);
                 $total += $product->getPrice() * $quantities[$variante->getId()];
             }
 
+            $total += 5;
+
+            $invoice->addTotal('Frais de Port : ', 5);
             $invoice->addTotal('Total TTC', $total);
 
 
             $invoice->addParagraph("No item will be replaced or refunded if you don't have the invoice with you.");
             $invoice->setFooternote("Casporama SA");
+            return $invoice;
 
 
         } else {
-            redirect('/');
+            return null;
         }
     }
 
