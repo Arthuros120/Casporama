@@ -1577,6 +1577,7 @@ class Admin extends CI_Controller
         } else {
 
             $user = $this->UserModel->getUserById($id);
+            $this->load->model('OrderModel');
 
             if ($user != null) {
 
@@ -1618,7 +1619,9 @@ class Admin extends CI_Controller
                     $dataMap = null;
                 }
 
-                $dataScript = array (
+                $commands = $this->OrderModel->getOrderByUser($user);
+
+                $dataScript = array(
 
                     'dataMap' => $dataMap
 
@@ -1628,7 +1631,8 @@ class Admin extends CI_Controller
 
                     'user' => $user,
                     'addAddIsPos' => $addAddIsPos,
-                    'nbrAddr' => $nbrAddr
+                    'nbrAddr' => $nbrAddr,
+                    'commands' => $commands
 
                 );
 
@@ -1640,7 +1644,6 @@ class Admin extends CI_Controller
                 );
 
                 $this->LoaderView->load('Admin/user/view', $data);
-
             } else {
 
                 redirect('Admin/User');
@@ -1648,11 +1651,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function editUser(int $id)
+    public function editUser(int $id = -1)
     {
+
         $this->UserModel->adminOnly();
 
-        // créer les règles du formulaire
+        if ($id == -1) {
+
+            redirect('Admin/User');
+        }
+
         $configRules = array(
 
             // * Configuration des paramètre du champlogin
@@ -1683,9 +1691,9 @@ class Admin extends CI_Controller
             ),
 
             array(
-                'field' => 'numTel',
+                'field' => 'mobilePhone',
                 'label' => 'Téléphone mobile',
-                'rules' => 'trim|required|min_length[10]|max_length[10]|numeric',
+                'rules' => 'trim|required|min_length[10]|max_length[10]|numeric|callback_IsUniqueMobilePhone[' . $id . ']',
                 'errors' => array( // * On définit les messages d'erreurs
                     'required' => 'Vous avez oublié %s.',
                     "min_length" => "Le %s doit faire au moins 10 caractères",
@@ -1706,91 +1714,506 @@ class Admin extends CI_Controller
                     'numeric' => 'Le %s ne doit contenir que des caractères numériques',
                 ),
             ),
-        );
 
+            array(
+                'field' => 'newEmail',
+                'label' => 'email',
+                'rules' => 'trim|required|min_length[5]|max_length[255]|valid_email|callback_IsUniqueEmail[' . $id . ']',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 5 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'valid_email' => 'Le %s n\'est pas valide',
+                ),
+            )
+        );
 
         $this->form_validation->set_rules($configRules);
 
-        $user = $this->UserModel->getUserById($id);
-        $dataContent['user'] = $user;
-        $dataContent['roles'] = array(['Administrateur'], ['Client'], ['Caspor']);
-        $data = array('content' => $dataContent);
+        if (!$this->form_validation->run()) {
 
-        $this->LoaderView->load('Admin/EditUser', $data);
-    }
+            $error = validation_errors();
 
-    public function updateUser()
-    {
-        $this->UserModel->adminOnly();
-        //récupéré les donnée du formulaire
-        $id = $this->input->post('id');
-        $name = $this->input->post('name');
-        $firstname = $this->input->post('firstname');
-        $email = $this->input->post('email');
-        $numTel = $this->input->post('numTel');
-        $role = $this->input->post('role');
+            $this->load->model('OrderModel');
 
-        $user = $this->UserModel->getUserById($id);
-        $coord = $user->getCoordonnees();
-        $coord->setNom($name);
-        $coord->setPrenom($firstname);
-        $coord->setEmail($email);
-        $coord->setTelephone($numTel);
-        $user->setStatus($role);
+            $user = $this->UserModel->getUserById($id);
 
-        $this->UserModel->updateUser($user);
+            if ($user != null) {
 
-        redirect('Admin/editUser/' . $id);
-    }
+                $listLoc = $user->getLocalisation();
 
-    public function editLocalisation(string $ids)
-    {
-        $this->UserModel->adminOnly();
-        $idlocalisation = explode('-', $ids)[0];
-        $iduser = explode('-', $ids)[1];
+                if (!empty($listLoc)) {
 
-        // créer les règles du formulaire
-        $this->form_validation->set_rules('adresse', 'Adresse', 'required|trim');
-        $this->form_validation->set_rules('codePostal', 'Code Postal', 'required|trim');
-        $this->form_validation->set_rules('ville', 'Ville', 'required|trim');
-        $this->form_validation->set_rules('pays', 'Pays', 'required|trim');
+                    $nbrAddr = $this->LocationModel->countAddressByUserId($user->getId());
 
-        $localisation = $this->LocationModel->getLocationByUserId($iduser, $idlocalisation);
-        $dataContent['localisation'] = $localisation;
-        $dataContent['iduser'] = $iduser;
-        $data = array('content' => $dataContent);
+                    $nbrAddr = $nbrAddr . "/" . $this->config->item('address_MaxAdd');
 
-        $this->LoaderView->load('Admin/EditLocalisation', $data);
-    }
+                    $addAddIsPos = $this->LocationModel->heHaveMaxAddress($user->getId());
 
-    public function updateLocalisation(int $idloc)
-    {
+                    $dataMap = [];
 
-        $this->UserModel->adminOnly();
-        $loc = new LocationEntity();
+                    foreach ($listLoc as $loc) {
 
-        $loc->setId($idloc);
-        $loc->setName($this->input->post('name'));
-        $loc->setAdresse($this->input->post('number') . ";" . $this->input->post('street'));
-        $loc->setCity($this->input->post('city'));
-        $loc->setCodePostal($this->input->post('postalCode'));
-        $loc->setCountry($this->input->post('country'));
-        $departement = explode(";", $this->input->post('department'));
-        $loc->setDepartment($departement[1]);
-        if ($this->input->post('Default') == 'on') {
-            $loc->setIsDefault(true);
+                        if ($loc->getLatitude() != null && $loc->getLongitude() != null) {
+
+                            $dataMap[$loc->getId()] = array(
+
+                                'lat' => $loc->getLatitude(),
+                                'lng' => $loc->getLongitude(),
+
+                            );
+                        }
+                    }
+                    if (!empty($dataMap)) {
+
+                        $dataScript['dataMap'] = $dataMap;
+                    } else {
+
+                        $dataScript['dataMap'] = null;
+                    }
+                } else {
+
+                    $nbrAddr = "0/0";
+                    $addAddIsPos = false;
+                    $dataMap = null;
+                }
+
+                $commands = $this->OrderModel->getOrderByUser($user);
+
+                $dataScript = array(
+
+                    'dataMap' => $dataMap
+
+                );
+
+                $dataContent = array(
+
+                    'user' => $user,
+                    'addAddIsPos' => $addAddIsPos,
+                    'nbrAddr' => $nbrAddr,
+                    'commands' => $commands,
+                    'error' => $error
+
+                );
+
+                $data = array(
+
+                    'content' => $dataContent,
+                    'script' => $dataScript
+
+                );
+
+                $this->LoaderView->load('Admin/user/editUser', $data);
+            } else {
+
+                redirect('Admin/User');
+            }
         } else {
-            $loc->setIsDefault(false);
+
+            $user = $this->UserModel->getUserById($id);
+
+            if ($user == null) {
+
+                redirect('Admin/User');
+            }
+
+            $lastEmail = $user->getCoordonnees()->getEmail();
+
+            $post = $this->input->post();
+
+            $user->getCoordonnees()->setNom($post['nom']);
+            $user->getCoordonnees()->setPrenom($post['prenom']);
+            $user->getCoordonnees()->setEmail($post['newEmail']);
+            $user->getCoordonnees()->setTelephone($post['mobilePhone']);
+            $user->getCoordonnees()->setFixe($post['fixePhone']);
+
+            $this->UserModel->updateUser($user, $lastEmail);
+
+            redirect('Admin/User/' . $id);
         }
-        /*$latlong = $this->LocationModel->searchLatLong($loc->getAdresse(),$loc->getCodePostal());
-        $loc->setLatitude($latlong['latitude']);
-        $loc->setLongitude($latlong['longitude']);*/
-
-        // TODO : A remplacé pour que cela marche réellement
-        $this->LocationModel->updateAddress($loc, $loc->getId(), $this->input->post('idUser'));
-
-        redirect('Admin/editUser/' . $this->input->post('idUser'));
     }
+
+    public function modifAddress(int $id = -1): void
+    {
+        $this->UserModel->adminOnly();
+
+        if ($id == -1) {
+
+            redirect('Admin/User');
+        }
+
+        $location = $this->LocationModel->getLocationById($id);
+
+        if ($location == null) {
+
+            redirect('Admin/User');
+        }
+
+        $user = $this->UserModel->getUserByLocationId($location->getId());
+        $user = $this->UserModel->getUserById($user->getId());
+
+        if ($user == null) {
+
+            redirect('Admin/User');
+        }
+
+        $this->session->set_flashdata('defaultAddressName', $location->getName());
+
+        $configRules = array(
+
+            // * Configuration des paramètre du champlogin
+            array(
+                'field' => 'name',
+                'label' => 'Nom de l\'adresse',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha_numeric_spaces|callback_IsUniqueAddressName[' . $user->getId() . ']',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'alpha_numeric_spaces' => 'Le %s ne doit contenir que des caractères alphanumeriques et/ou des espaces',
+                ),
+            ),
+
+            array(
+                'field' => 'number',
+                'label' => 'Numéro de voie',
+                'rules' => 'trim|required|is_natural|min_length[1]|max_length[5]',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    "min_length" => "Le %s doit faire au moins 1 caractères",
+                    "max_length" => "Le %s doit faire au plus 5 caractères",
+                    'is_natural' => 'Le %s ne doit contenir que des caractères numériques',
+                ),
+            ),
+
+            array(
+
+                'field' => 'street',
+                'label' => 'Nom de la voie',
+                'rules' => 'trim|required|min_length[3]|max_length[250]|alpha_numeric_spaces',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 250 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'alpha_numeric_spaces' => 'Le %s ne doit contenir que des caractères alphanumeriques et/ou des espaces',
+                ),
+            ),
+
+            array(
+
+                'field' => 'department',
+                'label' => 'Département',
+                "rules" => 'required|callback_InListDepartment',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                ),
+            ),
+
+            array(
+
+                'field' => 'city',
+                'label' => 'Ville',
+                "rules" => 'trim|required|min_length[3]|max_length[255]',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                ),
+            ),
+
+            array(
+
+                'field' => 'country',
+                'label' => 'Pays',
+                "rules" => 'required|callback_InListCountry',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                )
+            ),
+
+            array(
+
+                'field' => 'postalCode',
+                'label' => 'Code postal',
+                'rules' => 'trim|required|is_natural|min_length[5]|max_length[5]',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    "min_length" => "Le %s doit faire 5 caractères",
+                    "max_length" => "Le %s doit faire 5 caractères",
+                    'is_natural' => 'Le %s ne doit contenir que des caractères numériques',
+                ),
+            )
+        );
+
+        $this->form_validation->set_rules($configRules);
+
+        if (!$this->form_validation->run()) {
+
+            $dataContent = array(
+
+                'location' => $location,
+                'iduser' => $user->getId(),
+                'error' => validation_errors()
+            );
+
+            $dataScript = array(
+
+                'location' => $location,
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent,
+                'script' => $dataScript
+
+            );
+
+            $this->LoaderView->load('Admin/user/modifAddress', $data);
+
+        } else {
+
+            $depTab = explode(";", $this->input->post('department'));
+
+            $dep = $this->LocationModel->getDepartment($depTab[0]);
+
+            if ($dep != null) {
+
+                if ($this->LocationModel->samePostalCodeByDepartment(
+                    $depTab[0],
+                    $this->input->post('postalCode')
+                )) {
+
+                    $dataNewAddress = array(
+
+                        'name' => $this->input->post('name'),
+                        'number' => $this->input->post('number'),
+                        'street' => $this->input->post('street'),
+                        'department' => $dep,
+                        'city' => $this->input->post('city'),
+                        'country' => $this->input->post('country'),
+                        'postalCode' => $this->input->post('postalCode')
+
+                    );
+
+                    if ($this->input->post('default') == 'on') {
+
+                        $dataNewAddress['default'] = true;
+                    }
+
+                    $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
+
+                    if (
+                        !$this->LocationModel->sameAddresseModif(
+                            $user->getId(),
+                            $newAdresse,
+                            $location->getId()
+                        )
+                    ) {
+
+                        $this->LocationModel->updateAddress(
+                            $newAdresse,
+                            $location->getId(),
+                            $user->getId()
+                        );
+
+                        redirect("admin/user/" . $user->getId());
+
+                    } else {
+
+                        $dataContent = array(
+
+                            'location' => $location,
+                            'iduser' => $user->getId(),
+                            'error' => "Cette addresse est trop similaire a une autre"
+                        );
+            
+                        $dataScript = array(
+            
+                            'location' => $location,
+            
+                        );
+            
+                        $data = array(
+            
+                            'content' => $dataContent,
+                            'script' => $dataScript
+            
+                        );
+            
+                        $this->LoaderView->load('Admin/user/modifAddress', $data);
+
+                    }
+                } else {
+
+                    $dataContent = array(
+
+                        'location' => $location,
+                        'iduser' => $user->getId(),
+                        'error' => "Le code postal ne correspond pas au département"
+                    );
+        
+                    $dataScript = array(
+        
+                        'location' => $location,
+        
+                    );
+        
+                    $data = array(
+        
+                        'content' => $dataContent,
+                        'script' => $dataScript
+        
+                    );
+        
+                    $this->LoaderView->load('Admin/user/modifAddress', $data);
+
+                }
+            } else {
+
+                $dataContent = array(
+
+                    'location' => $location,
+                    'iduser' => $user->getId(),
+                    'error' => "Le département n'existe pas"
+                );
+    
+                $dataScript = array(
+    
+                    'location' => $location,
+    
+                );
+    
+                $data = array(
+    
+                    'content' => $dataContent,
+                    'script' => $dataScript
+    
+                );
+    
+                $this->LoaderView->load('Admin/user/modifAddress', $data);
+            }
+        }
+    }
+
+    public function InListCountry(string $strCountry = ""): bool
+    {
+
+        if ($strCountry == "") {
+
+            $this->form_validation->set_message('InListCountry', 'Le pays est vide !');
+
+            return false;
+        }
+
+        // * On vérifie que le mobile n'existe pas
+        if ($this->LocationModel->IsCountry($strCountry)) {
+
+            return true;
+        }
+
+        // * On retourne une erreur
+        $this->form_validation->set_message('InListCountry', 'Ce pays n\'existe pas !');
+
+        return false;
+    }
+
+    public function InListDepartment(string $strDep = ""): bool
+    {
+
+        if ($strDep == "") {
+
+            $this->form_validation->set_message('InListDepartment', 'Le département est vide !');
+
+            return false;
+        }
+
+        $strDep = explode(";", $strDep)[1];
+
+        // * On vérifie que le mobile n'existe pas
+        if ($this->LocationModel->IsDepartment($strDep)) {
+
+            return true;
+        }
+
+        // * On retourne une erreur
+        $this->form_validation->set_message('InListDepartment', 'Ce département n\'existe pas !');
+
+        return false;
+    }
+
+    public function IsUniqueAddressName(string $strName = "", int $id = -1): bool
+    {
+
+        $defaultName = $this->session->flashdata('defaultAddressName');
+
+        if ($strName == "" && $id == -1 && $defaultName != null) {
+
+            $this->form_validation->set_message('IsUniqueAddressName', 'Le nom de l\'adresse est vide !');
+
+            return false;
+        }
+
+        $count = $this->LocationModel->IsUniqueModifAddressName($strName, $id);
+
+        $defaultName = strtolower($defaultName);
+
+        // * On vérifie que le mobile n'existe pas
+        if ($count == 0 || ($count == 1 && strtolower($strName) == $defaultName)) {
+
+            return true;
+        }
+
+        // * On retourne une erreur
+        $this->form_validation->set_message('IsUniqueAddressName', 'Vous avez déja utilisé ce nom d\'adresse !');
+
+        return false;
+    }
+
+    public function IsUniqueEmail(string $strEmail, int $id): bool
+    {
+
+        $user = $this->UserModel->getUserById($id);
+
+        $actualEmail = $user->getCoordonnees()->getEmail();
+
+        // * On vérifie que l'email n'existe pas
+        if ($this->UserModel->heHaveUserByEmail($strEmail) && $strEmail != $actualEmail) {
+
+            // * On retourne une erreur
+            $this->form_validation->set_message('IsUniqueEmail', 'Cet email existe déjà !');
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public function IsUniqueMobilePhone(string $strPhone, int $id): bool
+    {
+
+        $user = $this->UserModel->getUserById($id);
+
+        $actualPhone = $user->getCoordonnees()->getTelephone();
+
+        // * On vérifie que le mobile n'existe pas
+        if ($this->UserModel->heHaveUserByMobilePhone($strPhone) && $strPhone != $actualPhone) {
+
+            // * On retourne une erreur
+            $this->form_validation->set_message('IsUniqueMobilePhone', 'Ce numéro de téléphone est déja utilisé !');
+
+            return false;
+        }
+
+        return true;
+    }
+
 
     public function checkNameProduct(string $name): bool
     {

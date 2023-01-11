@@ -24,10 +24,11 @@
                     </tr>
                     <tr align="center">
                        <td style="line-height:1 ;" align="center">
-                           <p style="color:lightgrey;">Voici ci-joint votre Facture correspondant à
-                           <p style="color:lightgrey;">La commande n° <?= $idorder ?></p>
-                           <p style="color:lightgrey;">Vous pouvez également la retrouver dans vos commandes, dans votre panneau utilisateur</p>
-                           <a style="color:blue;" href="<?= base_url() ?>Order"><p style="color:white; font-weight:600;">Vos Commandes</p></a>
+                           <p style="color:black;">Nous vous envoyons cette émail sur la nouvelle boite mail pour vous informer que votre email a été modifié avec succès</p>
+                           <p style="color:black;">La nouvelle adresse émail associé a votre compte est <?= $user->getCoordonnees()->getEmail() ?></p>
+                           <p style="color:black;">Cette modification à été effectué par <?= $author ?></p>
+                           <p style="color:red;">Si vous n'ếtes pas à l'initiative de cette demande, veuillez imédiatement contacté le support !</p>
+                           <a style="color:blue;" href="<?= base_url('User/home/info') ?>"><p style="color:white; font-weight:600;">Votre compte</p></a>
                            </p>
                        </td>
                    </tr>

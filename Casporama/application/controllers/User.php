@@ -710,7 +710,7 @@ class User extends CI_Controller
 
                             $newEmail = $this->input->post('newEmail');
 
-                            $this->UserModel->updateEmail($user->getId(), $newEmail);
+                            $this->UserModel->updateEmail($user, $newEmail);
 
                             redirect("User/home/info");
                         }
@@ -2150,7 +2150,6 @@ class User extends CI_Controller
 
         return false;
     }
-
 
     /*
 

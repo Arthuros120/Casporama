@@ -1,4 +1,4 @@
-<!-- user/home/modifAddress/script -->
+<!-- admin/user/modifAddress/script -->
 
 <script
 src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"
@@ -55,7 +55,7 @@ crossorigin=""></script>
 
                 for (var i = 0; i < countryList.length; i++) {
 
-                    if (countryList[i].toLowerCase() == "<?php echo strtolower($localisation->getCountry()) ?>") {
+                    if (countryList[i].toLowerCase() == "<?php echo strtolower($location->getCountry()) ?>") {
                         $("select[name='country']").append(
                             "<option value='" + countryList[i] + "' selected>" + countryList[i] + "</option>"
                         );
@@ -100,7 +100,7 @@ crossorigin=""></script>
                     let value = numberDep + ";" + dep.sansAccent().replace('-', "+");
                     value = value.replace('\'', "+").replace(/ /g, "+");
 
-                    if (dep.toLowerCase() == "<?php echo strtolower($localisation->getDepartment()) ?>") {
+                    if (dep.toLowerCase() == "<?php echo strtolower($location->getDepartment()) ?>") {
 
                         $("select[name='department']").append(
                             "<option value='" + value + "' selected>" + numberDep + " - " + dep + "</option>"
@@ -322,15 +322,15 @@ crossorigin=""></script>
     $(document).ready(function() {
 
         setCountryList();
-        setDepList("<?php echo $localisation->getCountry() ?>");
-        getZipDep("<?php echo $localisation->getCodePostal() ?>");
-        setCityName("<?php echo $localisation->getCodePostal() ?>")
+        setDepList("<?php echo $location->getCountry() ?>");
+        getZipDep("<?php echo $location->getCodePostal() ?>");
+        setCityName("<?php echo $location->getCodePostal() ?>")
         getCityDep(zipDep);
-        getPostalCode(zipDep, "<?php echo $localisation->getCity() ?>")
+        getPostalCode(zipDep, "<?php echo $location->getCity() ?>")
         getLatLong(
-            "<?= $localisation->getAdresse()['number'] ?>",
-            "<?= $localisation->getAdresse()['street'] ?>",
-            "<?= $localisation->getCodePostal() ?>"
+            "<?= $location->getAdresse()['number'] ?>",
+            "<?= $location->getAdresse()['street'] ?>",
+            "<?= $location->getCodePostal() ?>"
             );
 
     });
@@ -387,4 +387,4 @@ crossorigin=""></script>
 </script>
 
 
-<!-- user/home/modifAddress/script -->
+<!-- admin/user/modifAddress/script -->

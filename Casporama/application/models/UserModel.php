@@ -420,6 +420,42 @@ class UserModel extends CI_Model
 
     /*
     
+        * getLocationById
+    
+        * Cette méthode permet de récupérer un utilisateur en fonction d'une location
+    
+        @param: $id
+
+        @return: ?UserEntity
+    
+    */
+    public function getUserByLocationId(int $id): ?UserEntity
+    {
+
+        // * On récupère l'utilisateur en fonction de son login
+        $query = $this->db->query("Call user.getUserByLocationId('" . $id . "')");
+
+        // * On vérifie si l'utilisateur existe
+        $id = $query->row()->id;
+
+        // * On atternd un résultat
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne l'utilisateur
+        if (isset($id)) {
+
+            $user = new UserEntity();
+            $user->setId($id);
+
+            return $user;
+        }
+
+        return null;
+    }
+
+    /*
+    
         * getUserById
     
         * Cette méthode permet de récupérer un utilisateur en fonction de son id sans mot de passe
@@ -1010,10 +1046,16 @@ class UserModel extends CI_Model
 
     }
 
-    public function updateEmail(int $id, string $newEmail)
+    public function updateEmail(UserEntity $user, string $newEmail)
     {
 
-        $this->db->query("Call user.updateEmail(" . $id . ", '" . $newEmail . "')");
+        $this->db->query("Call user.updateEmail(" . $user->getId() . ", '" . $newEmail . "')");
+
+        $lastEmail = $user->getCoordonnees()->getEmail();
+
+        $user->getCoordonnees()->setEmail($newEmail);
+
+        $this->sendInfoModifEmail($user, $lastEmail, "user");
 
     }
     
@@ -1176,7 +1218,7 @@ class UserModel extends CI_Model
     }
 
 
-    public function updateUser(UserEntity $user)
+    public function updateUser(UserEntity $user, string $lastEmail)
     {
 
         $this->updateFirstName($user->getId(), $user->getCoordonnees()->getPrenom());
@@ -1186,6 +1228,60 @@ class UserModel extends CI_Model
         $this->updateFixe($user->getId(), $user->getCoordonnees()->getFixe());
         $this->changeStatus($user->getId(), $user->getStatus());
 
+        $this->sendInfoModifEmail($user, $lastEmail, "admin");
 
+    }
+
+    private function sendInfoModifEmail(UserEntity $user, string $lastEmail, string $author = "admin") : void
+    {
+        if ($author == "admin") {
+
+            $author = "un administrateur";
+
+        } else {
+
+            $author = "vous-même via votre compte";
+
+        }
+
+        if ($lastEmail != $user->getCoordonnees()->getEmail()) {
+
+            $this->load->model('EmailModel');
+
+            $fromEmail = array(
+
+                'email' => 'no_reply@casporama.live',
+                'name' => 'Casporama - No Reply'
+
+            );
+
+            $this->EmailModel->sendEmail(
+
+                $fromEmail,
+                $lastEmail,
+                'Casporama - Changement d\'email - Ancienne adresse',
+                'email/modifEmail/toLastEmail',
+                array(
+
+                    'user' => $user,
+                    'author' => $author
+
+                )
+            );
+
+            $this->EmailModel->sendEmail(
+
+                $fromEmail,
+                $user->getCoordonnees()->getEmail(),
+                'Casporama - Changement d\'email - Nouvelle adresse',
+                'email/modifEmail/toNewEmail',
+                array(
+
+                    'user' => $user,
+                    'author' => $author
+
+                )
+            );
+        }
     }
 }

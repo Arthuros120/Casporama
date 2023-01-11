@@ -165,6 +165,7 @@ CREATE OR REPLACE PACKAGE user AS
     -- Permet de chnager le status de l'user
     procedure changeStatus(searchId int, newStatus varchar(255));
     procedure countUser(); -- newArthur
+    procedure getUserByLocationId(searchId int); -- newArthur
 
 END;
 
@@ -505,6 +506,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
     procedure countUser() as
     begin
         select count(*) as count from user;
+    end;
+
+    procedure getUserByLocationId(searchId int) as
+    begin
+        select id from location where idlocation = searchId;
     end;
 end;
 

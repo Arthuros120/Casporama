@@ -330,22 +330,23 @@ Admin/user/view:
         script: "admin/user/view/script"
     baseView: "admin/user/base"
 
-Admin/EditUser:
+Admin/user/editUser:
     views:
         head: "admin/user/editUser/head"
-        header: "admin/header"
+        header: "templates/blank"
         content: "admin/user/editUser/content"
         script: "admin/user/editUser/script"
 
-    baseView: "admin/user/editUser/base"
+    baseView: "admin/user/base"
 
-Admin/EditLocalisation:
+Admin/user/modifAddress:
     views:
-        head: "admin/user/editLocalisation/head"
-        header: "admin/header"
-        content: "admin/user/editLocalisation/content"
-        script: "admin/user/editLocalisation/script"
-    baseView: "admin/user/editLocalisation/base"
+        head: "admin/user/modifAddress/head"
+        header: "templates/blank"
+        content: "admin/user/modifAddress/content"
+        script: "admin/user/modifAddress/script"
+
+    baseView: "admin/user/modifAddress/base"
 
 Admin/addProduct:
     views:
