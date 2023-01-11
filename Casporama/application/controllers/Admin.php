@@ -1336,16 +1336,19 @@ class Admin extends CI_Controller
 
         $filtre = $this->input->post('filtre');
 
+        $orders = $this->OrderModel->getAllOrderWithInfo();
+
         if ($filtre != null) {
 
-            $orders = $this->OrderModel->getOrderById($filtre);
-        } else {
-
-            $orders = $this->OrderModel->getAllOrder();
-        }
+            if (in_array($filtre,array_keys($orders))) {
+                $orders = array($orders[$filtre]);
+            } else {
+                $orders = null;
+            }
+            
+        } 
 
         if ($orders != null) {
-
             $dataContent = array('orders' => $orders);
         }
 

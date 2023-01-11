@@ -202,7 +202,7 @@ class OrderModel extends CI_Model {
         return $err;
     }
 
-    public function getAllOrder() : ?array
+    public function getAllOrderWithInfo() : ?array
     {
 
         $query = $this->db->query('call `order`.getAllWithInfo()');
@@ -223,12 +223,12 @@ class OrderModel extends CI_Model {
             $newOrder->setDate($order['dateorder']);
             $newOrder->setState($order['state']);
             $newOrder->setIduser($order['iduser']);
+
             $newOrder->setLocation($this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']));
-            $newOrder->setPrice($order['price']);
 
             $userCivil = $order['name'] . ' ' . $order['firstname'];
 
-            $res[] = array (
+            $res[$order['id']] = array (
 
                 'order' => $newOrder,
                 'userCivil' => $userCivil
@@ -241,6 +241,54 @@ class OrderModel extends CI_Model {
             return null;
         }
     }
+
+    public function getAllOrder() : ?array {
+
+        $query = $this->db->query('call `order`.getAll()');
+
+        $orders = $query->result_array();
+        
+        $query->next_result();
+        $query->free_result();
+
+        
+        $res = [];
+
+        foreach ($orders as $order) {
+
+            $newOrder = new OrderEntity;
+
+            $newOrder->setId($order['id']);
+            $newOrder->setDate($order['dateorder']);
+            $newOrder->setState($order['state']);
+            $newOrder->setIduser($order['iduser']);
+            $newOrder->setLocation($this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']));
+
+            $query = $this->db->query('call `order`.getOrderProduct('. $order['id'] .')');
+
+            $orderproducts = $query->result_array();
+        
+            $query->next_result();
+            $query->free_result();
+
+            foreach ($orderproducts as $products) {
+                $product = $this->ProductModel->findById($products['idproduct']);
+                $product->setStock($this->ProductModel->getStockAll($products['idproduct']));
+                
+                $newOrder->addProducts($product);
+                $newOrder->addVariants($product->getVariant($products['idvariant']));
+                $newOrder->addQuantities($products['idvariant'],$products['quantity']);
+            }
+
+            array_push($res,$newOrder);
+        }
+        if (!empty($res)) {
+            return $res;
+        } else {
+            return null;
+        }
+    }
+
 
     public function haveStock(array $carts) : array {
 

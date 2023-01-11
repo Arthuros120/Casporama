@@ -73,7 +73,6 @@ class Dao_xml extends CI_Model implements DaoInterface {
             $tab = array();
 
             foreach ($orders as $order) {
-
                 $query = $this->db->query("call `order`.getOrderById(" . $order->getId() . ")");
 
                 $results = $query->result_array()[0 ];
