@@ -1,4 +1,5 @@
-<!-- email/factureMail -->
+<!-- email/modifEmail/toLastEmail -->
+
 <!DOCTYPE>
 <html lang="fr">
 <head>
@@ -39,4 +40,4 @@
 </body>
 </html>
 
-<!-- email/factureMail -->
+<!-- email/modifEmail/toLastEmail -->

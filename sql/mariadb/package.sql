@@ -720,6 +720,8 @@ CREATE OR REPLACE PACKAGE `order` AS
     procedure getOrderById(newid int);
     -- Permet de récupérer tout les produits de toutes les commandes
     procedure getAllProduct();
+
+    procedure getAllWithInfo(); -- newArthur
 END;
 
 CREATE OR REPLACE PACKAGE BODY `order` AS
@@ -788,6 +790,11 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
     procedure verifyId(newid int) as
     begin
         select id from `order` where newid = id;
+    end;
+
+    procedure getAllWithInfo() as
+    begin
+        select o.id, o.dateorder, o.state, o.iduser, name, firstname from `order` as o join information on o.iduser = information.id;
     end;
 
 END;

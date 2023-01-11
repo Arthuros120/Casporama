@@ -1046,7 +1046,7 @@ class UserModel extends CI_Model
 
     }
 
-    public function updateEmail(UserEntity $user, string $newEmail)
+    public function updateEmail(UserEntity $user, string $newEmail, $author = "user")
     {
 
         $this->db->query("Call user.updateEmail(" . $user->getId() . ", '" . $newEmail . "')");
@@ -1055,7 +1055,7 @@ class UserModel extends CI_Model
 
         $user->getCoordonnees()->setEmail($newEmail);
 
-        $this->sendInfoModifEmail($user, $lastEmail, "user");
+        $this->sendInfoModifEmail($user, $lastEmail, $author);
 
     }
     
@@ -1221,14 +1221,16 @@ class UserModel extends CI_Model
     public function updateUser(UserEntity $user, string $lastEmail)
     {
 
+        $newEmail = $user->getCoordonnees()->getEmail();
+
+        $user->getCoordonnees()->setEmail($lastEmail);
+
         $this->updateFirstName($user->getId(), $user->getCoordonnees()->getPrenom());
         $this->updateLastName($user->getId(), $user->getCoordonnees()->getNom());
-        $this->updateEmail($user->getId(), $user->getCoordonnees()->getEmail());
+        $this->updateEmail($user, $newEmail, "admin");
         $this->updateMobile($user->getId(), $user->getCoordonnees()->getTelephone());
         $this->updateFixe($user->getId(), $user->getCoordonnees()->getFixe());
         $this->changeStatus($user->getId(), $user->getStatus());
-
-        $this->sendInfoModifEmail($user, $lastEmail, "admin");
 
     }
 
@@ -1245,7 +1247,6 @@ class UserModel extends CI_Model
         }
 
         if ($lastEmail != $user->getCoordonnees()->getEmail()) {
-
             $this->load->model('EmailModel');
 
             $fromEmail = array(

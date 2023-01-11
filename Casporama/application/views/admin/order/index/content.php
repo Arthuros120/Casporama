@@ -19,12 +19,12 @@
         <hr>
         <div class="filter_content">
             <div class="btn">
-                <input type='text' name='filtre' placeholder="N° de commande"/>
+                <input type='number' name='filtre' placeholder="N° de commande"/>
                 <input type="submit" value='Rechercher'>
             </div>
             <div class="btn">
                 <a href="<?php echo site_url('Admin/Order') ?>">Annuler filtre</a>
-            </div> 
+            </div>
         </div>
     </div>
     </form>
@@ -62,16 +62,18 @@
         <?php if (isset($orders)) { foreach ($orders as $order) {?>
             <div class="box">
                 <tr>
-                    <td><input class="selectProduct" type="checkbox" name="<?= $order->getId() ?>"></td>
-                    <td><?= $order->getId() ?></td>
-                    <td><?= $user[$order->getId()]->getNom(). " " .$user[$order->getId()]->getPrenom() ?></td>
-                    <td><?= $order->getDate() ?></td>
-                    <td><?= $order->getState() ?></td>
-                    <td><a href="<?=site_url('Admin/viewOrder?idorder='.$order->getId())?>">Consulter Commande</a></td>
+                    <td><input class="selectProduct" type="checkbox" name="<?= $order['order']->getId() ?>"></td>
+                    <td><?= $order['order']->getId() ?></td>
+                    <td><?= $order['userCivil'] ?></td>
+                    <td><?= $order['order']->getDate() ?></td>
+                    <td><?= $order['order']->getState() ?></td>
+                    <td><a href="<?=site_url('Admin/viewOrder?idorder='.$order['order']->getId())?>">Consulter Commande</a></td>
                 </tr>
             </div>
 
-        <?php }} else { ?>
+        <?php }
+            
+        } else { ?>
 
             <p>Aucune Commandes</p>
 
