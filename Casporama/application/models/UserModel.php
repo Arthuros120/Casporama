@@ -199,7 +199,7 @@ class UserModel extends CI_Model
     {
 
         $query = $this->db->query(
-            'call user.getAllUser(?, ?)',
+            'call user.getAllUserWithStep(?, ?)',
             array(
                 $range[0],
                 $range[1]
