@@ -147,7 +147,7 @@ CREATE OR REPLACE PACKAGE user AS
     -- Permet de compter le nombre d'adresse active par user
     procedure countAliveAddressByUserId(searchUserId int);
     -- Permet de récupérer tout les user
-    procedure getAllUser(start int, step int);
+    procedure getAllUser();
     -- Permet de récupérer toute les Locations
     procedure getAllLocation();
     -- Permet de récupérer tout les Information
@@ -225,7 +225,7 @@ CREATE OR REPLACE PACKAGE BODY user AS
     end;
     procedure updateFirstName(targetId integer, newFirstName varchar(255)) as
     BEGIN
-        update information set firstname=newFirstNagetAll()me where id = targetId;
+        update information set firstname=newFirstNagetAll() where id = targetId;
     end;
     procedure updateLastName(targetId integer, newLastName varchar(255)) as
     BEGIN
