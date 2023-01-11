@@ -598,6 +598,14 @@ Admin/confirmDeleteOrders:
 
     baseView: "admin/base"
 
+admin/addAddress:
+    views:
+        head: "user/home/addAddress/head"
+        content: "admin/user/addAddress/content"
+        script: "user/home/addAddress/script"
+
+    baseView: "user/home/info/base"
+
 #---------------------------------Info View ---------------------------------#
 
 Information/rgpd:
