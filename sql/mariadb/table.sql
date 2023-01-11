@@ -96,6 +96,7 @@ create table if not exists `order` (
     state varchar(15) not null,
     isALive bool not null,
     dateLastUpdate datetime not null,
+    price double,
     primary key(id),
     foreign key(idlocation) references location(idlocation),
     foreign key(iduser) references user(id),
@@ -149,3 +150,8 @@ create table if not exists cart (
     constraint fk_cart_product
         foreign key (idvariant) references catalog(id)
 );
+
+ create table if not exists stock_alerte (
+                id int unique not null,
+                primary key (id)
+            );

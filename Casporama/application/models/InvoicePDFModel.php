@@ -41,26 +41,24 @@ class InvoicePDFModel extends CI_Model
 
             $invoice->setTo(array(($billinginfo->getPrenom() . " " . $billinginfo->getNom()), (($billinginfo->getPrenom() . " " . $billinginfo->getNom())),
                 implode(" ", $locationinfo->getAdresse()), $locationinfo->getCodePostal() . " " . $locationinfo->getCity()));
-            $total = 0;
             foreach ($variantes as $variante) {
                 $product = $this->search_product($products, $variante->getNuproduct());
                 if (!isset($product)) {
                     echo "nope";
                 }
-                if ($user->getStatus() == 'Caspor') {
+
+                if (round(($order->getPrice()-5)/1.20,2) != $this->OrderModel->totalOrder($order)) {
                     $discount = $product->getPrice() * 0.05;
                 } else {
                     $discount = 0;
                 }
+
                 $invoice->addItem($product->getName() . ' ' . $variante->getColor() . ' ' . $variante->getSize(), $product->getDescription(), $quantities[$variante->getId()], $product->getPrice()*0.20,
                     $product->getPrice(), $discount, (($product->getPrice()-$discount)*1.20) * $quantities[$variante->getId()]);
-                $total += (($product->getPrice()-$discount)*1.20) * $quantities[$variante->getId()];
             }
 
-            $total += 5;
-
             $invoice->addTotal('Frais de Port : ', 5);
-            $invoice->addTotal('Total TTC', $total);
+            $invoice->addTotal('Total TTC', $order->getPrice());
 
 
             $invoice->addParagraph("Aucun article ne sera remplacer ou rembourser si vous n'avez cette facture avec vous");

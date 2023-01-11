@@ -18,6 +18,7 @@ class OrderEntity {
     private array $quantities; // Array des quantite commander.
     private int $iduser;
     private string $state;
+    private float $price;
 
     public function getId() : Int {
         return $this->id;
@@ -112,4 +113,13 @@ class OrderEntity {
     {
         $this->quantities[$idvariant] = $quantity;
     }
+
+    public function setPrice(float $price) {
+        $this->price = $price;
+    }
+
+    public function getPrice() : float {
+        return $this->price;
+    }
+
 }

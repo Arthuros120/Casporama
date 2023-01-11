@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="choose_addr">
-                        <a onclick="disabled(this)" id='link' href=<?= base_url("Order/addOrder") . "?idlocation=" . $localisation->getId() . "&idcart=$idcart" ?>>Choisir cette adresse</a>
+                        <a onclick="disabled(this)" id='link' href=<?= base_url("Order/addOrder") . "?idlocation=" . $localisation->getId() . "&idcart=$idcart" . "&price=$price" ?>>Choisir cette adresse</a>
                     </div>
 
                 </div>

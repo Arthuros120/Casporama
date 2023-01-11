@@ -2,6 +2,8 @@
 
 // * On importe les classes nécessaires
 
+use PhpParser\Node\Expr\Cast\Double;
+
 require_once APPPATH . 'models/entity/OrderEntity.php';
 require_once APPPATH . 'models/entity/ProductEntity.php';
 require_once APPPATH . 'models/entity/StockEntity.php';
@@ -42,6 +44,7 @@ class OrderModel extends CI_Model {
             $newOrder->setState($order['state']);
 
             $newOrder->setIduser($order['iduser']);
+            $newOrder->setPrice($order['price']);
 
 
             foreach ($rows as $order) {
@@ -81,21 +84,6 @@ class OrderModel extends CI_Model {
                 $order = $this->findOrderById($orderid["id"], $user->getId());
                 $res[] = $order;
             }
-
-            /*$alreadydone = array();
-            for ($i = 0; $i < count($res); $i++) {
-                $order2 = array();
-                if (!in_array($res[$i]->getIdorder(),$alreadydone)) {
-                    array_push($order2,$res[$i]);
-                    array_push($alreadydone,$res[$i]->getIdorder());
-                    for ($j = $i+1; $j < count($res); $j++) {
-                        if ($res[$i]->getIdorder() == $res[$j]->getIdorder()) {
-                            array_push($order2,$res[$j]);
-                        }
-                    }
-
-                }
-            }*/
 
             $user->setOrder($res);
             return $user->getOrder();
@@ -137,7 +125,7 @@ class OrderModel extends CI_Model {
         return false;
     }
 
-    public function addOrder(array $carts, UserEntity $user, int $idlocation) : int {
+    public function addOrder(array $carts, UserEntity $user, int $idlocation, float $price) : int {
 
         $id = $this->generateId();
         $iduser = $user->getId();
@@ -150,7 +138,7 @@ class OrderModel extends CI_Model {
         $dateLastUpdate = date($datestringLastUpdate, $time);
 
         if ($carts != null) {
-            $this->db->query("Call `order`.addOrder(" . $id . "," . $iduser . "," . "'$date'" . "," . $idlocation . "," . "'Non preparer'" . "," . 'true' . "," . "'$dateLastUpdate'" . ")");
+            $this->db->query("Call `order`.addOrder(" . $id . "," . $iduser . "," . "'$date'" . "," . $idlocation . "," . "'Non preparer'" . "," . 'true' . "," . "'$dateLastUpdate'" . "," . $price . ")");
             foreach ($carts as $cart) {
                 $this->db->query("Call `order`.addProductToOrder(" . $id . "," . $cart->getProduct()->getId() . "," . $cart->getVariant()->getId() . "," . $cart->getQuantity() . ")");
                 
@@ -233,6 +221,7 @@ class OrderModel extends CI_Model {
             $newOrder->setState($order['state']);
             $newOrder->setIduser($order['iduser']);
             $newOrder->setLocation($this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']));
+            $newOrder->setPrice($order['price']);
 
             $query = $this->db->query('call `order`.getOrderProduct('. $order['id'] .')');
 
@@ -258,6 +247,8 @@ class OrderModel extends CI_Model {
     }
 
     public function haveStock(array $carts) : array {
+
+        $res = [];
 
         foreach ($carts as $cart) {
             $query = $this->db->query('call catalog.getStockByVariant('. $cart->getVariant()->getId() .')');
@@ -296,6 +287,7 @@ class OrderModel extends CI_Model {
             $newOrder->setState($order['state']);
             $newOrder->setIduser($order['iduser']);
             $newOrder->setLocation($this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']));
+            $newOrder->setPrice($order['price']);
 
             $query = $this->db->query('call `order`.getOrderProduct('. $order['id'] .')');
 
