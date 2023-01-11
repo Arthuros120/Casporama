@@ -17,14 +17,21 @@
       <input type="submit" value="Modifier">
     <?php echo form_close(); ?>
   </div>
+
+  <div class="edit_quantity_error">
+    <?php if (isset($error) && $error != "") : ?>
+      <div class="error">
+        <img src="<?= base_url() ?>static/image/icon/error_white.svg" alt="">
+        <p> <?= $error ?> </p>
+      </div>
+    <?php endif; ?>
+  </div>
 </div>
 
 
 
 
-<?php if (isset($error)) : ?>
-  <p> <?= $error ?> </p>
-<?php endif; ?>
+
 
 
 

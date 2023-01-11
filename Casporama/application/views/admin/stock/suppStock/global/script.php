@@ -1,6 +1,10 @@
 <!-- admin/delete/global/script -->
 
-<p>Vous allez êtres redirigé dans <span id="redirect">5 secondes</span> vers la gestion des références</p>
+<div class="redirect">
+    <p>Vous allez êtres redirigé dans <span id="redirect">5 secondes</span> vers la gestion des références</p>
+</div>
+
+
 
 <script type="text/javascript">
 

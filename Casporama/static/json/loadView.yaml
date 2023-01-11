@@ -430,7 +430,7 @@ Admin/stock/suppStock/request:
 
 Admin/stock/suppStock/error:
     views:
-        head: "admin/stock/suppStock/global/head"
+        head: "admin/stock/suppStock/request/head"
         header: "templates/blank"
         content: "admin/stock/suppStock/error/content"
         script: "admin/stock/suppStock/global/script"
@@ -439,7 +439,7 @@ Admin/stock/suppStock/error:
 
 Admin/stock/suppStock/success:
     views:
-        head: "admin/stock/suppStock/global/head"
+        head: "admin/stock/suppStock/request/head"
         header: "templates/blank"
         content: "admin/stock/suppStock/success/content"
         script: "admin/stock/suppStock/global/script"
@@ -459,7 +459,7 @@ Admin/stock/suppStocks/request:
 Admin/stock/suppStocks/error:
 
     views:
-        head: "admin/stock/suppStocks/global/head"
+        head: "admin/stock/suppStocks/error/head"
         header: "templates/blank"
         content: "admin/stock/suppStocks/error/content"
         script: "admin/stock/suppStocks/global/script"
@@ -469,7 +469,7 @@ Admin/stock/suppStocks/error:
 Admin/stock/suppStocks/success:
 
     views:
-        head: "admin/stock/suppStocks/global/head"
+        head: "admin/stock/suppStocks/success/head"
         header: "templates/blank"
         content: "admin/stock/suppStocks/success/content"
         script: "admin/stock/suppStocks/global/script"
@@ -487,7 +487,7 @@ Admin/delete/request:
 
 Admin/delete/success:
     views:
-        head: "admin/delete/global/head"
+        head: "admin/stock/suppStock/request/head"
         header: "templates/blank"
         content: "admin/delete/success/content"
         script: "admin/delete/global/script"
@@ -496,7 +496,7 @@ Admin/delete/success:
 
 Admin/delete/error:
     views:
-        head: "admin/delete/global/head"
+        head: "admin/stock/suppStock/request/head"
         header: "templates/blank"
         content: "admin/delete/error/content"
         script: "admin/delete/global/script"

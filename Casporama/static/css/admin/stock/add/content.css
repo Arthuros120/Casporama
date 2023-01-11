@@ -1,0 +1,201 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+    font-family: var(--main-font);
+}
+
+.add_stock {
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.add_stock_title {
+    width: 100%;
+    height: 15vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.main_title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2vh;
+}
+
+.main_title > a > img {
+    transform: rotate(180deg);
+    padding-bottom: 1vh;
+}
+
+.main_title > h1 {
+    font-size: 3vw;
+}
+
+.add_stock_title > h3 {
+    font-size: 1.2vw;
+}
+
+.add_stock_grid {
+    width: 80%;
+
+    padding: 4% 0;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+}
+
+.add_stock_cover {
+    background-color: var(--grey1);
+    padding: 7%;
+    border-radius: 12px;
+}
+
+.add_stock_cover > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.add_stock_desc {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    gap: 2vh;
+}
+
+.add_stock_desc > h3 {
+    font-size: 2vw;
+}
+
+.add_stock_desc > p:nth-child(2) {
+    font-size: 1vw;
+}
+
+.add_stock_desc > p:nth-child(3) {
+    font-size: 1.5vw;
+    font-weight: 600;
+}
+
+.add_stock_content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.add_stock_content > hr {
+    width: 100%;
+}
+
+.content_title {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    align-items: center;
+    padding-left: 5vh;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.content_input  {
+    width: 80%;
+    height: 10vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+
+    gap: 2vh;
+}
+
+.content_input > .input {
+    width: 20vw;
+}
+
+.content_input > .input > input, select {
+    width: 100%;
+
+    padding: 1% 2%;
+    border: 1px solid #233E84;
+    background-color: white;
+}
+
+.content_input > .input > p {
+    color: #233E84;
+    font-weight: 600;
+}
+
+.content_submit {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content_submit > input {
+    padding: 1% 4%;
+    border: none;
+    background-color: #233E84;
+    color: white;
+    border-radius: 12px;
+
+    cursor: pointer;
+}
+
+.content_error {
+    width: 100%;
+    height: 15vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2vh;
+
+    padding: 1% 2%;
+    border-radius: 12px;
+
+    background-color: red;
+}
+
+.error > img {
+    width: 20%;
+    height: auto;
+}
+
+.error_text {
+    color: white;
+}
