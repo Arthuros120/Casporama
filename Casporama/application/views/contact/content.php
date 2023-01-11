@@ -55,7 +55,7 @@
 
     <div class="contact_error">
 
-    <?php if (isset($error)) : ?>
+    <?php if (isset($error) && $error[0] != "") : ?>
         <div class="error">
             <img src="<?= base_url() ?>static/image/icon/error_white.svg" alt="error_white">
             <div class="error_text">

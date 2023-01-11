@@ -1,6 +1,14 @@
 <!-- contact/comfirmContent -->
 
-<h1> Bonjour <?= $name ?> <?= $firstname ?> </h1>
+<div class="confirm_contact">
+
+    <div class="confirm_title">
+        <h1> Bonjour <?= $firstname ?> </h1>
+    </div>
+
+</div>
+
+
 
 <p>Vous avez demandé à nous contacter par mail à l'adresse suivante : <?= $email ?> </p>
 
