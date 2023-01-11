@@ -96,9 +96,17 @@ if (!$addAddIsPos) { ?>
     </table>
 <?php } else { ?>
     <p>Il n'y a pas de commande enregistré</p>
-<?php } ?>
+<?php }
+
+if ($user->getIsALive()) { ?>
 
 <a href="<?= base_url('Admin/DeleteUser/' . $user->getId()) ?>">Supprimer l'utilisateur</a>
+
+<?php } else { ?>
+
+    <a href="<?= base_url('Admin/reviveUser/' . $user->getId()) ?>">Resuciter l'utilisateur</a>
+
+<?php } ?>
 
 
 <!-- admin/stock/view/content --->

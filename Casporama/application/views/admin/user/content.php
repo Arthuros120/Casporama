@@ -35,19 +35,11 @@
                     </div>
             </div>
             <div class="admin_list_user_content">
-
-                <?= form_open('admin/deleteUsers') ?>
                 <div class="table">
                 <div class="list_user_input">
-                    <input type="submit" value="Supprimer les utilisateurs selectionnés">
-                    <div class="input_checkbox">
-                        <input type="checkbox" id="selectAll"></input>
-                        <p>Tous séléctionner</p>
-                    </div>
                 </div>
                 <table>
                     <tr>
-                        <th> ✓ </th>
                         <th>Id</th>
                         <th> Login </th>
                         <th> Nom </th>
@@ -61,7 +53,6 @@
 
                     <?php foreach ($users as $user) : ?>
                         <tr>
-                            <td><input class="selectProduct" type="checkbox" name="product-<?= $user->getId() ?>"></td>
                             <td><?= $user->getId() ?></td>
                             <td><a
                             href="<?= base_url('admin/user/' . $user->getId()) ?>"><?= $user->getLogin() ?></a></td>
@@ -81,7 +72,16 @@
                                 } ?></td>
                             <td>
                                 <a href="<?= base_url('Admin/EditUser/') . $user->getId() ?>"> Modifier </a>
-                                <a href="<?= base_url('Admin/DeleteUser/' . $user->getId()) ?>">Supprimer</a>
+
+                                <?php if ($user->getIsALive()) { ?>
+
+                                    <a href="<?= base_url('Admin/DeleteUser/' . $user->getId()) ?>">Supprimer</a>
+
+                                <?php } else { ?>
+
+                                    <a href="<?= base_url('Admin/reviveUser/' . $user->getId()) ?>">Resuciter</a>
+
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php endforeach ?>

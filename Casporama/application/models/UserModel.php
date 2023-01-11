@@ -1150,6 +1150,14 @@ class UserModel extends CI_Model
 
     }
 
+    public function reviveUser(int $id)
+    {
+        $dateLastUpdate = date('Y-m-d H:i:s');
+
+        $this->db->query("Call user.userIsALive('" . $id . "', '" . $dateLastUpdate . "')");
+
+    }
+
     public function adminOnly() : UserEntity
     {
 
