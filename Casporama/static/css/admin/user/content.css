@@ -10,8 +10,6 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    
-
 }
 
 .menu {
@@ -72,141 +70,15 @@
     background-color: var(--grey2);
 }
 
-.admin_user_filter_title {
-    width: 100%;
-    height: 5vh;
-
-    padding-left: 5vh;
-
-    display: flex;
-    align-items: center;
-}
-
-.admin_user_filter_title > h2 {
-    font-size: 1.5vw;
-}
-
-.admin_user_filter_sport_cat {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-
-    width: 100%;
-    height: 10vh;
-}
-
-.admin_user_filter_sport_cat > .filter_sport,.filter_cat {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.sport_cat_input {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-
-    gap: 2vh;
-}
-
-
-.admin_user_brand_title > h2 {
-    font-size: 1.5vw;
-}
-
-.admin_user_filter_brand {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-
-    width: 100%;
-    height: 12vh;
-}
-
-.brand_input {
-    padding: 0% 2%;
-}
-
-.admin_user_filter_price_search {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-
-    padding: 1% 0%;
-}
-
-.filter_price {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 2vh;
-}
-
-.price_input {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-    gap: 3vh;
-}
-
-.filter_search {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 2vh;
-}
-
-.admin_user_manage_title {
-    width: 100%;
-    height: 10vh;
-
-    display: flex;
-    align-items: center;
-
-    padding-left: 5vh;
-}
-
-.admin_user_manage_content {
-    width: 100%;
-    height: 10vh;
-
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.admin_list_product {
-    background-color: var(--grey2);
-}
 
 .admin_list_user_title {
-    width: 100%;
     height: 10vh;
 
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
     padding-left: 5vh;
-}
-
-.active_filter {
-    width: 100%;
-    height: 10vh;
-
-    display: flex;
-    align-items: center;
-
-    padding-left: 5vh;
-
 }
 
 .admin_list_user_content {
@@ -215,4 +87,88 @@
 
     padding-bottom: 5vh;
 }
+
+.input_haut {
+
+    width: 100%;
+    height: 5vh;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+
+    padding-left: 5vh;
+
+    gap: 2vh;
+
+}
+
+.input_haut > a {
+    width: 10vw;
+    background-color: #233E84;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-decoration: none;
+
+    border-radius: 12px;
+
+}
+
+.input_bas {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.right {
+    width: 10vw;
+    margin-right: 5vh;
+}
+
+.left {
+    width: 10vw;
+    margin-left: 5vh;
+}
+
+.left > input , .right > input {
+    width: 100%;
+
+    padding: 1% 2%;
+
+    background-color: #233E84;
+    color: white;
+    border: none;
+
+    cursor: pointer;
+}
+
+.list_user_input {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input_checkbox {
+    display: flex;
+    flex-direction: row;
+
+    gap: 1vh;
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+}
+
+
 

@@ -15,26 +15,37 @@
             <div class="admin_list_user_title">
                 <h2>Liste des Utilisateurs</h2>
                 <h3> Utilisateurs de <?= $minRange + 1 ?> à <?= $maxRange ?></h3>
-                <a href="<?= base_url('admin/User') ?>"> Retour aux filtre </a>
-                <?php if ($minRange > 0) { ?>
-
-                    <input class="previousButton" type="button" name="precedent" value="Page precedente">
-
-                <?php } ?>
-
-                <?php if ($nextIsPosible) { ?>
-
-                    <input class="nextButton" type="button" name="suivant" value="Page suivante">
-
-                <?php } ?>
             </div>
-            <a href="<?= base_url('admin/AddUser') ?>">Ajouter un utilisateur</a>
+                <div class="input_haut">
+                    <a href="<?= base_url('admin/User') ?>"> Retour aux filtre </a>
+                    <a href="<?= base_url('admin/AddUser') ?>">Ajouter un utilisateur</a>
+                </div>
             <hr>
+            <div class="input_bas">
+
+                    <div class="left">
+                    <?php if ($minRange > 0) { ?>
+                        <input class="previousButton" type="button" name="precedent" value="Page precedente">
+                    <?php } ?>
+                    </div>
+
+                    <div class="right">
+                    <?php if ($nextIsPosible) { ?>
+                        <input class="nextButton" type="button" name="suivant" value="Page suivante">
+                    <?php } ?>
+                    </div>
+            </div>
             <div class="admin_list_user_content">
 
                 <?= form_open('admin/deleteUsers') ?>
-                <input type="submit" value="Supprimer les utilisateurs selectionnés">
-                <input type="checkbox" id="selectAll">Tous selectionner</input>
+                <div class="table">
+                <div class="list_user_input">
+                    <input type="submit" value="Supprimer les utilisateurs selectionnés">
+                    <div class="input_checkbox">
+                        <input type="checkbox" id="selectAll"></input>
+                        <p>Tous séléctionner</p>
+                    </div>
+                </div>
                 <table>
                     <tr>
                         <th> ✓ </th>
@@ -75,8 +86,9 @@
                             </td>
                         </tr>
                     <?php endforeach ?>
-                    <?= form_close() ?>
                 </table>
+                </div>
+                <?= form_close() ?>
             </div>
         </div>
     </div>
