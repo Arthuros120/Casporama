@@ -79,7 +79,7 @@ class Shop extends CI_Controller
                     'headSport' => "shop/{$sport}/homeHead",
                     'header' => 'shop/global/header',
                     'content' => "shop/{$sport}/homeContent",
-                    'footer' => 'templates/blank'
+                    'footer' => 'home/footer'
                     ),
                     array(
                         'head' => $dataHead,
