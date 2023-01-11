@@ -170,14 +170,8 @@
             </div>
 
             <div class="admin_list_product_content">
-            <form action="<?php echo site_url('Admin/ReviveProducts') ?>" method="post">
-
-                <input type="submit" value="Supprimer les produits selectionnés">
-                <input type="checkbox" id="selectAllNotAlive">Tous selectionner</input>
-
                 <table>
                     <tr>
-                        <th> ✓ </th>
                         <th>Id</th>
                         <th> Sport </th>
                         <th> Categories </th>
@@ -188,7 +182,6 @@
                     </tr>
                     <?php foreach ($productsNotAlive as $product): ?>
                     <tr>
-                        <td><input class="selectProduct" type="checkbox" name="product<?= $product->getId() ?>"></td>
                         <td><?= $product->getId() ?></td>
                         <td><?php echo $product->getSportName() ?></td>
                         <td><?php echo $product->getType() ?></td>
@@ -209,7 +202,6 @@
                     </tr>
                 <?php endforeach ?>
                 </table>
-            </form>
             </div>
         </div>
 
