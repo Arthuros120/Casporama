@@ -1234,6 +1234,59 @@ class UserModel extends CI_Model
 
     }
 
+    public function resetPass(UserEntity $user)
+    {
+
+        $newPass = $this->genRandomPass();
+
+        $this->updatePassword($user->getId(), $newPass);
+
+        $this->sendResetPassEmail($user, $newPass);
+
+    }
+
+    private function genRandomPass($length = 20)
+    {
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$!';
+        $string = '';
+
+        for ($i=0; $i<$length; $i++) {
+
+            $string .= $chars[rand(0, strlen($chars)-1)];
+
+        }
+
+        return $string;
+    }
+
+    private function sendResetPassEmail(UserEntity $user, string $newPass)
+    {
+
+        $this->load->model('EmailModel');
+
+        $fromEmail = array(
+
+            'email' => 'no_reply@casporama.live',
+            'name' => 'Casporama - No Reply'
+
+        );
+
+        $this->EmailModel->sendEmail(
+
+            $fromEmail,
+            $user->getCoordonnees()->getEmail(),
+            'Casporama - Reset de votre password',
+            'email/resetPass/mail',
+            array(
+
+                'user' => $user,
+                'newPass' => $newPass
+
+            )
+        );
+
+    }
+
     private function sendInfoModifEmail(UserEntity $user, string $lastEmail, string $author = "admin") : void
     {
         if ($author == "admin") {

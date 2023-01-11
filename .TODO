@@ -13,8 +13,6 @@
 
 - TODO : SQL -> Faire Coupon de réduction
 
-- TODO : Backend/SQL -> Créer la fonction mots de passe oublié
-
 - TODO : Backend -> Revoir tout les demande d'affichage des pages d'erreur et savoir si c'est les pages d'erreur adapté
 
 - TODO : Backend -> Bien assigné les autocomplete a tous les input
@@ -29,33 +27,19 @@
 
 - Todo : Frontend -> Erreur au niveau des inputs (required ect...)
 
-- TODO : Backend/Frontend ? -> Back Arrow dans Modif et Add bug
-
 - Todo : Backend -> Gerer les addresse par défault
 
 - Todo : Backend -> Ajouter la possibilité de recuperer sont compte mort
 
 - Todo : Backend -> Faire en sorte que les valeur donné dans un formulaire soit gardé en cas d'erreur
 
-- Todo : Backend -> Bug dans la modification de l'adresse
-
 - Todo : Backend -> Reformatter le code en le partitionnant en fonction des fonctionnalité
-
-- Todo : Backend -> Faire en sorte que tout les télécharment ce mette dans DAOfile
-
-<-> Urgent -> Réparer les localisation
-
-
 
 ## En cours
 
 - Do : Backend -> Créer les pages différente page en fonction des status
 
 - Do : Sysadmin/Backend -> crée un dédoublement du site et de la base de donnée sur le serveur distant
-
-- Do : Backend/Frotend -> Progress bar sur la loading page (pour le fun)
-
-- Do : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...
 
 ## Fait {cm:2022-12-12}
 
@@ -100,3 +84,13 @@
 - Done : SQL -> Trigger isALive et isDefault, update {cm:2022-12-12}
 
 - Done : Backend -> Faire filtre pour DAO (choisir colonnes)
+
+- Done : Backend/SQL -> Créer la fonction mots de passe oublié
+
+- Done : Backend/Frontend ? -> Back Arrow dans Modif et Add bug
+
+- Done : Backend -> Bug dans la modification de l'adresse
+
+- Done : Backend -> Faire en sorte que tout les télécharment ce mette dans DAOfile
+
+- Do : Backend -> Faire une DAO permettant d'injecter des produit, utilisateur, etc... dans la base de donnée en masse : Csv, Json, Yaml, etc...

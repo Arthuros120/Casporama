@@ -375,6 +375,33 @@ Admin/user/supprAddress/success:
 
     baseView: "admin/user/supprAddress/global/base"
 
+Admin/user/resetPass/request:
+    views:
+        head: "admin/user/resetPass/request/head"
+        header: "templates/blank"
+        content: "admin/user/resetPass/request/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/user/resetPass/error:
+    views:
+        head: "admin/user/resetPass/global/head"
+        header: "templates/blank"
+        content: "admin/user/resetPass/error/content"
+        script: "admin/user/resetPass/global/script"
+
+    baseView: "admin/user/resetPass/global/base"
+
+Admin/user/resetPass/success:
+    views:
+        head: "admin/user/resetPass/global/head"
+        header: "templates/blank"
+        content: "admin/user/resetPass/success/content"
+        script: "admin/user/resetPass/global/script"
+
+    baseView: "admin/user/resetPass/global/base"
+
 Admin/addProduct:
     views:
         head: "admin/addProduct/head"
@@ -542,7 +569,7 @@ Admin/deletes/request:
 
 Admin/deletes/success:
     views:
-        head: "admin/deletes/global/head"
+        head: "admin/deletes/success/head"
         header: "templates/blank"
         content: "admin/deletes/success/content"
         script: "admin/deletes/global/script"
@@ -551,7 +578,7 @@ Admin/deletes/success:
 
 Admin/deletes/error:
     views:
-        head: "admin/deletes/global/head"
+        head: "admin/deletes/error/head"
         header: "templates/blank"
         content: "admin/deletes/error/content"
         script: "admin/deletes/global/script"
@@ -597,6 +624,14 @@ Admin/confirmDeleteOrders:
         footer: "templates/blank"
 
     baseView: "admin/base"
+
+admin/addAddress:
+    views:
+        head: "user/home/addAddress/head"
+        content: "admin/user/addAddress/content"
+        script: "user/home/addAddress/script"
+
+    baseView: "user/home/info/base"
 
 #---------------------------------Info View ---------------------------------#
 

@@ -14,7 +14,7 @@
         <?= form_open('admin/editUser/' . $user->getId()) ?>
         <div class="info_log">
             <p> Login : <?= $user->getLogin(); ?> </p>
-            <p> Mot de passe : <a href="admin/reserPass/" . <?= $user->getId() ?>>Réinitialiser</a></p>
+            <p> Mot de passe : <a href="<?= base_url('admin/resetPass/') . $user->getId() ?>">Réinitialiser</a></p>
         </div>
         
         <div class="info_perso">
@@ -120,7 +120,7 @@
             if (!$addAddIsPos) { ?>
                 <div class="card_add_address">
                     <a
-                    href="<?= base_url('User/admin/addAddress/' . $user->getId())?>" >
+                    href="<?= base_url('admin/addAddress/' . $user->getId())?>" >
                     <img src="<?= base_url() . "static/image/icon/add.svg" ?>"
                     alt="Add" ></a>
                 </div>
