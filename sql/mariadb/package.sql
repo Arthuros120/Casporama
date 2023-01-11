@@ -805,7 +805,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
 
     procedure getAllWithInfo() as
     begin
-        select o.id, o.dateorder, o.state, o.iduser, name, firstname from `order` as o join information on o.iduser = information.id;
+        select o.id, o.dateorder, o.state, o.iduser, idlocation ,name, firstname from `order` as o join information on o.iduser = information.id;
     end;
 
 END;
@@ -838,6 +838,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure deleteCatalog(newid int);
     -- Permet de savoir si un variant existe avec se numéros cette couleur et cette taille
     procedure heHaveCatalog(newnuproduct int, newColor varchar(20), newSize varchar(3));
+    procedure getStockAll( id integer);
 END;
 
 CREATE OR REPLACE PACKAGE BODY catalog AS
@@ -848,6 +849,11 @@ CREATE OR REPLACE PACKAGE BODY catalog AS
     procedure getStock( id integer) as
     begin
         select * from catalog where nuproduct = id and isAlive = true;
+    end;
+
+    procedure getStockAll( id integer) as
+    begin
+        select * from catalog where nuproduct = id;
     end;
 
     procedure getStockTotal( id integer) as

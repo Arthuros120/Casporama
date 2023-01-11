@@ -135,6 +135,23 @@ class ProductModel extends CI_Model
         return $stock;
     }
 
+    public function getStockAll(int $idProduct): array
+    {
+
+        // * Requete SQL pour récupérer le stock du produit
+        $queryStock = $this->db->query("Call catalog.getStockAll(" . $idProduct . ")");
+
+        // * On extrait le stock du produit du résultat de la requete
+        $stock = $queryStock->result();
+
+        // * On passe le stock du produit en paramètre de la requete suivante et on repasse en mode normal (asynchrone)
+        $queryStock->next_result();
+        $queryStock->free_result();
+
+        // * On retourne le stock du produit
+        return $stock;
+    }
+
     /*
 
         * Function getStockTotal
