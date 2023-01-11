@@ -30,11 +30,11 @@ class Contact extends CI_Controller
                 'label' => 'Prénom',
                 'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
                 'errors' => array( // * On définit les messages d'erreurs
-                    'required' => 'Vous avez oublié %s.',
-                    "min_length" => "Le %s doit faire au moins 3 caractères",
-                    "max_length" => "Le %s doit faire au plus 255 caractères",
-                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
-                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                    'required' => 'Vous avez oublié %s,',
+                    "min_length" => "Le %s doit faire au moins 3 caractères,",
+                    "max_length" => "Le %s doit faire au plus 255 caractères,",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin,',
+                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques,',
                 ),
             ),
 
@@ -43,11 +43,11 @@ class Contact extends CI_Controller
                 'label' => 'Nom',
                 'rules' => 'trim|required|min_length[3]|max_length[255]|alpha',
                 'errors' => array( // * On définit les messages d'erreurs
-                    'required' => 'Vous avez oublié %s.',
-                    "min_length" => "Le %s doit faire au moins 3 caractères",
-                    "max_length" => "Le %s doit faire au plus 255 caractères",
-                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
-                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques',
+                    'required' => 'Vous avez oublié %s.,',
+                    "min_length" => "Le %s doit faire au moins 3 caractères,",
+                    "max_length" => "Le %s doit faire au plus 255 caractères,",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin,',
+                    'alpha' => 'Le %s ne doit contenir que des caractères alphabétiques,',
                 ),
             ),
 
@@ -56,11 +56,11 @@ class Contact extends CI_Controller
                 'label' => 'email',
                 'rules' => 'trim|required|min_length[5]|max_length[255]|valid_email',
                 'errors' => array( // * On définit les messages d'erreurs
-                    'required' => 'Vous avez oublié %s.',
-                    "min_length" => "Le %s doit faire au moins 5 caractères",
-                    "max_length" => "Le %s doit faire au plus 255 caractères",
-                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
-                    'valid_email' => 'Le %s n\'est pas valide',
+                    'required' => 'Vous avez oublié %s.,',
+                    "min_length" => "Le %s doit faire au moins 5 caractères,",
+                    "max_length" => "Le %s doit faire au plus 255 caractères,",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin,',
+                    'valid_email' => 'Le %s n\'est pas valide,',
                 ),
             ),
 
@@ -69,10 +69,10 @@ class Contact extends CI_Controller
                 'label' => 'object',
                 'rules' => 'trim|required|min_length[5]|max_length[255]',
                 'errors' => array( // * On définit les messages d'erreurs
-                    'required' => 'Vous avez oublié %s.',
-                    "min_length" => "Le %s doit faire au moins 5 caractères",
-                    "max_length" => "Le %s doit faire au plus 255 caractères",
-                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'required' => 'Vous avez oublié %s.,',
+                    "min_length" => "Le %s doit faire au moins 5 caractères,",
+                    "max_length" => "Le %s doit faire au plus 255 caractères,",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin,',
                 ),
             ),
 
@@ -81,10 +81,10 @@ class Contact extends CI_Controller
                 'label' => 'message',
                 'rules' => 'trim|required|min_length[10]|max_length[5000]',
                 'errors' => array( // * On définit les messages d'erreurs
-                    'required' => 'Vous avez oublié %s.',
-                    "min_length" => "Le %s doit faire au moins 10 caractères",
-                    "max_length" => "Le %s doit faire au plus 5000 caractères",
-                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'required' => 'Vous avez oublié %s.,',
+                    "min_length" => "Le %s doit faire au moins 10 caractères,",
+                    "max_length" => "Le %s doit faire au plus 5000 caractères,",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin,',
                 ),
             ),
 
@@ -94,9 +94,11 @@ class Contact extends CI_Controller
 
         if (!$this->form_validation->run()) {
 
+            $error = explode(',',validation_errors());
+
             $dataContent = array(
 
-                'error' => validation_errors()
+                'error' => $error
 
             );
 

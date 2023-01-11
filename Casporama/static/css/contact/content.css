@@ -1,0 +1,148 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    font-family: var(--main-font);
+}
+
+.contact {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.contact_title {
+    width: 100%;
+    height: 20vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    font-size: 1.5vw;
+}
+
+form {
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.contact_form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form_content {
+    width: 50%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    place-items: center;
+
+    row-gap: 1vh;
+
+    padding-top: 2%;
+    padding-bottom: 1%;
+}
+
+.box {
+    width: 80%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    gap: 1vh;
+}
+
+.form_msg {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 1vh;
+}
+
+.form_msg > textarea {
+    width: 90%;
+    resize: none;
+}
+
+.form_msg > p {
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.form_submit {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form_submit > input {
+    padding: 1% 4%;
+
+    background-color: #233E84;
+    border: none;
+    color: white;
+
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.contact_error {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    padding-top: 2vh;
+}
+
+.error {
+    background-color: red;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    gap: 2vh;
+
+    padding: 1% 0%;
+    border-radius: 12px;
+
+    color: white;
+}
+
+.error > img {
+    width: 10%;
+    height: auto;
+}
