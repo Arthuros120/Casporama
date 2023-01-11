@@ -54,7 +54,7 @@
 if (!$addAddIsPos) { ?>
     <div class="card_add_address">
         <a
-        href="<?= base_url('User/admin/addAddress/' . $user->getId())?>" >
+        href="<?= base_url('admin/addAddress/' . $user->getId())?>" >
         <img src="<?= base_url() . "static/image/icon/add.svg" ?>"
         alt="Add" ></a>
     </div>

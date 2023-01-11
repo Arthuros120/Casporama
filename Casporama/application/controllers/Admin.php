@@ -917,7 +917,7 @@ class Admin extends CI_Controller
 
         if (!$this->form_validation->run()) {
 
-            $error = explode(',',validation_errors());
+            $error = explode(',', validation_errors());
 
 
             $dataContent = array(
@@ -1339,17 +1339,14 @@ class Admin extends CI_Controller
         if ($filtre != null) {
 
             $orders = $this->OrderModel->getOrderById($filtre);
-
         } else {
 
             $orders = $this->OrderModel->getAllOrder();
-
         }
 
         if ($orders != null) {
 
             $dataContent = array('orders' => $orders);
-
         }
 
         if (isset($dataContent)) {
@@ -1644,7 +1641,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function editUser(int $id = -1) : void
+    public function editUser(int $id = -1): void
     {
 
         $this->UserModel->adminOnly();
@@ -1827,6 +1824,226 @@ class Admin extends CI_Controller
         }
     }
 
+    public function addAddress(int $id = -1)
+    {
+
+        if ($id == -1) {
+
+            redirect('Admin/User');
+        }
+
+        $user = $this->UserModel->getUserById($id);
+
+        if ($this->LocationModel->heHaveMaxAddress($user->getId())) {
+
+            show_error("Vous avez atteint le nombre maximum d'adresse", 403, "Erreur");
+        }
+
+        $configRules = array(
+
+            // * Configuration des paramètre du champlogin
+            array(
+                'field' => 'name',
+                'label' => 'Nom de l\'adresse',
+                'rules' => 'trim|required|min_length[3]|max_length[255]|alpha_numeric_spaces',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'alpha_numeric_spaces' => 'Le %s ne doit contenir que des caractères alphanumeriques et/ou des espaces',
+                ),
+            ),
+
+            array(
+                'field' => 'number',
+                'label' => 'Numéro de voie',
+                'rules' => 'trim|required|is_natural|min_length[1]|max_length[5]',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    "min_length" => "Le %s doit faire au moins 1 caractères",
+                    "max_length" => "Le %s doit faire au plus 5 caractères",
+                    'is_natural' => 'Le %s ne doit contenir que des caractères numériques',
+                ),
+            ),
+
+            array(
+
+                'field' => 'street',
+                'label' => 'Nom de la voie',
+                'rules' => 'trim|required|min_length[3]|max_length[250]|alpha_numeric_spaces',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 250 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    'alpha_numeric_spaces' => 'Le %s ne doit contenir que des caractères alphanumeriques et/ou des espaces',
+                ),
+            ),
+
+            array(
+
+                'field' => 'department',
+                'label' => 'Département',
+                "rules" => 'required|callback_InListDepartment',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                ),
+            ),
+
+            array(
+
+                'field' => 'city',
+                'label' => 'Ville',
+                "rules" => 'trim|required|min_length[3]|max_length[255]',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    "min_length" => "Le %s doit faire au moins 3 caractères",
+                    "max_length" => "Le %s doit faire au plus 255 caractères",
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                ),
+            ),
+
+            array(
+
+                'field' => 'country',
+                'label' => 'Pays',
+                "rules" => 'required|callback_InListCountry',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                )
+            ),
+
+            array(
+
+                'field' => 'postalCode',
+                'label' => 'Code postal',
+                'rules' => 'trim|required|is_natural|min_length[5]|max_length[5]',
+                'errors' => array( // * On définit les messages d'erreurs
+                    'required' => 'Vous avez oublié %s.',
+                    'trim' => 'Le %s ne doit pas contenir d\'espace au début ou à la fin',
+                    "min_length" => "Le %s doit faire 5 caractères",
+                    "max_length" => "Le %s doit faire 5 caractères",
+                    'is_natural' => 'Le %s ne doit contenir que des caractères numériques',
+                ),
+            )
+        );
+
+        $this->form_validation->set_rules($configRules);
+
+        $dataContent['id'] = $user->getId();
+
+        if (!$this->form_validation->run()) {
+
+            $dataContent['error'] = validation_errors();
+
+            $data = array(
+
+                'content' => $dataContent,
+
+            );
+
+            $this->LoaderView->load('admin/addAddress', $data);
+        } else {
+
+            if (!$this->LocationModel->sameNameByUserId(
+                $user->getId(),
+                $this->input->post('name')
+            )) {
+
+                $depTab = explode(";", $this->input->post('department'));
+
+                $dep = $this->LocationModel->getDepartment($depTab[0]);
+
+                if ($dep != null) {
+
+                    if (
+                        $this->LocationModel->samePostalCodeByDepartment(
+                            $depTab[0],
+                            $this->input->post('postalCode')
+                        ) ||
+                        (strtolower(
+                            $this->input->post('country')
+                        ) != 'france'
+                        )
+                    ) {
+
+                        $dataNewAddress = array(
+
+                            'name' => $this->input->post('name'),
+                            'number' => $this->input->post('number'),
+                            'street' => $this->input->post('street'),
+                            'department' => $dep,
+                            'city' => $this->input->post('city'),
+                            'country' => $this->input->post('country'),
+                            'postalCode' => $this->input->post('postalCode')
+
+                        );
+
+                        if ($this->input->post('default') == 'on') {
+
+                            $dataNewAddress['default'] = true;
+                        }
+
+                        $newAdresse = $this->LocationModel->newAddress($dataNewAddress);
+
+                        if (!$this->LocationModel->sameAddresse($user->getId(), $newAdresse)) {
+
+                            $this->LocationModel->addAddressToUser($newAdresse, $user->getId());
+
+                            redirect('admin/user/' . $user->getId());
+                        } else {
+
+                            $dataContent['error'] = "L'addresse est trop similaire a une autre";
+
+                            $data = array(
+
+                                'content' => $dataContent,
+
+                            );
+
+                            $this->LoaderView->load('admin/addAddress', $data);
+                        }
+                    } else {
+
+                        $dataContent['error'] = "Le code postal ne correspond pas au département";
+
+                        $data = array(
+
+                            'content' => $dataContent,
+
+                        );
+
+                        $this->LoaderView->load('admin/addAddress', $data);
+                    }
+                } else {
+
+                    $dataContent['error'] = "Le département n'existe pas";
+
+                    $data = array(
+
+                        'content' => $dataContent,
+
+                    );
+
+                    $this->LoaderView->load('admin/addAddress', $data);
+                }
+            } else {
+
+                $dataContent['error'] = "Vous avez déjà une adresse avec ce nom";
+
+                $data = array(
+
+                    'content' => $dataContent,
+
+                );
+
+                $this->LoaderView->load('admin/addAddress', $data);
+            }
+        }
+    }
+
     public function modifAddress(int $id = -1): void
     {
         $this->UserModel->adminOnly();
@@ -1969,7 +2186,6 @@ class Admin extends CI_Controller
             );
 
             $this->LoaderView->load('Admin/user/modifAddress', $data);
-
         } else {
 
             $depTab = explode(";", $this->input->post('department'));
@@ -2017,7 +2233,6 @@ class Admin extends CI_Controller
                         );
 
                         redirect("admin/user/" . $user->getId());
-
                     } else {
 
                         $dataContent = array(
@@ -2026,22 +2241,21 @@ class Admin extends CI_Controller
                             'iduser' => $user->getId(),
                             'error' => "Cette addresse est trop similaire a une autre"
                         );
-            
+
                         $dataScript = array(
-            
+
                             'location' => $location,
-            
+
                         );
-            
+
                         $data = array(
-            
+
                             'content' => $dataContent,
                             'script' => $dataScript
-            
-                        );
-            
-                        $this->LoaderView->load('Admin/user/modifAddress', $data);
 
+                        );
+
+                        $this->LoaderView->load('Admin/user/modifAddress', $data);
                     }
                 } else {
 
@@ -2051,22 +2265,21 @@ class Admin extends CI_Controller
                         'iduser' => $user->getId(),
                         'error' => "Le code postal ne correspond pas au département"
                     );
-        
+
                     $dataScript = array(
-        
+
                         'location' => $location,
-        
+
                     );
-        
+
                     $data = array(
-        
+
                         'content' => $dataContent,
                         'script' => $dataScript
-        
-                    );
-        
-                    $this->LoaderView->load('Admin/user/modifAddress', $data);
 
+                    );
+
+                    $this->LoaderView->load('Admin/user/modifAddress', $data);
                 }
             } else {
 
@@ -2076,20 +2289,20 @@ class Admin extends CI_Controller
                     'iduser' => $user->getId(),
                     'error' => "Le département n'existe pas"
                 );
-    
+
                 $dataScript = array(
-    
+
                     'location' => $location,
-    
+
                 );
-    
+
                 $data = array(
-    
+
                     'content' => $dataContent,
                     'script' => $dataScript
-    
+
                 );
-    
+
                 $this->LoaderView->load('Admin/user/modifAddress', $data);
             }
         }
@@ -2097,7 +2310,7 @@ class Admin extends CI_Controller
 
     public function supprAddress(int $id = -1)
     {
-    
+
         $this->UserModel->adminOnly();
 
         if ($id == -1) {
@@ -2146,11 +2359,9 @@ class Admin extends CI_Controller
             $this->LocationModel->addressIsDead($location->getId());
 
             $this->LoaderView->load('Admin/user/supprAddress/success', $data);
-
         } elseif ($status == 'error') {
 
             $this->LoaderView->load('Admin/user/supprAddress/error', $data);
-
         } else {
 
             $charge = $this->session->flashdata('charge');
@@ -2160,7 +2371,6 @@ class Admin extends CI_Controller
                 $this->session->set_flashdata('status', 'success');
 
                 redirect('Admin/supprAddress/' . $id);
-
             } else {
 
                 if ($charge == 'on') {
@@ -2170,14 +2380,12 @@ class Admin extends CI_Controller
                         $this->session->set_flashdata('status', 'success');
 
                         redirect('Admin/supprAddress/' . $id);
-
                     } else {
 
                         $this->session->set_flashdata('status', 'error');
 
                         redirect('Admin/supprAddress/' . $id);
                     }
-
                 } else {
 
                     $this->session->set_flashdata('charge', 'on');
@@ -2185,7 +2393,6 @@ class Admin extends CI_Controller
                 }
             }
         }
-
     }
 
     public function InListCountry(string $strCountry = ""): bool
