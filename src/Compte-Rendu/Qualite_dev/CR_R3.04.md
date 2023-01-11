@@ -21,7 +21,7 @@ La mise en oeuvre de ce design pattern ce fait via une interface en premier lieu
 
 ### Diagramme UML:
 
-![alt Diagramme UML DAO](img/UML_DAO.svg)
+![alt Diagramme UML DAO](img/UML_DAO.png)
 
 ### Diagramme mis en place:
 
@@ -35,7 +35,7 @@ Nous avons choisi d'implémenter le design pattern Singleton lors de la connexio
 ### Comment ?:
 Lors de la création de ces variables on vérifie si elles sont existantes, si cela est le cas on les supprimes puis on les recréent pour éviter toute duplication d'instance.
 
-![alt Diagramme UML Singleton](img/UML_Singleton.svg)
+![alt Diagramme UML Singleton](img/UML_Singleton.png)
 
 ## 3 : Le design patern Facade
 
