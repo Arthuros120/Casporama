@@ -112,6 +112,32 @@ class Contact extends CI_Controller
 
             $this->load->model('EmailModel');
 
+            $post = $this->input->post();
+
+            $name = $post['name'];
+            $firstname = $post['firstname'];
+            $email = $post['email'];
+            $object = $post['object'];
+            $message = $post['message'];
+
+            $dataContent = array(
+
+                'name' => $name,
+                'firstname' => $firstname,
+                'email' => $email,
+                'object' => $object,
+                'message' => $message
+
+            );
+
+            $data = array(
+
+                'content' => $dataContent
+
+            );
+
+            $this->LoaderView->load('contact/index/comfirm', $data);
+
         }
     }
 }

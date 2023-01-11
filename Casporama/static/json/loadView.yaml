@@ -757,3 +757,13 @@ contact/index:
         footer: "home/footer"
 
     baseView: "templates/base"
+
+contact/index/comfirm:
+
+    views:
+        head: "contact/head"
+        header: "templates/blank"
+        content: "contact/comfirmContent"
+        footer: "home/footer"
+
+    baseView: "templates/base"
