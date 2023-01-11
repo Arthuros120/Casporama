@@ -866,8 +866,8 @@ class Admin extends CI_Controller
                 'rules' => 'trim|required|is_natural',
                 'errors' => array(
 
-                    'required' => 'La référence est obligatoire',
-                    'is_natural' => 'La référence doit être un nombre entier'
+                    'required' => 'La référence est obligatoire,',
+                    'is_natural' => 'La référence doit être un nombre entier,'
 
                 )
             ),
@@ -879,8 +879,8 @@ class Admin extends CI_Controller
                 'rules' => 'trim|required|alpha',
                 'errors' => array(
 
-                    'required' => 'La couleur est obligatoire',
-                    'alpha' => 'La couleur doit être composé de lettre'
+                    'required' => 'La couleur est obligatoire,',
+                    'alpha' => 'La couleur doit être composé de lettre,'
 
                 )
             ),
@@ -892,8 +892,8 @@ class Admin extends CI_Controller
                 'rules' => 'trim|required|in_list[' . implode(',', $sizes) . ']',
                 'errors' => array(
 
-                    'required' => 'La taille est obligatoire',
-                    'in_list' => 'La taille n\'est pas valide'
+                    'required' => 'La taille est obligatoire,',
+                    'in_list' => 'La taille n\'est pas valide,'
 
                 )
             ),
@@ -905,8 +905,8 @@ class Admin extends CI_Controller
                 'rules' => 'trim|required|is_natural',
                 'errors' => array(
 
-                    'required' => 'La quantité est obligatoire',
-                    'is_natural' => 'La quantité doit être un nombre entier'
+                    'required' => 'La quantité est obligatoire,',
+                    'is_natural' => 'La quantité doit être un nombre entier,'
 
                 )
             )
@@ -917,7 +917,8 @@ class Admin extends CI_Controller
 
         if (!$this->form_validation->run()) {
 
-            $error = validation_errors();
+            $error = explode(',',validation_errors());
+
 
             $dataContent = array(
 

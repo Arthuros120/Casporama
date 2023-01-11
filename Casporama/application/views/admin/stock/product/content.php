@@ -127,16 +127,4 @@
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- admin/stock/product/content --->
