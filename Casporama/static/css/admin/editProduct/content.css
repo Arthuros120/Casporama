@@ -256,6 +256,7 @@
     border: 1px solid #233E84;
 
     padding: 1% 2%;
+    cursor: pointer;
 }
 
 .info_input > input:focus {
@@ -267,6 +268,7 @@
     border: 1px solid #233E84;
 
     padding: 1% 2%;
+    cursor: pointer;
 }
 
 .info_input > textarea  {
@@ -287,11 +289,13 @@
     color: white;
 
     padding: 1% 2%;
+    cursor: pointer;
 }
 
 .info_produit_submit > a  {
     text-decoration: none;
     color: #233E84;
+    cursor: pointer;
 }
 
 .add_btn {
@@ -300,6 +304,7 @@
     color: white;
 
     padding: 1% 2%;
+    cursor: pointer;
 }
 
 .add_btn:focus {

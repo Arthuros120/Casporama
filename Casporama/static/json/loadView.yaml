@@ -386,7 +386,7 @@ Admin/user/resetPass/request:
 
 Admin/user/resetPass/error:
     views:
-        head: "admin/user/resetPass/global/head"
+        head: "admin/user/resetPass/error/head"
         header: "templates/blank"
         content: "admin/user/resetPass/error/content"
         script: "admin/user/resetPass/global/script"
@@ -395,7 +395,7 @@ Admin/user/resetPass/error:
 
 Admin/user/resetPass/success:
     views:
-        head: "admin/user/resetPass/global/head"
+        head: "admin/user/resetPass/error/head"
         header: "templates/blank"
         content: "admin/user/resetPass/success/content"
         script: "admin/user/resetPass/global/script"

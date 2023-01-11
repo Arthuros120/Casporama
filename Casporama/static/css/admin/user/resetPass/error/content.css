@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+    font-family: var(--main-font);
+}
+
+.resetPass_error {
+    width: 100vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.reset_pass_title {
+    width: 100%;
+    height: 20vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.reset_pass_info {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    place-items: center;
+
+    padding: 1% 2%;
+
+    background-color: var(--grey1);
+    border-radius: 12px;
+}
+
+.box {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 1vh;
+}
+
+.redirect {
+    width: 100%;
+    height: 10vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}

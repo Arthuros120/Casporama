@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: O;
+    box-sizing: border-box;
+
+    font-family: var(--main-font);
+}
+
+.error_img {
+    width: 100vw;
+    height: 90vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+}
+
+.cover_error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+
+    gap: 4vh;
+}
+
+.cover_error > h2 {
+    font-size: 1.5vw;
+}
+
+.cover_error > img {
+    width: 15%;
+    height: auto;
+}
+
+.redirect {
+    width: 100vw;
+    height: 10vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
