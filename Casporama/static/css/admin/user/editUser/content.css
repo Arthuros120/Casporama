@@ -269,5 +269,10 @@ form {
 
 .info_submit > input {
     background-color: #233E84;
-    
+    border: none;
+
+    color: white;
+    padding: 10% 16%;
+
+    cursor: pointer;
 }

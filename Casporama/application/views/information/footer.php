@@ -1,3 +1,5 @@
+<!-- Indormation/footer -->
+
 <footer>
     <div class="footer_content">
         <div class="site_cat">
@@ -9,8 +11,8 @@
         </div>
         <div class="site_info">
             <h3>Informations</h3>
-            <a onmouseover="hover(this)" href="<?php base_url() ?>Info" ><p>Information</p></a>
-            <a onmouseover="hover(this)" href="<?php base_url() ?>Info/cgv" ><p>CGV</p></a>
+            <a onmouseover="hover(this)" href="<?= base_url() ?>Info" ><p>Information</p></a>
+            <a onmouseover="hover(this)" href="<?= base_url() ?>Info/cgv" ><p>CGV</p></a>
         </div>
         <div class="site_contact">
             <h3>Contacts</h3>
@@ -21,3 +23,5 @@
         <p>Casporama - 2023 | Tous droits réservés ©</p>
     </div>
 <footer>
+
+<!-- Indormation/footer -->

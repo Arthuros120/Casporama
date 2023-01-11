@@ -53,7 +53,7 @@
     display: grid;
     grid-template-columns: 50% 16.5% 16.5% 16.5%;
     grid-template-rows: 5vh;
-    grid-auto-rows: 16vh;
+    grid-auto-rows: 20vh;
     width: 100%;
 
     place-items: center;
@@ -75,7 +75,7 @@
 
 .product_img {
     width: 30vh;
-    height: 15vh;
+    height: 18vh;
 
     border-radius: 12px;
 
@@ -99,7 +99,7 @@
 
     width: 40vh;
 
-    height: 15vh;
+    height: 18vh;
 
     padding: 4% 8%;
 }

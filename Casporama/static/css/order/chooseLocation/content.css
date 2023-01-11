@@ -25,3 +25,23 @@
     margin: 0 10vh;
 }
 
+.choose_addr {
+    width: 100%;
+    height: 15vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choose_addr > a {
+    background-color: #233E84;
+    color: white;
+    border: none;
+
+    padding: 2% 4%;
+    border-radius: 12px;
+
+    text-decoration: none;
+}
+
