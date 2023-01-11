@@ -1,3 +1,5 @@
+<!-- Indormation/footer -->
+
 <footer>
     <div class="footer_content">
         <div class="site_cat">
@@ -21,3 +23,5 @@
         <p>Casporama - 2023 | Tous droits réservés ©</p>
     </div>
 <footer>
+
+<!-- Indormation/footer -->

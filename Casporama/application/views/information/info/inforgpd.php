@@ -1,3 +1,10 @@
+<style>
+    * {
+        --color0 : #D9D9D9;
+    }
+    
+</style>
+
 <div class="info_content">
 
 <h1>Informations</h1>
@@ -176,6 +183,10 @@
 
 <div class="paragraph">
     <h2>7. Gestion des données personnelles.</h2>
+
+    <div class="desc">
+        
+    </div>
 </div>
 
 
