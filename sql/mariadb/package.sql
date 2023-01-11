@@ -160,6 +160,8 @@ CREATE OR REPLACE PACKAGE user AS
     procedure getDateLastUpdateById( idSearch VARCHAR(255));
     -- Permet de mettre un user mort avec son id
     procedure userIsDead(searchId int, newDateLastUpdate date);
+    -- Permet de mettre un user en vie avec son id
+    procedure userIsALive(searchId int, newDateLastUpdate date);
     -- Permet de vérifié un user avec son id
     procedure setUserVerified(searchId int, newDate datetime);
     -- Permet de chnager le status de l'user
@@ -495,6 +497,11 @@ CREATE OR REPLACE PACKAGE BODY user AS
     procedure userIsDead(searchId int, newDateLastUpdate date) as
     begin
         update user set dateLastUpdate=newDateLastUpdate, isALive = false where id = searchId;
+    end;
+
+    procedure userIsALive(searchId int, newDateLastUpdate date) as
+    begin
+        update user set dateLastUpdate=newDateLastUpdate, isALive = true where id = searchId;
     end;
 
     procedure setUserVerified(idSearch int, newDate datetime) as

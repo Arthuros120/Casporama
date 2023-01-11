@@ -420,6 +420,33 @@ Admin/user/deleteUser/error:
 
     baseView: "admin/user/deleteUser/global/base"
 
+Admin/user/reviveUser/success:
+    views:
+        head: "admin/user/reviveUser/global/head"
+        header: "templates/blank"
+        content: "admin/user/reviveUser/success/content"
+        script: "admin/user/reviveUser/global/script"
+
+    baseView: "admin/user/reviveUser/global/base"
+
+Admin/user/reviveUser/request:
+    views:
+        head: "admin/user/reviveUser/request/head"
+        header: "templates/blank"
+        content: "admin/user/reviveUser/request/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/user/reviveUser/error:
+    views:
+        head: "admin/user/reviveUser/global/head"
+        header: "templates/blank"
+        content: "admin/user/reviveUser/error/content"
+        script: "admin/user/reviveUser/global/script"
+
+    baseView: "admin/user/reviveUser/global/base"
+
 Admin/user/resetPass/success:
     views:
         head: "admin/user/resetPass/global/head"

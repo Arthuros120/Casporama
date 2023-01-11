@@ -81,7 +81,16 @@
                                 } ?></td>
                             <td>
                                 <a href="<?= base_url('Admin/EditUser/') . $user->getId() ?>"> Modifier </a>
-                                <a href="<?= base_url('Admin/DeleteUser/' . $user->getId()) ?>">Supprimer</a>
+
+                                <?php if ($user->getIsALive()) { ?>
+
+                                    <a href="<?= base_url('Admin/DeleteUser/' . $user->getId()) ?>">Supprimer</a>
+
+                                <?php } else { ?>
+
+                                    <a href="<?= base_url('Admin/reviveUser/' . $user->getId()) ?>">Resuciter</a>
+
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php endforeach ?>
