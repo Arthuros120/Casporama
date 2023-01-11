@@ -375,6 +375,33 @@ Admin/user/supprAddress/success:
 
     baseView: "admin/user/supprAddress/global/base"
 
+Admin/user/resetPass/request:
+    views:
+        head: "admin/user/resetPass/request/head"
+        header: "templates/blank"
+        content: "admin/user/resetPass/request/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/user/resetPass/error:
+    views:
+        head: "admin/user/resetPass/global/head"
+        header: "templates/blank"
+        content: "admin/user/resetPass/error/content"
+        script: "admin/user/resetPass/global/script"
+
+    baseView: "admin/user/resetPass/global/base"
+
+Admin/user/resetPass/success:
+    views:
+        head: "admin/user/resetPass/global/head"
+        header: "templates/blank"
+        content: "admin/user/resetPass/success/content"
+        script: "admin/user/resetPass/global/script"
+
+    baseView: "admin/user/resetPass/global/base"
+
 Admin/addProduct:
     views:
         head: "admin/addProduct/head"

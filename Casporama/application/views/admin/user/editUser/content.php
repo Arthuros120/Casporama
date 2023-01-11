@@ -14,7 +14,7 @@
         <?= form_open('admin/editUser/' . $user->getId()) ?>
         <div class="info_log">
             <p> Login : <?= $user->getLogin(); ?> </p>
-            <p> Mot de passe : <a href="admin/reserPass/" . <?= $user->getId() ?>>Réinitialiser</a></p>
+            <p> Mot de passe : <a href="<?= base_url('admin/resetPass/') . $user->getId() ?>">Réinitialiser</a></p>
         </div>
         
         <div class="info_perso">

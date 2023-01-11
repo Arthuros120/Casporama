@@ -18,7 +18,6 @@
             </div>
                 <div class="input_haut">
                     <a href="<?= base_url('admin/User') ?>"> Retour aux filtre </a>
-                    <a href="<?= base_url('admin/AddUser') ?>">Ajouter un utilisateur</a>
                 </div>
             <hr>
             <div class="input_bas">

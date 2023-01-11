@@ -1641,6 +1641,87 @@ class Admin extends CI_Controller
         }
     }
 
+    public function resetPass(int $id = -1) : void
+    {
+
+        $this->UserModel->adminOnly();
+        
+        if ($id == -1) {
+
+            redirect('Admin/User');
+
+        }
+
+        $user = $this->UserModel->getUserById($id);
+
+        if ($user == null) {
+
+            redirect('Admin/User');
+        }
+
+        $status = $this->session->flashdata('status');
+
+        $dataContent = array(
+
+            'user' => $user,
+
+        );
+
+        $dataScript = array(
+
+            'user' => $user,
+
+        );
+
+        $data = array(
+
+            'content' => $dataContent,
+            'script' => $dataScript
+
+        );
+
+        if ($status == 'success') {
+
+            $this->UserModel->resetPass($user);
+
+            $this->LoaderView->load('Admin/user/resetPass/success', $data);
+        } elseif ($status == 'error') {
+
+            $this->LoaderView->load('Admin/user/resetPass/error', $data);
+        } else {
+
+            $charge = $this->session->flashdata('charge');
+
+            if ($this->input->post('switch') == 'on') {
+
+                $this->session->set_flashdata('status', 'success');
+
+                redirect('Admin/resetPass/' . $id);
+            } else {
+
+                if ($charge == 'on') {
+
+                    if ($this->input->post('switch') == 'on') {
+
+                        $this->session->set_flashdata('status', 'success');
+
+                        redirect('Admin/resetPass/' . $id);
+                    } else {
+
+                        $this->session->set_flashdata('status', 'error');
+
+                        redirect('Admin/resetPass/' . $id);
+                    }
+                } else {
+
+                    $this->session->set_flashdata('charge', 'on');
+                    $this->LoaderView->load('Admin/user/resetPass/request', $data);
+                }
+            }
+        }
+
+    }
+
     public function editUser(int $id = -1): void
     {
 
@@ -1826,6 +1907,8 @@ class Admin extends CI_Controller
 
     public function addAddress(int $id = -1)
     {
+
+        $this->UserModel->adminOnly();
 
         if ($id == -1) {
 
