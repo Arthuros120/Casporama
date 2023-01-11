@@ -1,3 +1,5 @@
+<div class="home_content">
+
 <p>Termes et conditions g&eacute;n&eacute;rales</p>
 
 <p>Bienvenue sur Casporama !</p>
@@ -157,3 +159,7 @@
 
 <p>Tant que le site web et les informations et services du site web sont fournis gratuitement, nous ne serons pas
     responsables de toute perte ou dommage de quelque nature que ce soit.</p>
+
+</div>
+
+

@@ -32,7 +32,6 @@ class Cart extends CI_Controller
         if ($cart != null) {
             if ($this->UserModel->isConnected()) {
                 $user = $this->UserModel->getUserBySession();
-                var_dump($user->getStatus());
                 if ($user->getStatus() == 'Caspor') {
                     $total = $this->CartModel->totalCart($cart)*0.95;
                 } else {
