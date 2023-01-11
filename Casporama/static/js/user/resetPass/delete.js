@@ -7,11 +7,11 @@ switchButton.addEventListener('change', function() {
 
     if (this.checked) {
 
-        submitButton.value = "Supprimer la référence";
+        submitButton.value = "Réinitialiser le mot de passe";
 
     } else {
 
-        submitButton.value = "Ne pas supprimer la référence";
+        submitButton.value = "Ne pas réinitialiser la référence";
 
     }
 });

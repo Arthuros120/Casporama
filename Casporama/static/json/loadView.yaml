@@ -386,16 +386,70 @@ Admin/user/resetPass/request:
 
 Admin/user/resetPass/error:
     views:
-        head: "admin/user/resetPass/global/head"
+        head: "admin/user/resetPass/error/head"
         header: "templates/blank"
         content: "admin/user/resetPass/error/content"
         script: "admin/user/resetPass/global/script"
 
     baseView: "admin/user/resetPass/global/base"
 
+Admin/user/deleteUser/success:
+    views:
+        head: "admin/user/deleteUser/global/head"
+        header: "templates/blank"
+        content: "admin/user/deleteUser/success/content"
+        script: "admin/user/deleteUser/global/script"
+
+    baseView: "admin/user/deleteUser/global/base"
+
+Admin/user/deleteUser/request:
+    views:
+        head: "admin/user/deleteUser/request/head"
+        header: "templates/blank"
+        content: "admin/user/deleteUser/request/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/user/deleteUser/error:
+    views:
+        head: "admin/user/deleteUser/global/head"
+        header: "templates/blank"
+        content: "admin/user/deleteUser/error/content"
+        script: "admin/user/deleteUser/global/script"
+
+    baseView: "admin/user/deleteUser/global/base"
+
+Admin/user/reviveUser/success:
+    views:
+        head: "admin/user/reviveUser/global/head"
+        header: "templates/blank"
+        content: "admin/user/reviveUser/success/content"
+        script: "admin/user/reviveUser/global/script"
+
+    baseView: "admin/user/reviveUser/global/base"
+
+Admin/user/reviveUser/request:
+    views:
+        head: "admin/user/reviveUser/request/head"
+        header: "templates/blank"
+        content: "admin/user/reviveUser/request/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/user/reviveUser/error:
+    views:
+        head: "admin/user/reviveUser/global/head"
+        header: "templates/blank"
+        content: "admin/user/reviveUser/error/content"
+        script: "admin/user/reviveUser/global/script"
+
+    baseView: "admin/user/reviveUser/global/base"
+
 Admin/user/resetPass/success:
     views:
-        head: "admin/user/resetPass/global/head"
+        head: "admin/user/resetPass/error/head"
         header: "templates/blank"
         content: "admin/user/resetPass/success/content"
         script: "admin/user/resetPass/global/script"

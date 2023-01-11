@@ -2173,7 +2173,7 @@ class User extends CI_Controller
 
             // * On retourne une erreur
             $this->form_validation->set_message(
-                'ComformPassword','Le mot de passe n\'est pas valide ! Il doit contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial'
+                'ComformPassword','Le mot de passe n\'est pas valide ! Il doit contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial et faire au moins 8 caractères et moins de 255 caractères ! '
             );
 
             return false;
