@@ -45,7 +45,6 @@
                         <div class="user_info_address_modify">
                             <a href="<?= base_url('User/home/modifAddress/') . $localisation->getId(); ?>">
                                 <img src="<?= base_url() . "static/image/icon/modify.svg" ?>" alt="image icon modify"></a>
-                                <a onclick="disabled(this)" id='link' href=<?= base_url("Order/addOrder") . "?idlocation=" . $localisation->getId() . "&idcart=$idcart" ?>>Choisir cette adresse</a>
                         </div>
 
                     </div>
@@ -61,6 +60,10 @@
                                 </div>
                             <?php } ?>
                         </div>
+                    </div>
+
+                    <div class="choose_addr">
+                        <a onclick="disabled(this)" id='link' href=<?= base_url("Order/addOrder") . "?idlocation=" . $localisation->getId() . "&idcart=$idcart" ?>>Choisir cette adresse</a>
                     </div>
 
                 </div>
