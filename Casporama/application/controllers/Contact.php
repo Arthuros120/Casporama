@@ -136,6 +136,37 @@ class Contact extends CI_Controller
 
             );
 
+            $fromEmail = array(
+
+                'email' => 'no_reply@casporama.live',
+                'name' => 'Casporama - No Reply'
+
+            );
+
+            $this->EmailModel->sendEmail(
+                $fromEmail,
+                $email,
+                'Casporama - Demande de contact',
+                'email/contact/toClient',
+                $dataContent
+            );
+
+            $fromEmail = array(
+
+                'email' => 'livecasporama@gmail.com',
+                'name' => 'Casporama - MailBox'
+
+            );
+
+            $this->EmailModel->sendEmail(
+
+                $fromEmail,
+                $fromEmail['email'],
+                'Casporama - Demande de contact de ' . $name . ' ' . $firstname,
+                'email/contact/toAdmin',
+                $dataContent
+            );
+
             $this->LoaderView->load('contact/index/comfirm', $data);
 
         }

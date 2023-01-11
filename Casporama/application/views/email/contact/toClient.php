@@ -1,5 +1,4 @@
-<!-- email/modifEmail/toNewEmail -->
-
+<!-- email/contact/toClient -->
 <!DOCTYPE>
 <html lang="fr">
 <head>
@@ -20,16 +19,15 @@
                     </tr>
                     <tr>
                         <td align="center" style="padding:0; line-height:1;">
-                            <h1 style="font-size:2em ;">Bonjour <?= $user->getCoordonnees()->getPrenom() ?> <?= $user->getCoordonnees()->getNom() ?></h1>
+                            <h1 style="font-size:2em ;">Bonjour <?= $name ?> <?= $firstname ?></h1>
                         </td>
                     </tr>
                     <tr align="center">
                        <td style="line-height:1 ;" align="center">
-                           <p style="color:black;">Nous vous envoyons cette émail sur la nouvelle boite mail pour vous informer que votre email a été modifié avec succès</p>
-                           <p style="color:black;">La nouvelle adresse émail associé a votre compte est <?= $user->getCoordonnees()->getEmail() ?></p>
-                           <p style="color:black;">Cette modification à été effectué par <?= $author ?></p>
+                           <p style="color:black;">Votre demande de contact a été traité avec succès</p>
+                           <p style="color:black;">L'object de votre demande: <?= $object ?></p>
+                           <p style="color:black;">Votre message: <?= $message ?></p>
                            <p style="color:red;">Si vous n'ếtes pas à l'initiative de cette demande, veuillez imédiatement contacté le support !</p>
-                           <a style="color:blue;" href="<?= base_url('User/home/info') ?>"><p style="color:white; font-weight:600;">Votre compte</p></a>
                            </p>
                        </td>
                    </tr>
@@ -40,4 +38,4 @@
 </body>
 </html>
 
-<!-- email/modifEmail/toNewEmail -->
+<!-- email/contact/toClient -->
