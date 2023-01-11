@@ -542,7 +542,7 @@ Admin/deletes/request:
 
 Admin/deletes/success:
     views:
-        head: "admin/deletes/global/head"
+        head: "admin/deletes/success/head"
         header: "templates/blank"
         content: "admin/deletes/success/content"
         script: "admin/deletes/global/script"
@@ -551,7 +551,7 @@ Admin/deletes/success:
 
 Admin/deletes/error:
     views:
-        head: "admin/deletes/global/head"
+        head: "admin/deletes/error/head"
         header: "templates/blank"
         content: "admin/deletes/error/content"
         script: "admin/deletes/global/script"

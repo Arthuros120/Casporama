@@ -1287,18 +1287,20 @@ class Admin extends CI_Controller
             $listProducts = $this->input->post('products');
 
             $listProducts = explode(';', $listProducts);
+            $filtredProduct = array();
 
             foreach ($listProducts as $id) {
 
                 if ($id != '') {
 
                     $this->ProductModel->delete($id);
+                    $filtredProduct[] = $id;
                 }
             }
 
             $dataContent = array(
 
-                'products' => $listProducts
+                'products' => $filtredProduct
 
             );
 

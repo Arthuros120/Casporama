@@ -1,0 +1,34 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    font-family: var(--main-font);
+}
+
+.deletes_success {
+    width: 100vw;
+    height: 90vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    gap: 4vh;
+}
+
+.deletes_success > h1 {
+    font-size: 2.5vw;
+}
+
+.redirect {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 10vh;
+
+}
