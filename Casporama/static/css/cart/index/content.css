@@ -256,6 +256,7 @@
     color: white;
     text-decoration: none;
     width: 5vw;
+    cursor: pointer;
 }
 
 .product_quantity > a {
@@ -283,6 +284,7 @@
     width: 5vw;
 
     text-align-last: center;
+    cursor: pointer;
 }
 
 

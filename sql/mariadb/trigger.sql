@@ -22,4 +22,7 @@ create or replace trigger StockNotAvailable after update on catalog for each row
         if (new.quantity = 0) then
             insert into stock_alerte values (new.id);
         end if;
+        if (new.id in (select s.id from stock_alerte s) and new.quantity != 0) then
+            delete from stock_alerte where id = new.id;
+        end if;
     end;

@@ -38,7 +38,7 @@ class Dao_csv extends CI_Model implements DaoInterface {
 
         if (isset($query)) {
             $results = $query->result_array();
-
+            
             $query->next_result();
             $query->free_result();
         }
@@ -47,6 +47,8 @@ class Dao_csv extends CI_Model implements DaoInterface {
             $orders = $this->OrderModel->getAllOrder();
         }
 
+        
+        
         if (isset($results) && $results != null) {
 
             $time = date("Y-m-d-h:i:s",time());

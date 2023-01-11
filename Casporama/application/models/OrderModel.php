@@ -183,6 +183,8 @@ class OrderModel extends CI_Model {
 
         $err = $this->db->query("call `order`.delOrder(". $idorder .")");
 
+        // var_dump($this->db->error());
+
         $this->db->db_debug = true;
 
         foreach ($order->getVariants() as $variant) {

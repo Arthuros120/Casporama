@@ -5,7 +5,7 @@
         <li class="card1">
             <ul class="grid_img">
                 <li class="second_img">
-                    <?php for ($i = 1; $i < count($product->getImages()); $i++) : ?>
+                    <?php for ($i = 0; $i < count($product->getImages()); $i++) : ?>
                     <div>
                         <a onclick="changeImage('<?=base_url($product->getImages()[$i]);?>')"><img src="<?= base_url($product -> getImages()[$i]) ?>" alt="Image du produit" ></a>
                     </div>
