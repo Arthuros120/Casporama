@@ -603,18 +603,18 @@ Admin/confirmDeleteOrders:
 Information/rgpd:
     views:
         head: "templates/head"
-        header: "templates/header"
-        content: "test/information/inforgpd"
+        header: "templates/blank"
+        content: "information/inforgpd"
         footer: "templates/footer"
 
     baseView: "templates/base"
 
 Information/cgv:
     views:
-        head: "templates/head"
-        header: "templates/header"
-        content: "test/information/cgv"
-        footer: "templates/footer"
+        head: "information/head"
+        header: "information/blank"
+        content: "information/cgv"
+        footer: "information/footer"
 
     baseView: "templates/base"
 
