@@ -605,7 +605,7 @@ Information/rgpd:
         head: "information/head"
         header: "information/header"
         content: "information/inforgpd"
-        footer: "information/footer"
+        footer: "home/footer"
 
     baseView: "templates/base"
 
@@ -614,7 +614,7 @@ Information/cgv:
         head: "information/head"
         header: "information/header"
         content: "information/cgv"
-        footer: "information/footer"
+        footer: "home/footer"
 
     baseView: "templates/base"
 
@@ -743,5 +743,17 @@ Order/confirm:
         header: "templates/blank"
         content: "order/confirm/content"
         footer: "templates/blank"
+
+    baseView: "templates/base"
+
+#---------------------------------Contact View---------------------------------#
+
+contact/index:
+
+    views:
+        head: "contact/head"
+        header: "templates/blank"
+        content: "contact/content"
+        footer: "home/footer"
 
     baseView: "templates/base"

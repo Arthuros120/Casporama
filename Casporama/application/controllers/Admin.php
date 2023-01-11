@@ -1336,27 +1336,18 @@ class Admin extends CI_Controller
 
         if ($filtre != null) {
 
-            if (intval($filtre) != 0) {
+            $orders = $this->OrderModel->getOrderById($filtre);
 
-                $orders = $this->OrderModel->getOrderById($filtre);
-            } else {
-
-                $orders = null;
-            }
         } else {
 
             $orders = $this->OrderModel->getAllOrder();
+
         }
 
         if ($orders != null) {
 
-            foreach ($orders as $order) {
+            $dataContent = array('orders' => $orders);
 
-                $user[$order->getId()] = $this->UserModel->getUserById($order->getIduser())->getCoordonnees();
-            }
-
-
-            $dataContent = array('orders' => $orders, 'user' => $user);
         }
 
         if (isset($dataContent)) {

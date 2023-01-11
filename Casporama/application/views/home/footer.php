@@ -1,3 +1,4 @@
+<!-- view/home -->
 <footer>
     <div class="footer_content">
         <div class="site_cat">
@@ -14,10 +15,12 @@
         </div>
         <div class="site_contact">
             <h3>Contacts</h3>
-            <a onmouseover="hover(this)"><p>Nous Contacter</p></a>
+            <a onmouseover="hover(this)" href="<?= base_url('contact') ?>"><p>Nous Contacter</p></a>
         </div>
     </div>
     <div class="footer_end">
         <p>Casporama - 2023 | Tous droits réservés ©</p>
     </div>
 <footer>
+
+<!-- view/home -->

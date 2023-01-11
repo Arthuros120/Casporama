@@ -212,9 +212,10 @@ class OrderModel extends CI_Model {
         return $err;
     }
 
-    public function getAllOrder() : ?array {
+    public function getAllOrder() : ?array
+    {
 
-        $query = $this->db->query('call `order`.getAll()');
+        $query = $this->db->query('call `order`.getAllWithInfo()');
 
         $orders = $query->result_array();
         
@@ -232,24 +233,16 @@ class OrderModel extends CI_Model {
             $newOrder->setDate($order['dateorder']);
             $newOrder->setState($order['state']);
             $newOrder->setIduser($order['iduser']);
-            $newOrder->setLocation($this->LocationModel->getLocationByUserId($order['iduser'],$order['idlocation']));
 
-            $query = $this->db->query('call `order`.getOrderProduct('. $order['id'] .')');
+            $userCivil = $order['name'] . ' ' . $order['firstname'];
 
-            $orderproducts = $query->result_array();
-        
-            $query->next_result();
-            $query->free_result();
+            $res[] = array (
 
-            foreach ($orderproducts as $products) {
-                $product = $this->ProductModel->findById($products['idproduct']);
-                $newOrder->addProducts($product);
-                $newOrder->addVariants($product->getVariant($products['idvariant']));
-                $newOrder->addQuantities($products['idvariant'],$products['quantity']);
-            }
-
-            array_push($res,$newOrder);
+                'order' => $newOrder,
+                'userCivil' => $userCivil
+            );
         }
+
         if (!empty($res)) {
             return $res;
         } else {
