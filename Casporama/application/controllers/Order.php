@@ -48,17 +48,6 @@ class Order extends CI_Controller
             if ($orders != null) {
                 $dataContent['orders'] = $orders;
 
-                foreach ($orders as $order) {
-                    if ($user->getStatus() == 'Caspor') {
-                        $totalClient = round((($this->OrderModel->totalOrder($order)*0.95)*1.20)+5,2);
-                    } else {
-                        $totalClient = round(($this->OrderModel->totalOrder($order)*1.20)+5,2);
-                    }
-                    $total[$order->getId()] = $totalClient;
-                }
-
-                $dataContent['total'] = $total;
-
                 $colors = array (
                     'Football' => '#D3E2D3',
                     'Badminton' => '#D9E6F4',
@@ -89,6 +78,7 @@ class Order extends CI_Controller
         if ($this->UserModel->isConnected()) {
 
             $idcart = $this->input->get('idcart');
+            $price = $this->input->get('price');
 
             if ($idcart == 0) {
                 $cart = $this->CartModel->getCart();
@@ -133,7 +123,7 @@ class Order extends CI_Controller
                 $dataScript['dataMap'] = null;
             }
 
-
+            $dataContent['price'] = $price;
             $dataContent['idcart'] = $idcart;
 
             $data = array(
@@ -160,6 +150,7 @@ class Order extends CI_Controller
             
             $idcart = $this->input->get('idcart');
             $idlocation = $this->input->get('idlocation');
+            $price = $this->input->get('price');
 
             $user = $this->UserModel->getUserBySession();
 
@@ -182,7 +173,7 @@ class Order extends CI_Controller
             }
 
             if (empty($errStock)) {
-                $idorder = $this->OrderModel->addOrder($carts, $user, $idlocation);
+                $idorder = $this->OrderModel->addOrder($carts, $user, $idlocation, $price);
 
                 $fromEmail = array(
 

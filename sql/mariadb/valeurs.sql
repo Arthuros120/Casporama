@@ -103,9 +103,9 @@ values
 
 insert into `order` (id, iduser, dateorder, idlocation , state, isALive, dateLastUpdate)
 values
-    (1,2,'2022-10-10',3,'En preparation', true, '2022-11-21 20:05:37'),
-    (2,2,'2022-10-10',3,'En preparation', true, '2022-11-21 20:05:37'),
-    (3,2,'2022-10-10',3,'En preparation', true, '2022-11-21 20:05:37');
+    (1,2,'2022-10-10',3,'En preparation', true, '2022-11-21 20:05:37',1.0),
+    (2,2,'2022-10-10',3,'En preparation', true, '2022-11-21 20:05:37',1.0),
+    (3,2,'2022-10-10',3,'En preparation', true, '2022-11-21 20:05:37',1.0);
 
 insert into order_products (idorder, idproduct, idvariant, quantity)
 values

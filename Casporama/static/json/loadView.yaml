@@ -760,7 +760,7 @@ contact/index:
 
     views:
         head: "contact/head"
-        header: "templates/blank"
+        header: "information/header"
         content: "contact/content"
         footer: "home/footer"
 

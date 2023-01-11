@@ -16,3 +16,10 @@ create or replace trigger dateLastUpdate before update on user for each row
                 SET new.dateLastUpdate = NOW();
             end if;
         end;
+
+create or replace trigger StockNotAvailable after update on catalog for each row
+    begin
+        if (new.quantity = 0) then
+            insert into stock_alerte values (new.id);
+        end if;
+    end;

@@ -701,7 +701,7 @@ CREATE OR REPLACE PACKAGE `order` AS
     -- Permet d'avoir les commandes d'un client
     procedure getOrderUser( iduser int);
     -- Permet d'ajouter une commande à un client
-    procedure addOrder(newid int, newiduser int, newdateorder datetime, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime);
+    procedure addOrder(newid int, newiduser int, newdateorder datetime, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime, price double);
     -- Permet d'ajouter un produit a une commande
     procedure addProductToOrder(newidorder int, newidproduct int , newidvariant int, newquantity int);
     -- Permet de mettre à jour l'état d'une commande
@@ -746,7 +746,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
     end;
     procedure getOrderUserById( nuorder int, newiduser int) as
     Begin
-        select  o.id, iduser, date(dateorder) as 'dateorder', idlocation, state, isALive, dateLastUpdate, op.idproduct, idvariant, quantity
+        select  o.id, iduser, date(dateorder) as 'dateorder', idlocation, state, isALive, dateLastUpdate, op.idproduct, idvariant, quantity, price
             from `order` o, order_products op
                 where o.id = nuorder
                     and o.iduser = newiduser
@@ -760,9 +760,9 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
         where o.iduser = newiduser;
     end;
 
-    procedure addOrder(newid int, newiduser int, newdateorder datetime, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime) as
+    procedure addOrder(newid int, newiduser int, newdateorder datetime, newidlocation int, newstate varchar(15), newisalive bool, newdatelastupdate datetime, newprice double) as
     BEGIN
-        insert into `order`(id, iduser, dateorder, idlocation, state, isALive, dateLastUpdate ) value (newid,newiduser,newdateorder,newidlocation,newstate,newisalive,newdatelastupdate);
+        insert into `order`(id, iduser, dateorder, idlocation, state, isALive, dateLastUpdate, price ) value (newid,newiduser,newdateorder,newidlocation,newstate,newisalive,newdatelastupdate, newprice);
     end;
 
     procedure addProductToOrder(newidorder int, newidproduct int , newidvariant int, newquantity int) as

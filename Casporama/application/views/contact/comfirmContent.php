@@ -1,13 +1,31 @@
 <!-- contact/comfirmContent -->
 
-<h1> Bonjour <?= $name ?> <?= $firstname ?> </h1>
+<style>
+    * {
+        --color0 :#D9D9D9;
+    }
+</style>
 
-<p>Vous avez demandé à nous contacter par mail à l'adresse suivante : <?= $email ?> </p>
+<div class="confirm_contact">
 
-<p>Vous avez demandé à nous contacter pour l'object suivant : <?= $object ?> </p>
+    <div class="confirm_title">
+        <h1> Bonjour <?= $firstname ?> </h1>
+    </div>
 
-<p>Vous avez demandé à nous contacter avec le message suivant : <?= $message ?> </p>
+    <div class="confirm_content">
+        <p>Vous avez demandé à nous contacter par mail à l'adresse suivante : <span><?= $email ?></span> </p>
+        <p>Vous avez demandé à nous contacter pour l'object suivant : <span><?= $object ?></span> </p>
+        <p>Votre demande a bien été envoyé, nous vous répondrons dans les plus bref délais.</p>
+    </div>
 
-<p>Votre demande a bien été envoyé, nous vous répondrons dans les plus bref délais.</p>
+    <div class="confirm_return">
+        <a href="<?= base_url() ?>" >Retourner à l'accueil</a>
+    </div>
+
+</div>
+
+
+
+
 
 <!-- contact/comfirmContent -->

@@ -94,10 +94,10 @@
                     <?php }?>
                     </div>
                     <div class="product_btn">
-                        <p>Total TCC : <?= $totals[$cart[0]->getIdcart()] ?> €</p>
+                        <p>Total TTC : <?= $totals[$cart[0]->getIdcart()] ?> €</p>
                         <a href="/Cart/deleteCart?idcart=<?= $cart[0]->getIdcart() ?>">Supprimer Panier</a>
                         <a href="/Cart/modifyCart?idcart=<?= $cart[0]->getIdcart() ?>">Modifier Panier</a>
-                        <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>">Payer</a>
+                        <a href="/Order/chooseLocation?idcart=<?= $cart[0]->getIdcart() ?>&price=<?= $totals[$cart[0]->getIdcart()] ?>">Payer</a>
                     </div>
                 <?php } }?>
                 </form>
@@ -118,12 +118,12 @@
                 </div>
                 <hr>
                 <div class="cart_recap_total">
-                    <p>Total TCC :</p>
+                    <p>Total TTC :</p>
                     <p><?=$total + $TVA + $fraisdeport ?>€</p>
                 </div>
                 <div class="cart_recap_btn">
                     <a href="/Cart/saveCart">Enregistrer</a>
-                    <a href="/Order/chooseLocation?idcart=0">Payer</a>
+                    <a href="/Order/chooseLocation?idcart=0&price=<?= $total + $TVA + $fraisdeport ?>">Payer</a>
                 </div>
             </div>
         </div>
