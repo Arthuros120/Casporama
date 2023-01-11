@@ -146,6 +146,7 @@ class Dao extends CI_Controller
             }
 
             if ($file != null) {
+                var_dump($file);
                 // Permet le téléchargement du fichier exporté
                 force_download($file, null);
             } else {
