@@ -1550,6 +1550,7 @@ class Admin extends CI_Controller
                     'minRange' => $minRange,
                     'maxRange' => $maxRange,
                     'nextIsPosible' => $maxRange < $countMaxUser,
+                    'range' => $range
 
                 );
 
