@@ -602,17 +602,17 @@ Admin/confirmDeleteOrders:
 
 Information/rgpd:
     views:
-        head: "templates/head"
-        header: "templates/blank"
+        head: "information/head"
+        header: "information/header"
         content: "information/inforgpd"
-        footer: "templates/footer"
+        footer: "information/footer"
 
     baseView: "templates/base"
 
 Information/cgv:
     views:
         head: "information/head"
-        header: "information/blank"
+        header: "information/header"
         content: "information/cgv"
         footer: "information/footer"
 

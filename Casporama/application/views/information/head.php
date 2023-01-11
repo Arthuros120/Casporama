@@ -1,4 +1,4 @@
-<!-- home/head -->
+<!-- info/head -->
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>static/css/Info/info_content.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>static/css/button.css">
@@ -7,4 +7,4 @@
 <script type="text/javascript" src="<?= base_url() ?>static/js/global/sliderPicture.js"></script>
 <title>Casporama</title>
 
-<!-- home/head -->
+<!-- info/head -->
