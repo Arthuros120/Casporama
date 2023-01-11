@@ -1722,6 +1722,86 @@ class Admin extends CI_Controller
 
     }
 
+    public function deleteUser(int $id = -1) : void
+    {
+
+        $this->UserModel->adminOnly();
+        
+        if ($id == -1) {
+
+            redirect('Admin/User');
+
+        }
+
+        $user = $this->UserModel->getUserById($id);
+
+        if ($user == null) {
+
+            redirect('Admin/User');
+        }
+
+        $status = $this->session->flashdata('status');
+
+        $dataContent = array(
+
+            'user' => $user,
+
+        );
+
+        $dataScript = array(
+
+            'user' => $user,
+
+        );
+
+        $data = array(
+
+            'content' => $dataContent,
+            'script' => $dataScript
+
+        );
+
+        if ($status == 'success') {
+
+            $this->UserModel->deleteUser($user->getId());
+
+            $this->LoaderView->load('Admin/user/deleteUser/success', $data);
+        } elseif ($status == 'error') {
+
+            $this->LoaderView->load('Admin/user/deleteUser/error', $data);
+        } else {
+
+            $charge = $this->session->flashdata('charge');
+
+            if ($this->input->post('switch') == 'on') {
+
+                $this->session->set_flashdata('status', 'success');
+
+                redirect('Admin/deleteUser/' . $id);
+            } else {
+
+                if ($charge == 'on') {
+
+                    if ($this->input->post('switch') == 'on') {
+
+                        $this->session->set_flashdata('status', 'success');
+
+                        redirect('Admin/deleteUser/' . $id);
+                    } else {
+
+                        $this->session->set_flashdata('status', 'error');
+
+                        redirect('Admin/deleteUser/' . $id);
+                    }
+                } else {
+
+                    $this->session->set_flashdata('charge', 'on');
+                    $this->LoaderView->load('Admin/user/deleteUser/request', $data);
+                }
+            }
+        }
+    }
+
     public function editUser(int $id = -1): void
     {
 

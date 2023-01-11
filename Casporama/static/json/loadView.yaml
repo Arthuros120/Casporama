@@ -393,6 +393,33 @@ Admin/user/resetPass/error:
 
     baseView: "admin/user/resetPass/global/base"
 
+Admin/user/deleteUser/success:
+    views:
+        head: "admin/user/deleteUser/global/head"
+        header: "templates/blank"
+        content: "admin/user/deleteUser/success/content"
+        script: "admin/user/deleteUser/global/script"
+
+    baseView: "admin/user/deleteUser/global/base"
+
+Admin/user/deleteUser/request:
+    views:
+        head: "admin/user/deleteUser/request/head"
+        header: "templates/blank"
+        content: "admin/user/deleteUser/request/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/user/deleteUser/error:
+    views:
+        head: "admin/user/deleteUser/global/head"
+        header: "templates/blank"
+        content: "admin/user/deleteUser/error/content"
+        script: "admin/user/deleteUser/global/script"
+
+    baseView: "admin/user/deleteUser/global/base"
+
 Admin/user/resetPass/success:
     views:
         head: "admin/user/resetPass/global/head"
