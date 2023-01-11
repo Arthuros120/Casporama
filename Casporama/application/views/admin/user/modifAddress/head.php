@@ -1,9 +1,8 @@
-<!-- user/home/modifAddress/head -->
+<!-- admin/user/modifAddress/head -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="<?php echo base_url() ?>static/css/user/home/user_home_content.css">
-
 <link rel="stylesheet" href="<?php echo base_url() ?>static/css/user/home/modifAddress/content.css">
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
@@ -12,4 +11,4 @@
 
 <title> Modification de l'addresse: <?= $nameAddress ?></title>
 
-<!-- user/home/modifAddress/head -->
+<!-- admin/user/modifAddress/head -->

@@ -339,13 +339,14 @@ Admin/user/editUser:
 
     baseView: "admin/user/base"
 
-Admin/EditLocalisation:
+Admin/user/modifAddress:
     views:
-        head: "admin/user/editLocalisation/head"
-        header: "admin/header"
-        content: "admin/user/editLocalisation/content"
-        script: "admin/user/editLocalisation/script"
-    baseView: "admin/user/editLocalisation/base"
+        head: "admin/user/modifAddress/head"
+        header: "templates/blank"
+        content: "admin/user/modifAddress/content"
+        script: "admin/user/modifAddress/script"
+
+    baseView: "admin/user/modifAddress/base"
 
 Admin/addProduct:
     views:

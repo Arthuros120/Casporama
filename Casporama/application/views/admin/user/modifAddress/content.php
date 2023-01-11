@@ -1,16 +1,15 @@
-<!-- user/home/modifAddress/content -->
-
+<!-- admin/user/modifAddress/content -->
 <div class="modif_adress_content">
 
     <div class="modif_adress_form_content">
         <div class="modif_adress_form_title">
-            <a href="javascript:history.back()">
+            <a href="<?= base_url('admin/user/' . $iduser) ?>">
                 <img alt="fleche arrière" src="<?= base_url()?>/static/image/icon/arrow_white.svg">
             </a>
-            <h1>Modification de l'adresse: <?= $localisation->getName() ?></h1>
+            <h1>Modification de l'adresse: <?= $location->getName() ?></h1>
         </div>
 
-        <?php echo form_open('Admin/updateLocalisation/' . $localisation->getId()); ?>
+        <?php echo form_open('Admin/modifAddress/' . $location->getId()); ?>
 
         <input type="hidden" name="idUser" value="<?= $iduser?>">
         
@@ -23,7 +22,7 @@
                 type="text"
                 id="name"
                 name="name"
-                value="<?= $localisation->getName() ?>"
+                value="<?= $location->getName() ?>"
                 required>
             </div>
 
@@ -34,12 +33,12 @@
             <div class="modif_adress_adress">
                 <div class="modif_adress_num">
                     <h3>Numéro:</h3>
-                    <input 
+                    <input
                         class="modif_adress_input"alt="fleche arrière"
                         type="number"
                         id="number"
                         name="number"
-                        value="<?= $localisation->getAdresse()['number'] ?>"
+                        value="<?= $location->getAdresse()['number'] ?>"
                         required
                     >
                 </div>
@@ -50,7 +49,7 @@
                         type="text"
                         id="street"
                         name="street"
-                        value="<?= $localisation->getAdresse()['street'] ?>"
+                        value="<?= $location->getAdresse()['street'] ?>"
                         required
                     >
                 </div>
@@ -70,7 +69,7 @@
                 id="city"
                 list="cityList"
                 name="city"
-                value="<?= $localisation->getCity() ?>">
+                value="<?= $location->getCity() ?>">
             </div>
 
             <div class="modif_adress_zipcode">
@@ -81,7 +80,7 @@
                 id="postalCode"
                 list="postalList"
                 name="postalCode"
-                value="<?= $localisation->getCodePostal() ?>">
+                value="<?= $location->getCodePostal() ?>">
             </div>
 
             <div class="modif_adress_country">
@@ -92,7 +91,7 @@
             <div class="modif_adress_default">
                 <h3>Addresse par défault:</h3>
                 <input class="modif_adress_check" type="checkbox" name="default"
-                    <?php if ($localisation->getIsDefault()) {
+                    <?php if ($location->getIsDefault()) {
                         echo "checked";
                     } ?>
                 >
@@ -123,9 +122,7 @@
 
 <?php echo form_close(); ?>
 
-
-
 <datalist name="postalList" id="postalList"></datalist>
 <datalist name="cityList" id="cityList"></datalist>
 
-<!-- user/home/modifAddress/content -->
+<!-- admin/user/modifAddress/content -->

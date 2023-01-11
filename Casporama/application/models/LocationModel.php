@@ -288,7 +288,7 @@ class LocationModel extends CI_Model
 
     }
 
-        /*
+    /*
 
         * Fonction getLocationByUserId
 
@@ -308,6 +308,46 @@ class LocationModel extends CI_Model
         $resutl = $query->result();
 
         if (count($resutl) != 1) {
+
+            return null;
+
+        } else {
+
+            $resutl = $resutl[0];
+
+        }
+
+        $addressEntity = new LocationEntity();
+
+        // * On hydrate l'objet
+        $addressEntity->setId($resutl->idlocation);
+        $addressEntity->setName($resutl->name);
+        $addressEntity->setAdresse($resutl->location);
+        $addressEntity->setCodePostal($resutl->codepostal);
+        $addressEntity->setCity($resutl->city);
+        $addressEntity->setCountry($resutl->country);
+        $addressEntity->setDepartment($resutl->department);
+        $addressEntity->setLatitude($resutl->latitude);
+        $addressEntity->setLongitude($resutl->longitude);
+        $addressEntity->setIsAlive($resutl->isALive);
+        $addressEntity->setIsDefault($resutl->isDefault);
+
+        // * On attend un résultat
+        $query->next_result();
+        $query->free_result();
+
+        return $addressEntity;
+
+    }
+
+    public function getLocationById(int $locationId) : ?LocationEntity
+    {
+
+        $query = $this->db->query("Call user.getLocationById('". $locationId . "')");
+
+        $resutl = $query->result();
+
+        if (empty($resutl)) {
 
             return null;
 

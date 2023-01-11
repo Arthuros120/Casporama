@@ -420,6 +420,42 @@ class UserModel extends CI_Model
 
     /*
     
+        * getLocationById
+    
+        * Cette méthode permet de récupérer un utilisateur en fonction d'une location
+    
+        @param: $id
+
+        @return: ?UserEntity
+    
+    */
+    public function getUserByLocationId(int $id): ?UserEntity
+    {
+
+        // * On récupère l'utilisateur en fonction de son login
+        $query = $this->db->query("Call user.getUserByLocationId('" . $id . "')");
+
+        // * On vérifie si l'utilisateur existe
+        $id = $query->row()->id;
+
+        // * On atternd un résultat
+        $query->next_result();
+        $query->free_result();
+
+        // * On retourne l'utilisateur
+        if (isset($id)) {
+
+            $user = new UserEntity();
+            $user->setId($id);
+
+            return $user;
+        }
+
+        return null;
+    }
+
+    /*
+    
         * getUserById
     
         * Cette méthode permet de récupérer un utilisateur en fonction de son id sans mot de passe
