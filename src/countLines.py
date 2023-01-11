@@ -31,9 +31,14 @@ def count_lines(list_files):
         
         with open(file, 'r') as f:
             
-            lignes = f.readlines()
+            try :
+                
+                lignes = f.readlines()
+                count += len(lignes)
             
-            count += len(lignes)
+            except UnicodeDecodeError:
+                
+                pass
 
     return count
 

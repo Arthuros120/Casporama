@@ -1650,7 +1650,7 @@ class Admin extends CI_Controller
         }
     }
 
-    public function editUser(int $id = -1)
+    public function editUser(int $id = -1) : void
     {
 
         $this->UserModel->adminOnly();
@@ -2099,6 +2099,99 @@ class Admin extends CI_Controller
                 $this->LoaderView->load('Admin/user/modifAddress', $data);
             }
         }
+    }
+
+    public function supprAddress(int $id = -1)
+    {
+    
+        $this->UserModel->adminOnly();
+
+        if ($id == -1) {
+
+            redirect('Admin/User');
+        }
+
+        $location = $this->LocationModel->getLocationById($id);
+
+        if ($location == null) {
+
+            redirect('Admin/User');
+        }
+
+        $user = $this->UserModel->getUserByLocationId($location->getId());
+        $user = $this->UserModel->getUserById($user->getId());
+
+        if ($user == null) {
+
+            redirect('Admin/User');
+        }
+
+        $status = $this->session->flashdata('status');
+
+        $dataContent = array(
+
+            'location' => $location,
+            'user' => $user,
+        );
+
+        $dataScript = array(
+
+            'user' => $user,
+
+        );
+
+        $data = array(
+
+            'content' => $dataContent,
+            'script' => $dataScript
+
+        );
+
+        if ($status == 'success') {
+
+            $this->LocationModel->addressIsDead($location->getId());
+
+            $this->LoaderView->load('Admin/user/supprAddress/success', $data);
+
+        } elseif ($status == 'error') {
+
+            $this->LoaderView->load('Admin/user/supprAddress/error', $data);
+
+        } else {
+
+            $charge = $this->session->flashdata('charge');
+
+            if ($this->input->post('switch') == 'on') {
+
+                $this->session->set_flashdata('status', 'success');
+
+                redirect('Admin/supprAddress/' . $id);
+
+            } else {
+
+                if ($charge == 'on') {
+
+                    if ($this->input->post('switch') == 'on') {
+
+                        $this->session->set_flashdata('status', 'success');
+
+                        redirect('Admin/supprAddress/' . $id);
+
+                    } else {
+
+                        $this->session->set_flashdata('status', 'error');
+
+                        redirect('Admin/supprAddress/' . $id);
+                    }
+
+                } else {
+
+                    $this->session->set_flashdata('charge', 'on');
+                    $this->LoaderView->load('Admin/user/supprAddress/request', $data);
+                }
+            }
+        }
+
     }
 
     public function InListCountry(string $strCountry = ""): bool

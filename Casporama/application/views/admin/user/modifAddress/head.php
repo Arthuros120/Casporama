@@ -9,6 +9,6 @@
     integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
     crossorigin="" />
 
-<title> Modification de l'addresse: <?= $nameAddress ?></title>
+<title> Modification de l'addresse utilisateur</title>
 
 <!-- admin/user/modifAddress/head -->

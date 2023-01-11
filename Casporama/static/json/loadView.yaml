@@ -348,6 +348,33 @@ Admin/user/modifAddress:
 
     baseView: "admin/user/modifAddress/base"
 
+Admin/user/supprAddress/request:
+    views:
+        head: "admin/user/supprAddress/request/head"
+        header: "templates/blank"
+        content: "admin/user/supprAddress/request/content"
+        footer: "templates/blank"
+
+    baseView: "templates/base"
+
+Admin/user/supprAddress/error:
+    views:
+        head: "admin/user/supprAddress/global/head"
+        header: "templates/blank"
+        content: "admin/user/supprAddress/error/content"
+        script: "admin/user/supprAddress/global/script"
+
+    baseView: "admin/user/supprAddress/global/base"
+
+Admin/user/supprAddress/success:
+    views:
+        head: "admin/user/supprAddress/global/head"
+        header: "templates/blank"
+        content: "admin/user/supprAddress/success/content"
+        script: "admin/user/supprAddress/global/script"
+
+    baseView: "admin/user/supprAddress/global/base"
+
 Admin/addProduct:
     views:
         head: "admin/addProduct/head"
