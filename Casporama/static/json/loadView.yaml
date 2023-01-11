@@ -604,8 +604,8 @@ Information/rgpd:
     views:
         head: "information/info/head"
         header: "information/header"
-        content: "information/inforgpd"
-        footer: "information/footer"
+        content: "information/info/inforgpd"
+        footer: "home/footer"
 
     baseView: "templates/base"
 

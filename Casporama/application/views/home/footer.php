@@ -10,8 +10,8 @@
         </div>
         <div class="site_info">
             <h3>Informations</h3>
-            <a onmouseover="hover(this)" href="<?php base_url() ?>Info" ><p>Information</p></a>
-            <a onmouseover="hover(this)" href="<?php base_url() ?>Info/cgv" ><p>CGV</p></a>
+            <a onmouseover="hover(this)" href="<?= base_url() ?>Info" ><p>Information</p></a>
+            <a onmouseover="hover(this)" href="<?= base_url() ?>Info/cgv" ><p>CGV</p></a>
         </div>
         <div class="site_contact">
             <h3>Contacts</h3>
