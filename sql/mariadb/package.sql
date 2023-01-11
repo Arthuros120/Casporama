@@ -587,14 +587,14 @@ CREATE OR REPLACE PACKAGE BODY product AS
         select * from product where nusport = sport;
     END;
 
-    procedure getProductByType( type varchar(15)) as
+    procedure getProductByType( newtype varchar(15)) as
     Begin
-        select * from product where product.type = type;
+        select * from product where type = newtype;
     END;
 
-    procedure getProductByBrand( brand varchar(255)) as
+    procedure getProductByBrand( newbrand varchar(255)) as
     BEGIN
-        select * from product where product.brand = brand;
+        select * from product where brand = newbrand;
     end;
 
     procedure orderByPriceAsc() as
@@ -617,9 +617,9 @@ CREATE OR REPLACE PACKAGE BODY product AS
         select * from product where idproduct in (select distinct nuproduct from catalog where catalog.color = color);
     end;
 
-    procedure getProductBySportType( sport integer,  type varchar(15)) as
+    procedure getProductBySportType( sport integer,  newtype varchar(15)) as
     BEGIN
-        select * from product where nusport = sport and type = product.type and isALive = true;
+        select * from product where nusport = sport and type = newtype and isALive = true;
     end;
 
     procedure getProductById( id integer) as
