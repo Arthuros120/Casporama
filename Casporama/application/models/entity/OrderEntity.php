@@ -4,11 +4,31 @@
 
     * OrderEntity
 
+    @method getId int
+    @method setId void
+    @method getIduser int
+    @method setIduser void
+    @method getDate string
+    @method setDate void
+    @method getLocation LocationEntity
+    @method setLocation void
+    @method getState string
+    @method setState void
+    @method getProducts array
+    @method addProducts void
+    @method getVariants array
+    @method addVariants void
+    @method getQuantities array
+    @method addQuantities void
+    @method setPrice void
+    @method getPrice float
+
     * Cette classe représente une entité de la table order
 
 */
 
-class OrderEntity {
+class OrderEntity
+{
 
     private int $id;
     private string $dateorder;
@@ -20,45 +40,143 @@ class OrderEntity {
     private string $state;
     private float $price;
 
-    public function getId() : Int {
+    /*
+    
+        * getId
+    
+        @return int
+    
+        * Retourne l'id de l'entité
+    
+    */
+    public function getId() : Int
+    {
         return $this->id;
     }
 
-    public function setId(int $id) {
+    /*
+    
+        * setId
+    
+        @param int $id
+    
+        * Définit l'id de l'entité
+    
+    */
+    public function setId(int $id)
+    {
         $this->id = $id;
     }
 
-    public function getIduser() : Int {
+    /*
+    
+        * getIduser
+    
+        @return int
+    
+        * Retourne l'id de l'utilisateur de l'entité
+    
+    */
+    public function getIduser() : Int
+    {
         return $this->iduser;
     }
 
-    public function setIduser(int $iduser) {
+    /*
+    
+        * setIduser
+    
+        @param int $iduser
+    
+        * Définit l'id de l'utilisateur de l'entité
+    
+    */
+    public function setIduser(int $iduser)
+    {
         $this->iduser = $iduser;
     }
 
-    public function getDate() : string {
+    /*
+    
+        * getDate
+    
+        @return String
+    
+        * Retourne la date de l'entité
+    
+    */
+    public function getDate() : string
+    {
         return $this->dateorder;
     }
 
-    public function setDate(string $dateorder) {
+    /*
+    
+        * setDate
+    
+        @param String $dateorder
+    
+        * Définit la date de l'entité
+    
+    */
+    public function setDate(string $dateorder)
+    {
         $this->dateorder = $dateorder;
     }
 
-
-    public function getLocation() : LocationEntity {
+    /*
+    
+        * getLocation
+    
+        @return LocationEntity
+    
+        * Retourne la location de l'entité
+    
+    */
+    public function getLocation() : LocationEntity
+    {
         return $this->location;
     }
 
-    public function setLocation(LocationEntity $location) {
+    /*
+    
+        * setLocation
+    
+        @param LocationEntity $location
+    
+        * Définit la location de l'entité
+    
+    */
+    public function setLocation(LocationEntity $location)
+    {
         $this->location = $location;
     }
 
-
-    public function getState() : String {
+    /*
+    
+        * getState
+    
+        @return String
+    
+        * Retourne l'état de l'entité
+    
+    */
+    public function getState() : String
+    {
         return $this->state;
     }
 
-    public function setState(String $state) {
+    /*
+    
+        * setState
+    
+        @param String $state
+    
+        * Définit l'état de l'entité
+    
+    */
+    public function setState(String $state)
+    {
         $this->state = $state;
     }
 
@@ -75,7 +193,7 @@ class OrderEntity {
      */
     public function addProducts(ProductEntity $product): void
     {
-        if (!isset($this->products[$product->getId()])  ) {
+        if (!isset($this->products[$product->getId()])) {
             $this->products[$product->getId()] = $product;
         }
 
@@ -114,11 +232,19 @@ class OrderEntity {
         $this->quantities[$idvariant] = $quantity;
     }
 
-    public function setPrice(float $price) {
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price)
+    {
         $this->price = $price;
     }
 
-    public function getPrice() : float {
+    /**
+     * @return float
+     */
+    public function getPrice() : float
+    {
         return $this->price;
     }
 
