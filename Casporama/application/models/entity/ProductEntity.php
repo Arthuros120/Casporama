@@ -6,6 +6,41 @@ require_once APPPATH . 'models/entity/StockEntity.php';
 
     * ProductEntity
 
+    * Public
+
+    @method getId int
+    @method setId void
+    @method getType string
+    @method setType void
+    @method getSport int
+    @method getSportName string
+    @method setSport void
+    @method getBrand string
+    @method setBrand void
+    @method getName string
+    @method setName void
+    @method getGenre string
+    @method setGenre void
+    @method getPrice float
+    @method setPrice void
+    @method getDescription string
+    @method getTinyDescription string
+    @method setDescription void
+    @method getImage array
+    @method getImageString string
+    @method getCover string
+    @method getCoverName string
+    @method getImagesWithoutCover array
+    @method setImage void
+    @method getStock array
+    @method setStock void
+    @method getIsALive bool
+    @method setIsALive void
+
+    ! Private
+
+    @method raccourcirChaine string
+
     * Cette classe représente une entité de la table produit
 
 */
@@ -508,7 +543,7 @@ class ProductEntity
      * @param : integer $tailleMax la taille maximale de la chaine tronquée
      * @return : string
      */
-    private function raccourcirChaine($chaine, $tailleMax)
+    private function raccourcirChaine($chaine, $tailleMax) : string
     {
         // Variable locale
         $positionDernierEspace = 0;

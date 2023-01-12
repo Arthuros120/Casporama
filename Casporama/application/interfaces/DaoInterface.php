@@ -33,14 +33,14 @@ interface DaoInterface {
 function errorFile($err, $table) : String
 {
 
-    $files = glob( "./upload/DaoFile/error/" ."*" );
+    $files = glob("./upload/DaoFile/error/" ."*");
     if ($files && count($files) >= 6) {
         array_map('unlink', glob("./upload/DaoFile/error/*.txt"));
     }
 
-    $time = date("Y-m-d-G:i:s",time());
-    $timeName = substr($time,0,-3);
-    $errorFile = fopen("./upload/DaoFile/error/$table" . "_" ."$timeName.txt","a");
+    $time = date("Y-m-d-G:i:s", time());
+    $timeName = substr($time, 0, -3);
+    $errorFile = fopen("./upload/DaoFile/error/$table" . "_" ."$timeName.txt", "a");
     if (gettype($err) == "array") {
         $msg = "DataBase Error : ";
         foreach ($err as $i) {
@@ -55,6 +55,7 @@ function errorFile($err, $table) : String
     return $err;
 }
 
+<<<<<<< HEAD
 /*
 
     Retourne l'id du produit donné
@@ -62,11 +63,16 @@ function errorFile($err, $table) : String
 */
 
 function getProductId(ProductEntity $product) {
+=======
+function getProductId(ProductEntity $product)
+{
+>>>>>>> refs/remotes/origin/main
 
     return $product->getId();
 
 }
 
+<<<<<<< HEAD
 /*
 
     Retourne l'id du variant donné
@@ -75,6 +81,10 @@ function getProductId(ProductEntity $product) {
 
 
 function getVariantId(StockEntity $variant) {
+=======
+function getVariantId(StockEntity $variant)
+{
+>>>>>>> refs/remotes/origin/main
 
     return $variant->getId();
 

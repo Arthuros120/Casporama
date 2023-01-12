@@ -609,7 +609,7 @@ $config['rewrite_short_tags'] = false;
 | Comma-separated:    '10.0.1.200,192.168.5.0/24'
 | Array:        array('10.0.1.200', '192.168.5.0/24')
 */
-$config['proxy_ips'] = '';
+$config['proxy_ips'] = 'http://cache.ha.univ-nantes.fr:3128/';
 
 /*
 |--------------------------------------------------------------------------

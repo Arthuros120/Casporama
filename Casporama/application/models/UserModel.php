@@ -750,7 +750,7 @@ class UserModel extends CI_Model
             'name'   => 'user',
             'value'  => $cookieValueString,
             'expire' => 3600 * 24 * 30,
-            'secure' => true,
+            'secure' => false,
             'httponly' => true
         );
 

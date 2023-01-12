@@ -4,6 +4,19 @@
 
     * InformationEntity
 
+    @method getId int
+    @method setId void
+    @method getPrenom string
+    @method setPrenom void
+    @method getNom string
+    @method setNom void
+    @method getTelephone string
+    @method setTelephone void
+    @method getEmail string
+    @method setEmail void
+    @method getFixe string
+    @method setFixe void
+
     * Cette classe représente une entité de la table coordonnees
 
 */

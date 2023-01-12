@@ -10,6 +10,28 @@ require_once APPPATH . 'models/entity/CartEntity.php';
 
     * UserEntity
 
+    @method getId int
+    @method setId void
+    @method getLogin string
+    @method setLogin void
+    @method getCookieCheck string
+    @method setCookieCheck void
+    @method getStatus string
+    @method setStatus void
+    @method getIsVerified bool
+    @method setIsVerified void
+    @method getIsAlive bool
+    @method setIsAlive void
+    @method getLocalisation array
+    @method setLocalisation void
+    @method getCoordonnees InformationEntity
+    @method setCoordonnees void
+    @method generateCookieCheck string
+    @method getCart array
+    @method setCart void
+    @method getOrder array
+    @method setOrder void
+
     * Cette classe représente une entité de la table user
 
 */
@@ -342,7 +364,7 @@ class UserEntity
             $this->cart = array();
         }
         
-        array_push($this->cart,$cart);
+        array_push($this->cart, $cart);
 
     }
 
