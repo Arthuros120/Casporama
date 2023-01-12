@@ -12,8 +12,8 @@ let supprFilter = document.getElementById("supprFilter");
 
 let brandFilter = [];
 let priceFilter = {
-  min: -1,
-  max: -1,
+  min: -1.0,
+  max: -1.0,
 };
 let searchFilter = "";
 
@@ -33,8 +33,8 @@ function initInputs() {
   supprFilter.addEventListener("click", function () {
 
     brandFilter = [];
-    priceFilter.min = -1;
-    priceFilter.max = -1;
+    priceFilter.min = -1.0;
+    priceFilter.max = -1.0;
     searchFilter = "";
 
     changeUrl();
@@ -63,11 +63,11 @@ function changeUrl() {
       param.delete("brand");
     }
   
-    if (priceFilter.min !== -1 && priceFilter.max !== -1) {
+    if (priceFilter.min !== -1.0 && priceFilter.max !== -1.0) {
       param.set("price", priceFilter.min + "-" + priceFilter.max);
-    } else if (priceFilter.min === -1 && priceFilter.max !== -1) {
+    } else if (priceFilter.min === -1.0 && priceFilter.max !== -1.0) {
       param.set("price", "0-" + priceFilter.max);
-    } else if (priceFilter.min !== -1 && priceFilter.max === -1) {
+    } else if (priceFilter.min !== -1.0 && priceFilter.max === -1.0) {
       param.set("price", priceFilter.min + "-1000000");
     } else {
       param.delete("price");
@@ -108,19 +108,19 @@ function initInputPrice(price) {
   if (price !== null) {
     price = price.split("-");
 
-    priceFilter.min = parseInt(price[0]);
-    priceFilter.max = parseInt(price[1]);
+    priceFilter.min = parseFloat(price[0]);
+    priceFilter.max = parseFloat(price[1]);
 
     minPriceInput.value = priceFilter.min;
     maxPriceInput.value = priceFilter.max;
   }
 
   minPriceInput.addEventListener("change", function () {
-    if (parseInt(minPriceInput.value) < 0) {
+    if (parseFloat(minPriceInput.value) < 0) {
       minPriceInput.value = 0;
       priceFilter.min = 0;
-    } else if (parseInt(minPriceInput.value) > priceFilter.max) {
-      let temp = parseInt(minPriceInput.value);
+    } else if (parseFloat(minPriceInput.value) > priceFilter.max) {
+      let temp = parseFloat(minPriceInput.value);
 
       minPriceInput.value = priceFilter.max;
       priceFilter.min = priceFilter.max;
@@ -128,16 +128,16 @@ function initInputPrice(price) {
       priceFilter.max = temp;
       maxPriceInput.value = temp;
     } else {
-      priceFilter.min = parseInt(minPriceInput.value);
+      priceFilter.min = parseFloat(minPriceInput.value);
     }
   });
 
   maxPriceInput.addEventListener("change", function () {
-    if (parseInt(maxPriceInput.value) < 0) {
+    if (parseFloat(maxPriceInput.value) < 0) {
       maxPriceInput.value = 1000000;
       priceFilter.max = 1000000;
-    } else if (parseInt(maxPriceInput.value) < priceFilter.min) {
-      let temp = parseInt(maxPriceInput.value);
+    } else if (parseFloat(maxPriceInput.value) < priceFilter.min) {
+      let temp = parseFloat(maxPriceInput.value);
 
       maxPriceInput.value = priceFilter.min;
       priceFilter.max = priceFilter.min;
@@ -145,13 +145,13 @@ function initInputPrice(price) {
       priceFilter.min = temp;
       minPriceInput.value = temp;
     } else {
-      priceFilter.max = parseInt(maxPriceInput.value);
+      priceFilter.max = parseFloat(maxPriceInput.value);
     }
   });
 
   supprPriceFilter.addEventListener("click", function () {
-    priceFilter.min = -1;
-    priceFilter.max = -1;
+    priceFilter.min = -1.0;
+    priceFilter.max = -1.0;
 
     minPriceInput.value = "";
     maxPriceInput.value = "";
