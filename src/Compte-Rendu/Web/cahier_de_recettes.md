@@ -1,16 +1,16 @@
 # Cahier de recettes
 
-### Groupe :
+## Groupe
 
 - Arthur Hamelin
 - Titouan Gautier
 - Luna Manson
-- Maxime Santos-Pereira 
+- Maxime Santos-Pereira
 
-## Sections :
+## Sections
 
 - Home
-- Shop 
+- Shop
 - User
 - Info
 - Admin
@@ -18,32 +18,6 @@
 - Caspor
 - Order
 - DAO/Import_Export de donnée
-
-### Home
-
-| Fonction | Paramètres | Description               | Est déployé ? |
-|:-------- | ---------- |:------------------------- |:------------- |
-| Index    | /          | Affiche la page d'acceuil | Oui           |
-
-### Shop
-
-| Fonction | Paramètres             | Description                                 | Est déployé ? |
-|:-------- | ---------------------- |:------------------------------------------- |:------------- |
-| Home     | NomSport               | Affiche la page avec les                    | Oui           |
-| View     | NomSport + TypeProduit | Affiche les produits du sport du type requi | Oui           |
-| Product  | IdProduct              | Affiche le produit                          | Oui           |
-
-### User
-
-| Fonction             | Paramètres | Description                                                                     | Est déployé ? |
-|:-------------------- | ---------- |:------------------------------------------------------------------------------- |:------------- |
-| Index                | /          | Redirige vers User/Home                                                         | Oui           |
-| Login                | /          | Affiche la page de connexion                                                    | Oui           |
-| Logout               | /          | Déconnecte l'utilisateur                                                        | Oui           |
-| Register             | /          | Affiche la page d'inscription n°1                                               | Oui           |
-| RegisterUserIdentity | /          | Affiche la page d'inscription n°2                                               | Oui           |
-| Home                 | /          | Affiche la page d'accueil avec les différents choses accessible a l'utilisateur | Oui           |
-
 
 ## Shop
 
@@ -54,7 +28,7 @@
 | Afficher produit par type | Les produits s'affichent par types, c'est à dire : Vêtements, Chaussures, Equipements| Oui |
 | Séléctionner couleur du produits | Permet de choisir un variant du Produits | Oui |
 | Sélectionner une taille | Permet de sélectionner une taille parmis celle disponible | Oui |
-| Réduction | Le client peut bénéficier d'une promotion si il est Caspor | Oui |
+| Promotion | Mettre en place des promotion | Non |
 
 ## User
 
@@ -76,22 +50,27 @@
 | Accéder au panier | L'utilisateurs peut accéder au panier, pour finaliser sa commande | Oui|
 | Accéder aux comandes | Le client peut consulter ces commandes passées | Oui |
 | Devenir Caspor | Le client peut devenir Caspor, un abonnement qui lui permet d'avoir certains avantage | Oui |
-| Mot de passe oublié | Le client peut changer de mot de passe si il l'a oublié, il reçoit un mail pour le changer  | ~ |
+| Mot de passe oublié | Le client peut changer de mot de passe si il l'a oublié, il reçoit un mail pour le changer  |OUI|
 | Réactiver son compte | Le client peut récupérer son compte dans un délais de 1 mois en contactant un administrateur | Oui |
-| Vérifié compte | L'Utitlisateurs peut vérifié son compte via un mail qui lui est envoyé | Oui |
-
+| Vérifié compte | L'Utitlisateurs doit vérifier son compte via un mail qui lui est envoyé | Oui |
+| Réactiver son compte | Le client peut récupérer son compte dans un délais de 1 mois par lui même | Oui |
+| Visualisation addresse | L'utilisateur peut visualiser l'addresse la carte qu'il a rajouter par une carte intéractif | Oui |
+| Visualisation status | L'utilisateur peut consulter facilement sont status | Oui |
+| Redirection après la connextion | Redirige l'utilisateur sur la dernière page après la connexion | Non |
 
 ## Cart
 
 | Fonctionnalité             |Description                                                                     | Est déployé ? |
 |:-------------------- |:------------------------------------------------------------------------------- |:------------- |
-| Ajouter un produit | Le client peut ajouter un produi au panier pour le commander | Oui |
-| Enregistré son panier | Le client peut enregistrer son panierpour le consulter plsu tard | Oui |
+| Ajouter un produit | Le client peut ajouter un produit au panier pour le commander | Oui |
+| Enregistré son panier | Le client peut enregistrer son panier pour le consulter plus tard | Oui |
 | Choisir une addresse de livraison | Le client peut choisir son adresse de livraison parmis celle ajouter à son compte | Oui |
 | Modifier la quantité s'un article | Il peut choisir la quantité d'un article dans le panier | Oui |
 | Supprimer un article du panier | Il peut supprimer un article sans supprimé les autre | Oui |
 | Supprimé un panier enregistré | Le client peut supprimer un panier enregistré  | Oui |
-
+| Réduction | Le client peut bénéficier d'une promotion si il est Caspor | Oui |
+| Coupon de réduction | Si le client a un coupon de réduction, il peut l'appliqué | Non |
+| Valider panier | Le client peut transformé sont panier en commande | OUI |
 
 ## Caspor
 
@@ -110,6 +89,8 @@
 | Consulter commandes | Le client peut voir toutes ses commandes | Oui |
 | Télécharger les factures | Le client peut voir la facture d'une de ses commandes | Oui |
 | Annuler commandes | Le client peut annuler la commande si elle n'est pas encore préparé | Oui |
+| Status commandes | Le client peut consulter le status de ça commandes | Oui |
+| Recevoir Facture | Le client reçois la facture par mail | Oui |
 
 ## Admin
 
@@ -123,7 +104,7 @@
 | Modifier un produit | L'admin peut modifier tout les détails d'un produits | Oui |
 | L'admin peut consulter le stock d'un produits | Il peut consulter le stock par variant et par taille d'un produit | Oui |
 | Réssuciter un produit | L'admin peut réssusiter un produit supprimer | Oui |
-| Afficher utilisateurs | L'admin peut afficher tout les utilisateurs par tranche de 1,2,5,10,20,50,100,500,1000 | Oui |
+| Afficher utilisateurs | L'admin peut afficher tout les utilisateurs par tranche de 1,2,5,10,20,50,100,500,1000 par pages | Oui |
 | Consulter utilisateurs | L'admin peut consulter les information d'un utilisateurs | Oui |
 | Réinitialiser mot de passe  | L'admin peut réinitialiser le mot de passe d'u utilisateurs | Oui |
 | Modifer informations utilisateurs | L'admin peut modifier les informations personnelle d'un user | Oui |
@@ -141,11 +122,14 @@
 | Afficher le stock | L'admin peut afficher le stock par sport par type de produit et par tranche de 1,2,5,10,20,50,100 produit par page | Oui |
 | Consulter stock | Consulter le stock d'un produit en particulier | Oui |
 | Ajouter référence | L'admin peut ajouter un variant à un produit | Oui |
-| Chnager quantité référence | L'admin peut changer la quantité d'un référence en particulier | Oui |
+| Changer quantité référence | L'admin peut changer la quantité d'un référence en particulier | Oui |
 | Supprimer une référence | L'admin peut supprimer une référence d'un produit | Oui |
 | Supprimer des références | L'admin peut supprimer plusieurs référence en même temps | Oui |
-|  |||
-
+| Changer le status d'un utilisateur ||Non|
+| Ajouter, supprimé image d'un produit ||Oui|
+| Nettoie la base de données | Enleve tpoute les colonnes user, order ... qui sont morte | Non |
+| Afficher les statistiques | Afficher les statistiques des ventes, des utilisateurs, des commandes, des produits | Non |
+| Afficher une carte | Afficher une carte avec les utilisateurs, les commandes | Non |
 
 ## Dao
 
@@ -156,7 +140,7 @@
 | Importer plusieurs fichiers | Importer plusieurs fichier d'un coup | Non |
 | Exporter BD | Exporter toute la base de données d'un coup | Non |
 
-## Info 
+## Info
 
 | Fonctionnalité             |Description                                                                     | Est déployé ? |
 |:-------------------- |:------------------------------------------------------------------------------- |:------------- |
@@ -164,8 +148,4 @@
 | Consulter CGV | Consulter les CGV du site | Oui |
 | Contact | Le client peut nous envoyer un message sur le site | Oui |
 
-
-
 Le client peut consulter 4 pages différentes pour les 4 sport différentes. Sur chaques pages il peut consulter 3 pages qui sont les 3 types de produit : Vetements, Chaussures, Equipements. Sur chacune de ces pages le client voit tous les produit correspondant. Il peut filtrer sa recherche par Marque par prix minimum et maximum ainsi que recherché des mot clés. Il peut cliquer sur un produit pour afficher ses détails. Il peut consulter les images secondaires du produit. Il peut choisir une couleur pour le produit ainsi qu'une taille parmis celle disponible. Il peut ensuite ajouter son produit au panier.
-
-
