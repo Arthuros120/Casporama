@@ -13,7 +13,6 @@ require_once APPPATH . 'models/entity/LocationEntity.php';
 class LocationModel extends CI_Model
 {
 
-
     public function newAddress(array $dataAddress) : ?LocationEntity
     {
 
