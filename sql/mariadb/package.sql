@@ -166,12 +166,14 @@ CREATE OR REPLACE PACKAGE user AS
     procedure setUserVerified(searchId int, newDate datetime);
     -- Permet de chnager le status de l'user
     procedure changeStatus(searchId int, newStatus varchar(255));
-    procedure countUser(); -- newArthur
-    procedure getUserByLocationId(searchId int); -- newArthur
-    procedure getAllUserWithStep(start int, step int); -- newArthur
-END;
 
--- call user.getAllUser(0, 10); -- newArthur
+    -- Permet d'obtenir le nombre d'user
+    procedure countUser();
+    -- Permet d'avoir l'utilisateur avec l'une des de ses adresses
+    procedure getUserByLocationId(searchId int);
+    -- Permet d'avoir un certain nombre d'utilisateur
+    procedure getAllUserWithStep(start int, step int);
+END;
 
 CREATE OR REPLACE PACKAGE BODY user AS
     procedure getAllUser() as
@@ -719,7 +721,7 @@ CREATE OR REPLACE PACKAGE `order` AS
     procedure updateState( nuorder int, newstate varchar(15));
     -- Permet de mettre à jour l'adresse d'une commande
     procedure updateLocationOrder( nuorder int, newlocation varchar(15));
-    -- Permet de récupérer tout les commandes
+    -- Permet de récupérer toutes les commandes
     procedure getAll();
     -- Permet de vérifier que l'id n'est pas déjà présnet dans la BD
     procedure verifyId(newid int);
@@ -731,8 +733,8 @@ CREATE OR REPLACE PACKAGE `order` AS
     procedure getOrderById(newid int);
     -- Permet de récupérer tout les produits de toutes les commandes
     procedure getAllProduct();
-
-    procedure getAllWithInfo(); -- newArthur
+    -- Permet de récupérer toutes les commandes avec les infomartions de l'utilisateur
+    procedure getAllWithInfo();
 END;
 
 CREATE OR REPLACE PACKAGE BODY `order` AS
