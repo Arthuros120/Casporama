@@ -47,6 +47,7 @@
                 <input
                 class="priceFilter filter"
                 type="number"
+                step="0.01"
                 name="minPrice"
                 id="minPrice"
                 placeholder="Prix min"></input>
@@ -56,6 +57,7 @@
                 <input
                 class="priceFilter filter"
                 type="number"
+                step="0.01"
                 name="maxPrice"
                 id="maxPrice"
                 placeholder="Prix max"></input>
