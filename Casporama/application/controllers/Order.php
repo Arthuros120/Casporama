@@ -5,11 +5,22 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
     * Order Controller
 
-    
+    @methode index
+    @methode chooseLocation
+    @methode addOrder
+    @methode cancelOrderConfirm
+    @methode cancelOrder
+
+    * Ce controlleur permet de gérer les commandes
 */
 class Order extends CI_Controller
 {
 
+    /*
+        * Methode __construct
+        * On charge les modèles
+        @return void
+    */
     public function __construct()
     {
         parent::__construct();
@@ -21,7 +32,12 @@ class Order extends CI_Controller
         $this->load->model('InvoicePDFModel');
     }
 
-    public function index()
+    /*
+        * Methode index
+        * On charge la vue des commandes
+        @return void
+    */
+    public function index() : void
     {
 
         // * On rend la connexion peréne pour toutes les pages
@@ -69,7 +85,12 @@ class Order extends CI_Controller
         }
     }
 
-    public function chooseLocation()
+    /*
+        * Methode chooseLocation
+        * On charge la vue de choix de l'adresse de livraison
+        @return void
+    */
+    public function chooseLocation() : void
     {
 
         // * On rend la connexion peréne pour toutes les pages
@@ -139,7 +160,12 @@ class Order extends CI_Controller
         }
     }
 
-    public function addOrder()
+    /*
+        * Methode addLocation
+        * On ajoute une adresse de livraison
+        @return void
+    */
+    public function addOrder() : void
     {
 
         $this->UserModel->durabilityConnection();
@@ -220,7 +246,12 @@ class Order extends CI_Controller
         }
     }
 
-    public function cancelOrderConfirm()
+    /*
+        * Methode cancelOrderConfirm
+        * On charge la vue de confirmation de l'annulation de la commande
+        @return void
+    */
+    public function cancelOrderConfirm() : void
     {
 
         $this->UserModel->durabilityConnection();
@@ -240,7 +271,12 @@ class Order extends CI_Controller
         }
     }
 
-    public function cancelOrder()
+    /*
+        * Methode cancelOrder
+        * On annule la commande
+        @return void
+    */
+    public function cancelOrder() : void
     {
 
         $this->UserModel->durabilityConnection();
@@ -252,9 +288,9 @@ class Order extends CI_Controller
             $err = $this->OrderModel->delOrder($idorder);
 
             if ($err) {
-                $this->session->set_flashdata('succes',true);
+                $this->session->set_flashdata('succes', true);
             } else {
-                $this->session->set_flashdata('succes',false);
+                $this->session->set_flashdata('succes', false);
             }
 
             redirect('Order');

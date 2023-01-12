@@ -5,11 +5,29 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
     * Card Controller
 
-    
+    @method index
+    @method add
+    @method saveCart
+    @method modifyQuantity
+    @method modifyCart
+    @method modifyCartDB
+    @method deleteProduct
+    @method deleteCart
+    @method deleteCartDB
+
+    * Ce controlleur permet de gérer le panier
+
 */
 class Cart extends CI_Controller
 {
 
+    /*
+
+        * Constructeur
+
+        * On charge les modèles et les librairies
+
+    */
     public function __construct()
     {
         parent::__construct();
@@ -17,7 +35,14 @@ class Cart extends CI_Controller
         $this->load->model('ProductModel');
     }
 
-    public function index()
+    /*
+
+        * Index
+
+        * On charge la vue du panier
+
+    */
+    public function index() : void
     {
 
         $cart = $this->CartModel->getCart();
@@ -89,7 +114,14 @@ class Cart extends CI_Controller
         $this->LoaderView->load('Cart/index', $data);
     }
 
-    public function add()
+    /*
+
+        * Add
+
+        * On ajoute un produit au panier
+
+    */
+    public function add() : void
     {
 
         $color = substr($this->input->post("color"), 0, -1);
@@ -110,7 +142,14 @@ class Cart extends CI_Controller
         
     }
 
-    public function saveCart()
+    /*
+
+        * saveCart
+
+        * On enregistre le panier
+
+    */
+    public function saveCart() : void
     {
 
         // * On rend la connexion peréne pour toutes les pages
@@ -131,14 +170,32 @@ class Cart extends CI_Controller
         }
     }
 
-    public function modifyQuantity() {
+    /*
+
+        * modifyQuantity
+
+        * Cette fonction permet de modifier la quandtité du panier
+
+    */
+    public function modifyQuantity() : void
+    {
 
         $this->CartModel->modifyQuantity($this->input->post());
 
         redirect("Cart");
     }
 
-    public function modifyCart(int $id = null) {
+    /*
+
+        * modifyCart
+
+        @param int $id
+
+        * Cette fonction permet de mofifier le pannier
+
+    */
+    public function modifyCart(int $id = null) : void
+    {
 
         if ($id == null) {
             $idcart = (int) $this->input->get('idcart');
@@ -153,7 +210,7 @@ class Cart extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $carts = $this->CartModel->getCartDBById($user->getId(),$idcart);
+            $carts = $this->CartModel->getCartDBById($user->getId(), $idcart);
 
             if ($carts != null) {
 
@@ -168,7 +225,7 @@ class Cart extends CI_Controller
                 $totals[$carts[0]->getIdcart()] = $total;
                 $dataContent['totals'] = $totals;
 
-                $dataContent['cart'] = $carts;  
+                $dataContent['cart'] = $carts;
 
                 $colors = array (
                     'Football' => '#D3E2D3',
@@ -197,31 +254,56 @@ class Cart extends CI_Controller
 
     }
 
-    public function modifyCartDB() {
+    /*
+
+        * modifyCartDB
+
+        * Cette fonction permet de modifier le pannier
+        * dans la base de données
+
+    */
+    public function modifyCartDB() : void
+    {
 
         $post = $this->input->post();
 
         $id["user"] = $post['iduser'];
         $id["cart"] = $post['idcart'];
 
-        $quantities = array_diff($post,$id);
+        $quantities = array_diff($post, $id);
 
-        foreach ($quantities as $idvariant => $newquantity) { 
-            $this->CartModel->modifyCartDB((int) $newquantity,(int) $id['user'],(int) $id['cart'],(int) $idvariant);
+        foreach ($quantities as $idvariant => $newquantity) {
+            $this->CartModel->modifyCartDB((int) $newquantity, (int) $id['user'], (int) $id['cart'], (int) $idvariant);
         }
 
         redirect('Cart');
 
     }
 
-    public function deleteProduct() {
+    /*
+
+        * deleteProduct
+
+        * Cette fonction permet de supprimer un produit du panier
+
+    */
+    public function deleteProduct() : void
+    {
         $get = $this->input->get();
         $this->CartModel->deleteProduct($get["idproduit"],$get["idvariant"]);
 
         redirect("Cart");
     }
 
-    public function deleteCart() {
+    /*
+
+        * deleteCart
+
+        * Cette fonction permet de supprimer un panier
+
+    */
+    public function deleteCart() : void
+    {
 
         $this->UserModel->durabilityConnection();
 
@@ -229,7 +311,7 @@ class Cart extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $this->CartModel->deleteCart($this->input->get('idcart'), $user->getId());  
+            $this->CartModel->deleteCart($this->input->get('idcart'), $user->getId());
 
             redirect("Cart");
 
@@ -241,7 +323,16 @@ class Cart extends CI_Controller
         }
     }
 
-    public function deleteProductDB() {
+    /*
+
+        * deleteProductDB
+
+        * Cette fonction permet de supprimer un produit du panier
+        * dans la base de données
+
+    */
+    public function deleteProductDB()
+    {
 
         $get = $this->input->get();
 
@@ -251,7 +342,7 @@ class Cart extends CI_Controller
 
             $user = $this->UserModel->getUserBySession();
 
-            $this->CartModel->deleteProductDB($user->getId(), $get['id']);  
+            $this->CartModel->deleteProductDB($user->getId(), $get['id']);
 
             $this->modifyCart($get['idcart']);
 

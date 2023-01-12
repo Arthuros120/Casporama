@@ -19,6 +19,7 @@ defined('BASEPATH') || exit('No direct script access allowed');
 class User extends CI_Controller
 {
 
+    // * Initialisation de la Class User
     public function __construct()
     {
 
@@ -26,8 +27,16 @@ class User extends CI_Controller
         $this->load->model('CaptchaModel');
         $this->load->helper('captcha');
     }
-
-    public function index()
+    
+    /*
+    
+        * Index Page
+    
+        * Cette méthode permet de rediriger l'utilisateur vers la page d'accueil
+        * de l'utilisateur si il est connecté, sinon elle le redirige vers la page de connexion
+    
+    */
+    public function index() : void
     {
 
         redirect('user/home');
@@ -47,7 +56,7 @@ class User extends CI_Controller
         TODO: Verifié chaque ligne surtout la configuration du formulaire
     
     */
-    public function login()
+    public function login() : void
     {
 
         // * On rend la connexion peréne pour toutes les pages
@@ -193,7 +202,7 @@ class User extends CI_Controller
         * Redirige l'utilisateur vers la page d'accueil
 
     */
-    public function logout()
+    public function logout() : void
     {
 
         // * On rend la connexion peréne pour toutes les pages
@@ -232,7 +241,7 @@ class User extends CI_Controller
         * Redirige l'utilisateur vers la page de connexion
 
     */
-    public function register()
+    public function register() : void
     {
 
         // * On rend la connexion peréne pour toutes les pages
@@ -366,7 +375,13 @@ class User extends CI_Controller
         }
     }
 
-    public function registerUserIdentity()
+    /**
+     * Fonction registerUserIdentity
+     * Permet de créer les informations de l'utilisateur dans la base de données
+     * @param string $strLogin
+     * @return boolean
+     */
+    public function registerUserIdentity() : void
     {
 
         $strLogin = $this->session->flashdata('login');
@@ -509,7 +524,7 @@ class User extends CI_Controller
         * Et les fonction disponible pour l'utilisateur
 
     */
-    public function home(string $action = '', int $hint = -1)
+    public function home(string $action = '', int $hint = -1) : void
     {
 
         // * On rend la connexion peréne pour toutes les pages
@@ -1448,7 +1463,13 @@ class User extends CI_Controller
         }
     }
 
-    public function dead()
+    /*
+     * method dead
+     * Fonction qui permet de modifier les informations de l'utilisateur
+     *
+        @return void
+     */
+    public function dead() : void
     {
 
         $id = $this->session->flashdata('id');
@@ -1515,7 +1536,13 @@ class User extends CI_Controller
 
     }
 
-    public function verify()
+    /*
+     * method verify
+     * Fonction qui permet de vérifier l'adresse mail de l'utilisateur
+     *
+        @return void
+     */
+    public function verify() : void
     {
         $id = $this->session->flashdata('id');
         $trigger = $this->session->flashdata('trigger');
@@ -1725,7 +1752,14 @@ class User extends CI_Controller
 
     }
 
-    public function sendVerify()
+    /*
+
+        * sendVerify
+
+        * Envoie un code de vérification à l'utilisateur
+
+    */
+    public function sendVerify() : void
     {
 
         $id = $this->session->flashdata('id');
@@ -1761,7 +1795,14 @@ class User extends CI_Controller
         }
     }
 
-    public function recoverPass()
+    /*
+
+        * recoverPass
+
+        * Permet de récuperer son mot de passe
+
+    */
+    public function recoverPass() : void
     {
 
         $getData = $this->input->get(null, true);
@@ -2057,6 +2098,20 @@ class User extends CI_Controller
         return true;
     }
 
+    /*
+
+        * IsUniqueMobilePhone
+
+        * Cette fonction permet de vérifier si le mobile est unique
+
+        @param string $strPhone
+        @returns boolean
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function IsUniqueMobilePhone(string $strPhone): bool
     {
 
@@ -2072,7 +2127,21 @@ class User extends CI_Controller
         return true;
     }
 
-    // TODO : ! Bloquer l'accès à cette fonction via le routeur
+    /*
+
+        * IsUniqueAddressName
+
+        * Cette fonction permet de vérifier si le nom de l'adresse est unique
+
+        @param string $strName
+        @param int $id
+        @returns boolean
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function IsUniqueAddressName(string $strName = "", int $id = -1): bool
     {
 
@@ -2101,7 +2170,21 @@ class User extends CI_Controller
         return false;
     }
 
-    // TODO : ! Bloquer l'accès à cette fonction via le routeur
+    /*
+
+        * InListCountry
+
+        * Cette fonction permet de si le pays existe
+
+        @param string $strCountry
+
+        @returns boolean
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function InListCountry(string $strCountry = ""): bool
     {
 
@@ -2125,7 +2208,22 @@ class User extends CI_Controller
         return false;
     }
 
-    // TODO : ! Bloquer l'accès à cette fonction via le routeur
+    
+    /*
+
+        * InListDepartment
+
+        * Cette fonction permet de vérifier si le département existe
+
+        @param string $strDep
+
+        @returns boolean
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function InListDepartment(string $strDep = ""): bool
     {
 
