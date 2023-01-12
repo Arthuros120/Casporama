@@ -2,9 +2,12 @@
 
 /*
 
-    * Class UserModel
+    * Class CaptchaModel
 
-    * Cette classe permet de gérer les utilisateurs
+    @method _create_captcha string
+    @method check_captcha int
+
+    * Cette classe permet de gérer les captcha
 
 */
 class CaptchaModel extends CI_Model

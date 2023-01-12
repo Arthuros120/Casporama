@@ -7,12 +7,22 @@ require_once APPPATH . 'models/entity/InformationEntity.php';
 
     * Class InformationModel
 
+    @method getInformationByUserId(int $id) : ?InformationEntity
+
     * Cette classe permet de gérer les informations
 
 */
 class InformationModel extends CI_Model
 {
 
+    /*
+
+        * Méthode getInformationByUserId
+
+        @param int $id
+        @return ?InformationEntity
+
+    */
     public function getInformationByUserId(int $id) : ?InformationEntity
     {
 

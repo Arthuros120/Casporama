@@ -10,12 +10,54 @@ require_once APPPATH . 'models/entity/CartEntity.php';
 
     * Class CartModel
 
+    * Public
+
+    @method addProductCartDB(UserEntity $user)
+    @method heHaveCartById(int $id)
+    @method maxIdCart(int $iduser)
+    @method getCartDB(UserEntity $user)
+    @method getCart()
+    @method modifyQuantity(array $newQuantity)
+    @method modifyCardDB(
+                            int $newquantity,
+                            int $user,
+                            int $cart,
+                            int $variant
+                            )
+    @method deleteProduct(
+        int $delproduct
+        int $delvariant
+    )
+    @method deleteProductDB(
+        int $iduser
+        int $id
+    )
+    @method totalCart(array $cart) float
+    @method getCartDBbyId(int $iduser, int $idcart) array
+    @method getQuantityByCart(array $carts) array
+
+    ! Private
+
+    @method generateId() int
+
     * Cette classe permet de gérer le panier
 
 */
-class CartModel extends CI_Model {
+class CartModel extends CI_Model
+{
 
-    public function addProductCartDB(UserEntity $user) {
+    /*
+    
+        * addProductCartDB
+
+        @param UserEntity $user
+        
+        * Cette fonction permet d'ajouter un produit au panier
+        * dans la base de données
+
+    */
+    public function addProductCartDB(UserEntity $user)
+    {
 
         $carts = $this->CartModel->getCart();
 
@@ -33,28 +75,26 @@ class CartModel extends CI_Model {
                 $time = time();
                 $date = date($datestring, $time);
 
-                $dateExp = date($datestring,$time+6*3600);
+                $dateExp = date($datestring, $time + 6 * 3600);
             
-                $this->db->query("Call cart.addCart(".$id.",".$iduser.",".$idcart.",".$cart->getvariant()->getId().",".$cart->getQuantity().","."'".$date."'".","."'".$dateExp."'".")");
+                $this->db->query(
+                    "Call cart.addCart(".$id.",".$iduser.",".$idcart.",".$cart->getvariant()->getId().",".$cart->getQuantity().","."'".$date."','".$dateExp."'".")");
             }
             
             delete_cookie('cart');
         }
     }
 
-    private function generateId(): Int
-    {
+    /*
+    
+        * heHaveCartById
 
-        $id = rand(10000, 999999999);
+        @param int $product
+        @return bool
+        
+        * Vérifie si un panier existe avec un Id
 
-        if ($this->heHaveCartById($id)) {
-
-            $id = $this->generateId();
-        }
-
-        return $id;
-    }
-
+    */
     public function heHaveCartById(int $id): Bool
     {
 
@@ -75,7 +115,18 @@ class CartModel extends CI_Model {
         return false;
     }
 
-    public function maxIdCart(int $iduser) : int {
+    /*
+    
+        * maxIdCart
+
+        @param int $iduser
+        @return int
+        
+        * Cette fonction permet de récupérer le dernier idcart
+
+    */
+    public function maxIdCart(int $iduser) : int
+    {
         $query = $this->db->query("Call cart.maxIdCart('" . $iduser . "')");
 
         $cart = $query->row();
@@ -93,7 +144,18 @@ class CartModel extends CI_Model {
         return 1;
     }
     
-    public function getCartDB(UserEntity $user) : ?array {
+    /*
+    
+        * getCartDB
+
+        @param UserEntity $user
+        @return ?array
+        
+        * Cette fonction permet de récupérer le panier de l'utilisateur
+
+    */
+    public function getCartDB(UserEntity $user) : ?array
+    {
 
         $query = $this->db->query("call cart.getCartById('" . $user->getId() . "')");
 
@@ -129,19 +191,19 @@ class CartModel extends CI_Model {
             $newcart->setvariant($product->getVariant($cart["idvariant"]));
             $newcart->setQuantity($cart["quantity"]);
 
-            array_push($res,$newcart);
+            array_push($res, $newcart);
             
-        } 
+        }
     
         $alreadydone = array();
         for ($i = 0; $i < count($res); $i++) {
             $cart = array();
-            if (!in_array($res[$i]->getIdcart(),$alreadydone)) {
-                array_push($cart,$res[$i]);
-                array_push($alreadydone,$res[$i]->getIdCart());
+            if (!in_array($res[$i]->getIdcart(), $alreadydone)) {
+                array_push($cart, $res[$i]);
+                array_push($alreadydone, $res[$i]->getIdCart());
                 for ($j = $i+1; $j < count($res); $j++) {
                     if ($res[$i]->getIdcart() == $res[$j]->getIdcart()) {
-                        array_push($cart,$res[$j]);
+                        array_push($cart, $res[$j]);
                     }
                 }
                 $user->setCart($cart);
@@ -152,7 +214,21 @@ class CartModel extends CI_Model {
 
     }
 
-    public function getVariant(int $idproduct, string $color, string $size) : int {
+    /*
+    
+        * getVariant
+
+        @param int $idproduct
+        @param string $color
+        @param string $size
+
+        @return int
+        
+        * Cette fonction permet de récupérer tout les variant d'un produit
+
+    */
+    public function getVariant(int $idproduct, string $color, string $size) : int
+    {
 
         $product = $this->ProductModel->findById($idproduct);
 
@@ -163,20 +239,34 @@ class CartModel extends CI_Model {
         }
     }
 
-    public function addProductCart(int $idproduct, int $idvariant, int $quantity = 1) {
+    /*
+    
+        * addProductCart
 
-        $cookieValue = get_cookie('cart');  
+        @param int $idproduct
+        @param int $idvariant
+        @param int $quantity
+
+        @return void
+        
+        * Cette fonction permet d'ajouter un produit au panier
+
+    */
+    public function addProductCart(int $idproduct, int $idvariant, int $quantity = 1) : void
+    {
+
+        $cookieValue = get_cookie('cart');
 
         if ($quantity == 1 && $cookieValue != null) {
-            $cart = array_slice(explode("C",$cookieValue),0,-1);
+            $cart = array_slice(explode("C", $cookieValue), 0, -1);
             foreach ($cart as $product) {
-                $value = explode("P",$product);
+                $value = explode("P", $product);
                 if ($value[0] == $idproduct && $value[1] == $idvariant) {
-                    $quantity += $value[2];   
+                    $quantity += $value[2];
                 }
             }
-            $cookieValue = $this->deleteProduct($idproduct,$idvariant);
-        } 
+            $cookieValue = $this->deleteProduct($idproduct, $idvariant);
+        }
 
         $stocks = $this->ProductModel->findById($idproduct)->getStock();
         foreach ($stocks as $stock) {
@@ -185,11 +275,11 @@ class CartModel extends CI_Model {
             }
         }
 
-        if ($quantity > $quantitymax ) {
+        if ($quantity > $quantitymax) {
             $quantity = $quantitymax;
         }
 
-        $cookieValue .= "$idproduct"."P"."$idvariant"."P"."$quantity"."C";   
+        $cookieValue .= "$idproduct"."P"."$idvariant"."P"."$quantity"."C";
 
         // * On crée le cookie
         $cookieSettings = array(
@@ -205,18 +295,29 @@ class CartModel extends CI_Model {
 
     }
 
-    public function getCart() :?array {
+
+    /*
+    
+        * getCart
+
+        @return ?array
+        
+        * Cette fonction permet de récupérer le panier
+
+    */
+    public function getCart() : ?array
+    {
         
         $cookieValue = get_cookie('cart');
         
 
         if ($cookieValue != null) {
-            $values = array_slice(explode("C",$cookieValue),0,-1);
+            $values = array_slice(explode("C", $cookieValue), 0, -1);
             $res = array();
 
             foreach ($values as $value) {
 
-                $div = explode("P",$value);
+                $div = explode("P", $value);
 
                 $cart = new CartEntity;
                 $product = $this->ProductModel->findById($div[0]);
@@ -230,7 +331,7 @@ class CartModel extends CI_Model {
                     $cart->setQuantity($div[2]);
                 }
 
-                array_push($res,$cart);
+                array_push($res, $cart);
             }
             return $res;
         }
@@ -238,7 +339,19 @@ class CartModel extends CI_Model {
         return null;
     }
 
-    public function modifyQuantity(array $newQuantity) {
+    /*
+    
+        * modifyQuantity
+
+        @param array $newQuantity
+
+        @return string
+        
+        * Cette fonction permet de modifier la quantité d'un produit dans le panier
+
+    */
+    public function modifyQuantity(array $newQuantity)
+    {
         
         $cart = $this->getCart();
 
@@ -246,8 +359,8 @@ class CartModel extends CI_Model {
             $cookieValue = "";
             foreach ($cart as $product) {
                 $idvariant = $product->getVariant()->getId();
-                $cookieValue .= $product->getProduct()->getId()."P"."$idvariant"."P".$newQuantity[$idvariant]."C";   
-            } 
+                $cookieValue .= $product->getProduct()->getId()."P"."$idvariant"."P".$newQuantity[$idvariant]."C";
+            }
         }
 
         // * On crée le cookie
@@ -258,17 +371,45 @@ class CartModel extends CI_Model {
             'secure' => true,
             'httponly' => true
         );
-       
+
         // * On envoie le cookie
         $this->input->set_cookie($cookieSettings);
 
     }
 
-    public function modifyCartDB(int $newquantity, int $user, int $cart, int $variant) {
+    /*
+    
+        * modifyCartDB
+
+        @param int $newquantity
+        @param int $user
+        @param int $cart
+        @param int $variant
+
+        @return string
+        
+        * Cette fonction permet de modifier le panier dans la db
+
+    */
+    public function modifyCartDB(int $newquantity, int $user, int $cart, int $variant)
+    {
         $this->db->query("call cart.modifyQuantity($newquantity,$user,$cart,$variant)");
     }
 
-    public function deleteProduct(int $delproduct,int $delvariant) {
+    /*
+    
+        * deleteProduct
+
+        @param int $delproduct
+        @param int $delvariant
+
+        @return string
+        
+        * Cette fonction permet de supprimer un produit du panier
+
+    */
+    public function deleteProduct(int $delproduct, int $delvariant)
+    {
         $cart = $this->getCart();
 
         if ($cart != null) {
@@ -279,7 +420,7 @@ class CartModel extends CI_Model {
                 if (($idproduct != $delproduct) || ($idvariant != $delvariant && $idproduct == $delproduct)) {
                     $cookieValue .= $idproduct."P"."$idvariant"."P".$product->getQuantity()."C";
                 }
-            } 
+            }
         }
 
         // * On crée le cookie
@@ -290,22 +431,60 @@ class CartModel extends CI_Model {
             'secure' => true,
             'httponly' => true
         );
-       
+
         // * On envoie le cookie
         $this->input->set_cookie($cookieSettings);
 
         return $cookieValue;
     }
 
-    public function deleteCart(int $idcart, int $iduser) {
+    /*
+    
+        * deleteCart
+
+        @param int $idcart
+        @param int $iduser
+
+        @return void
+        
+        * Cette fonction permet de supprimer un panier
+
+    */
+    public function deleteCart(int $idcart, int $iduser)
+    {
         $this->db->query("call cart.deleteCart($idcart,$iduser)");
     }
 
-    public function deleteProductDB(int $iduser, int $id) {
+    /*
+    
+        * deleteProductDB
+
+        @param int $iduser
+        @param int $id
+
+        @return void
+        
+        * Cette fonction permet de supprimer un produit du panier dans la db
+
+    */
+    public function deleteProductDB(int $iduser, int $id)
+    {
         $this->db->query("call cart.deleteProductDB($iduser,$id)");
     }
 
-    public function totalCart(array $cart) :float {
+    /*
+    
+        * totalCart
+
+        @param array $cart
+
+        @return float
+        
+        * Cette fonction permet de retourner le total du panier
+
+    */
+    public function totalCart(array $cart) : float
+    {
         $res = 0.0;
         foreach ($cart as $products) {
             $res += $products->getProduct()->getPrice() * $products->getQuantity();
@@ -313,7 +492,18 @@ class CartModel extends CI_Model {
         return $res;
     }
 
-    public function getCartDBbyID(int $iduser,int $idcart) {
+    /*
+    
+        * getCartDBbyID
+
+        @param int $iduser
+        @param int $idcart
+        
+        * Cette fonction permet de retourner le panier de l'utilisateur
+
+    */
+    public function getCartDBbyID(int $iduser, int $idcart)
+    {
 
         $query = $this->db->query("call cart.getCartIdcart($iduser,$idcart)");
 
@@ -341,22 +531,67 @@ class CartModel extends CI_Model {
             $newcart->setvariant($product->getVariant($cart["idvariant"]));
             $newcart->setQuantity($cart["quantity"]);
 
-            array_push($res,$newcart);
+            array_push($res, $newcart);
         }
 
         return $res;
 
     }
 
-    public function getQuantityByCart(array $carts) :array {
+    /*
+    
+        * getQuantityByCart
+
+        @param array $carts
+
+        @return array
+        
+        * Cette fonction permet de retourner le panier de l'utilisateur
+
+    */
+    public function getQuantityByCart(array $carts) : array
+    {
 
         $quantity = [];
         foreach ($carts as $cart) {
             foreach ($cart as $product) {
-                $quantity[$product->getVariant()->getId()] = array_combine(range(1,$product->getVariant()->getQuantity()),range(1,$product->getVariant()->getQuantity()));
+                $quantity[
+                    $product->getVariant()->getId()
+                    ] = array_combine(
+                        range(
+                            1,
+                            $product->getVariant()->getQuantity()
+                        ),
+                        range(
+                            1,
+                            $product->getVariant()->getQuantity()
+                        )
+                    );
             }
         }
         return $quantity;
+    }
+
+    /*
+    
+        * generateId
+
+        @return int
+        
+        * Cette permet de générer un id pour le panier
+
+    */
+    private function generateId(): Int
+    {
+
+        $id = rand(10000, 999999999);
+
+        if ($this->heHaveCartById($id)) {
+
+            $id = $this->generateId();
+        }
+
+        return $id;
     }
 
 }

@@ -47,21 +47,32 @@ class InvoicePDFModel extends CI_Model
                     echo "nope";
                 }
 
-                if (round(($order->getPrice()-5)/1.20,2) != $this->OrderModel->totalOrder($order)) {
+                if (round(($order->getPrice()-5)/1.20, 2) != $this->OrderModel->totalOrder($order)) {
                     $discount = $product->getPrice() * 0.05;
                 } else {
                     $discount = 0;
                 }
 
-                $invoice->addItem($product->getName() . ' ' . $variante->getColor() . ' ' . $variante->getSize(), $product->getDescription(), $quantities[$variante->getId()], $product->getPrice()*0.20,
-                    $product->getPrice(), $discount, (($product->getPrice()-$discount)*1.20) * $quantities[$variante->getId()]);
+                $invoice->addItem(
+                    $product->getName() . ' ' . $variante->getColor() . ' ' . $variante->getSize(), $product->getDescription(), $quantities[
+                        $variante->getId()
+                    ],
+                    $product->getPrice()*0.20,
+                    $product->getPrice(),
+                    $discount,
+                    (($product->getPrice()-$discount)*1.20) * $quantities[
+                        $variante->getId()
+                    ]
+                );
             }
 
             $invoice->addTotal('Frais de Port : ', 5);
             $invoice->addTotal('Total TTC', $order->getPrice());
 
 
-            $invoice->addParagraph("Aucun article ne sera remplacer ou rembourser si vous n'avez cette facture avec vous");
+            $invoice->addParagraph(
+                "Aucun article ne sera remplacer ou rembourser si vous n'avez cette facture avec vous"
+            );
             $invoice->setFooternote("Casporama SA");
             return $invoice;
 
@@ -71,15 +82,17 @@ class InvoicePDFModel extends CI_Model
         }
     }
 
-    public function saveInvoice($idOrder, $iduser) : string {
+    public function saveInvoice($idOrder, $iduser) : string
+    {
         $user = $this->UserModel->getUserById($iduser);
-        $invoice = $this->GenerateInvoice($idOrder,$user);
+        $invoice = $this->GenerateInvoice($idOrder, $user);
         $invoice->render(APPPATH.'../upload/pdf/Facture'. $idOrder. '.pdf', 'F');
         
         return APPPATH.'../upload/pdf/Facture'. $idOrder. '.pdf';
     }
 
-    private function search_product(array $products, int $id) : ?ProductEntity{
+    private function search_product(array $products, int $id) : ?ProductEntity
+    {
 
         foreach ($products as $product) {
             if ($id == $product->getId()) {

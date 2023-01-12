@@ -13,6 +13,16 @@ require_once APPPATH . 'models/entity/LocationEntity.php';
 class LocationModel extends CI_Model
 {
 
+    /*
+    
+        * Méthode newAddress
+    
+        @param array $dataAddress
+        @return ?LocationEntity
+
+        * Cette méthode permet de créer une nouvelle adresse
+    
+    */
     public function newAddress(array $dataAddress) : ?LocationEntity
     {
 
@@ -58,19 +68,17 @@ class LocationModel extends CI_Model
         }
     }
 
-    private function generateId(): Int
-    {
 
-        $id = rand(100, 999999999);
+    /*
+    
+        * Méthode addAddressToUser
+    
+        @param LocationEntity $newAddresse
+        @param int $userId
 
-        if ($this->heHaveAddressById($id)) {
-
-            $id = $this->generateId();
-        }
-
-        return $id;
-    }
-
+        * Cette méthode ajoute une adresse à un utilisateur
+    
+    */
     public function addAddressToUser(
         LocationEntity $newAddresse,
         int $userId
@@ -125,6 +133,17 @@ class LocationModel extends CI_Model
         $this->db->query($strRequest, $dataRequest);
     }
 
+    /*
+    
+        * Méthode updateAddress
+    
+        @param LocationEntity $newAddresse
+        @param int $lastAddresseId
+        @param int $userId
+
+        * Cette méthode met à jour une adresse
+    
+    */
     public function updateAddress(
         LocationEntity $newAddresse,
         int $lastAddresseId,
@@ -181,6 +200,15 @@ class LocationModel extends CI_Model
         $this->db->query($strRequest, $dataRequest);
     }
 
+    /*
+    
+        * Méthode addressIsDead
+    
+        @param int $id
+
+        * Cette méthode permet de tuer l'addresse
+    
+    */
     public function addressIsDead(int $id)
     {
 
@@ -190,7 +218,19 @@ class LocationModel extends CI_Model
 
     }
 
-    public function sameNameByUserId(int $id, string $name)
+    /*
+    
+        * Méthode sameNameByUserId
+    
+        @param int $id
+        @param string $name
+
+        @return bool
+
+        * Cette méthode permet de vérifier si l'utilisateur a déjà une adresse avec le même nom
+    
+    */
+    public function sameNameByUserId(int $id, string $name) : bool
     {
 
         $query = $this->db->query("Call user.countAddressByIdAndName('" . $id . "', '" . $name . "')");
@@ -211,6 +251,16 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+    
+        * Méthode heHaveAddressById
+    
+        @param int $id
+        @return bool
+
+        * Cette méthode permet de vérifier si l'utilisateur a déjà une adresse avec le même nom
+    
+    */
     public function heHaveAddressById(int $id): Bool
     {
 
@@ -339,6 +389,17 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction getLocationById
+
+        @param $locationId : l'id de la localisation
+
+        @return LocationEntity : retourne l'objet localisation demandé si il existe
+
+        * Cette fonction permet de récupérer la localisations d'un utilisateur avec son id et l'id de la localisation
+
+    */
     public function getLocationById(int $locationId) : ?LocationEntity
     {
 
@@ -379,6 +440,15 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction allDepartementList
+
+        @return array
+
+        * Cette fonction retourne la list de tout les département français
+
+    */
     public function allDepartementList() : array
     {
 
@@ -398,6 +468,17 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+    
+        * Fonction getDepartment
+    
+        @param $num : le numéro du département
+    
+        @return string : le nom du département
+    
+        * Cette fonction retourne le nom du département
+    
+    */
     public function getDepartment(int $num) : ?string
     {
 
@@ -415,6 +496,15 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction allCountryList
+
+        @return array
+
+        * Cette fonction retourne la list de tout les pays
+
+    */
     public function allCountryList() : array
     {
 
@@ -434,6 +524,17 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction allCityListWithCode
+
+        @param $codeDep : le code du département
+
+        @return array
+
+        * Cette fonction retourne la list de tout les ville d'un département
+
+    */
     public function allCityListWithCode(int $codeDep) : array
     {
 
@@ -467,6 +568,19 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction allPostalCodeListWithCodeAndCity
+
+        @param $codeDep : le code du département
+
+        @param $cityName : le nom de la ville
+
+        @return array
+
+        * Cette fonction retourne la list de tout les code postal d'une ville d'un département
+
+    */
     public function allPostalCodeListWithCodeAndCity(int $codeDep, string $cityName) : array
     {
 
@@ -507,6 +621,17 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction cityNameByPostalCode
+
+        @param $postalCode : le code postal
+
+        @return array
+
+        * Cette fonction retourne la list de tout les ville d'un code postal
+
+    */
     public function cityNameByPostalCode(string $postalCode = "")
     {
 
@@ -534,6 +659,19 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction searchLatLong
+
+        @param $address : l'adresse
+
+        @param $codePostal : le code postal
+
+        @return array
+
+        * Cette fonction retourne la latitude et la longitude d'une adresse
+
+    */
     public function searchLatLong(array $address, string $codePostal) : ?array
     {
 
@@ -587,6 +725,16 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction getZipDepByZip
+
+        @param int $code : le code postal
+
+        @return int
+
+        * Cette fonction retourne le code postal d'un département
+    */
     public function getZipDepByZip(int $code) : int
     {
 
@@ -600,6 +748,17 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction IsUniqueModifAddressName
+
+        @param string $name : le nom de l'adresse
+        @param int $id : l'id de l'adresse
+
+        @return int
+
+        * Cette fonction retourne 1 si le nom de l'adresse est unique, 0 sinon
+    */
     public function IsUniqueModifAddressName(string $name, int $id) : int
     {
 
@@ -614,6 +773,16 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction IsCountry
+
+        @param string $country
+
+        @return int
+
+        * Cette fonction retourne true si le pays est valide, false sinon
+    */
     public function IsCountry(string $country) : bool
     {
 
@@ -633,6 +802,16 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction IsDepartment
+
+        @param string $dep
+
+        @return int
+
+        * Cette fonction retourne true si le département est valide, false sinon
+    */
     public function IsDepartment(string $dep) : bool
     {
 
@@ -654,6 +833,17 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction samePostalCodeByDepartment
+
+        @param int $depId
+        @param string $postalCode
+
+        @return bool
+
+        * Cette fonction retourne true si le code postal est valide pour le département, false sinon
+    */
     public function samePostalCodeByDepartment(int $depId, string $postalCode) : bool
     {
 
@@ -663,6 +853,17 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction sameAddresse
+
+        @param int $userId
+        @param LocationEntity $newAddresse
+
+        @return bool
+
+        * Cette fonction retourne true si l'adresse est la même que celle de l'utilisateur, false sinon
+    */
     public function sameAddresse(int $userId, LocationEntity $newAddresse) : bool
     {
 
@@ -694,6 +895,18 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction sameAddresseModif
+
+        @param int $userId
+        @param LocationEntity $newAddresse
+        @param int $oldId
+
+        @return bool
+
+        * Cette fonction retourne true si l'adresse est la même que celle de l'utilisateur, false sinon
+    */
     public function sameAddresseModif(int $userId, LocationEntity $newAddresse, int $oldId) : bool
     {
 
@@ -726,6 +939,16 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction countAddressByUserId
+
+        @param int $id
+
+        @return int
+
+        * Cette fonction retourne le nombre d'adresse de l'utilisateur
+    */
     public function countAddressByUserId(int $id) : int
     {
 
@@ -741,6 +964,16 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction heHaveMaxAddress
+
+        @param int $id
+
+        @return bool
+
+        * Cette fonction retourne true si l'utilisateur a atteint le nombre maximum d'adresse, false sinon
+    */
     public function heHaveMaxAddress(int $id) : bool
     {
 
@@ -754,6 +987,38 @@ class LocationModel extends CI_Model
 
     }
 
+    /*
+
+        * Fonction generateId
+
+        @return int
+
+        * Cette fonction genere un id aléatoire
+    */
+    private function generateId(): Int
+    {
+
+        $id = rand(100, 999999999);
+
+        if ($this->heHaveAddressById($id)) {
+
+            $id = $this->generateId();
+        }
+
+        return $id;
+    }
+
+    /*
+
+        * Fonction formatStr
+
+        @param string $str
+
+        @return string
+
+        * Cette fonction formatte une chaine de caractère, enlève les accents, les espaces,
+        * les apostrophes et les tirets et la met en minuscule, pour faciliter les comparaisons
+    */
     private function formatStr(string $str) : string
     {
 
