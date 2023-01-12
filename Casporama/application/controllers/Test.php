@@ -192,4 +192,17 @@ class Test extends CI_Controller
     }
 
 
+    public function Testhttp(int $code_postal) {
+
+        echo "response :";
+
+        $linkApi = 'https://apicarto.ign.fr/api/codes-postaux/communes/' . $code_postal;
+
+        $jsonFile = file_get_contents($linkApi);
+
+        echo $jsonFile;
+
+    }
+
+
 }
