@@ -5,10 +5,33 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
     * Api/v1/Location Controller
 
+    @method: AllCountry
+    @method: AllDep
+    @method: ZipDep
+    @method: CityDep
+    @method: PostalCodeDepCity
+    @method: CityNameByPostalCode
+    @method: LatLongByAddressPostalCode
+
+    * Ce controlleur permet de créer une interface entre le backend et le frontent,
+    * cela permet au js de communiquer avec le php et de faire des requêtes ajax
+    * pour récupérer des données en base de données ou sur une api externe.
+
 */
 class Location extends CI_Controller
 {
 
+    /*
+
+        * Constructeur
+
+        @param: void
+
+        @return: void
+
+        * Ce controleur charge le Model Location pour toutes les pages
+
+    */
     public function __construct()
     {
         parent::__construct();
@@ -16,7 +39,17 @@ class Location extends CI_Controller
         $this->load->model('LocationModel');
     }
 
-    public function AllCountry()
+    /*
+
+        * AllCountry
+
+        @param: void
+
+        * Cette fonction permet de génerer une liste de tous les pays
+        * en requete ajax seulement
+
+    */
+    public function AllCountry() : void
     {
         if ($this->input->is_ajax_request()) {
 
@@ -29,7 +62,17 @@ class Location extends CI_Controller
         }
     }
 
-    public function AllDep(string $country = "")
+    /*
+
+        * AllDep
+
+        @param: string $country
+
+        * Cette fonction permet de génerer une liste de tous les départements
+        * en fonction du pays en requete ajax seulement
+
+    */
+    public function AllDep(string $country = "") : void
     {
         if ($this->input->is_ajax_request()) {
 
@@ -51,7 +94,17 @@ class Location extends CI_Controller
         }
     }
 
-    public function ZipDep(string $codePostal = "")
+    /*
+
+        * ZipDep
+
+        @param: string $codePostal
+
+        * Cette fonction retourne le numéro du département en fonction du code postal
+        * en requete ajax seulement
+
+    */
+    public function ZipDep(string $codePostal = "") : void
     {
         if ($this->input->is_ajax_request()) {
 
@@ -73,7 +126,17 @@ class Location extends CI_Controller
         }
     }
 
-    public function cityDep(string $depZip = "")
+    /*
+
+        * CityDep
+
+        @param: string $depZip
+
+        * Cette fonction retourne la liste des villes en fonction du département
+        * en requete ajax seulement
+
+    */
+    public function cityDep(string $depZip = "") : void
     {
         if ($this->input->is_ajax_request()) {
 
@@ -95,7 +158,19 @@ class Location extends CI_Controller
         }
     }
 
-    public function postalCodeDepCity(string $depZip = "", string $cityName = "")
+    /*
+
+        * PostalCodeDepCity
+
+        @param: string $depZip
+
+        @param: string $cityName
+
+        * Cette fonction retourne la liste des codes postaux des départements et de la ville
+        * en requete ajax seulement
+
+    */
+    public function postalCodeDepCity(string $depZip = "", string $cityName = "") : void
     {
         if ($this->input->is_ajax_request()) {
 
@@ -117,7 +192,17 @@ class Location extends CI_Controller
         }
     }
 
-    public function cityNameByPostalCode(string $postalCode = "")
+    /*
+
+        * CityNameByPostalCode
+
+        @param: string $postalCode
+
+        * Cette fonction retourne le nom de la ville en fonction du code postal
+        * en requete ajax seulement
+
+    */
+    public function cityNameByPostalCode(string $postalCode = "") : void
     {
 
         if ($this->input->is_ajax_request()) {
@@ -140,8 +225,21 @@ class Location extends CI_Controller
         }
     }
 
-    //number;address;postalCode
-    public function latLongByAddressPostalCode(int $number = -1, string $street = "", string $postalCode = "")
+    /*
+
+        * LatLongByAddressPostalCode
+
+        @param: int $number
+
+        @param: string $street
+
+        @param: string $postalCode
+
+        * Cette fonction retourne les coordonnées GPS en fonction de l'adresse
+        * en requete ajax seulement
+
+    */
+    public function latLongByAddressPostalCode(int $number = -1, string $street = "", string $postalCode = "") : void
     {
 
         if ($this->input->is_ajax_request()) {

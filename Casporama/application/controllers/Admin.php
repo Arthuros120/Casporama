@@ -1,16 +1,72 @@
 <?php
 defined('BASEPATH') || exit('No direct script access allowed');
 
-/**
- * @property UserModel $UserModel
- * @property LoaderView $LoaderView
- * @property ProductModel $ProductModel
- * @property LocationModel $LocationModel
- */
+/*
+
+    * Admin Controller
+
+    * Public
+
+    @method index: void
+    @method home: void
+    @method product: void
+    @method addProduct: void
+    @method editProduct: void
+    @method addImage: void
+    @method editCoverImage: void
+    @method deleteImage: void
+    @method deleteProduct: void
+    @method reviveProduct: void
+    @method stock: void
+    @method addStock: void
+    @method editQuantite: void
+    @method suppStock: void
+    @method suppStocks: void
+    @method suppStocksComf: void
+    @method deleteProducts: void
+    @method deleteProductsComf: void
+    @method order: void
+    @method changeStatusOrder : void
+    @method cancelOrderComfirm : void
+    @method cancelOrder : void
+    @method deleteOrdersConfirm: void
+    @method deleteOrders: void
+    @method viewOrder: void
+    @method user: void
+    @method resetPass: void
+    @method deleteUser: void
+    @method deleteUsers: void
+    @method reviveUser: void
+    @method editUser: void
+    @method addAddress: void
+    @method modifAddress: void
+    @method suppAddress: void
+
+    * Private
+
+    @method InListCountry: bool
+    @method InListDepartment : bool
+    @method IsUniqueAddressName : bool
+    @method IsUniqueEmail : bool
+    @method IsUniqueMobilePhone : bool
+    @method checkNameProduct : bool
+    @method checkSport : bool
+    @method checkType : bool
+
+    * Ce controlleur gérer toutes les pages de l'administation
+
+*/
 class Admin extends CI_Controller
 {
 
-    public function index()
+    /*
+        * index
+
+        @return: void
+
+        * Ce redirige vers la page Home de l'administration
+    */
+    public function index() : void
     {
 
         $this->UserModel->adminOnly();
@@ -18,7 +74,16 @@ class Admin extends CI_Controller
         redirect('admin/home');
     }
 
-    public function home()
+    /*
+        * home
+
+        @return: void
+
+        * Cette fonction permet de charger la page Home de l'administration
+        * celle ci est accessible uniquement par les administrateurs, et propose
+        * les différente action possible
+    */
+    public function home() : void
     {
 
         $this->UserModel->adminOnly();
@@ -26,7 +91,26 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/home');
     }
 
-    public function product()
+    /*
+        * product
+
+        @return: void
+
+        * Cette fonction permet de charger la page Product de l'administration
+        * celle ci est accessible uniquement par les administrateurs, et propose
+        * les différente action possible:
+        * - Ajouter un produit
+        * - Modifier un produit
+        * - Supprimer un produit
+        * - Supprimer des produits
+        * - Réactiver un produit
+        * - Filtrer les produits par sport
+        * - Filtrer les produits par type
+        * - Filtrer les produits par marque
+        * - Filtrer les produits par prix
+        * - Gerer les produits en stock
+    */
+    public function product() : void
     {
         $this->UserModel->adminOnly();
 
@@ -34,16 +118,20 @@ class Admin extends CI_Controller
 
         $get = $this->input->get();
 
+        // * On récupère tous les produits en vie en base de données
         $products = $this->ProductModel->getAllAsAlive();
 
+        // * On filtre les produits en vie
         $res = $this->ProductModel->filtred($get, $products);
 
         $productsAlive = $res['products'];
         $title = $res['title'];
         $productNotFiltredByBrand = $res['productNotFiltredByBrand'];
 
+        // * On récupère tous les produits mort en base de données
         $products = $this->ProductModel->getAllAsNotAlive();
 
+        // * On filtre les produits mort
         $res = $this->ProductModel->filtred($get, $products);
 
         $productsNotAlive = $res['products'];
@@ -70,7 +158,15 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/Product', $data);
     }
 
-    public function addProduct()
+    /*
+        * addProduct
+
+        @return: void
+
+        * Cette fonction permet d'ajouter un produit en base de données
+        * elle est accessible uniquement par les administrateurs
+    */
+    public function addProduct() : void
     {
 
         $this->UserModel->adminOnly();
@@ -79,6 +175,7 @@ class Admin extends CI_Controller
 
         $this->load->model('ProductModel');
 
+        // * On paramètre la configuration de l'upload
         $configFile['upload_path']          = 'upload/images/import/';
         $configFile['allowed_types']        = 'jpg|png|jpeg|svg';
         $configFile['max_size']             = 100000;
@@ -99,6 +196,7 @@ class Admin extends CI_Controller
         $imageFile = array();
         $errorFile = array();
 
+        // * On configure les règles
         $configRules = array(
 
             array(
@@ -184,8 +282,10 @@ class Admin extends CI_Controller
             ),
         );
 
+        // * On configure les règles
         $this->form_validation->set_rules($configRules);
 
+        // * On récupère les données du formulaire
         $post = $this->input->post();
 
         if (!$this->form_validation->run()) {
@@ -212,6 +312,7 @@ class Admin extends CI_Controller
             $this->LoaderView->load('Admin/addProduct', $data);
         } else {
 
+            // * On gérer le téléchargement des images
             $this->upload->initialize($configFile);
 
             $imageCover = $this->upload->do_upload('imageCover');
@@ -290,6 +391,15 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * editProduct
+
+        @param int $id
+
+        @return: void
+
+        * Cette fonction permet d'éditer un produit
+    */
     public function editProduct(int $id = -1)
     {
 
@@ -327,6 +437,7 @@ class Admin extends CI_Controller
             array_push($images, str_replace('/', '+', str_replace(base_url(), '', $image)));
         }
 
+        // * On configure les règles de validation
         $configRules = array(
 
             array(
@@ -443,11 +554,19 @@ class Admin extends CI_Controller
 
             redirect('shop/product/' . $id);
 
-            var_dump($this->input->post());
         }
     }
 
-    public function addImage(int $id = -1)
+    /*
+        * addImage
+
+        @param int $id
+
+        @return: void
+
+        * Cette fonction permet d'ajouter une image à un produit
+    */
+    public function addImage(int $id = -1) : void
     {
 
         $this->UserModel->adminOnly();
@@ -550,7 +669,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function EditCoverImage(int $id = -1)
+    /*
+        * editCoverImage
+
+        @param int $id
+
+        @return: void
+
+        * Cette fonction permet de modifier l'image de couverture d'un produit
+    */
+    public function editCoverImage(int $id = -1) : void
     {
 
         $this->UserModel->adminOnly();
@@ -610,6 +738,16 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * deleteImage
+
+        @param $id
+        @param string $image
+
+        @return: void
+
+        * Cette fonction permet de supprimer une image d'un produit
+    */
     public function deleteImage(int $id = -1, string $image = ""): void
     {
 
@@ -632,7 +770,16 @@ class Admin extends CI_Controller
         redirect('admin/editProduct/' . $id);
     }
 
-    public function deleteProduct(int $id = -1)
+    /*
+        * deleteProduct
+
+        @param int $id
+
+        @return: void
+
+        * Cette fonction permet de supprimer un produit
+    */
+    public function deleteProduct(int $id = -1) : void
     {
         $this->UserModel->adminOnly();
 
@@ -710,6 +857,15 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * reviveProduct
+
+        @param int $id
+
+        @return: void
+
+        * Cette fonction permet de réactiver un produit
+    */
     public function reviveProduct(int $id = -1): void
     {
 
@@ -727,13 +883,26 @@ class Admin extends CI_Controller
         redirect('admin/product');
     }
 
-    public function stock(int $id = -1)
+    /*
+    
+        * stock
+
+        @param int $id
+
+        @return: void
+
+        * Cette fonction permet de d'afficher le stock d'un produit
+        * ou de modifier le stock d'un produit
+
+    */
+    public function stock(int $id = -1) : void
     {
 
         $this->UserModel->AdminOnly();
 
         $this->load->model('ProductModel');
 
+        // * Si l'id est -1, on affiche la liste des produits avec leur stock
         if ($id == -1) {
 
             $get = $this->input->get();
@@ -808,6 +977,8 @@ class Admin extends CI_Controller
 
                 $this->LoaderView->load('Admin/stock/filter', $data);
             }
+
+        // * sinon on affiche le stock du produit
         } else {
 
             $product = $this->ProductModel->findById($id);
@@ -836,6 +1007,15 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * addStock
+
+        @param int $id
+
+        @return: void
+
+        * Cette fonction permet d'ajouter du stock à un produit
+    */
     public function addStock(int $id = -1): void
     {
 
@@ -959,6 +1139,15 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * editQuantite
+
+        @param int $id
+
+        @return: void
+
+        * Cette fonction permet de modifier la quantité d'un produit
+    */
     public function editQuantite(int $id = -1): void
     {
 
@@ -1027,6 +1216,15 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * suppStock
+
+        @param int $id
+
+        @return: void
+
+        * Cette fonction permet de supprimer un stock d'un produit
+    */
     public function suppStock(int $id = -1): void
     {
 
@@ -1121,6 +1319,15 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * suppStocks
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction permet de supprimer plusieurs stocks d'un produit
+    */
     public function suppStocks(): void
     {
 
@@ -1170,6 +1377,15 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/stock/suppStocks/request', $data);
     }
 
+    /*
+        * suppStocksComf
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction permet de supprimer plusieurs stocks d'un produit
+    */
     public function suppStocksComf(): void
     {
 
@@ -1227,7 +1443,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function deleteProducts()
+    /*
+        * deleteProducts
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction permet de supprimer plusieurs produits
+    */
+    public function deleteProducts() : void
     {
         $this->UserModel->adminOnly();
 
@@ -1273,7 +1498,16 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/deletes/request', $data);
     }
 
-    public function deleteProductsComf()
+    /*
+        * deleteProductsComf
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction permet de supprimer plusieurs produits
+    */
+    public function deleteProductsComf() : void
     {
 
         $this->UserModel->adminOnly();
@@ -1317,7 +1551,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function order()
+    /*
+        * order
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction permet d'afficher toutes les commandes
+    */
+    public function order() : void
     {
 
         $this->UserModel->adminOnly();
@@ -1340,13 +1583,13 @@ class Admin extends CI_Controller
 
         if ($filtre != null) {
 
-            if (in_array($filtre,array_keys($orders))) {
+            if (in_array($filtre, array_keys($orders))) {
                 $orders = array($orders[$filtre]);
             } else {
                 $orders = null;
             }
             
-        } 
+        }
 
         if ($orders != null) {
             $dataContent = array('orders' => $orders);
@@ -1359,7 +1602,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function changeStatusOrder()
+    /*
+        * changeStatusOrder
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction de permet de changer le statut d'une commande
+    */
+    public function changeStatusOrder() : void
     {
 
         $this->UserModel->adminOnly();
@@ -1376,7 +1628,16 @@ class Admin extends CI_Controller
         redirect('Admin/viewOrder?idorder=' . $key);
     }
 
-    public function cancelOrderConfirm()
+    /*
+        * cancelOrderConfirm
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction permet d'annuler une commande en demandant confirmation
+    */
+    public function cancelOrderConfirm() : void
     {
 
         $this->UserModel->adminOnly();
@@ -1390,7 +1651,16 @@ class Admin extends CI_Controller
         $this->LoaderView->load('Admin/confirmCancel', $data);
     }
 
-    public function cancelOrder()
+    /*
+        * cancelOrder
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction permet d'annuler une commande
+    */
+    public function cancelOrder() : void
     {
 
         $this->UserModel->adminOnly();
@@ -1411,7 +1681,16 @@ class Admin extends CI_Controller
         redirect('Admin/order');
     }
 
-    public function deleteOrdersConfirm()
+    /*
+        * deleteOrdersConfirm
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction permet de suprimé une commande en comfirmant
+    */
+    public function deleteOrdersConfirm() : void
     {
 
         $this->UserModel->adminOnly();
@@ -1431,7 +1710,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function deleteOrders()
+    /*
+        * deleteOrders
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction permet de suprimé plusieurs commandes
+    */
+    public function deleteOrders() : void
     {
         $this->UserModel->adminOnly();
 
@@ -1462,7 +1750,16 @@ class Admin extends CI_Controller
         redirect("Admin/order");
     }
 
-    public function viewOrder()
+    /*
+        * viewOrder
+
+        @param: void
+
+        @return: void
+
+        * Cette fonction permet d'afficher une commande
+    */
+    public function viewOrder() : void
     {
 
         $this->UserModel->adminOnly();
@@ -1510,11 +1807,22 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * User
+
+        @param: int $id
+
+        @return: void
+
+        * Cette fonction permet d'afficher la liste des utilisateurs
+        * ou d'afficher un utilisateur
+    */
     public function User(int $id = -1): void
     {
 
         $this->UserModel->adminOnly();
 
+        // * Si l'id est -1 alors on affiche la liste des utilisateurs
         if ($id == -1) {
 
             $get = $this->input->get();
@@ -1568,6 +1876,8 @@ class Admin extends CI_Controller
 
                 $this->LoaderView->load('Admin/user/filter');
             }
+
+        // * Sinon on affiche l'utilisateur
         } else {
 
             $user = $this->UserModel->getUserById($id);
@@ -1645,6 +1955,15 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * resetPass
+
+        @param: int $id
+
+        @return: void
+
+        * Cette fonction permet de réinitialiser le mot de passe d'un utilisateur
+    */
     public function resetPass(int $id = -1) : void
     {
 
@@ -1726,6 +2045,15 @@ class Admin extends CI_Controller
 
     }
 
+    /*
+        * deleteUser
+
+        @param: int $id
+
+        @return: void
+
+        * Cette fonction permet de supprimer un utilisateur
+    */
     public function deleteUser(int $id = -1) : void
     {
 
@@ -1806,6 +2134,15 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * reviveUser
+
+        @param: int $id
+
+        @return: void
+
+        * Cette fonction permet de réactiver un utilisateur
+    */
     public function reviveUser(int $id = -1) : void
     {
 
@@ -1886,7 +2223,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function editUser(int $id = -1): void
+    /*
+        * editUser
+
+        @param: int $id
+
+        @return: void
+
+        * Cette fonction permet de modifier un utilisateur
+    */
+    public function editUser(int $id = -1) : void
     {
 
         $this->UserModel->adminOnly();
@@ -2069,7 +2415,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function addAddress(int $id = -1)
+    /*
+        * addAddress
+
+        @param: int $id
+
+        @return: void
+
+        * Cette fonction permet d'ajouter une adresse à un utilisateur
+    */
+    public function addAddress(int $id = -1) : void
     {
 
         $this->UserModel->adminOnly();
@@ -2291,7 +2646,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function modifAddress(int $id = -1): void
+    /*
+        * modifAddress
+
+        @param: int $id
+
+        @return: void
+
+        * Cette fonction permet de modifié une adresse à un utilisateur
+    */
+    public function modifAddress(int $id = -1) : void
     {
         $this->UserModel->adminOnly();
 
@@ -2485,11 +2849,6 @@ class Admin extends CI_Controller
                         $dataContent = array(
 
                             'location' => $location,
-                            'iduser' => $user->getId(),
-                            'error' => "Cette addresse est trop similaire a une autre"
-                        );
-
-                        $dataScript = array(
 
                             'location' => $location,
 
@@ -2555,7 +2914,16 @@ class Admin extends CI_Controller
         }
     }
 
-    public function supprAddress(int $id = -1)
+    /*
+        * supprAddress
+
+        @param: int $id
+
+        @return: void
+
+        * Cette fonction permet de supprimé une adresse à un utilisateur
+    */
+    public function supprAddress(int $id = -1) : void
     {
 
         $this->UserModel->adminOnly();
@@ -2642,7 +3010,28 @@ class Admin extends CI_Controller
         }
     }
 
-    public function InListCountry(string $strCountry = ""): bool
+
+    // --------------------------------------------------------------------
+
+    // * Casual function
+
+    // --------------------------------------------------------------------
+
+    /*
+        * InListCountry
+
+        @param: string $strCountry
+
+        @return: bool
+
+        * Cette fonction permet de vérifier si le pays existe
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
+    public function InListCountry(string $strCountry = "") : bool
     {
 
         if ($strCountry == "") {
@@ -2664,6 +3053,20 @@ class Admin extends CI_Controller
         return false;
     }
 
+    /*
+        * InListDepartment
+
+        @param: string $strDep
+
+        @return: bool
+
+        * Cette fonction permet de vérifier si le département existe
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function InListDepartment(string $strDep = ""): bool
     {
 
@@ -2688,6 +3091,21 @@ class Admin extends CI_Controller
         return false;
     }
 
+    /*
+        * IsUniqueAddressName
+
+        @param: string $strName
+        @param: int $id
+
+        @return: bool
+
+        * Cette fonction permet de vérifier si le nom de l'adresse est unique
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function IsUniqueAddressName(string $strName = "", int $id = -1): bool
     {
 
@@ -2716,6 +3134,21 @@ class Admin extends CI_Controller
         return false;
     }
 
+    /*
+        * IsUniqueEmail
+
+        @param: string $strEmail
+        @param: int $id
+
+        @return: bool
+
+        * Cette fonction permet de vérifier si l'email est unique
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function IsUniqueEmail(string $strEmail, int $id): bool
     {
 
@@ -2735,6 +3168,21 @@ class Admin extends CI_Controller
         return true;
     }
 
+    /*
+        * IsUniqueMobilePhone
+
+        @param: string $strPhone
+        @param: int $id
+
+        @return: bool
+
+        * Cette fonction permet de vérifier si le mobile est unique
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function IsUniqueMobilePhone(string $strPhone, int $id): bool
     {
 
@@ -2754,7 +3202,20 @@ class Admin extends CI_Controller
         return true;
     }
 
+    /*
+        * checkNameProduct
 
+        @param: string $name
+
+        @return: bool
+
+        * Cette fonction permet de vérifier si le nom du produit est unique
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function checkNameProduct(string $name): bool
     {
 
@@ -2773,6 +3234,22 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * checkNameProductWithoutSelf
+
+        @param: string $name
+        @param: int $id
+
+        @return: bool
+
+        * Cette fonction permet de vérifier si le nom du produit est unique
+        * sans prendre en compte le produit en cours de modification
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function checkNameProductWithoutSelf(string $name, int $id): bool
     {
 
@@ -2791,6 +3268,20 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * checkSport
+
+        @param: int $sport
+
+        @return: bool
+
+        * Cette fonction permet de vérifier si le sport existe
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function checkSport(int $sport): bool
     {
 
@@ -2809,6 +3300,20 @@ class Admin extends CI_Controller
         }
     }
 
+    /*
+        * checkType
+
+        @param: string $type
+
+        @return: bool
+
+        * Cette fonction permet de vérifier si le type existe
+
+        ! Cette fonction ne peut pas être mis en privé car elle
+        ! est utilisé par le formulaire de connexion
+        ! L'utilisateur ne pas y accéder car le routeur ne le permet pas
+
+    */
     public function checkType(string $type): bool
     {
 

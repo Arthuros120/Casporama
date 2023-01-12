@@ -79,6 +79,15 @@ $route['User/ComformPassword(:any)'] = 'Error404';
 $route['User/create_captcha(:any)'] = 'Error404';
 $route['User/checkCaptcha(:any)'] = 'Error404';
 $route['User/IsUniqueAddressName(:any)'] = 'Error404';
+$route['Admin/InListCountry(:any)'] = 'Error404';
+$route['Admin/InListDepartment(:any)'] = 'Error404';
+$route['Admin/IsUniqueAddressName(:any)'] = 'Error404';
+$route['Admin/IsUniqueEmail(:any)'] = 'Error404';
+$route['Admin/IsUniqueMobilePhone(:any)'] = 'Error404';
+$route['Admin/checkNameProduct(:any)'] = 'Error404';
+$route['Admin/checkNameProductWithoutSelf(:any)'] = 'Error404';
+$route['Admin/checkSport(:any)'] = 'Error404';
+$route['Admin/checkType(:any)'] = 'Error404';
 
 // !Api route
 

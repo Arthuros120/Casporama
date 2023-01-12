@@ -26,8 +26,8 @@ class User extends CI_Controller
         $this->load->model('CaptchaModel');
         $this->load->helper('captcha');
     }
-
-    public function index()
+    
+    public function index() : void
     {
 
         redirect('user/home');
