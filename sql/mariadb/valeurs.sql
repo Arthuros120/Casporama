@@ -33,65 +33,6 @@ INSERT INTO sport (nusport,name)
  (3,'Badminton'),
  (4,'Arts-martiaux');
 
-insert into product (idproduct, type, nusport, brand, name, gender, price, description, image, isALive, dateLastUpdate)
-values
-    (   1,
-        'Vêtement',
-        1,
-        'Nike',
-        'Maillot foot',
-        'Femme',
-        99.99,
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
-         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-        'Football/MaillotTest.png;Football/MaillotTest2.png;Football/MaillotTest.png;Football/MaillotTest2.png',
-        true,
-        '2022-11-21 20:05:37'
-     ),
-    (
-        2,
-        'Chaussure',
-        2,
-        'Puma',
-        'Chaussure volley',
-        'Mixte',
-        99.99,
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
-         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-         'Volleyball/chaussure.png;Volleyball/chaussure.png;Volleyball/chaussure.png;Volleyball/chaussure.png',
-        true,
-        '2022-11-21 20:05:37'
-         ),
-    (
-        3,
-        'Equipement',
-        3,
-        'Addidas',
-        'Raquette',
-        'Homme',
-        99.99,
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
-         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-         'Badminton/raquette.jpg;Badminton/raquette.jpg;Badminton/raquette.jpg;Badminton/raquette.jpg',
-        true,
-        '2022-11-21 20:05:37'
-         ),
-    (
-        4,
-        'Vêtement',
-        1,
-        'Nike',
-        'Maillot foot v2',
-        'Homme',
-        99.99,
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras posuere, nisi tincidunt dictum consectetur, ante ipsum scelerisque magna,
-         eu dapibus felis nulla et ex. Donec lobortis nibh massa, sit amet fringilla sapien tristique id. Ut nec velit volutpat. ',
-        'Football/MaillotTest2.png;Football/MaillotTest.png;Football/MaillotTest2.png;Football/MaillotTest.png',
-        true,
-        '2022-11-21 20:05:37'
-         );
-
-
 insert into catalog (id, nuproduct, reference, color, size, quantity, isALive, dateLastUpdate)
 values
     (1,1,4064,'Rouge','XS',2, true, '2022-11-21 20:05:37'),
