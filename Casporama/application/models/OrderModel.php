@@ -23,6 +23,16 @@ class OrderModel extends CI_Model {
         $this->load->model("ProductModel");
     }
 
+    /*
+        * Fonction findOrderById
+
+        * Cette fonction permet de récupérer une commande par son id et l'iduser
+
+        * @param int $idorder, int $iduser
+
+        * @return OrderEntity|null
+
+    */
     public function findOrderById($idorder,$iduser): ?OrderEntity
     {
         $queryOrder = $this->db->query("Call `order`.getOrderUserById(" . $idorder . "," . $iduser . ")");
@@ -67,6 +77,16 @@ class OrderModel extends CI_Model {
 
     }
 
+    /*
+        * Fonction getOrderByUser
+
+        * Cette fonction permet de récupérer les commandes d'un utilisateur
+
+        * @param UserEntity $user
+
+        * @return array|null
+
+    */
     public function getOrderByUser(UserEntity $user) : ?array {
 
         $query = $this->db->query('call `order`.getOrderUser('.$user->getId().')');
@@ -92,6 +112,14 @@ class OrderModel extends CI_Model {
         return null;
     }
 
+    /*
+        * Fonction generateId
+
+        * Cette fonction permet de générer un id aléatoire
+
+        * @return int
+
+    */
     private function generateId(): Int
     {
 
@@ -105,6 +133,16 @@ class OrderModel extends CI_Model {
         return $id;
     }
 
+    /*
+        * Fonction heHaveOrderById
+
+        * Cette fonction permet de vérifier si un id existe
+
+        * @param int $id
+
+        * @return Bool
+
+    */
     public function heHaveOrderById(int $id): Bool
     {
 
@@ -125,6 +163,16 @@ class OrderModel extends CI_Model {
         return false;
     }
 
+    /*
+        * Fonction addOrder
+
+        * Cette fonction permet d'ajouter une commande
+
+        * @param array $carts, UserEntity $user, int $idlocation, float $price
+
+        * @return int
+
+    */
     public function addOrder(array $carts, UserEntity $user, int $idlocation, float $price) : int {
 
         $id = $this->generateId();
@@ -163,6 +211,16 @@ class OrderModel extends CI_Model {
 
     }
 
+    /*
+        * Fonction totalOrder
+
+        * Cette fonction permet d'obtenir le total d'une commande
+
+        * @param OrderEntity $order
+
+        * @return float
+
+    */
     public function totalOrder(OrderEntity $order) :float {
         $res = 0.0;
         foreach ($order->getProducts() as $product) {
@@ -175,6 +233,16 @@ class OrderModel extends CI_Model {
         return $res;
     }
 
+    /*
+        * Fonction delOrder
+
+        * Cette fonction permet de supprimer une commande
+
+        * @param int $idorder
+
+        * @return void
+
+    */
     public function delOrder(int $idorder) {
 
         $order = $this->getOrderById($idorder)[0];
@@ -202,6 +270,14 @@ class OrderModel extends CI_Model {
         return $err;
     }
 
+    /*
+        * Fonction getAllOrderWithInfo
+
+        * Cette fonction permet d'obtenir toutes les commandes avec le nom et prenom de l'utilisateur
+
+        * @return array|null
+
+    */    
     public function getAllOrderWithInfo() : ?array
     {
 
@@ -242,6 +318,14 @@ class OrderModel extends CI_Model {
         }
     }
 
+    /*
+        * Fonction getAllOrder
+
+        * Cette fonction permet d'obtenir toutes les commandes
+
+        * @return array|null
+
+    */
     public function getAllOrder() : ?array {
 
         $query = $this->db->query('call `order`.getAll()');
@@ -289,7 +373,16 @@ class OrderModel extends CI_Model {
         }
     }
 
+    /*
+        * Fonction haveStock
 
+        * Cette fonction permet d'obtenir le stock d'un panier
+
+        * @param array $carts
+
+        * @return array
+
+    */
     public function haveStock(array $carts) : array {
 
         $res = [];
@@ -306,12 +399,34 @@ class OrderModel extends CI_Model {
         return $res;
     }
 
+    /*
+        * Fonction updateStatus
+
+        * Cette fonction permet de modifier le statut d'une commande
+
+        * @param int $idorder
+
+        * @param string $status
+
+        * @return void
+
+    */
     public function updateStatus(int $idorder, string $status) {
 
         $this->db->query("call `order`.updateState(". $idorder . "," . "'$status'" .")");
 
     }
 
+    /*
+        * Fonction getOrderById
+
+        * Cette fonction permet d'obtenir une commande par son id
+
+        * @param int $idorder
+
+        * @return array|null
+
+    */
     public function getOrderById(int $idorder) :?array {
 
         $query = $this->db->query("call `order`.getOrderById(". $idorder .")");
