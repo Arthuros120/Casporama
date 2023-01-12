@@ -36,11 +36,11 @@ Tout cela pour dire que notre approche à été incrémental car nous nous somme
 
 ### 1.3 Démarche suivie pour identifier, collecter et formaliser les besoins du client
 
-Tout d'abord nous avons réfléchi aux besoins primaires qu'un client à sur un site de e-commerce. C'est à dire consulter les produits, ajouter au panier, se créer un compte etc. Ensuite nous avons présenter les ces besoins au professeur pour lui demander si nous les avions bien penser. Nous avons aussi regardé sur des sites de e-commerce. Comme notre projet est un site de vente de produit de sport, nous avons beaucoup consultés le site de Go Sport ainsi que le sites de Décathlon. Grâce à ces recherches, nous avons pu précisez et détaillés les besoins du clients.
+Tout d'abord nous avons réfléchi aux besoins primaires qu'un client à sur un site de e-commerce. C'est à dire consulter les produits, ajouter au panier, se créer un compte etc. Ensuite nous avons présenter ces besoins au professeur pour lui demander si nous les avions bien penser. Nous avons aussi regardé sur des sites de e-commerce. Comme notre projet est un site de vente de produit de sport, nous avons beaucoup consultés le site de Go Sport ainsi que le site de Décathlon. Grâce à ces recherches, nous avons pu préciser et détaillés les besoins du clients.
 
 ### 1.4 Besoins non-fonctionnels identifiés
 
-Pour les besoins non fonctionnel du client, nous avons pensées à la sécurité de ces informations en utilisant que des méthodes pour éviter que la base de donnés soit pirater. Nous avons aussi penser à la simplicité d'utilisations en partirionnant un maximum les différent partie du site.
+Pour les besoins non fonctionnel du client, nous avons pensées à la sécurité de ces informations en utilisant que des procédures stocké pour éviter que la base de donnés soit pirater. Nous avons aussi penser à la simplicité d'utilisations en partionnant un maximum les différentes parties du site.
 
 ## 2 - Diagramme de cas d'utilisations et scénarios
 
