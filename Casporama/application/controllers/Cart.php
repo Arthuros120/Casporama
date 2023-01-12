@@ -5,6 +5,16 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
     * Card Controller
 
+    @method index
+    @method add
+    @method saveCart
+    @method modifyQuantity
+    @method modifyCart
+    @method modifyCartDB
+    @method deleteProduct
+    @method deleteCart
+    @method deleteCartDB
+
     * Ce controlleur permet de gérer le panier
 
 */

@@ -8,7 +8,10 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
     * Dao Controller
 
-    
+    @method index
+
+    * Ce controlleur permet de gérer les importations et exportations de données
+    * via csv, yaml, json, xml
 */
 class Dao extends CI_Controller
 {
@@ -54,7 +57,7 @@ class Dao extends CI_Controller
         if ($this->upload->do_upload('userfile')) {
 
             // Récupère l'extension du fichier uploadé
-            $ext = substr($this->upload->data()["file_ext"],1);
+            $ext = substr($this->upload->data()["file_ext"], 1);
             $file = $this->upload->data()["file_name"];
 
             // Récupère le nom de la table pour l'importation
@@ -62,13 +65,13 @@ class Dao extends CI_Controller
 
             // Vérifie l'extension du fichier pour déterminer quel modèle utiliser pour l'importation
             if ($ext == 'csv') {
-                $err = $this->Dao_csv->addData($config['upload_path'].$file,$table);
-            } else if ($ext == 'json') {
-                $err = $this->Dao_json->addData($config['upload_path'].$file,$table);
-            } else if ($ext == 'xml') {
-                $err = $this->Dao_xml->addData($config['upload_path'].$file,$table);
-            } else if ($ext == 'yaml') {
-                $err = $this->Dao_yaml->addData($config['upload_path'].$file,$table);
+                $err = $this->Dao_csv->addData($config['upload_path'].$file, $table);
+            } elseif ($ext == 'json') {
+                $err = $this->Dao_json->addData($config['upload_path'].$file, $table);
+            } elseif ($ext == 'xml') {
+                $err = $this->Dao_xml->addData($config['upload_path'].$file, $table);
+            } elseif ($ext == 'yaml') {
+                $err = $this->Dao_yaml->addData($config['upload_path'].$file, $table);
             }
 
             // Supprime le fichier uploadé
@@ -77,7 +80,7 @@ class Dao extends CI_Controller
         } else {
 
             // Gère les erreurs si l'upload n'a pas réussi
-            $err = errorFile($this->upload->display_errors(),'import');
+            $err = errorFile($this->upload->display_errors(), 'import');
 
         }
 
@@ -92,11 +95,12 @@ class Dao extends CI_Controller
         $data = array('content' => $dataContent);
 
         // Charge la vue pour l'affichage de l'index
-        $this->LoaderView->load('Dao/index',$data);
+        $this->LoaderView->load('Dao/index', $data);
         
     }
 
-    public function select() {
+    public function select()
+    {
 
         // Récupère le nom de la table et l'extension choisie pour l'export
         $table = $this->input->post("export-Table");
@@ -113,10 +117,11 @@ class Dao extends CI_Controller
         $data = array('content' => $dataContent);
 
         // Charge la vue pour l'affichage de l'index
-        $this->LoaderView->load('Dao/index',$data);
+        $this->LoaderView->load('Dao/index', $data);
     }
 
-    public function export() {
+    public function export()
+    {
 
         $user = $this->UserModel->adminOnly();
 
@@ -127,7 +132,7 @@ class Dao extends CI_Controller
         if ($this->UserModel->isConnected()) {
 
             // Récupère l'id de l'utilisateur connecté
-            $id = $user->getId(); 
+            $id = $user->getId();
 
             // Récupère le nom de la table, l'extension et les filtres choisis pour l'export
             $table = $this->input->post("table");
@@ -136,13 +141,13 @@ class Dao extends CI_Controller
 
             // Vérifie l'extension choisie pour déterminer quel modèle utiliser pour l'export
             if ($ext == 'csv') {
-                $file = $this->Dao_csv->getData($id,$table,$filter);
-            } else if ($ext == 'json') {
-                $file = $this->Dao_json->getData($id,$table, $filter);
-            } else if ($ext == 'xml') {
-                $file = $this->Dao_xml->getData($id,$table, $filter);
-            } else if ($ext == 'yaml') {
-                $file = $this->Dao_yaml->getData($id,$table, $filter);
+                $file = $this->Dao_csv->getData($id, $table, $filter);
+            } elseif ($ext == 'json') {
+                $file = $this->Dao_json->getData($id, $table, $filter);
+            } elseif ($ext == 'xml') {
+                $file = $this->Dao_xml->getData($id, $table, $filter);
+            } elseif ($ext == 'yaml') {
+                $file = $this->Dao_yaml->getData($id, $table, $filter);
             }
 
             if ($file != null) {
@@ -155,7 +160,7 @@ class Dao extends CI_Controller
 
         } else {
 
-            $err = errorFile("User not connected",'import');
+            $err = errorFile("User not connected", 'import');
 
         }
 
@@ -165,9 +170,7 @@ class Dao extends CI_Controller
 
             $data = array('content' => $dataContent);
 
-            $this->LoaderView->load('Dao/index',$data);
+            $this->LoaderView->load('Dao/index', $data);
         }
-
     }
-
 }

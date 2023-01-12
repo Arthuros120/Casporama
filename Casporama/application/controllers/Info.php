@@ -1,10 +1,32 @@
 <?php
 defined('BASEPATH') || exit('No direct script access allowed');
 
+/*
+
+    * Info Controller
+    
+    @methode index
+
+    * Ce controller est le controller de la page d'accueil du site.
+    * Il est chargé de charger les vues de la page d'accueil.
+    * C'est sur ce controleur sur lequel l'utilisateur est redirigé
+    * lorsqu'il cherche a accéder au site avec le nom de dommaine.
+
+*/
 class Info extends CI_Controller
 {
 
-    public function index()
+    /*
+
+        * Methode index
+        
+        @return void
+
+        * Cette methode affiche les rgpd
+        
+
+    */
+    public function index() : void
     {
 
         $this->UserModel->durabilityConnection();
@@ -26,7 +48,7 @@ class Info extends CI_Controller
 
             );
 
-            $this->LoaderView->load("Information/rgpd",$dataArray);
+            $this->LoaderView->load("Information/rgpd", $dataArray);
 
         } else {
 
@@ -37,7 +59,17 @@ class Info extends CI_Controller
         
     }
 
-    public function cgv()
+    /*
+
+        * Methode cgv
+        
+        @return void
+
+        * Cette methode affiche les cgv
+        
+
+    */
+    public function cgv() : void
     {
 
         $this->UserModel->durabilityConnection();
@@ -59,7 +91,7 @@ class Info extends CI_Controller
 
             );
 
-            $this->LoaderView->load("Information/cgv",$dataArray);
+            $this->LoaderView->load("Information/cgv", $dataArray);
 
         } else {
 

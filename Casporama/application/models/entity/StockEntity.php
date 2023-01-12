@@ -3,6 +3,19 @@
 
     * StockEntity
 
+    @method getId() int
+    @method setId(int $id)
+    @method getReference() int
+    @method setReference(int $reference)
+    @method getNuproduct() int
+    @method setNuproduct(int $nuproduct)
+    @method getColor() string
+    @method setColor(string $color)
+    @method getSize() string
+    @method setSize(string $size)
+    @method getQuantity() int
+    @method setQuantity(int $quantity)
+
     * Cette classe représente une entité de la table catalog
 
 */

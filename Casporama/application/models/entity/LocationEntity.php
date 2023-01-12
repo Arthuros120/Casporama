@@ -3,6 +3,29 @@
 /*
     
         * LocationEntity
+
+        @method getId int
+        @method setId void
+        @method getName string
+        @method setName void
+        @method getAdresse array
+        @method setAdresse void
+        @method getCodePostal string
+        @method setCodePostal void
+        @method getCity string
+        @method setCity void
+        @method getCountry string
+        @method setCountry void
+        @method getDepartment string
+        @method setDepartment void
+        @method getLatitude float
+        @method setLatitude void
+        @method getLongitude float
+        @method setLongitude void
+        @method getIsDefault bool
+        @method setIsDefault void
+        @method getIsALive bool
+        @methof serIsALive void
     
         * Cette classe représente une entité de la table localisation
     
