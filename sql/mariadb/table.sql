@@ -1,7 +1,7 @@
 Create database if not exists CasporamaDEV;
 Create database if not exists Casporama;
 
-use CasporamaDEV;
+use Casporama;
 
 CREATE TABLE IF NOT EXISTS user (
     id INTEGER NOT NULL,

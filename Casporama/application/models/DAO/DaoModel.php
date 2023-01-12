@@ -2,6 +2,12 @@
 
 class DaoModel extends CI_Model {
 
+    /*
+
+        Cette fonction retourne les colonnes d'une table donnée
+
+    */
+
     public function colonnes($table) {
 
         if ($table == '`order`') {

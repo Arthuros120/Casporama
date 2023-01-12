@@ -1,11 +1,36 @@
 <?php
 
+/* 
+
+    DaoInterface permet de définir les méthodes utiliser par les différents modèles DAO
+
+*/
 interface DaoInterface {
-    function getData($id,$table,$filter);
+    /*
+    
+        Cette fonction permet de récupérer les données d'une table et de les exporter
+        en fonction d'un filtre donnée
+
+    */
+    function getData($id,$table,$filter) : ?string;
+
+    /*
+    
+        Cette fonction permet d'ajouter des données d'un fichier donnée dans une table donnée.
+
+    */
     function addData($file, $table);
 }
 
-function errorFile($err, $table)
+
+/* 
+
+    Cette fonction crée un fichier dans le dossier error permettant de crée des logs,
+    de plus elle retourne l'erreur. Elle vérifie également qu'il y moins de 6 fichier
+    dans le dossier permettant ainsi de ne pas surcharger le serveur.
+
+*/
+function errorFile($err, $table) : String
 {
 
     $files = glob( "./upload/DaoFile/error/" ."*" );
@@ -30,11 +55,24 @@ function errorFile($err, $table)
     return $err;
 }
 
+/*
+
+    Retourne l'id du produit donné
+
+*/
+
 function getProductId(ProductEntity $product) {
 
     return $product->getId();
 
 }
+
+/*
+
+    Retourne l'id du variant donné
+
+*/
+
 
 function getVariantId(StockEntity $variant) {
 

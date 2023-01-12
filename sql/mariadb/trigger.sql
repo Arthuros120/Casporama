@@ -1,4 +1,4 @@
-use CasporamaDEV;
+use Casporama;
 
 SET sql_mode=ORACLE;
 
