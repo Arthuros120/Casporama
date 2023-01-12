@@ -53,7 +53,7 @@ class Shop extends CI_Controller
 
         ! Cette fonction ne peut pas être dans le fichier loadView car
         ! elle a un string contenant une variable cela créer un problème
-        ! de syntaxe, possiblement corigaible avec l'aide d'un professeur.
+        ! de syntaxe, possiblement corigeable avec l'aide d'un professeur.
     
     */
     public function home(string $sport = "")
@@ -202,10 +202,6 @@ class Shop extends CI_Controller
             // * On récupère le sport du produit et on le stock dans dans une variable pour la vue.
             $sport = $this->ProductModel->findNameSportbyId($product->getSport());
 
-            // $stock = $this->ProductModel->getStock($idProduct);
-
-            // var_dump($stock);
-
             // * On selectionne l'icon de la fonction user en fonction de la connection de l'utilisateur
             $dataHeader['userIcon'] = $this->UtilView->chooseUserIcon();
 
@@ -225,9 +221,12 @@ class Shop extends CI_Controller
             $dataContent['avalaibleColors'] = $avalaibleColors;
 
 
-            if (!empty($get) && isset($get['color']) && in_array(str_replace(' ', '+', $get['color']), $avalaibleColors)) {
+            if (
+                !empty($get) && isset($get['color']) &&
+                in_array(str_replace(' ', '+', $get['color']), $avalaibleColors)
+                ) {
 
-                $dataContent['avalaibleSize'] = $this->ProductModel->avalaibleSize($product,$get['color']);
+                $dataContent['avalaibleSize'] = $this->ProductModel->avalaibleSize($product, $get['color']);
 
                 $dataContent['choosenColor'] = str_replace(' ', '+', $get['color']);
             }

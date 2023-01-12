@@ -7,6 +7,8 @@ defined('BASEPATH') || exit('No direct script access allowed');
     
     @methode index
 
+    * Ce controlleur permet de gérer le formulaire de contact
+
 */
 class Contact extends CI_Controller
 {
@@ -14,6 +16,8 @@ class Contact extends CI_Controller
     /*
 
         * Methode index
+
+        * On charge la vue du formulaire de contact
         
         @return void
 
@@ -94,7 +98,7 @@ class Contact extends CI_Controller
 
         if (!$this->form_validation->run()) {
 
-            $error = explode(',',validation_errors());
+            $error = explode(',', validation_errors());
 
             $dataContent = array(
 
