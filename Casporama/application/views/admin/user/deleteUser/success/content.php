@@ -1,13 +1,33 @@
 <!-- admin/user/deleteUser/success/content -->
 
-<h1> L'utilisateur suivant: </h1>
+<div class="resetPass_error">
+    <div class="reset_pass_title">
+        <h1> L'utilisateur suivant a bien été supprimé </h1>
+    </div>
 
-<p> Login: <?= $user->getLogin() ?></p>
+    <div class="reset_pass_info">
 
-<p> Nom: <?= $user->getCoordonnees()->getNom() ?></p>
-<p> Prénom: <?= $user->getCoordonnees()->getPrenom() ?></p>
-<p> Email: <?= $user->getCoordonnees()->getEmail() ?></p>
+        <div class="box">
+          <h3>Login :</h3>
+          <p><?= $user->getLogin() ?></p>
+        </div>
 
-<h1> a bien été supprimé </h1>
+        <div class="box">
+          <h3>Nom :</h3>
+          <p><?= $user->getCoordonnees()->getNom() ?></p>
+        </div>
+
+        <div class="box">
+          <h3>Prénom :</h3>
+          <p><?= $user->getCoordonnees()->getPrenom() ?></p>
+        </div>
+
+        <div class="box">
+          <h3>Email :</h3>
+          <p><?= $user->getCoordonnees()->getEmail() ?></p>
+        </div>
+
+    </div>
+</div>
 
 <!-- admin/user/deleteUser/success/content -->

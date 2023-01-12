@@ -395,7 +395,7 @@ Admin/user/resetPass/error:
 
 Admin/user/deleteUser/success:
     views:
-        head: "admin/user/deleteUser/global/head"
+        head: "admin/user/deleteUser/success/head"
         header: "templates/blank"
         content: "admin/user/deleteUser/success/content"
         script: "admin/user/deleteUser/global/script"
@@ -413,7 +413,7 @@ Admin/user/deleteUser/request:
 
 Admin/user/deleteUser/error:
     views:
-        head: "admin/user/deleteUser/global/head"
+        head: "admin/user/deleteUser/error/head"
         header: "templates/blank"
         content: "admin/user/deleteUser/error/content"
         script: "admin/user/deleteUser/global/script"
@@ -422,7 +422,7 @@ Admin/user/deleteUser/error:
 
 Admin/user/reviveUser/success:
     views:
-        head: "admin/user/reviveUser/global/head"
+        head: "admin/user/reviveUser/success/head"
         header: "templates/blank"
         content: "admin/user/reviveUser/success/content"
         script: "admin/user/reviveUser/global/script"
@@ -440,7 +440,7 @@ Admin/user/reviveUser/request:
 
 Admin/user/reviveUser/error:
     views:
-        head: "admin/user/reviveUser/global/head"
+        head: "admin/user/reviveUser/error/head"
         header: "templates/blank"
         content: "admin/user/reviveUser/error/content"
         script: "admin/user/reviveUser/global/script"
@@ -449,7 +449,7 @@ Admin/user/reviveUser/error:
 
 Admin/user/resetPass/success:
     views:
-        head: "admin/user/resetPass/error/head"
+        head: "admin/user/resetPass/success/head"
         header: "templates/blank"
         content: "admin/user/resetPass/success/content"
         script: "admin/user/resetPass/global/script"
