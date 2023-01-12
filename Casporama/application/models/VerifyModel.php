@@ -13,6 +13,11 @@ require_once APPPATH . 'models/entity/UserEntity.php';
 class VerifyModel extends CI_Model
 {
 
+    /*
+    
+        Cette fonction permet d'envoyer un mail de réinitialisation de mot de passe à l'utilisateur
+
+    */
     public function sendRecoverPass(string $email)
     {
 
@@ -72,6 +77,11 @@ class VerifyModel extends CI_Model
         }
     }
 
+    /*
+    
+        Cette fonction permet d'avoir la liste des id des clés
+
+    */
     public function getListIdKey(): array
     {
         $resArray = array();
@@ -92,6 +102,11 @@ class VerifyModel extends CI_Model
         return $resArray;
     }
 
+    /*
+    
+        Cette fonction permet d'envoyer un mail avec un code de vérification à l'utilisateur
+
+    */
     public function sendVerifyCode(UserEntity $user)
     {
 
@@ -131,6 +146,11 @@ class VerifyModel extends CI_Model
         );
     }
 
+    /*
+    
+        Cette fonction permet de vérifier si le code en paramètre est existant et valide
+
+    */
     public function checkCode(string $idKey, string $code): ?int
     {
 
@@ -160,18 +180,33 @@ class VerifyModel extends CI_Model
         }
     }
 
+    /* 
+    
+        Cette fonction permet de supprimer une clé
+
+    */
     public function deleteKey(string $idKey)
     {
 
         $this->db->query("Call verifKey.deleteKey('" . $idKey . "')");
     }
 
+    /* 
+    
+        Cette fonction permet de vérifier si la date d'expiration est dépassée
+
+    */
     public function verifDateExpiration(string $dateExpiration): bool
     {
 
         return date('Y-m-d H:i:s') < date($dateExpiration);
     }
 
+    /* 
+        
+        Cette fonction permet de générer une clé
+    
+    */
     public function generateKey(): string
     {
 
@@ -185,6 +220,11 @@ class VerifyModel extends CI_Model
         return $key;
     }
 
+    /*
+        
+            Cette fonction permet de générer un id de clé
+    
+    */
     public function generateIdKey(): string
     {
 
@@ -198,6 +238,11 @@ class VerifyModel extends CI_Model
         return $id;
     }
 
+    /* 
+    
+        Cette fonction permet d'obtenir l'iduser avec l'id de la clé
+
+    */
     public function getIdByIdKey(string $idKey): ?int
     {
 
@@ -219,6 +264,11 @@ class VerifyModel extends CI_Model
         }
     }
 
+    /* 
+    
+        Cette fonction permet de vérifier si la clé existe
+
+    */
     public function heHaveKey(string $key): bool
     {
 
@@ -238,6 +288,11 @@ class VerifyModel extends CI_Model
         return false;
     }
 
+    /* 
+        
+            Cette fonction permet de vérifier si l'id de la clé existe
+    
+    */
     public function heHaveKeyById(string $id): bool
     {
 

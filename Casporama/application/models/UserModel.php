@@ -194,7 +194,17 @@ class UserModel extends CI_Model
         return false;
     }
 
-
+    /*
+    
+        * getUsers
+    
+        * Cette méthode permet de récupérer les utilisateurs en fonction d'un intervalle
+    
+        @param: $range
+    
+        @return: array
+    
+    */
     public function getUsers(array $range): array
     {
 
@@ -239,6 +249,17 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * search
+    
+        * Cette méthode permet de rechercher un utilisateur en fonction de son nom, prénom ou login
+    
+        @param: $title, $users, $search
+    
+        @return: array
+    
+    */
     public function search(string $title, array $users, string $search) : array
     {
 
@@ -260,9 +281,9 @@ class UserModel extends CI_Model
             foreach ($search as $word) {
 
                 if (
-                    stristr($this->formatStr($users->getCoordonnees()->getNom()), $word) ||
-                    stristr($this->formatStr($users->getCoordonnees()->getPrenom()), $word) ||
-                    stristr($this->formatStr($users->getLogin()), $word)
+                    stristr($this->formatStr($user->getCoordonnees()->getNom()), $word) ||
+                    stristr($this->formatStr($user->getCoordonnees()->getPrenom()), $word) ||
+                    stristr($this->formatStr($user->getLogin()), $word)
                     ) {
 
                     $count++;
@@ -285,6 +306,17 @@ class UserModel extends CI_Model
         );
     }
 
+    /* 
+    
+        * filtred
+    
+        * Cette méthode permet de récupérer les utilisateurs filtrés par leur nom, prénom ou login
+    
+        @param: $get, $users
+    
+        @return: array
+    
+    */
     public function filtred(array $get, array $users) : array
     {
 
@@ -977,6 +1009,15 @@ class UserModel extends CI_Model
         return false;
     }
 
+    /* 
+    
+        * registerUser
+    
+        * Cette méthode permet d'enregistrer un utilisateur dans la base de données
+    
+        @param: $data (array)
+    
+    */
     public function registerUser(array $data)
     {
 
@@ -1025,6 +1066,15 @@ class UserModel extends CI_Model
         }
     }
 
+    /*
+    
+        * setUserVerified
+    
+        * Cette méthode permet de mettre le status vérifier à un utilisateur
+    
+        @param: int
+    
+    */
     public function setUserVerified(int $id)
     {
 
@@ -1032,6 +1082,15 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * updateLastName
+    
+        * Cette méthode permet de mettre à jour le nom de l'utilisateur
+    
+        @param: int, String
+    
+    */
     public function updateLastName(int $id, string $newLastName)
     {
 
@@ -1039,6 +1098,15 @@ class UserModel extends CI_Model
 
     }
 
+    /*
+
+        * updateFirstName
+    
+        * Cette méthode permet de mettre à jour le prenom de l'utilisateur
+    
+        @param: int, String
+
+    */
     public function updateFirstName(int $id, string $newFirstName)
     {
 
@@ -1046,6 +1114,15 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * updateEmail
+    
+        * Cette méthode permet de mettre à jour l'email de l'utilisateur
+    
+        @param: UserEntity, String
+    
+    */
     public function updateEmail(UserEntity $user, string $newEmail, $author = "user")
     {
 
@@ -1059,6 +1136,15 @@ class UserModel extends CI_Model
 
     }
     
+    /* 
+    
+        * updateMobile
+    
+        * Cette méthode permet de mettre à jour le numéro de téléphone mobile de l'utilisateur
+    
+        @param: int, String
+    
+    */
     public function updateMobile(int $id, string $newMobile)
     {
 
@@ -1066,6 +1152,15 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * updateFixe
+    
+        * Cette méthode permet de mettre à jour le numéro de téléphone fixe de l'utilisateur
+    
+        @param: int, String
+    
+    */
     public function updateFixe(int $id, string $newFixe)
     {
 
@@ -1073,6 +1168,15 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * updatePassword
+    
+        * Cette méthode permet de mettre à jour le mot de passe de l'utilisateur
+    
+        @param: int, String
+    
+    */
     public function updatePassword(int $id, string $newPassword)
     {
 
@@ -1086,6 +1190,15 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * generateId
+    
+        * Cette méthode permet de générer un Id unique pour un utilisateur
+    
+        @param: int
+    
+    */
     private function generateId(): Int
     {
 
@@ -1099,6 +1212,17 @@ class UserModel extends CI_Model
         return $id;
     }
     
+    /* 
+    
+        * generateHashPassword
+    
+        * Cette méthode permet de générer un mot de passe hashé et un salt
+    
+        @param: string
+
+        @return: array
+    
+    */
     private function generateHashPassword(string $password): array
     {
         $genSalt = uniqid(rand(10000, 999999999), true);
@@ -1127,7 +1251,18 @@ class UserModel extends CI_Model
         );
     }
 
-    public function getDayRemaining(string $date)
+    /* 
+    
+        * getDayRemaining
+    
+        * Cette méthode permet de vérifier le nombre de jour restant
+    
+        @param: string
+
+        @return: string
+    
+    */
+    public function getDayRemaining(string $date) : string
     {
 
         $date = new DateTime($date);
@@ -1142,6 +1277,15 @@ class UserModel extends CI_Model
 
     }
     
+    /* 
+    
+        * deleteUser
+    
+        * Cette méthode permet de supprimer un utilisateur avec son id
+    
+        @param: int
+    
+    */
     public function deleteUser(int $id)
     {
         $dateLastUpdate = date('Y-m-d H:i:s');
@@ -1150,6 +1294,15 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * reviveUser
+    
+        * Cette méthode permet de réanimer un utilisateur avec son id
+    
+        @param: int
+    
+    */
     public function reviveUser(int $id)
     {
         $dateLastUpdate = date('Y-m-d H:i:s');
@@ -1158,6 +1311,15 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * adminOnly
+    
+        * Cette méthode permet de
+    
+        @return : UserEntity
+    
+    */
     public function adminOnly() : UserEntity
     {
 
@@ -1184,6 +1346,17 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * verifRange
+    
+        * Cette méthode permet de vérifier si la plage de nombre est correcte
+    
+        @param: string
+
+        @return: bool
+    
+    */
     public function verifRange(string $range) : Bool
     {
 
@@ -1206,6 +1379,15 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * countUser
+    
+        * Cette méthode permet de compter le nombre d'utilisateur
+    
+        @return: int
+    
+    */
     public function countUser() : int
     {
 
@@ -1220,12 +1402,29 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * changeStatus
+    
+        * Cette méthode permet de changer le status d'un utilisateur
+    
+        @param: int, string
+    
+    */
     public function changeStatus(int $id, string $newStatus)
     {
         $this->db->query("Call user.changeStatus('" . $id . "', '" . $newStatus . "')");
     }
 
-
+    /* 
+    
+        * updateUser
+    
+        * Cette méthode permet de mettre à jour un utilisateur
+    
+        @param: UserEntity, string
+    
+    */
     public function updateUser(UserEntity $user, string $lastEmail)
     {
 
@@ -1242,6 +1441,15 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * resetPass
+    
+        * Cette méthode permet de mettre le mot de passe de l'utilisateur à jour
+    
+        @param: UserEntity
+    
+    */
     public function resetPass(UserEntity $user)
     {
 
@@ -1253,7 +1461,18 @@ class UserModel extends CI_Model
 
     }
 
-    private function genRandomPass($length = 20)
+    /*
+
+        * genRandomPass
+    
+        * Cette méthode permet de générer un mot de passe aléatoire
+    
+        @param: int
+
+        @return: string
+
+    */
+    private function genRandomPass($length = 20) : String
     {
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$!';
         $string = '';
@@ -1267,6 +1486,18 @@ class UserModel extends CI_Model
         return $string;
     }
 
+
+    /*
+
+        * sendResetEmail
+    
+        * Cette méthode permet d'envoyer un email de réinitialisation de mot de passe à l'utilisateur
+    
+        @param: UserEntity, string
+
+        @return: string
+
+    */
     private function sendResetPassEmail(UserEntity $user, string $newPass)
     {
 
@@ -1295,6 +1526,15 @@ class UserModel extends CI_Model
 
     }
 
+    /* 
+    
+        * sendInfoModifEmail
+    
+        * Cette méthode permet d'envoyer un mail concernant la modification d'email
+    
+        @param: UserEntity, string, string
+    
+    */
     private function sendInfoModifEmail(UserEntity $user, string $lastEmail, string $author = "admin") : void
     {
         if ($author == "admin") {

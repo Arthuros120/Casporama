@@ -2,8 +2,20 @@
 
 require_once APPPATH . 'interfaces/DaoInterface.php';
 
+
+/*
+
+    Cette fonction gère le DAO pour l'extension JSON
+
+*/
 class Dao_json extends CI_Model implements DaoInterface {
 
+    /*
+
+        On vérifie qu'il y moins de 6 fichier
+        dans le dossier permettant ainsi de ne pas surcharger le serveur.
+
+    */
     public function __construct()
     {
         $files = glob( "./upload/DaoFile/export/json/" ."*" );

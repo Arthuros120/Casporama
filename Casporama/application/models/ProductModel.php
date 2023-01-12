@@ -115,7 +115,7 @@ class ProductModel extends CI_Model
         @param int $idProduct
         @return Any
 
-        * Cette fonction permet de récupérer le stock d'un produit
+        * Cette fonction permet de récupérer le stock d'un produit, uniquement les vivant
     
     */
     public function getStock(int $idProduct): array
@@ -135,6 +135,16 @@ class ProductModel extends CI_Model
         return $stock;
     }
 
+    /*
+
+        * Function getStock
+
+        @param int $idProduct
+        @return Any
+
+        * Cette fonction permet de récupérer le stock d'un produit
+    
+    */
     public function getStockAll(int $idProduct): array
     {
 
@@ -233,8 +243,6 @@ class ProductModel extends CI_Model
                 $newProduct->setImage("");
             }
 
-            //$newProduct->set_Stock($this->getStock($product->idproduit));
-
             // * On ajoute l'objet au tableau de retour
             array_push($listProduct, $newProduct);
         }
@@ -301,6 +309,16 @@ class ProductModel extends CI_Model
         }
     }
 
+    /* 
+
+        * Function heHaveProductById
+
+        * Permet de savoir si l'id correspond à un produit
+
+        @param int $id
+        @return bool
+    
+    */
     public function heHaveProductById(int $id) : bool
     {
 
@@ -379,6 +397,16 @@ class ProductModel extends CI_Model
         }
     }
 
+    /*
+
+        * Function findByNameWithoutSelf
+
+        @param string $name
+        @return bool
+
+        * Permet de savoir si le nom du produit est en double
+    
+    */
     public function findByNameWithoutSelf(string $nameProduct, int $id) : bool
     {
         $nameProduct = str_replace("'", "\'", $nameProduct);
@@ -399,6 +427,15 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function findAllSortBySportCat
+
+        @return array
+
+        * Retourne un tableau de produit par sport et par type
+    
+    */
     public function findAllSortBySportCat(): array
     {
 
@@ -447,6 +484,15 @@ class ProductModel extends CI_Model
         );
     }
 
+    /*
+
+        * Function getAllAsAlive
+
+        @return array
+
+        * Retourne tous les produits en vie
+    
+    */
     public function getAllAsAlive(): array
     {
 
@@ -495,6 +541,15 @@ class ProductModel extends CI_Model
         return $listProduct;
     }
 
+    /*
+
+        * Function getAllAsNotAlive
+
+        @return array
+
+        * Retourne tous les produits mort
+    
+    */
     public function getAllAsNotAlive(): array
     {
 
@@ -543,6 +598,17 @@ class ProductModel extends CI_Model
         return $listProduct;
     }
 
+    /*
+
+        * Function getProductByRangeAndSportAndType
+
+        @param array $range, string $sport, string $type
+
+        @return array
+
+        * Retourne tous les produits par le sport et le type en fonction d'un intervalle donné
+    
+    */
     public function getProductByRangeAndSportAndType(array $range, string $sport, string $type) : array
     {
 
@@ -591,6 +657,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function filterByBrand
+
+        @param string $title, array $products, array $get
+
+        @return array
+
+        * Filtre les produits par les marques
+    
+    */
     public function filterByBrand(string $title, array $products, array $get): array
     {
 
@@ -642,6 +719,17 @@ class ProductModel extends CI_Model
         }
     }
 
+    /*
+
+        * Function filterByCategory
+
+        @param string $title, array $products, array $get
+
+        @return array
+
+        * Filtre les produits par les catégories
+    
+    */
     public function filterByCategory(string $title, array $products, array $get): array
     {
 
@@ -690,6 +778,17 @@ class ProductModel extends CI_Model
         }
     }
 
+    /*
+
+        * Function filterBySport
+
+        @param string $title, array $products, array $get
+
+        @return array
+
+        * Filtre les produits par les sports
+    
+    */
     public function filterBySport(string $title, array $products, array $get) : array
     {
 
@@ -739,6 +838,17 @@ class ProductModel extends CI_Model
         }
     }
 
+    /*
+
+        * Function filterByPrice
+
+        @param string $title, array $products, array $get
+
+        @return array
+
+        * Filtre les produits par les prix
+    
+    */
     public function filterByPrice(string $title, array $products, array $get) : array
     {
     
@@ -782,6 +892,17 @@ class ProductModel extends CI_Model
         }
     }
 
+    /*
+
+        * Function search
+
+        @param string $title, array $products, string $search
+
+        @return array
+
+        * Filtre les produits en fonction de la recherche
+    
+    */
     public function search(string $title, array $products, string $search) : array
     {
 
@@ -827,6 +948,17 @@ class ProductModel extends CI_Model
         );
     }
 
+    /*
+
+        * Function filtred
+
+        @param array $get, array $products
+
+        @return array
+
+        * Renvoie les produits filtrés
+    
+    */
     public function filtred(array $get, array $products) : array
     {
 
@@ -880,6 +1012,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function filtredWithoutSportAndType
+
+        @param array $get, array $products
+
+        @return array
+
+        * Renvoie les produits filtrés sans le sport et le type
+    
+    */
     public function filtredWithoutSportAndType(array $get, array $products) : array
     {
 
@@ -921,6 +1064,15 @@ class ProductModel extends CI_Model
         );
     }
 
+    /*
+
+        * Function getAllBrand
+
+        @return array
+
+        * Renvoie la liste de toutes les marques
+    
+    */
     public function getAllBrand() : array
     {
 
@@ -945,6 +1097,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function getAllBrandByProducts
+
+        @param array $products
+
+        @return array
+
+        * Renvoie la liste de toutes les marques en fonction des produits
+    
+    */
     public function getAllBrandByProducts(array $products) : array
     {
 
@@ -966,6 +1129,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function addProduct
+
+        @param array $post, array $images
+
+        @return int
+
+        * Permet d'ajouter un produit tout en renvoyant son id
+    
+    */
     public function addProduct(array $post, array $images) : int
     {
 
@@ -1008,6 +1182,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function editProduct
+
+        @param array $post, int $id
+
+        @return void
+
+        * Permet de modifier un produit
+    
+    */
     public function editProduct(array $post, int $id) : void
     {
     
@@ -1032,6 +1217,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function addImages
+
+        @param array $images, int $id
+
+        @return void
+
+        * Permet d'ajouter des images à un produit
+    
+    */
     public function addImages(array $images, int $id) : void
     {
 
@@ -1058,6 +1254,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function editCoverImage
+
+        @param string $image , int $id
+
+        @return void
+
+        * Permet de modifier l'image de ouverture d'un produit
+    
+    */
     public function editCoverImage(string $image, int $id) : void
     {
 
@@ -1078,6 +1285,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function deleteImage
+
+        @param int $id, string $image
+
+        @return void
+
+        * Permet de supprimer une image d'un produit
+    
+    */
     public function deleteImage(int $id, string $image) : void
     {
 
@@ -1105,6 +1323,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function revive
+
+        @param int $id
+
+        @return void
+
+        * Permet de ressucité un produit
+    
+    */
     public function revive(int $id)
     {
 
@@ -1115,6 +1344,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function delete
+
+        @param int $id
+
+        @return void
+
+        * Permet de supprimer un produit
+    
+    */
     public function delete(int $id)
     {
 
@@ -1125,6 +1365,15 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function getAllCategory
+
+        @return array
+
+        * Permet de récupérer toutes les catégories
+    
+    */
     public function getAllCategory() : array
     {
 
@@ -1136,6 +1385,15 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function getAllSport
+
+        @return array
+
+        * Permet de récupérer tous les sports
+    
+    */
     public function getAllSport() : array
     {
 
@@ -1165,6 +1423,15 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function getAllSportName
+
+        @return array
+
+        * Permet de récupérer tous les noms des sports
+    
+    */
     public function getAllSportName() : array
     {
 
@@ -1186,6 +1453,15 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function getAllSportId
+
+        @return array
+
+        * Permet de récupérer tous les id des sports
+    
+    */
     public function getAllSportId() : array
     {
 
@@ -1207,6 +1483,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function verifRange
+
+        @param string $range
+
+        @return bool
+
+        * Permet de vérifier si l'intervalle est correct
+    
+    */
     public function verifRange(string $range) : Bool
     {
 
@@ -1229,6 +1516,15 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function CountAllProduct
+
+        @return Int
+
+        * Renvoie le nombre total de produit
+    
+    */
     public function countAllProduct() : Int
     {
             
@@ -1242,6 +1538,17 @@ class ProductModel extends CI_Model
             return $count[0]->count;
     }
 
+    /*
+
+        * Function CountAllProductBySport
+
+        @param int $sport
+
+        @return Int
+
+        * Renvoie le nombre total de produit en fonction d'un sport
+    
+    */
     public function countByTypeAndSport(string $type, int $sport) : Int
     {
             
@@ -1255,8 +1562,18 @@ class ProductModel extends CI_Model
             return $count[0]->count;
     }
 
+    /*
 
-    public function getSize(ProductEntity $product)
+        * Function getSize
+
+        @param ProductEntity $product
+
+        @return array
+
+        * Renvoie les tailles triées d'un produit
+    
+    */
+    public function getSize(ProductEntity $product) : array
     {
         $stocks = $product->getStock();
 
@@ -1281,7 +1598,18 @@ class ProductModel extends CI_Model
         return $res;
     }
 
-    public function avalaibleColor($product)
+    /*
+
+        * Function avalaibleColor
+
+        @param ProductEntity $product
+
+        @return array
+
+        * Renvoie les couleurs disponibles d'un produit
+    
+    */
+    public function avalaibleColor(ProductEntity $product) : array
     {
         $avalaibleColors = [];
 
@@ -1297,7 +1625,20 @@ class ProductModel extends CI_Model
         return $avalaibleColors;
     }
 
-    public function avalaibleSize($product, $color)
+    /*
+
+        * Function avalaibleSize
+
+        @param ProductEntity $product
+
+        @param string $color
+
+        @return array
+
+        * Renvoie les tailles disponibles d'un produit
+    
+    */
+    public function avalaibleSize($product, $color) : array
     {
         $tailledispo = [];
         foreach ($product->getStock() as $stock) {
@@ -1309,6 +1650,17 @@ class ProductModel extends CI_Model
         return $tailledispo;
     }
 
+    /*
+
+        * Function getCatalogsByProductId
+
+        @param int $id
+
+        @return array
+
+        * Permet d'avoir le catalogue d'un produit
+    
+    */
     public function getCatalogsByProductId(int $id) : array
     {
 
@@ -1366,6 +1718,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function getCatalogsByProducts
+
+        @param array $products
+
+        @return array
+
+        * Permet d'avoir le catalogue des produits données en paramètre
+    
+    */
     public function getCatalogsByProducts(array $products) : array
     {
     
@@ -1387,6 +1750,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function findCatalogById
+
+        @param int $id
+
+        @return ?CatalogEntity
+
+        * Permet d'avoir le catalogue par son id
+    
+    */
     public function findCatalogById(int $id) : ?CatalogEntity
     {
     
@@ -1420,6 +1794,17 @@ class ProductModel extends CI_Model
         }
     }
 
+    /*
+
+        * Function updateCatalogQuantity
+
+        @param CatalogEntity $catalog
+
+        @return void
+
+        * Permet de modifier la quantité d'un variant
+    
+    */
     public function updateCatalogQuantity(CatalogEntity $catalog) : void
     {
 
@@ -1430,6 +1815,15 @@ class ProductModel extends CI_Model
 
     }
 
+    /* 
+
+        * Function deleteCatalog
+
+        @param int
+
+        * Permet de supprimer un variant
+    
+    */
     public function deleteCatalog(int $id) : void
     {
 
@@ -1437,6 +1831,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function heHaveCatalog
+
+        @param CatalogEntity $catalog
+
+        @return bool
+
+        * Permet de savoir si un variant existe
+    
+    */
     public function heHaveCatalog(CatalogEntity $catalog) : bool
     {
 
@@ -1455,6 +1860,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function addCatalog
+
+        @param CatalogEntity $catalog
+
+        @return void
+
+        * Permet d'ajouter un variant
+    
+    */
     public function addCatalog(CatalogEntity $catalog) : void
     {
 
@@ -1473,6 +1889,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function getAllSizeByType
+
+        @param string $type
+
+        @return array
+
+        * Permet de avoir toutes les tailles en fonction du type de produit
+    
+    */
     public function getAllSizeByType(string $type) : array
     {
 
@@ -1503,6 +1930,15 @@ class ProductModel extends CI_Model
         }
     }
 
+    /*
+
+        * Function sortSizeString
+
+        @param string $a, string $b
+
+        * Permet de trier les tailles
+    
+    */
     private function sortSizeString($a, $b)
     {
 
@@ -1526,6 +1962,15 @@ class ProductModel extends CI_Model
         return ($asize > $bsize) ? 1 : -1;
     }
 
+    /*
+
+        * Function generateId
+
+        @return int
+
+        * Permet de générer un id aléatoire pour un produit
+    
+    */
     private function generateId() : int
     {
 
@@ -1541,6 +1986,15 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function generateCatalogId
+
+        @return int
+
+        * Permet de générer un id aléatoire pour un variant
+    
+    */
     private function generateCatalogId() : int
     {
 
@@ -1556,6 +2010,17 @@ class ProductModel extends CI_Model
 
     }
 
+    /*
+
+        * Function formatStr
+
+        @param string $str
+
+        @return string
+
+        * Permet de formater une chaine de caractère
+    
+    */
     private function formatStr(string $str): string
     {
 

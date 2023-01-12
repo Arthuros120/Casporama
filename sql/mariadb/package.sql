@@ -1,4 +1,4 @@
-use CasporamaDEV;
+use Casporama;
 
 SET sql_mode=ORACLE;
 
@@ -813,7 +813,7 @@ CREATE OR REPLACE PACKAGE BODY `order` AS
 END;
 
 CREATE OR REPLACE PACKAGE catalog AS
-    -- Permet d'avoir le stock d'un product par son ID, donc toute les variantes existantes
+    -- Permet d'avoir le stock d'un product par son ID, donc toute les variantes existantes sauf les stock morts
     procedure getStock( id integer);
     -- Permet d'avoir le nombre total en stock d'un product
     procedure getStockTotal( id integer);
@@ -840,6 +840,7 @@ CREATE OR REPLACE PACKAGE catalog AS
     procedure deleteCatalog(newid int);
     -- Permet de savoir si un variant existe avec se numéros cette couleur et cette taille
     procedure heHaveCatalog(newnuproduct int, newColor varchar(20), newSize varchar(3));
+    -- Permet d'avoir tout le stock
     procedure getStockAll( id integer);
 END;
 

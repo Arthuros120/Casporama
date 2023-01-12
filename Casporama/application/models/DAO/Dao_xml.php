@@ -2,8 +2,20 @@
 
 require_once APPPATH . 'interfaces/DaoInterface.php';
 
+/*
+
+    Cette fonction gère le DAO pour l'extension XML
+
+*/
 class Dao_xml extends CI_Model implements DaoInterface {
 
+
+    /*
+
+        On vérifie qu'il y moins de 6 fichier
+        dans le dossier permettant ainsi de ne pas surcharger le serveur.
+
+    */
     public function __construct()
     {
         $files = glob( "./upload/DaoFile/export/xml/" ."*" );
@@ -13,7 +25,7 @@ class Dao_xml extends CI_Model implements DaoInterface {
     }
 
 
-    function getData($id,$table,$filter = null) {
+    function getData($id,$table,$filter = null) : ?String {
         try {
             $this->db->db_debug = false;
             if (in_array($table,['user','location','information'])) {
