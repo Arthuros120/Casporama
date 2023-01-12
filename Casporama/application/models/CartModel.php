@@ -196,7 +196,7 @@ class CartModel extends CI_Model {
             'name'   => 'cart',
             'value'  => $cookieValue,
             'expire' => 0,
-            'secure' => true,
+            'secure' => false,
             'httponly' => true
         );
        

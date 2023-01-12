@@ -491,8 +491,8 @@ $config['sess_regenerate_destroy'] = false;
 $config['cookie_prefix']    = '';
 $config['cookie_domain']    = '';
 $config['cookie_path']        = '/';
-$config['cookie_secure']    = true;
-$config['cookie_httponly']     = true;
+$config['cookie_secure']    = false;
+$config['cookie_httponly']     = false;
 $config['cookie_samesite']     = 'Lax';
 
 /*
@@ -609,7 +609,7 @@ $config['rewrite_short_tags'] = false;
 | Comma-separated:    '10.0.1.200,192.168.5.0/24'
 | Array:        array('10.0.1.200', '192.168.5.0/24')
 */
-$config['proxy_ips'] = '';
+$config['proxy_ips'] = 'http://cache.ha.univ-nantes.fr:3128/';
 
 /*
 |--------------------------------------------------------------------------
