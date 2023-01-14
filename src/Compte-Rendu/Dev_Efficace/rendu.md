@@ -1,8 +1,4 @@
-
-
-
-## Métriques de l'application de l'application :  
-
+## Métriques de l'application de l'application :
 
 Usage de la ram au repos par la base de donnée avec 1000 utilisateurs, 600 produits, 6286 variantes de produits, 1000 informations utilisateurs, 4000 adresses, : 40% 
 
@@ -21,5 +17,6 @@ Les montées en charge ont été faite avec 40 et 30 users simultané, après qu
 Aussi au bout de 700 users, les performances sont si dégradées que le serveur commence à timeout certains utilisateurs.
 En dessous de ce nombre d’utilisateurs, les temps de réponse sont au-dessus de 1 s.
 
-### Analyse des résultats : 
+### Analyse des résultats :
+
 Avec ces quelques tests, on peut voir que notre application est suffisement efficace avec l'infrastructure actuelle pour permettre un début d'exploitation, le site n'aurait au début que rarement plus de 30 utilisateurs simultanés et faisant les mêmes requêtes.

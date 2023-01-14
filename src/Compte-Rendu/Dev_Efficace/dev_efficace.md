@@ -10,7 +10,6 @@ De plus, la base de donnée est sous 3 ème forme normalisé permettant ainsi d'
 
 Voyons maintenant quelques algorithme réalisé pour des demandes plus spécifique
 
-
 ### 1.1 - Algorithme de filtre par prix
 
 Cette algorithme permet de trier une liste de produit par prix avec un prix minimum et un prix maximum.
@@ -18,10 +17,9 @@ Cette algorithme permet de trier une liste de produit par prix avec un prix mini
 - Précondition : $products > 1$, $get > 1$
 
 ```
-
 public function filterByPrice(string $title, array $products, array $get) : array
     {
-    
+
         if (!empty($get['price']) && stristr($get['price'], '-')) {
 
             $price = $get['price'];
@@ -61,21 +59,15 @@ public function filterByPrice(string $title, array $products, array $get) : arra
 
         }
     }
-
 ```
- - Résultat obtenue :
+
+- Résultat obtenue :
 
 Si les produits ou les filtres ou les deux sont vides, l'algo renvoie la liste de produits sans modification ainsi que le titre
 
 Si les produits et les filtres ne sont pas vides, pour tout les produits on regarde si ils sont compris entre le prix minimum et le prix maximum on les ajoutes l'objet au tableau de retour et on renvoie ce tableau ainsi que le titre.
 
-
-
-
-
-
-## 2 - Métriques de l'application de l'application :  
-
+## 2 - Métriques de l'application de l'application :
 
 Usage de la ram au repos par la base de donnée avec 1000 utilisateurs, 600 produits, 6286 variantes de produits, 1000 informations utilisateurs, 4000 adresses, : 40% 
 
@@ -94,5 +86,6 @@ Les montées en charge ont été faite avec 40 et 30 users simultané, après qu
 Aussi au bout de 700 users, les performances sont si dégradées que le serveur commence à timeout certains utilisateurs.
 En dessous de ce nombre d’utilisateurs, les temps de réponse sont au-dessus de 1 s.
 
-### Analyse des résultats : 
+### Analyse des résultats :
+
 Avec ces quelques tests, on peut voir que notre application est suffisement efficace avec l'infrastructure actuelle pour permettre un début d'exploitation, le site n'aurait au début que rarement plus de 30 utilisateurs simultanés et faisant les mêmes requêtes.
