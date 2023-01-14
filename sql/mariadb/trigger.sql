@@ -1,5 +1,6 @@
 use Casporama;
 
+-- Cela permet à la base de donnée en mariaDB d'accepter le format d'oracle et donc les packages.
 SET sql_mode=ORACLE;
 
 create or replace trigger TimeIsUp after update on location for each row

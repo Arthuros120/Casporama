@@ -1,4 +1,11 @@
-# Compte-Rendu SQL SAE3 :
+# Compte-Rendu SQL SAE3 equipe 1-1 :
+
+Ce project a été menée par:
+
+- Titouan Gautier
+- Maxime Santos Pereira
+- Arthur Hamelin
+- Luna Manson
 
 ## 1 - Schéma relationnel :
 ![alt schéma relationnel](DataBase.png)
@@ -15,6 +22,11 @@ On voit ci-dessus les différentes tables présente dans la base de donnée :
 - <span style="color:blue"><b>Information</b></span> qui contient les différentes coordonnées de l'utilisateur. La clé primaire est **id**, elle est également étrangère est relie à la table **User (id)**.
 - <span style="color:blue"><b>Captcha</b></span> qui regroupe les différents captcha généré lors de la création de compte. La clé primaire est **captcha_id**.
 - <span style="color:blue"><b>VerifKey</b></span> qui contient les différentes clés généré lorqu'on souhaite une vérification supplémentaire par mail. La clé primaire est **id** et la clé étrangère est **idUser** reliant à la table **User (id)**.
+
+Une dernière table a été mise en place **Stock_alerte** qui permet de stocker les id des variants ayant une rupture de stock.
+
+![alt table stock_alert](stock_alerte.png)
+
 
 ## 2 - Contraintes :
 
@@ -40,7 +52,8 @@ Il y a une contrainte **status_not_valid** sur la table <span style="color:blue"
         check(state in ('Non preparer','En preparation','Preparer','Expedier'))
 ```
 
-De plus 2 triggers on été réalisé, **dateLastUpdate** qui permet de mettre à jour la date de la dernière mise à jour si le status a été modifier et **TimeIsUp** qui vérifie que la différence entre la nouvelle date de dernière mise à jour et la date actuelle n'est pas supérieur ou égale à 2 mois (60 jours) si c'est le cas les adresses modifiées sont supprimer de la table Location et de la table Order.
+De plus 3 triggers on été réalisé, **dateLastUpdate** qui permet de mettre à jour la date de la dernière mise à jour si le status a été modifier. **TimeIsUp** qui vérifie que la différence entre la nouvelle date de dernière mise à jour et la date actuelle n'est pas supérieur ou égale à 2 mois (60 jours) si c'est le cas les adresses modifiées sont supprimer de la table Location et de la table Order. Et **StockNotAvailable** qui vérifie lors d'une modification sur la table catalog que le variant modifié a soit une quantité nulle ce qui entraine l'ajout de son id à la table Stock_alerte soit une quantité différent de nulle ce qui entraine le retrait de son id de la table stock_alerte si il est présent.
+
 ```sql
 create or replace trigger TimeIsUp after update on location for each row
     begin
@@ -56,6 +69,16 @@ create or replace trigger dateLastUpdate before update on user for each row
                 SET new.dateLastUpdate = NOW();
             end if;
         end;
+
+create or replace trigger StockNotAvailable after update on catalog for each row
+    begin
+        if (new.quantity = 0) then
+            insert into stock_alerte values (new.id);
+        end if;
+        if (new.id in (select s.id from stock_alerte s) and new.quantity != 0) then
+            delete from stock_alerte where id = new.id;
+        end if;
+    end;
 
 ```
 
@@ -123,6 +146,10 @@ create or replace trigger dateLastUpdate before update on user for each row
 | userIsDead | searchId int, newDateLastUpdate date |  | Permet de mettre un user mort avec son id |
 | setUserVerified | searchId int, newDate datetime |  | Permet de vérifier un user avec son id |
 | changeStatus | searchId int, newStatus varchar(255) |  | Permet de changer le status de l'user |
+| countUser | | count int | Permet d'obtenir le nombre d'user |
+| getUserByLocationId | searchId int | id int | Permet d'avoir l'utilisateur avec l'une des de ses adresses |
+| getAllUserWithStep | start int, step int | id int, login varchar, status varchar, isVerified tinyint(1), isALive tinyint(1), firstname varchar, name varchar, mail varchar | Permet d'avoir un certain nombre d'utilisateur |
+
 
 ### Package product
 
@@ -151,10 +178,8 @@ getProductByName | newname varchar(255) | Toutes les lignes de product où le na
 getProductByNameWithoutSelf | newname varchar(255), id int | Toutes les lignes de product où name est égale au newname et idproduct est différent de id | Permet de récupérer un produit selon son nom sauf celui qui correspond a l'id fourni
 countAll | | count int | Permet de compter le nombre de produit
 countByTypeAndSport | newtype varchar(15), newsport  int | count int |	Permet de compter le nombre de produits par sport et par type
-getProductByRangeAndSportAndType | start int, step int, sport int, newtype varchar(15) | Renvoie les lignes qui commence de start est qui fini à step de product où le nusport est égale à sport, le type est égale à newtype et isALive qui vaut true |	Permet d'avoir un nombre donné de produits par sport et par type, en commençant à partir de start et en prenant step produits
-
-
-
+getProductByRangeAndSportAndType | start int, step int, sport int, newtype varchar(15) | Renvoie les lignes qui commence de start est qui fini à step de product où le nusport est égale à sport, le type est égale à newtype et isALive qui vaut true |	Permet d'avoir un nombre donné de produits par sport et par type, en commençant à partir de start et en prenant step produits |
+| revive | newid int | | Permet de faire revivre un produit donc mettre son isALive a true |
 
 
 ### Package Order
@@ -173,6 +198,7 @@ delOrder | newidorder int |  | Permet de supprimer une commande
 getOrderProduct | id int | Toutes les lignes de order_products où l'idorder vaut id | Permet de récupérer tous les produits d'une commande
 getOrderById | newid int | Toutes les lignes de order où l'id est égale à newid | Permet de récupérer une commande à partir de son ID
 getAllProduct |  | Toutes les lignes de order_products | Permet de récupérer tous les produits de toutes les commandes
+getAllWithInfo | | id int, dateorder date, state varchar, iduser int, idlocation int, name varchar, firstname varchar | Permet de récupérer toutes les commandes avec les infomartions de l'utilisateur |
 
 ### Package Catalog
 
@@ -192,6 +218,7 @@ getCatalogById | newid int | Toutes les lignes de catalog où l'id est égale à
 updateCatalogQuantite | newid int, newquantite int |  | Permet de mettre à jour la quantité d'une variante dans le catalogue
 deleteCatalog | newid int |  | Permet de supprimer une variante dans le catalogue
 heHaveCatalog | newnuproduct int, newColor varchar(20), newSize varchar(3) | count int | Permet de savoir si une variante existe avec se numéro, cette couleur et cette taille
+getStockAll | id integer | Toutes les lignes de catalog où l'id est égale à nuproduct et isALive vaut true | Permet d'avoir tout le stock |
 
 ### Package Captcha
 

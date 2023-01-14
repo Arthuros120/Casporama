@@ -1,5 +1,6 @@
 use Casporama;
 
+-- Cela permet à la base de donnée en mariaDB d'accepter le format d'oracle et donc les packages.
 SET sql_mode=ORACLE;
 
 -- Les packages sont construit en fonction des différentes tables présentes dans la base de donnée
@@ -166,11 +167,10 @@ CREATE OR REPLACE PACKAGE user AS
     procedure setUserVerified(searchId int, newDate datetime);
     -- Permet de chnager le status de l'user
     procedure changeStatus(searchId int, newStatus varchar(255));
-
     -- Permet d'obtenir le nombre d'user
     procedure countUser();
     -- Permet d'avoir l'utilisateur avec l'une des de ses adresses
-    procedure getUserByLocationId(searchId int);
+        procedure getUserByLocationId(searchId int);
     -- Permet d'avoir un certain nombre d'utilisateur
     procedure getAllUserWithStep(start int, step int);
 END;
@@ -577,6 +577,7 @@ CREATE OR REPLACE PACKAGE product AS
     procedure countByTypeAndSport( newtype varchar(15),  newsport int);
     -- Permet d'avoir un nombre donnée de produit par sport et type
     procedure getProductByRangeAndSportAndType(start int, step int, sport int, newtype varchar(15));
+    -- Permet de faire revivre un produit donc mettre son isALive a true
     procedure revive(newid int);
 END;
 
