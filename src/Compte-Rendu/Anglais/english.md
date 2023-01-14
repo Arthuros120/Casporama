@@ -32,11 +32,19 @@ Many tools have been used during this project, this is a list of them :
 
 ### What we implemented :
 
--
+#### Omptimization du traitement de données
+
+- We used a cache system for the database, that way we don't have to query the database for every request, but we can use the cache to get the data faster, and if the data is not in the cache, we can query the database and then add the data to the cache, so that the next time we need the data, we can get it from the cache.
+
+#### Framework eco responsable
+
+- We used a framework that is eco-responsible, that way we don't have to worry about the framework using too much resources, and we can focus on the rest of the website.
 
 ### What we wanted to implement :
 
--
+#### Compression des données
+
+#### Suppression des données non utilisé
 
 ## Contents (Maxime)
 
