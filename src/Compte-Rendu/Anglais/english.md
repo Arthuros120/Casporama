@@ -32,19 +32,41 @@ Many tools have been used during this project, this is a list of them :
 
 ### What we implemented :
 
-#### Omptimization du traitement de données
+#### Optimization of data processing
 
 - We used a cache system for the database, that way we don't have to query the database for every request, but we can use the cache to get the data faster, and if the data is not in the cache, we can query the database and then add the data to the cache, so that the next time we need the data, we can get it from the cache.
 
-#### Framework eco responsable
+- We used a modular approach for the website, that way components of certain pages are really well reused so that it uses less storage space.
+
+#### Eco Responsible Framework
+
+- We used a fairly old but proven web server : Apache2, which doesn't need much resources to run (but its just the web server so it's not a very consuming part of the website),
 
 - We used a framework that is eco-responsible, that way we don't have to worry about the framework using too much resources, and we can focus on the rest of the website.
 
 ### What we wanted to implement :
 
-#### Compression des données
+#### Data compression
 
-#### Suppression des données non utilisé
+- We could have compressed the data that we send to the client, that way we don't have to send the data in plain text, and we can save bandwidth on the server.
+
+- We could have compressed the data that we send to the server, that way we don't have to send the data in plain text, and we can save bandwidth on the client.
+
+- We could have compressed the data that we store in the database, that way we don't have to store the data in plain text, and we can save space on the server.
+
+- We could have compressed the data that we store in the cache, that way we don't have to store the data in plain text, and we can save space on the server.
+
+#### Deletion of unused data
+
+- We could have deleted the data that is not used anymore, that way we don't have to store the data that is not used anymore, and we can save space on the server.
+
+- We could have used a more up to date framework that would use less resources,but at the scale of what we did and what we could have done, it may have not have a big effect.
+
+- We could have use another server for hosting the database, that way for every duplicate database that we hosted, either on our local machines or remote server, we could have use only one server, used it, but it would have used more bandwidth and that could have been an issue as well
+
+- Hypothetically, we could have use a Content Delivery Network, if our website was public and of a massive scale, for less global bandwidth usage
+
+- We could have made a CI/CD pipeline for continuous testing and deployment, that would have been used for checking if every updates that we made did not break on the remote server, and also verify if the performance did not regress and not use more resources.
 
 ## Contents (Maxime)
 
