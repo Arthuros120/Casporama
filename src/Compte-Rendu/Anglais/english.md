@@ -18,15 +18,17 @@ Many tools have been used during this project, this is a list of them :
 - Kotlin
 - MariaDB
 
+
 ## Frontend
 
 ### What we implemented :
 
--
+- We used a template system to reduce the number of views in our project, because with this system, some views are reusable everywhere such as the header.
+- We used resource caching technologies, such as HTTP caching, to reduce the amount of data downloaded by users when they access your site.
 
 ### What we wanted to implement :
 
--
+- We wanted to implement a dark mode, which can result in using less energy because the site displays less color, and OLED screens that turn off pixels to display black save even more energy.
 
 ## Backend
 
@@ -63,11 +65,13 @@ Many tools have been used during this project, this is a list of them :
 
 ### What we implemented :
 
--
+- We made sure that the website is easy to navigate and understand, so that users do not have to spend a lot of time searching for the information they are looking for.
+- We used visual elements to aid in understanding and navigation on your site, such as images, graphics, and icons.
+- We used colors and fonts that are easy to read and not too demanding on the eyes, in order to reduce visual fatigue for users.
 
 ### What we wanted to implement :
 
--
+- We wanted our website to be optimized for mobile devices and for users to easily access the information they are looking for on those devices.
 
 ## Architecture
 

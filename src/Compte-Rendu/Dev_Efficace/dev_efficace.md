@@ -17,9 +17,20 @@ Cette algorithme permet de trier une liste de produit par prix avec un prix mini
 - Précondition : $products > 1$, $get > 1$
 
 ```
-public function filterByPrice(string $title, array $products, array $get) : array
-    {
+    /*
 
+        * Function filterByPrice
+
+        @param string $title, array $products, array $get
+
+        @return array
+
+        * Filtre les produits par les prix
+    
+    */
+    public function filterByPrice(string $title, array $products, array $get) : array
+    {
+    
         if (!empty($get['price']) && stristr($get['price'], '-')) {
 
             $price = $get['price'];
